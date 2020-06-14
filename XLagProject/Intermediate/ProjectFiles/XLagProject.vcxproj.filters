@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\XLagProject.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F461BBF8-9340-46F8-8043-BA2193379D7C}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\XLagProject.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\XLagProjectEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{51B431B2-C758-44E5-88B7-666A2E5D0649}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\XLagProject">
+      <UniqueIdentifier>{1B35A53E-2585-4B9F-BB63-1A76B51DA53F}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\XLagProject\XLagProject.Build.cs">
+      <Filter>Source\XLagProject</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\XLagProject\XLagProject.cpp">
+      <Filter>Source\XLagProject</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagProject.h">
+      <Filter>Source\XLagProject</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\XLagProject\XLagProjectCharacter.cpp">
+      <Filter>Source\XLagProject</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagProjectCharacter.h">
+      <Filter>Source\XLagProject</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\XLagProject\XLagProjectGameMode.cpp">
+      <Filter>Source\XLagProject</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagProjectGameMode.h">
+      <Filter>Source\XLagProject</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

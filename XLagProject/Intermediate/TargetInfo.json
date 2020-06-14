@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "XLagProject",
+			"Path": "d:\\repository\\xlagrepos\\XLag\\XLagProject\\Source\\XLagProject.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "XLagProjectEditor",
+			"Path": "d:\\repository\\xlagrepos\\XLag\\XLagProject\\Source\\XLagProjectEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
