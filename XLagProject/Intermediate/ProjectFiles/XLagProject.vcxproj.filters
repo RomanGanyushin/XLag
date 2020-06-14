@@ -54,4 +54,14 @@
       <Filter>Source\XLagProject</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.h">
+      <Filter>Source\XLagProject</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.cpp">
+      <Filter>Source\XLagProject</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

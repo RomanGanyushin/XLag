@@ -3,3 +3,8 @@
 ################################################################################
 
 /XLagProject/.vs/XLagProject/v15
+/XLagProject/.vs/config
+/XLagProject/Binaries/Win64/UE4Editor-XLagProject-8640.dll
+*.pdb
+/XLagProject/Intermediate/Build
+/XLagProject/Saved
