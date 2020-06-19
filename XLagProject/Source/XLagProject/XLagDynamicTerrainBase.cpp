@@ -12,26 +12,54 @@ AXLagDynamicTerrainBase::AXLagDynamicTerrainBase()
 
 	TerrainScene = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 	RootComponent = TerrainScene;
-	
 	InitializeLayers();
+
+	InitMap();
+
+	UE_LOG(LogTemp, Warning, TEXT("AXLagDynamicTerrainBase construct 056"));
+}
+
+void AXLagDynamicTerrainBase::PostActorCreated()
+{
+	InitMap();
+	Super::PostActorCreated();
+}
+
+void AXLagDynamicTerrainBase::PostLoad()
+{
+	InitMap();
+	Super::PostLoad();
+}
+
+void AXLagDynamicTerrainBase::InitMap()
+{
+	
+	if (Map != nullptr)
+	{
+		delete Map;
+	}
 
 	Map = new XLagDynamicTerrainMap(100, 100);
 	Map->Initialize();
-	
-	XLagDynamicTerrainMapFiller().FillAsRombe(Map, 0);
-	XLagDynamicTerrainMapFiller().FillAsRombeHole(Map, 1);
+
+	//XLagDynamicTerrainMapFiller().FillAsRombe(Map, 0);
+	//XLagDynamicTerrainMapFiller().FillAsRombeHole(Map, 1);
 	//XLagDynamicTerrainMapFiller().FillAsHoleOuterQuad(Map, 0, -100, 0);
 	//XLagDynamicTerrainMapFiller().FillAsHoleInnerQuad(Map, -100, 1);
 
+	XLagDynamicTerrainMapFiller().FillPerlin(Map, 0);
+	XLagDynamicTerrainMapFiller().TranslateTo(Map, 300, 1, 2);
+
 	XLagDynamicTerrainLayerGeometry _geometry;
-	
-	_geometry.CreateFrom(Map, 0);
+
+	_geometry.CreateFrom(Map, 0, false);
 	GenerateLayerGeometry(Ground, _geometry);
 
-	_geometry.CreateFrom(Map, 1);
+	_geometry.CreateFrom(Map, 1, false);
 	GenerateLayerGeometry(Sand, _geometry);
 
-	UE_LOG(LogTemp, Warning, TEXT("AXLagDynamicTerrainBase construct"));
+	_geometry.CreateFrom(Map, 2, true);
+	GenerateLayerGeometry(GroundToSand, _geometry);
 }
 
 // Called when the game starts or when spawned
@@ -55,10 +83,13 @@ void AXLagDynamicTerrainBase::InitializeLayers()
 
 	Sand = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("Sand"));
 	Sand->SetupAttachment(TerrainScene);
+
+	GroundToSand = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GroundToSand"));
+	GroundToSand->SetupAttachment(TerrainScene);
 }
 
 void AXLagDynamicTerrainBase::GenerateLayerGeometry(UProceduralMeshComponent* Component, XLagDynamicTerrainLayerGeometry& geometry)
 {
 	UE_LOG(LogTemp, Warning, TEXT("GenerateLayerGeometry"));
-	Component->CreateMeshSection_LinearColor(0, geometry.Vertices, geometry.Trinagles, geometry.Normals, geometry.UVs, TArray<FLinearColor>(), TArray<FProcMeshTangent>(), true);
+	Component->CreateMeshSection_LinearColor(0, geometry.Vertices, geometry.Trinagles, geometry.Normals, geometry.UVs, geometry.Colors, TArray<FProcMeshTangent>(), true);
 }

@@ -290,6 +290,7 @@
       <ForcedIncludeFiles>$(NMakeForcedIncludes);$(SolutionDir)Intermediate\Build\Win64\UE4Editor\Development\XLagProject\Definitions.XLagProject.h;$(SolutionDir)Intermediate\Build\Win64\XLagProjectEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Perlin2DAlgorithm.hpp" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainLayerGeometry.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMap.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapFiller.hpp" />

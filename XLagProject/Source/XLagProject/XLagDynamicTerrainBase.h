@@ -30,12 +30,21 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* Sand;
 
+	/// Sand component
+	UPROPERTY(VisibleAnywhere)
+		UProceduralMeshComponent* GroundToSand;
+
+
+	virtual void PostActorCreated() override;
+	virtual void PostLoad() override;
+
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	XLagDynamicTerrainMap* Map;
+	void InitMap();
 	
 
 protected:

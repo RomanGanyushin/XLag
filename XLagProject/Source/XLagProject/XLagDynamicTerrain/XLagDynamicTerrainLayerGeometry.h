@@ -10,9 +10,10 @@ public:
 	TArray<int32> Trinagles;
 	TArray<FVector> Normals;
 	TArray<FVector2D> UVs;
+	TArray<FLinearColor> Colors;
 
 public:
-	void CreateFrom(XLagDynamicTerrainMap* map, int layerKind);
+	void CreateFrom(XLagDynamicTerrainMap* map, int layerKind, bool useColor);
 
 private:
 	void Reset();
