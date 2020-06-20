@@ -42,13 +42,9 @@ void AXLagDynamicTerrainBase::InitMap()
 	Map = new XLagDynamicTerrainMap(100, 100);
 	Map->Initialize();
 
-	//XLagDynamicTerrainMapFiller().FillAsRombe(Map, 0);
-	//XLagDynamicTerrainMapFiller().FillAsRombeHole(Map, 1);
-	//XLagDynamicTerrainMapFiller().FillAsHoleOuterQuad(Map, 0, -100, 0);
-	//XLagDynamicTerrainMapFiller().FillAsHoleInnerQuad(Map, -100, 1);
 
 	XLagDynamicTerrainMapFiller().FillPerlin(Map, 0);
-	XLagDynamicTerrainMapFiller().TranslateTo(Map, 300, 1, 2);
+	XLagDynamicTerrainMapFiller().TranslateTo(Map, 200, 1, 2);
 
 	XLagDynamicTerrainLayerGeometry _geometry;
 

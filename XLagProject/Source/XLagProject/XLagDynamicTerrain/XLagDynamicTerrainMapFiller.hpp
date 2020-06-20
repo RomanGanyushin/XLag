@@ -41,7 +41,6 @@ public:
 									map->Point(ix, iy).Stack[0].LayerKind = kind2;
 								}
 							}
-
 						}
 				}
 			}

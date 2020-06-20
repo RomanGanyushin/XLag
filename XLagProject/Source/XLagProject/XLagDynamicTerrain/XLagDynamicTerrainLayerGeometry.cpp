@@ -144,10 +144,19 @@ void XLagDynamicTerrainLayerGeometry::AddQuadMesh(FVector p1, FVector p2, FVecto
 	Normals.Add(ThisNorm3.GetSafeNormal());
 	Normals.Add(ThisNorm4.GetSafeNormal());
 
-	UVs.Add(FVector2D(0.f, 0.f));
+	auto vx1 = p1.X / 400.f; auto vy1 = p1.Y / 400.f;
+	auto vx2 = p2.X / 400.f; auto vy2 = p2.Y / 400.f;
+	auto vx3 = p3.X / 400.f; auto vy3 = p3.Y / 400.f;
+	auto vx4 = p4.X / 400.f; auto vy4 = p4.Y / 400.f;
+	UVs.Add(FVector2D(vx1, vy1));
+	UVs.Add(FVector2D(vx2, vy2));
+	UVs.Add(FVector2D(vx3, vy3));
+	UVs.Add(FVector2D(vx4, vy4));
+	
+	/*UVs.Add(FVector2D(0.f, 0.f));
 	UVs.Add(FVector2D(0.f, 1.f));
 	UVs.Add(FVector2D(1.f, 1.f));
-	UVs.Add(FVector2D(1.f, 0.f));
+	UVs.Add(FVector2D(1.f, 0.f));*/
 }
 
 void XLagDynamicTerrainLayerGeometry::Reset()
