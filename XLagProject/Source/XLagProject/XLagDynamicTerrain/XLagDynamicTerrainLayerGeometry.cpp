@@ -1,27 +1,10 @@
 #include "XLagDynamicTerrainLayerGeometry.h"
 
-void XLagDynamicTerrainLayerGeometry::CreateFrom(XLagDynamicTerrainMap* map, int layerKind, bool useColor)
+void XLagDynamicTerrainLayerGeometry::CreateFrom(XLagDynamicTerrainMap* map, int layerKind)
 {
 	Reset();
 
 	int32 triIndex = 0;
-
-	float zMinimal = 100000;
-	float zMaximal = -100000;
-	for (int xIndex = 0; xIndex < map->SizeX() - 1; xIndex++)
-		for (int yIndex = 0; yIndex < map->SizeY() - 1; yIndex++)
-		{
-			if (map->Point(xIndex, yIndex).Get()->LayerKind == layerKind)
-			{
-				if (map->Point(xIndex, yIndex).Get()->Level < zMinimal)
-					zMinimal = map->Point(xIndex, yIndex).Get()->Level;
-
-				if (map->Point(xIndex, yIndex).Get()->Level > zMaximal)
-					zMaximal = map->Point(xIndex, yIndex).Get()->Level;
-			}
-		}
-	
-
 
 	for (int xIndex = 0; xIndex < map->SizeX() - 1; xIndex++)
 		for (int yIndex = 0; yIndex < map->SizeY() -1; yIndex++)
@@ -61,7 +44,61 @@ void XLagDynamicTerrainLayerGeometry::CreateFrom(XLagDynamicTerrainMap* map, int
 
 			if (k != layerKind)
 				continue;
-			
+
+			AddQuadMesh(
+				FVector(100 * xIndex, 100 * yIndex, itemLevel00->Level),
+				FVector(100 * xIndex, 100 * (yIndex + 1), itemLevel01->Level),
+				FVector(100 * (xIndex + 1), 100 * (yIndex + 1), itemLevel11->Level),
+				FVector(100 * (xIndex + 1), 100 * yIndex, itemLevel10->Level),
+				triIndex);
+		}
+}
+
+void XLagDynamicTerrainLayerGeometry::CreateTransFrom(XLagDynamicTerrainMap* map, int layerKind)
+{
+	Reset();
+
+	int32 triIndex = 0;
+
+	for (int xIndex = 0; xIndex < map->SizeX() - 1; xIndex++)
+		for (int yIndex = 0; yIndex < map->SizeY() - 1; yIndex++)
+		{
+			auto& item00 = map->Point(xIndex, yIndex);
+			auto& item10 = map->Point(xIndex + 1, yIndex);
+			auto& item11 = map->Point(xIndex + 1, yIndex + 1);
+			auto& item01 = map->Point(xIndex, yIndex + 1);
+
+			auto itemLevel00 = item00.Get();
+			auto itemLevel10 = item10.Get();
+			auto itemLevel11 = item11.Get();
+			auto itemLevel01 = item01.Get();
+
+			if (itemLevel00 == nullptr || itemLevel10 == nullptr || itemLevel11 == nullptr || itemLevel01 == nullptr)
+			{
+				continue;
+			}
+
+			auto fl = itemLevel00->Level; auto k = itemLevel00->LayerKind;
+			if (itemLevel10->Level > fl)
+			{
+				fl = itemLevel10->Level;
+				k = itemLevel10->LayerKind;
+			}
+			if (itemLevel11->Level > fl)
+			{
+				fl = itemLevel11->Level;
+				k = itemLevel11->LayerKind;
+			}
+
+			if (itemLevel01->Level > fl)
+			{
+				fl = itemLevel01->Level;
+				k = itemLevel01->LayerKind;
+			}
+
+			if (k != layerKind)
+				continue;
+
 
 
 			AddQuadMesh(
@@ -71,18 +108,15 @@ void XLagDynamicTerrainLayerGeometry::CreateFrom(XLagDynamicTerrainMap* map, int
 				FVector(100 * (xIndex + 1), 100 * yIndex, itemLevel10->Level),
 				triIndex);
 
-			if (useColor)
-			{
-				float a1 = (itemLevel00->Level - zMinimal) / (zMaximal - zMinimal);
-				float a2 = (itemLevel01->Level - zMinimal) / (zMaximal - zMinimal);
-				float a3 = (itemLevel11->Level - zMinimal) / (zMaximal - zMinimal);
-				float a4 = (itemLevel10->Level - zMinimal) / (zMaximal - zMinimal);
+			float a1 = itemLevel00->LayerKind == layerKind ? 1 : 0;
+			float a2 = itemLevel01->LayerKind == layerKind ? 1 : 0;
+			float a3 = itemLevel11->LayerKind == layerKind ? 1 : 0;
+			float a4 = itemLevel10->LayerKind == layerKind ? 1 : 0;
 
-				Colors.Add(FLinearColor(a1, a1, a1, a1));
-				Colors.Add(FLinearColor(a2, a2, a2, a2));
-				Colors.Add(FLinearColor(a3, a3, a3, a3));
-				Colors.Add(FLinearColor(a4, a4, a4, a4));
-			}
+			Colors.Add(FLinearColor(a1, a1, a1, a1));
+			Colors.Add(FLinearColor(a2, a2, a2, a2));
+			Colors.Add(FLinearColor(a3, a3, a3, a3));
+			Colors.Add(FLinearColor(a4, a4, a4, a4));
 		}
 }
 

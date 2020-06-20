@@ -52,13 +52,13 @@ void AXLagDynamicTerrainBase::InitMap()
 
 	XLagDynamicTerrainLayerGeometry _geometry;
 
-	_geometry.CreateFrom(Map, 0, false);
+	_geometry.CreateFrom(Map, 0);
 	GenerateLayerGeometry(Ground, _geometry);
 
-	_geometry.CreateFrom(Map, 1, false);
+	_geometry.CreateFrom(Map, 1);
 	GenerateLayerGeometry(Sand, _geometry);
 
-	_geometry.CreateFrom(Map, 2, true);
+	_geometry.CreateTransFrom(Map, 2);
 	GenerateLayerGeometry(GroundToSand, _geometry);
 }
 

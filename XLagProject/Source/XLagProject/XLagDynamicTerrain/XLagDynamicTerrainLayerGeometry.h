@@ -13,7 +13,8 @@ public:
 	TArray<FLinearColor> Colors;
 
 public:
-	void CreateFrom(XLagDynamicTerrainMap* map, int layerKind, bool useColor);
+	void CreateFrom(XLagDynamicTerrainMap* map, int layerKind);
+	void CreateTransFrom(XLagDynamicTerrainMap* map, int layerKind);
 
 private:
 	void Reset();
