@@ -53,6 +53,7 @@ protected:
 
 	XLagDynamicTerrainMap* Map;
 	void InitMap();
+	void InitGeometry();
 	
 
 protected:
