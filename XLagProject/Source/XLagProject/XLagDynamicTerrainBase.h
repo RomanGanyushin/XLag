@@ -9,6 +9,7 @@
 #include "XLagDynamicTerrain/XLagDynamicTerrainLayerGeometry.h"
 #include "XLagDynamicTerrainBase.generated.h"
 
+
 UCLASS()
 class XLAGPROJECT_API AXLagDynamicTerrainBase : public AActor
 {
@@ -22,19 +23,26 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		USceneComponent* TerrainScene;
 
-	/// Ground component
+	/// Ground Grass component
 	UPROPERTY(VisibleAnywhere)
-		UProceduralMeshComponent* Ground;
+		UProceduralMeshComponent* GroundGrass;
 
-	/// Sand component
+	/// Rock Sandstone component
 	UPROPERTY(VisibleAnywhere)
-		UProceduralMeshComponent* Sand;
+		UProceduralMeshComponent* RockSandstone;
 
-	/// Sand component
+	/// RockBasalt component
 	UPROPERTY(VisibleAnywhere)
-		UProceduralMeshComponent* GroundToSand;
+		UProceduralMeshComponent* RockBasalt;
 
+	/// Ground Gras To Rock Sandstone component
+	UPROPERTY(VisibleAnywhere)
+		UProceduralMeshComponent* GroundGrassToRockSandstone;
 
+	/// Ground Gras To Rock Basalt component
+	UPROPERTY(VisibleAnywhere)
+		UProceduralMeshComponent* GroundGrassToRockBasalt;
+	
 	virtual void PostActorCreated() override;
 	virtual void PostLoad() override;
 

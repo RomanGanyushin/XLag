@@ -4,6 +4,14 @@
 #include "ProceduralMeshComponent.h"
 #include "XLagDynamicTerrain\XLagDynamicTerrainMapFiller.hpp"
 
+#include "XLagDynamicTerrain\MapBuilder\TerrainElementEnum.h"
+#include "XLagDynamicTerrain\MapBuilder\TerrainMapEditEditor.h"
+#include "XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.h"
+#include "XLagDynamicTerrain\MapBuilder\Components\TerrainElementTranformComponent.h"
+#include "XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransofmHigherCondition.h"
+#include "XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransofmBelowCondition.h"
+#include "XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransformNeighbourCondition.h"
+
 // Sets default values
 AXLagDynamicTerrainBase::AXLagDynamicTerrainBase()
 {
@@ -43,19 +51,56 @@ void AXLagDynamicTerrainBase::InitMap()
 	Map->Initialize();
 
 
-	XLagDynamicTerrainMapFiller().FillPerlin(Map, 0);
-	XLagDynamicTerrainMapFiller().TranslateTo(Map, 200, 1, 2);
+
+	TerrainMapEditEditor editor(Map);
+	PerlinFillerMapEditComponent perlinComp(TerrainElementEnum::GraundGrass);
+	editor.FillByXY(&perlinComp);
+
+	TerrainElementTranformComponent makeRock(
+		TerrainElementTransofmHigherCondition(300),
+		TerrainElementEnum::GraundGrass,
+		TerrainElementEnum::RockBasalt);
+	editor.FillByXY(&makeRock);
+
+	TerrainElementTranformComponent makeHollow(
+		TerrainElementTransofmBelowCondition(-100),
+		TerrainElementEnum::GraundGrass,
+		TerrainElementEnum::RockSandstone);
+	editor.FillByXY(&makeHollow);
+
+	TerrainElementTranformComponent makeTransitionGrassToBasalt
+	(
+		TerrainElementTransformNeighbourCondition(TerrainElementEnum::RockBasalt),
+		TerrainElementEnum::GraundGrass,
+		TerrainElementEnum::GrondGrassToRockBasaltTrans
+	);
+	editor.FillByXY(&makeTransitionGrassToBasalt);
+
+	TerrainElementTranformComponent makeTransitionGrassToSandstone
+	(
+		TerrainElementTransformNeighbourCondition(TerrainElementEnum::RockSandstone),
+		TerrainElementEnum::GraundGrass,
+		TerrainElementEnum::GroundGrassToRockSandstoneTrans
+	);
+	editor.FillByXY(&makeTransitionGrassToSandstone);
+
 
 	XLagDynamicTerrainLayerGeometry _geometry;
 
-	_geometry.CreateFrom(Map, 0);
-	GenerateLayerGeometry(Ground, _geometry);
+	_geometry.CreateFrom(Map, TerrainElementEnum::GraundGrass);
+	GenerateLayerGeometry(GroundGrass, _geometry);
 
-	_geometry.CreateFrom(Map, 1);
-	GenerateLayerGeometry(Sand, _geometry);
+	_geometry.CreateFrom(Map, TerrainElementEnum::RockSandstone);
+	GenerateLayerGeometry(RockSandstone, _geometry);
 
-	_geometry.CreateTransFrom(Map, 2);
-	GenerateLayerGeometry(GroundToSand, _geometry);
+	_geometry.CreateFrom(Map, TerrainElementEnum::RockBasalt);
+	GenerateLayerGeometry(RockBasalt, _geometry);
+
+	_geometry.CreateTransFrom(Map, TerrainElementEnum::GroundGrassToRockSandstoneTrans);
+	GenerateLayerGeometry(GroundGrassToRockSandstone, _geometry);
+
+	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToRockBasaltTrans);
+	GenerateLayerGeometry(GroundGrassToRockBasalt, _geometry);
 }
 
 // Called when the game starts or when spawned
@@ -74,14 +119,21 @@ void AXLagDynamicTerrainBase::InitializeLayers()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Initialize layers"));
 	
-	Ground = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("Ground"));
-	Ground->SetupAttachment(TerrainScene);
+	GroundGrass = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GroundGrass"));
+	GroundGrass->SetupAttachment(TerrainScene);
 
-	Sand = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("Sand"));
-	Sand->SetupAttachment(TerrainScene);
+	RockSandstone = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("RockSandstone"));
+	RockSandstone->SetupAttachment(TerrainScene);
 
-	GroundToSand = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GroundToSand"));
-	GroundToSand->SetupAttachment(TerrainScene);
+	RockBasalt = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("RockBasalt"));
+	RockBasalt->SetupAttachment(TerrainScene);
+
+
+	GroundGrassToRockSandstone = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GroundGrassToRockSandstone"));
+	GroundGrassToRockSandstone->SetupAttachment(TerrainScene);
+
+	GroundGrassToRockBasalt = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GroundGrassToRockBasalt"));
+	GroundGrassToRockBasalt->SetupAttachment(TerrainScene);
 }
 
 void AXLagDynamicTerrainBase::GenerateLayerGeometry(UProceduralMeshComponent* Component, XLagDynamicTerrainLayerGeometry& geometry)

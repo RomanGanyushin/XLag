@@ -1,20 +1,33 @@
 #pragma once
-#include "XLagDynamicTerrainMap.h"
+#include "ITerrainMapAccessor.h"
 
+// Компонет для гененерации геометрии земли.
 class XLagDynamicTerrainLayerGeometry
 {
 public:
-//	XLagDynamicTerrainLayerGeometry();
-
+	// Массив вершин.
 	TArray<FVector> Vertices;
+
+	// Массив индексов вершин треуголникаов.
 	TArray<int32> Trinagles;
+
+	// Массив нормалей к вершинам треугольников.
 	TArray<FVector> Normals;
+
+	// Массиа координат текстурных.
 	TArray<FVector2D> UVs;
+
+	// Массив описыващий цвета вершин.
 	TArray<FLinearColor> Colors;
 
 public:
-	void CreateFrom(XLagDynamicTerrainMap* map, int layerKind);
-	void CreateTransFrom(XLagDynamicTerrainMap* map, int layerKind);
+	/// <summary>
+	/// Creates from.
+	/// </summary>
+	/// <param name="map">The map.</param>
+	/// <param name="layerKind">Kind of the layer.</param>
+	void CreateFrom(ITerrainMapAccessor* map, int layerKind);
+	void CreateTransFrom(ITerrainMapAccessor* map, int layerKind);
 
 private:
 	void Reset();
