@@ -282,6 +282,7 @@
     <None Include="..\..\Config\DefaultInput.ini" />
     <None Include="..\..\Source\XLagProject\XLagProject.Build.cs" />
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.cpp" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\AligmentDigEditComponent.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTranformComponent.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\TerrainMapEditEditor.cpp" />
@@ -294,6 +295,7 @@
       <ForcedIncludeFiles>$(NMakeForcedIncludes);$(SolutionDir)Intermediate\Build\Win64\UE4Editor\Development\XLagProject\Definitions.XLagProject.h;$(SolutionDir)Intermediate\Build\Win64\XLagProjectEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\AligmentDigEditComponent.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\ITerrainElementTransofmCondition.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin2DAlgorithm.hpp" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.h" />

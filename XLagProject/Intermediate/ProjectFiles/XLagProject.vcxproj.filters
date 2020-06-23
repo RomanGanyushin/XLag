@@ -76,35 +76,38 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainLayerGeometry.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin2DAlgorithm.hpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\TerrainElementEnum.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\TerrainMapEditEditor.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTranformComponent.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin2DAlgorithm.hpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\ITerrainElementTransofmCondition.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransofmHigherCondition.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransformNeighbourCondition.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransofmBelowCondition.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditSettings.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\ITerrainElementTransofmCondition.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTranformComponent.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransformNeighbourCondition.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransofmBelowCondition.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransofmHigherCondition.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\AligmentDigEditComponent.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Modify</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -123,14 +126,17 @@
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainLayerGeometry.cpp">
       <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\TerrainMapEditEditor.cpp">
       <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTranformComponent.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\AligmentDigEditComponent.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Modify</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +151,15 @@
     </Filter>
     <Filter Include="Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components">
       <UniqueIdentifier>{672b2938-c030-42ef-8083-49d2738cca80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin">
+      <UniqueIdentifier>{102ccef3-66e7-41a0-a3a2-9f5ae2550b60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Transform">
+      <UniqueIdentifier>{eb6dda0b-71bb-45ef-8949-ceae10827ec6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Modify">
+      <UniqueIdentifier>{a9ffbd65-cfbb-4a87-9557-5d4b0cfea863}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
