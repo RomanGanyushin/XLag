@@ -13,6 +13,7 @@
 #include "XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransformNeighbourCondition.h"
 
 #include "Kismet/GameplayStatics.h"
+#include "UObject/UObjectGlobals.h"
 
 // Sets default values
 AXLagDynamicTerrainBase::AXLagDynamicTerrainBase()
@@ -26,14 +27,20 @@ AXLagDynamicTerrainBase::AXLagDynamicTerrainBase()
 
 	InitMap();
 	InitGeometry();
+	AddGreader();
+	AddTrees();
 
 	UE_LOG(LogTemp, Warning, TEXT("AXLagDynamicTerrainBase construct 056"));
+
+	
 }
 
 void AXLagDynamicTerrainBase::PostActorCreated()
 {
 	InitMap();
 	InitGeometry();
+	AddGreader();
+	AddTrees();
 	Super::PostActorCreated();
 }
 
@@ -41,6 +48,8 @@ void AXLagDynamicTerrainBase::PostLoad()
 {
 	InitMap();
 	InitGeometry();
+	AddGreader();
+	AddTrees();
 	Super::PostLoad();
 }
 
@@ -48,12 +57,15 @@ void AXLagDynamicTerrainBase::PostLoad()
 void AXLagDynamicTerrainBase::BeginPlay()
 {
 	Super::BeginPlay();
+
+	
 }
 
 // Called every frame
 void AXLagDynamicTerrainBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+		return;
 
 	APawn *avatar = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 	if (avatar == nullptr)
@@ -121,13 +133,13 @@ void AXLagDynamicTerrainBase::InitMap()
 	editor.FillByXY(&perlinComp);
 
 	TerrainElementTranformComponent makeRock(
-		TerrainElementTransofmHigherCondition(300),
+		TerrainElementTransofmHigherCondition(400),
 		TerrainElementEnum::GraundGrass,
 		TerrainElementEnum::RockBasalt);
 	editor.FillByXY(&makeRock);
 
 	TerrainElementTranformComponent makeHollow(
-		TerrainElementTransofmBelowCondition(-100),
+		TerrainElementTransofmBelowCondition(-400),
 		TerrainElementEnum::GraundGrass,
 		TerrainElementEnum::RockSandstone);
 	editor.FillByXY(&makeHollow);
@@ -174,4 +186,82 @@ void AXLagDynamicTerrainBase::GenerateLayerGeometry(UProceduralMeshComponent* Co
 {
 	UE_LOG(LogTemp, Warning, TEXT("GenerateLayerGeometry"));
 	Component->CreateMeshSection_LinearColor(0, geometry.Vertices, geometry.Trinagles, geometry.Normals, geometry.UVs, geometry.Colors, TArray<FProcMeshTangent>(), true);
+}
+
+void AXLagDynamicTerrainBase::AddGreader()
+{
+	return;
+	float x = 5000; float y = 5000;
+	float z = Map->Point(50, 50).Get()->Level + 10.f;
+
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereVisualAsset(TEXT("/Game/excavator/greider"));
+	
+	if (SphereVisualAsset.Succeeded())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("SphereVisualAsset.Succeeded"));
+
+		if (Grader == nullptr)
+		{
+			Grader = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Grader"));
+			Grader->SetupAttachment(RootComponent);
+			Grader->SetStaticMesh(SphereVisualAsset.Object);
+			Grader->SetWorldScale3D(FVector(.1f, .1f, .1f));
+			Grader->SetSimulatePhysics(true);
+		}
+
+		Grader->SetRelativeLocation(FVector(x, y, z));
+		
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("SphereVisualAsset.Fieled"));
+	}
+}
+
+void AXLagDynamicTerrainBase::AddTrees()
+{
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereVisualAsset(TEXT("/Game/KiteDemo/Environments/Trees/HillTree_Tall_02/HillTree_Tall_02"));
+	if (SphereVisualAsset.Succeeded())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("AddTrees.Succeeded"));
+
+		const int treeCount = 50;
+		if (Trees.Num() == 0)
+		{
+			for (int i = 0; i < treeCount; i++)
+			{
+				FName name = *FString::Printf(TEXT("My Tree %i"), i);
+
+				UStaticMeshComponent *newObject = CreateDefaultSubobject<UStaticMeshComponent>(name);
+				newObject->SetupAttachment(RootComponent);
+				newObject->SetStaticMesh(SphereVisualAsset.Object);
+
+				float scaleRandom = 0.2f + ((float)(rand() % 80)) / 100.f;
+				newObject->SetWorldScale3D(FVector(scaleRandom, scaleRandom, scaleRandom));
+				Trees.Add(newObject);
+			}			
+		}
+
+		for (int i = 0; i < treeCount; i++)
+		{
+			int dx = 0, dy = 0;
+			
+			do 
+			{
+				dx = rand() % 100;
+				dy = rand() % 100;
+
+			} while (Map->Point(dx, dy).Get()->LayerKind != TerrainElementEnum::GraundGrass);
+			
+
+			float x = dx*100; float y = dy*100;
+			float z = Map->Point(dx, dy).Stack.back().Level - 50;
+
+			Trees[i]->SetRelativeLocation(FVector(x, y, z));
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("AddTrees.Fieled"));
+	}
 }

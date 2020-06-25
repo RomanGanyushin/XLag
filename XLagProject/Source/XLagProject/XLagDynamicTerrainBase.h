@@ -54,8 +54,11 @@ protected:
 	XLagDynamicTerrainMap* Map;
 	void InitMap();
 	void InitGeometry();
-	
+	void AddGreader();
+	void AddTrees();
 
+	UStaticMeshComponent *Grader = nullptr;
+	TArray<UStaticMeshComponent *> Trees;
 protected:
 	void InitializeLayers();
 	void GenerateLayerGeometry(UProceduralMeshComponent* Component, XLagDynamicTerrainLayerGeometry& geometry);
