@@ -6,7 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "ProceduralMeshComponent.h"
 #include "XLagDynamicTerrain/XLagDynamicTerrainMap.h"
+#include "XLagDynamicTerrain/XLagDynamicTerrainMapWindow.h"
 #include "XLagDynamicTerrain/XLagDynamicTerrainLayerGeometry.h"
+#include "XLagNPC/XLagCuttableTreeBase.h"
+#include "XLagNPC/XLagNPCBase.h"
 #include "XLagDynamicTerrainBase.generated.h"
 
 
@@ -18,6 +21,44 @@ class XLAGPROJECT_API AXLagDynamicTerrainBase : public AActor
 public:	
 	/// Sets default values for this actor's properties
 	AXLagDynamicTerrainBase();
+
+// Главные параметры.
+public:
+	// Масштаб.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Terrain Main Params")
+	float Scale = 100;
+
+	// Размер локации по оси X.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Terrain Main Params")
+	int FullMapSizeX = 100;
+
+	// Размер локации по оси Y.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Terrain Main Params")
+	int FullMapSizeY = 100;
+
+	// Размер окна локации по оси X.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Terrain Main Params")
+	int WindowMapSizeX = 100;
+
+	// Размер окна локации по оси Y.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Terrain Main Params")
+	int WindowMapSizeY = 100;
+
+	// Радиус нулевой локации.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zero Location")
+	float ZeroLocationRadius = 5;
+
+	// Высота нулевой локации.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zero Location")
+	float ZeroLocationHeight = 0;
+
+
+// Ресурсы.
+public:
+	// Плотность леса. Количество квадратных метров на дерево.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "On Surface Resource Settings")
+	int AreaPerTree = 16;
+
 
 	/// Terrain scene property
 	UPROPERTY(VisibleAnywhere)
@@ -42,7 +83,10 @@ public:
 	/// Ground Gras To Rock Basalt component
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* GroundGrassToRockBasalt;
-	
+
+	UPROPERTY(EditAnywhere, Category = "Spawn Tree Params")
+		TSubclassOf<AXLagCuttableTreeBase> TreeTemplate;
+
 	virtual void PostActorCreated() override;
 	virtual void PostLoad() override;
 
@@ -52,13 +96,15 @@ protected:
 	virtual void BeginPlay() override;
 
 	XLagDynamicTerrainMap* Map;
+	XLagDynamicTerrainMapWindow *CurrentMap;
+
 	void InitMap();
 	void InitGeometry();
 	void AddGreader();
-	void AddTrees();
 
 	UStaticMeshComponent *Grader = nullptr;
-	TArray<UStaticMeshComponent *> Trees;
+	TArray<AXLagCuttableTreeBase*> Trees;
+
 protected:
 	void InitializeLayers();
 	void GenerateLayerGeometry(UProceduralMeshComponent* Component, XLagDynamicTerrainLayerGeometry& geometry);
@@ -66,5 +112,4 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
 };

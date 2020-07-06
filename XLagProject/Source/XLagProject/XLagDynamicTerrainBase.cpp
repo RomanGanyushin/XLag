@@ -7,13 +7,22 @@
 #include "XLagDynamicTerrain\MapBuilder\TerrainElementEnum.h"
 #include "XLagDynamicTerrain\MapBuilder\TerrainMapEditEditor.h"
 #include "XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.h"
+#include "XLagDynamicTerrain\MapBuilder\Components\AligmentEditComponent.h"
 #include "XLagDynamicTerrain\MapBuilder\Components\TerrainElementTranformComponent.h"
 #include "XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransofmHigherCondition.h"
 #include "XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransofmBelowCondition.h"
 #include "XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransformNeighbourCondition.h"
+#include "XLagDynamicTerrain\Position\RandomizeZeroPlacePosition.h"
+#include "XLagDynamicTerrain\Filters\ResourcePlacementMapItemFilter.h"
 
 #include "Kismet/GameplayStatics.h"
 #include "UObject/UObjectGlobals.h"
+#include "GameFramework/Character.h"
+#include "XLagNPC/XLagNPCBase.h"
+
+#include "XLagNPC/XLagNPCSwapManagement.h"
+
+
 
 // Sets default values
 AXLagDynamicTerrainBase::AXLagDynamicTerrainBase()
@@ -28,11 +37,9 @@ AXLagDynamicTerrainBase::AXLagDynamicTerrainBase()
 	InitMap();
 	InitGeometry();
 	AddGreader();
-	AddTrees();
 
 	UE_LOG(LogTemp, Warning, TEXT("AXLagDynamicTerrainBase construct 056"));
 
-	
 }
 
 void AXLagDynamicTerrainBase::PostActorCreated()
@@ -40,7 +47,6 @@ void AXLagDynamicTerrainBase::PostActorCreated()
 	InitMap();
 	InitGeometry();
 	AddGreader();
-	AddTrees();
 	Super::PostActorCreated();
 }
 
@@ -49,7 +55,6 @@ void AXLagDynamicTerrainBase::PostLoad()
 	InitMap();
 	InitGeometry();
 	AddGreader();
-	AddTrees();
 	Super::PostLoad();
 }
 
@@ -58,12 +63,74 @@ void AXLagDynamicTerrainBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
+	auto management = AXLagNPCSwapManagement::GetManagment();
+	if (management != nullptr)
+	{
+		management->SetMapAccessor(CurrentMap);
+
+		management->DoSwapTrees();
+		UE_LOG(LogTemp, Log, TEXT("Do Swap Trees"));
+
+		management->DoSwapPersons();
+		UE_LOG(LogTemp, Log, TEXT("Do Swap Persons"));
+	}
+	else
+	{
+		UE_LOG(LogTemp, Log, TEXT("Swap managment not found"));
+	}
+
+	APawn *avatar = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+	if (avatar == nullptr)
+		return;
+
+	auto locator = RandomizeZeroPlacePosition(Map).Get();
+	avatar->SetActorLocation(locator + FVector(0, 0, 200));
+
+
+	/*for (TObjectIterator<ACharacter> It; It; ++It)
+	{
+		ACharacter* CurrentObject = *It;
+		UE_LOG(LogTemp, Log, TEXT(">>> Found UObject named: %s"), *CurrentObject->GetName());
+
+		if (CurrentObject->GetName().Equals(TEXT("BuilderCharter_2"), ESearchCase::CaseSensitive))
+		{
+			CurrentObject->AddMovementInput(FVector(1.f, 0.f, 0.f));
+			UE_LOG(LogTemp, Log, TEXT(">>>>>>>>>>>>>>> Moving >>>>>>>>>>>>>>>>>>>"));
+		}
+	}*/
 }
 
 // Called every frame
 void AXLagDynamicTerrainBase::Tick(float DeltaTime)
 {
+	Super::Tick(DeltaTime);
+	return;
+
+	//for (TObjectIterator<ACharacter> It; It; ++It)
+	//{
+	//	ACharacter* CurrentObject = *It;
+	//	UE_LOG(LogTemp, Log, TEXT(">>> Found UObject named: %s"), *CurrentObject->GetName());
+
+	//	if (CurrentObject->GetName().Equals(TEXT("BuilderCharter_2"), ESearchCase::CaseSensitive))
+	//	{
+	//		FVector toTree = AnyTreeLocation - CurrentObject->GetActorLocation();
+	//		toTree.Normalize();
+
+	//		CurrentObject->AddMovementInput(toTree, DeltaTime * 10);
+	//		FRotator toTreeRotation = toTree.Rotation();
+	//		toTreeRotation.Pitch = 0; // 0 off the pitch 
+	//		
+	//		auto curRot = CurrentObject->GetActorRotation();
+	//		auto delta = toTreeRotation - curRot;
+	//		delta.Pitch = 0;
+	//		CurrentObject->AddActorLocalRotation(delta);
+	//		
+
+	//		UE_LOG(LogTemp, Log, TEXT(">>>>>>>>>>>>>>> Moving >>>>>>>>>>>>>>>>>>>"));
+	//		//UE_LOG(LogTemp, Log, TEXT("Rotator %f"), );
+	//	}
+	//}
+
 	Super::Tick(DeltaTime);
 		return;
 
@@ -125,12 +192,20 @@ void AXLagDynamicTerrainBase::InitMap()
 		delete Map;
 	}
 
-	Map = new XLagDynamicTerrainMap(100, 100);
+	Map = new XLagDynamicTerrainMap(FullMapSizeX, FullMapSizeY, Scale);
 	Map->Initialize();
 
+	CurrentMap = new XLagDynamicTerrainMapWindow(Map, WindowMapSizeX, WindowMapSizeY);
+
 	TerrainMapEditEditor editor(Map);
+
+	// Формирует случайный рельеф.
 	PerlinFillerMapEditComponent perlinComp(TerrainElementEnum::GraundGrass);
 	editor.FillByXY(&perlinComp);
+
+	// Выравнивание по высоте, так чтобы центральная часть заданным радиусом была в 0 уровне по высоте.
+	AligmentEditComponent aligment(AligmentEditComponentSettings(FullMapSizeX / 2, FullMapSizeX / 2, ZeroLocationRadius, ZeroLocationHeight));
+	editor.FillByXY(&aligment);
 
 	TerrainElementTranformComponent makeRock(
 		TerrainElementTransofmHigherCondition(400),
@@ -159,6 +234,34 @@ void AXLagDynamicTerrainBase::InitMap()
 		TerrainElementEnum::GroundGrassToRockSandstoneTrans
 	);
 	editor.FillByXY(&makeTransitionGrassToSandstone);
+
+	//// Tree
+	auto possiblePlace = Map->GetFilteredItems(ResourcePlacementMapItemFilter(TerrainElementEnum::GraundGrass));
+	int placeIndexCount = possiblePlace.size();
+	UE_LOG(LogTemp, Log, TEXT("Graund Grass square %d m2"), placeIndexCount);
+
+	if (placeIndexCount == 0 || AreaPerTree <= 0)
+		return;
+
+	UE_LOG(LogTemp, Log, TEXT("Area Per Tree %d"), AreaPerTree);
+
+	auto totalTreeCount = std::min(placeIndexCount, placeIndexCount / AreaPerTree);
+	if (totalTreeCount == 0)
+		return;
+
+	UE_LOG(LogTemp, Log, TEXT("Total Tree Count %d"), totalTreeCount);
+	
+	if (totalTreeCount > 0)
+	{
+		std::vector<int> randomizeVector(totalTreeCount);
+		std::generate(randomizeVector.begin(), randomizeVector.end(), [placeIndexCount]() mutable {return rand() % placeIndexCount; });
+
+		for(auto index : randomizeVector)
+		{
+			auto* place = possiblePlace[index];
+			place->OnSurfaceResourceObjects = OnSurfaceResourceObjectsEnum::Tree;
+		}
+	}
 }
 
 void AXLagDynamicTerrainBase::InitGeometry()
@@ -215,53 +318,5 @@ void AXLagDynamicTerrainBase::AddGreader()
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("SphereVisualAsset.Fieled"));
-	}
-}
-
-void AXLagDynamicTerrainBase::AddTrees()
-{
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereVisualAsset(TEXT("/Game/KiteDemo/Environments/Trees/HillTree_Tall_02/HillTree_Tall_02"));
-	if (SphereVisualAsset.Succeeded())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AddTrees.Succeeded"));
-
-		const int treeCount = 50;
-		if (Trees.Num() == 0)
-		{
-			for (int i = 0; i < treeCount; i++)
-			{
-				FName name = *FString::Printf(TEXT("My Tree %i"), i);
-
-				UStaticMeshComponent *newObject = CreateDefaultSubobject<UStaticMeshComponent>(name);
-				newObject->SetupAttachment(RootComponent);
-				newObject->SetStaticMesh(SphereVisualAsset.Object);
-
-				float scaleRandom = 0.2f + ((float)(rand() % 80)) / 100.f;
-				newObject->SetWorldScale3D(FVector(scaleRandom, scaleRandom, scaleRandom));
-				Trees.Add(newObject);
-			}			
-		}
-
-		for (int i = 0; i < treeCount; i++)
-		{
-			int dx = 0, dy = 0;
-			
-			do 
-			{
-				dx = rand() % 100;
-				dy = rand() % 100;
-
-			} while (Map->Point(dx, dy).Get()->LayerKind != TerrainElementEnum::GraundGrass);
-			
-
-			float x = dx*100; float y = dy*100;
-			float z = Map->Point(dx, dy).Stack.back().Level - 50;
-
-			Trees[i]->SetRelativeLocation(FVector(x, y, z));
-		}
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AddTrees.Fieled"));
 	}
 }

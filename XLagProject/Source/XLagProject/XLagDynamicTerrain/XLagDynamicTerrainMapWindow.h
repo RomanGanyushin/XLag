@@ -1,6 +1,6 @@
 #pragma once
 #include "XLagDynamicTerrainMap.h"
-#include "ITerrainMapAccessor.h"
+#include "../Common/ITerrainMapAccessor.h"
 
 // Компонент оконного доступа к карте.
 class XLagDynamicTerrainMapWindow : public ITerrainMapAccessor
@@ -40,4 +40,12 @@ public:
 
 	// #inhereddoc
 	XLagDynamicTerrainMapItem& Point(int const &index) override;
+
+	// #inhereddoc
+	const FVector GetWorldPosition(int const &x, int const &y, GetPositionEnum flag) const override;
+
+	// Получает координату простраства по элементу.
+	const FVector GetWorldPosition(XLagDynamicTerrainMapItem* item, GetPositionEnum flag) const override;
+
+	std::vector<XLagDynamicTerrainMapItem*> GetFilteredItems(const IMapItemFilter& filter) override;
 };

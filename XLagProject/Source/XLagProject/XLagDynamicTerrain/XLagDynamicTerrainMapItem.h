@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "../../XLagProject//Common/OnSurfaceResourceObjectsEnum.h"
 
 struct TerrainMapItemLevel
 {
@@ -16,6 +17,9 @@ class XLagDynamicTerrainMapItem
 {
 public:
 	std::vector<TerrainMapItemLevel>  Stack;
+	bool IsZeroLocation = false;
+
+	OnSurfaceResourceObjectsEnum OnSurfaceResourceObjects = OnSurfaceResourceObjectsEnum::Empty;
 
 	const TerrainMapItemLevel* GetForLayerKind(int layerKind) const
 	{
@@ -35,5 +39,10 @@ public:
 			return nullptr;
 
 		return &Stack.back();
+	}
+
+	const inline bool HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum type) const
+	{
+		return  OnSurfaceResourceObjects == type;
 	}
 };

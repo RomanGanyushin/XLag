@@ -1,5 +1,5 @@
 #pragma once
-#include "../ITerrainMapAccessor.h"
+#include "../../Common/ITerrainMapAccessor.h"
 
 struct ITerrainMapEditComponent
 {

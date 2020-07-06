@@ -37,3 +37,19 @@ const XLagDynamicTerrainMapItem& XLagDynamicTerrainMapWindow::PointConst(int con
 {
 	return _fullMap->Point(x + _offsetX, y + _offsetY);
 }
+
+const FVector XLagDynamicTerrainMapWindow::GetWorldPosition(int const &x, int const &y, GetPositionEnum flag) const
+{
+	return _fullMap->GetWorldPosition(x + _offsetX, y + _offsetY, flag);
+}
+
+const FVector XLagDynamicTerrainMapWindow::GetWorldPosition(XLagDynamicTerrainMapItem* item, GetPositionEnum flag) const
+{
+	return _fullMap->GetWorldPosition(item, flag);
+}
+
+
+std::vector<XLagDynamicTerrainMapItem*> XLagDynamicTerrainMapWindow::GetFilteredItems(const IMapItemFilter& filter)
+{
+	return _fullMap->GetFilteredItems(filter);
+}
