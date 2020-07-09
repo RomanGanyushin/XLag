@@ -4,7 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Engine/StaticMeshActor.h"
 #include "XLagCuttableTreeBase.generated.h"
+
+enum AXLagCuttableTreeState
+{
+	Growing,
+	Falling,
+	Fallen,
+	Timber
+};
+
 
 UCLASS()
 class XLAGPROJECT_API AXLagCuttableTreeBase : public AActor
@@ -20,15 +30,33 @@ public:
 	UStaticMesh* Mesh;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Params")
+	// Возраст
 	float Age;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Params")
+
+	// Масштаб модели бревна.
+	FVector TimberTranformScale = FVector(0.4f, 0.4f, 4.f);
+
+	// Состояние дерева.
+	AXLagCuttableTreeState State = AXLagCuttableTreeState::Growing;
+
+	ConstructorHelpers::FObjectFinder<UStaticMesh>*fv;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
 	virtual ConstructorHelpers::FObjectFinder<UStaticMesh>* GetAsset() 
 	{ 
 		return nullptr; 
 	}
+
+	virtual ConstructorHelpers::FObjectFinder<UStaticMesh>* GetTimberAsset()
+	{
+		return nullptr;
+	}
+
 	virtual void Initialize();
 
 public:		
@@ -36,15 +64,55 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 public:
-	bool CanTake();
-	bool CanCut();
+	// Рубить.
 	void Cut(int force);
+	
+	// Проверяет, что дерево срублено.
+	bool IsCutted();
+
+	// Проверяет, что дерево можно обтесывать.
+	bool CanBroach();
+
+	// Обтесать дерево до бревна.
+	void Broach(int force);
+
+	// Проверяет что дерево обтесано до бревна.
+	bool IsTimber();
+
+	// Обновить возраст до указанного.
 	void UpdateAge(float age);
 
-private:
-	int Sustainability = 100;
-	int State = 0;
 
+
+protected:
+	int Sustainability = 100;
+
+	UStaticMeshComponent *AliveTree;
+	UStaticMesh *TimberObject;
+};
+
+UCLASS()
+class XLAGPROJECT_API AXTree_HillTree_02 : public AXLagCuttableTreeBase
+{
+	GENERATED_BODY()
+public:
+	AXTree_HillTree_02() : AXLagCuttableTreeBase()
+	{
+		Initialize();
+	}
+
+protected:
+	ConstructorHelpers::FObjectFinder<UStaticMesh>* GetAsset() override
+	{
+		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("/Game/KiteDemo/Environments/Trees/HillTree_02/HillTree_02"));
+		return &Asset;
+	}
+
+	ConstructorHelpers::FObjectFinder<UStaticMesh>* GetTimberAsset() override
+	{
+		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("/Game/KiteDemo/Environments/Trees/HillTree_02/HillTree_02_Timber"));
+		return &Asset;
+	}
 };
 
 UCLASS()
@@ -63,6 +131,37 @@ protected:
 	{
 		UE_LOG(LogTemp, Log, TEXT("Call GetAsset from AXTree_HillTree_Tall_02"));
 		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("/Game/KiteDemo/Environments/Trees/HillTree_Tall_02/HillTree_Tall_02"));
+		return &Asset;
+	}
+
+	ConstructorHelpers::FObjectFinder<UStaticMesh>* GetTimberAsset() override
+	{
+		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("/Game/KiteDemo/Environments/Trees/HillTree_Tall_02/HillTree_Tall_01_Timber"));
+		return &Asset;
+	}
+};
+
+UCLASS()
+class XLAGPROJECT_API AXTree_ScotsPine_01 : public AXLagCuttableTreeBase
+{
+	GENERATED_BODY()
+public:
+	AXTree_ScotsPine_01() : AXLagCuttableTreeBase()
+	{
+		Initialize();
+	}
+
+protected:
+	ConstructorHelpers::FObjectFinder<UStaticMesh>* GetAsset() override
+	{
+		UE_LOG(LogTemp, Log, TEXT("Call GetAsset from AXTree_ScotsPine_01"));
+		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("/Game/KiteDemo/Environments/Trees/ScotsPineTall_01/ScotsPine_01"));
+		return &Asset;
+	}
+
+	ConstructorHelpers::FObjectFinder<UStaticMesh>* GetTimberAsset() override
+	{
+		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("/Game/KiteDemo/Environments/Trees/ScotsPineTall_01/ScotsPine_01_Timber"));
 		return &Asset;
 	}
 };
@@ -84,22 +183,11 @@ protected:
 		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("/Game/KiteDemo/Environments/Trees/ScotsPineTall_01/ScotsPineTall_01"));
 		return &Asset;
 	}
-};
 
-UCLASS()
-class XLAGPROJECT_API AXTree_HillTree_02 : public AXLagCuttableTreeBase
-{
-	GENERATED_BODY()
-public:
-	AXTree_HillTree_02() : AXLagCuttableTreeBase()
+	ConstructorHelpers::FObjectFinder<UStaticMesh>* GetTimberAsset() override
 	{
-		Initialize();
-	}
-
-protected:
-	ConstructorHelpers::FObjectFinder<UStaticMesh>* GetAsset() override
-	{
-		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("/Game/KiteDemo/Environments/Trees/HillTree_02/HillTree_02"));
+		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("/Game/KiteDemo/Environments/Trees/ScotsPineTall_01/ScotsPineTall_01_Timber"));
 		return &Asset;
 	}
 };
+

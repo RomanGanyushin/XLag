@@ -44,6 +44,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Terrain Main Params")
 	int WindowMapSizeY = 100;
 
+	// 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Terrain Generator")
+	float 	Amplitude = 5000.f;
+
+	// 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Terrain Generator")
+	float 	Octaves = 5;
+
 	// Радиус нулевой локации.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zero Location")
 	float ZeroLocationRadius = 5;
@@ -83,9 +91,6 @@ public:
 	/// Ground Gras To Rock Basalt component
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* GroundGrassToRockBasalt;
-
-	UPROPERTY(EditAnywhere, Category = "Spawn Tree Params")
-		TSubclassOf<AXLagCuttableTreeBase> TreeTemplate;
 
 	virtual void PostActorCreated() override;
 	virtual void PostLoad() override;

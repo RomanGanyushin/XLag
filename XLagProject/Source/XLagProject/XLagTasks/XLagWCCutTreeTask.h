@@ -15,13 +15,23 @@ public:
 
 	virtual void Execute(ACharacter *npc, float DeltaTime) override
 	{
+		if (Completed)
+			return;
+
 		auto woodcutter = dynamic_cast<AXLagNPCWoodCutter*>(npc);
 		if (woodcutter == nullptr)
 		{
 			UE_LOG(LogTemp, Error, TEXT("XLagWCCutTreeTask::Execute "));
 		}
 
-		woodcutter->DoCutTree(Tree);
+		if (Tree->IsCutted())
+		{
+			Completed = true;
+		}
+		else
+		{
+			woodcutter->DoCutTree(Tree);
+		}	
 	}
 
 	virtual bool IsSuccess() override { return Completed; }

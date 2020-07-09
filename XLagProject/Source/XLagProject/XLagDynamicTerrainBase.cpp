@@ -200,7 +200,10 @@ void AXLagDynamicTerrainBase::InitMap()
 	TerrainMapEditEditor editor(Map);
 
 	// Формирует случайный рельеф.
-	PerlinFillerMapEditComponent perlinComp(TerrainElementEnum::GraundGrass);
+	PerlinFillerMapEditSettings settings;
+	settings.Amplitude = Amplitude;
+	settings.Octaves = Octaves;
+	PerlinFillerMapEditComponent perlinComp(TerrainElementEnum::GraundGrass, settings);
 	editor.FillByXY(&perlinComp);
 
 	// Выравнивание по высоте, так чтобы центральная часть заданным радиусом была в 0 уровне по высоте.

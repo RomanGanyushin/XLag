@@ -19,17 +19,31 @@ void AXLagCuttableTreeBase::Initialize()
 		return;
 	}
 
-
 	if (asset->Succeeded())
 	{
 		RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
-		auto newObject = CreateDefaultSubobject<UStaticMeshComponent>("Mesh tree");
-		newObject->SetupAttachment(RootComponent);
-		newObject->SetStaticMesh(asset->Object);
+		AliveTree = CreateDefaultSubobject<UStaticMeshComponent>("Mesh tree");
+		AliveTree->SetupAttachment(RootComponent);
+		AliveTree->SetStaticMesh(asset->Object);
 	}
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("asset is fail"));
+	}
+
+	auto timberAsset = GetTimberAsset();
+	if (!timberAsset->Succeeded())
+	{
+		UE_LOG(LogTemp, Error, TEXT("Timber Asset is was not success loaded"));
+		return;
+	}
+
+	TimberObject = timberAsset->Object;
+
+	if (TimberObject == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Timber object is null"));
+		return;
 	}
 }
 
@@ -44,50 +58,66 @@ void AXLagCuttableTreeBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (State == 1)
+	if (State == AXLagCuttableTreeState::Falling)
 	{
-		this->AddActorLocalOffset(FVector(0, 0, 70));
-		State = 2;
-	}
+		AddActorLocalOffset(FVector(0, 0, 90.f / (90.0 / 0.25f)));
+		AddActorLocalRotation(FRotator(0.25f, 0, 0));
 
-	if (State == 2)
-	{
-
-		AddActorLocalRotation(FRotator(0.25, 0, 0));
-		auto rot = GetActorRotation();
-		if (rot.Pitch > 85)
+		UE_LOG(LogTemp, Log, TEXT("Tree Pitch %f"), GetActorRotation().Pitch);
+	
+		if (GetActorRotation().Pitch > 85)
 		{
-			State = 3;
+			State = AXLagCuttableTreeState::Fallen;
 		}
-
-		UE_LOG(LogTemp, Log, TEXT(">>>>>>>>>>>>>>> Pitch %f"), rot.Pitch);
 	}
 }
 
 void AXLagCuttableTreeBase::Cut(int force)
 {
-	if (State == 0)
+	if (State == AXLagCuttableTreeState::Growing)
 	{
 		UE_LOG(LogTemp, Log, TEXT("Tree sustainability: %f"), Sustainability);
 		Sustainability -= force;
 
 		if (Sustainability < 0)
 		{
-			State = 1;
+			State = AXLagCuttableTreeState::Falling;
 			//		AddRelativeRotation(FRotator(1, 0, 0));
 			AddActorLocalRotation(FRotator(force * sin(((float)Sustainability) / 10.0), 0, 0));
 		}
 	}
 }
 
-bool AXLagCuttableTreeBase::CanTake()
+bool AXLagCuttableTreeBase::IsCutted()
 {
-	return State == 3;
+	return State != AXLagCuttableTreeState::Growing;
 }
 
-bool AXLagCuttableTreeBase::CanCut()
+bool AXLagCuttableTreeBase::CanBroach()
 {
-	return State == 0;
+	return State == AXLagCuttableTreeState::Fallen;
+}
+
+void AXLagCuttableTreeBase::Broach(int force)
+{
+	if (State == AXLagCuttableTreeState::Timber)
+		return;
+
+	State = AXLagCuttableTreeState::Timber;
+
+	if (TimberObject == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("TimberObject is null"));
+		return;
+	}
+
+	AliveTree->SetStaticMesh(TimberObject);
+	AliveTree->SetRelativeScale3D(TimberTranformScale);
+}
+
+bool AXLagCuttableTreeBase::IsTimber()
+{
+	return State == AXLagCuttableTreeState::Timber;
 }
 
 void AXLagCuttableTreeBase::UpdateAge(float age)

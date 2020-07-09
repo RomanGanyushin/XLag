@@ -19,5 +19,9 @@ class XLAGPROJECT_API AXLagNPCWoodCutter : public AXLagNPCBase
 	virtual void Tick(float DeltaTime) override;
 
 public:
+	// Руби дерево.
 	void DoCutTree(AXLagCuttableTreeBase *TargetTree);
+
+	// Обтесывай дерево.
+	void DoBroachTree(AXLagCuttableTreeBase *TargetTree);
 };
