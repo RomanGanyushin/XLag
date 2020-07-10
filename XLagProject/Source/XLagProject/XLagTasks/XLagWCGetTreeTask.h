@@ -32,7 +32,7 @@ public:
 			return;
 
 		auto loc = woodcutter->GetActorLocation();
-		auto vec = 150.0 * woodcutter->GetActorForwardVector() + FVector(0.f, 50, 80);
+		auto vec = 200.f * woodcutter->GetActorForwardVector() + FVector(0.f, 50, 80);
 		auto dir = woodcutter->GetActorRotation(); dir.Pitch += 90;
 
 		Tree->SetActorLocation(loc + vec);

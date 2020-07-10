@@ -83,7 +83,7 @@ void AXLagCuttableTreeBase::Cut(int force)
 		{
 			State = AXLagCuttableTreeState::Falling;
 			//		AddRelativeRotation(FRotator(1, 0, 0));
-			AddActorLocalRotation(FRotator(force * sin(((float)Sustainability) / 10.0), 0, 0));
+			AddActorLocalRotation(FRotator(force * sin(((float)Sustainability) / 1.0), 0, 0));
 		}
 	}
 }
@@ -112,7 +112,8 @@ void AXLagCuttableTreeBase::Broach(int force)
 	}
 
 	AliveTree->SetStaticMesh(TimberObject);
-	AliveTree->SetRelativeScale3D(TimberTranformScale);
+	AliveTree->SetRelativeScale3D(FVector(TimberDiameter, TimberDiameter, TimberLength));
+	SetActorScale3D(FVector(1, 1, 1));
 }
 
 bool AXLagCuttableTreeBase::IsTimber()

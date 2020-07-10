@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "XLagNPCWoodCutter.h"
 #include "XLagCuttableTreeBase.h"
+#include "XLagTimberStack.h"
 #include "../Common/ITerrainMapAccessor.h"
 #include "XLagNPCSwapManagement.generated.h"
 
@@ -38,6 +39,7 @@ public:
 	void SetMapAccessor(ITerrainMapAccessor *accessor) { MapAccessor = accessor; }
 	void DoSwapPersons();
 	void DoSwapTrees();
+	void DoSwapTreeStack();
 
 public:	
 	// Called every frame
@@ -80,9 +82,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Trees Params")
 	int MaximalCount = 50;
 
+public:
+
+	// Шаблон дровосека.
+	UPROPERTY(EditAnywhere, Category = "Timber Stack Params")
+	TSubclassOf<AXLagTimberStack> TimberStackTemplate;
+	
+
 private:
 	ITerrainMapAccessor* MapAccessor;
 	TArray<AXLagCuttableTreeBase*> SwapedTrees;
+	TArray<AXLagTimberStack*> SwapedTreeStacks;
 private:
 	FVector CalculatePersonScale(int deviationHeightPercent, int deviationThicknessPercent);
 

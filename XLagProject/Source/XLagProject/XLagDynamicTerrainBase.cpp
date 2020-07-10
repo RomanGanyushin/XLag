@@ -71,6 +71,9 @@ void AXLagDynamicTerrainBase::BeginPlay()
 		management->DoSwapTrees();
 		UE_LOG(LogTemp, Log, TEXT("Do Swap Trees"));
 
+		management->DoSwapTreeStack();
+		UE_LOG(LogTemp, Log, TEXT("Do Swap Tree Stack"));
+
 		management->DoSwapPersons();
 		UE_LOG(LogTemp, Log, TEXT("Do Swap Persons"));
 	}

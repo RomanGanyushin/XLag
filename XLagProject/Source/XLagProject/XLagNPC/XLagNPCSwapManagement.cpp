@@ -27,6 +27,7 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 	if (WoodcutterTemplate == nullptr)
 		return;
 
+	int treeIndex = 0;
 	for (int i = 0; i < StartWoodcuterCount; i++)
 	{
 		auto locator = RandomizeZeroPlacePosition(MapAccessor).Get() + FVector(0,0,200);
@@ -38,9 +39,13 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 		auto scaleVector = CalculatePersonScale(WoodcuterDeviationHeightPercent, WoodcuterDeviationThicknessPercent);
 		woodcutter->SetActorScale3D(scaleVector);
 
-		if (SwapedTrees.Num() > i)
+		if (SwapedTrees.Num() > treeIndex)
 		{
-			woodcutter->NpcTask = XLagWoodCutterTaskFactory().BringTreeTaskCreate(SwapedTrees[i]);
+			auto task = new XLagNPCTaskBase;
+			for (auto j = 0; j < 5; j++)
+				task->SubTasks.push(XLagWoodCutterTaskFactory().BringTreeTaskCreate(SwapedTrees[treeIndex++], SwapedTreeStacks[0]));
+
+			woodcutter->NpcTask = std::shared_ptr<XLagNPCTaskBase>(task);
 		}
 	}
 }
@@ -69,6 +74,13 @@ void AXLagNPCSwapManagement::DoSwapTrees()
 
 		SwapedTrees.Add(tree);
 	}	
+}
+
+void AXLagNPCSwapManagement::DoSwapTreeStack()
+{
+	auto locator = RandomizeZeroPlacePosition(MapAccessor).Get();
+	auto stack = GetWorld()->SpawnActor<AXLagTimberStack>(TimberStackTemplate, locator, FRotator::ZeroRotator);
+	SwapedTreeStacks.Add(stack);
 }
 
 // Called every frame

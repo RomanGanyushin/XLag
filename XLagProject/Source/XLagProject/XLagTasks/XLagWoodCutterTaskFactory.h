@@ -5,7 +5,10 @@
 #include "XLagWCCutTreeTask.h"
 #include "XLagWCBroachTreeTask.h"
 #include "XLagWCGetTreeTask.h"
+#include "XLagWCPutTreeTask.h"
+
 #include "../XLagNPC/XLagCuttableTreeBase.h"
+#include "../XLagNPC/XLagTimberStack.h"
 
 /*
  Фабрика задач для лесоруба.
@@ -18,7 +21,7 @@ public:
 
 public:
 	// Принеси указанное дерево.
-	std::shared_ptr<XLagNPCTaskBase> BringTreeTaskCreate(AXLagCuttableTreeBase* tree)
+	std::shared_ptr<XLagNPCTaskBase> BringTreeTaskCreate(AXLagCuttableTreeBase* tree, AXLagTimberStack *stack)
 	{
 		auto result = std::make_shared<XLagNPCTaskBase>();
 		result->SubTasks.push(MoveTo(tree->GetActorLocation()));
@@ -26,6 +29,7 @@ public:
 		result->SubTasks.push(BroachTree(tree));
 		result->SubTasks.push(GetTree(tree));
 		result->SubTasks.push(MoveTo(FVector(5000, 5000, 0)));
+		result->SubTasks.push(PutTree(tree, stack));
 		return result;
 	}
 
@@ -57,4 +61,10 @@ public:
 		return result;
 	}
 
+	// Положи в стопку.
+	std::shared_ptr<XLagNPCTaskBase> PutTree(AXLagCuttableTreeBase* tree, AXLagTimberStack* stack)
+	{
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagWCPutTreeTask(tree, stack));
+		return result;
+	}
 };

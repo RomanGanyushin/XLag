@@ -29,14 +29,15 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Static Mesh")
 	UStaticMesh* Mesh;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Params")
 	// Возраст
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Params")
 	float Age;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Params")
+	UPROPERTY(BlueprintReadOnly, Category = "Current State Properties")
+	float TimberDiameter = 0.4;
 
-	// Масштаб модели бревна.
-	FVector TimberTranformScale = FVector(0.4f, 0.4f, 4.f);
+	UPROPERTY(BlueprintReadOnly, Category = "Current State Properties")
+	float TimberLength = 4;
 
 	// Состояние дерева.
 	AXLagCuttableTreeState State = AXLagCuttableTreeState::Growing;
@@ -155,13 +156,13 @@ protected:
 	ConstructorHelpers::FObjectFinder<UStaticMesh>* GetAsset() override
 	{
 		UE_LOG(LogTemp, Log, TEXT("Call GetAsset from AXTree_ScotsPine_01"));
-		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("/Game/KiteDemo/Environments/Trees/ScotsPineTall_01/ScotsPine_01"));
+		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("/Game/KiteDemo/Environments/Trees/ScotsPineTall_01/ScotsPineTall_01"));
 		return &Asset;
 	}
 
 	ConstructorHelpers::FObjectFinder<UStaticMesh>* GetTimberAsset() override
 	{
-		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("/Game/KiteDemo/Environments/Trees/ScotsPineTall_01/ScotsPine_01_Timber"));
+		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("/Game/KiteDemo/Environments/Trees/ScotsPineTall_01/ScotsPineTall_01_Timber"));
 		return &Asset;
 	}
 };
