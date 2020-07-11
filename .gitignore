@@ -8,3 +8,5 @@
 *.pdb
 /XLagProject/Intermediate/Build
 /XLagProject/Saved
+/XLagProject/Intermediate/Staging
+/XLagProject/Build/WindowsNoEditor/FileOpenOrder

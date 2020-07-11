@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "XLagNPCWoodCutter.h"
+#include "XLagNPCBuilderman.h"
 #include "XLagCuttableTreeBase.h"
 #include "XLagTimberStack.h"
 #include "../Common/ITerrainMapAccessor.h"
@@ -63,6 +64,24 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Woodcutter Params")
 	int WoodcuterDeviationThicknessPercent = 10;
 
+// Свойства персонажа - строителя.
+public:
+	// Шаблон дровосека.
+	UPROPERTY(EditAnywhere, Category = "Spawn Builder Params")
+		TSubclassOf<AXLagNPCBuilderman> BuilderTemplate;
+
+	// Количество дровосеков на старте игры. 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Builder Params")
+		int StartBuilderCount = 5;
+
+	// Амплитуда разброса роста (процент от норамльного роста).
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Builder Params")
+		int BuilderDeviationHeightPercent = 30;
+
+	// Амплитуда разброма толщины (процент от норамльного роста).
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Builder Params")
+		int BuilderDeviationThicknessPercent = 10;
+
 // Свойства высадки деревьев
 public:
 
@@ -96,4 +115,6 @@ private:
 private:
 	FVector CalculatePersonScale(int deviationHeightPercent, int deviationThicknessPercent);
 
+private:
+	void Test_AttachTask_CutTrees(AXLagNPCWoodCutter *woodcutter, int index);
 };

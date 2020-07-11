@@ -24,29 +24,49 @@ void AXLagNPCSwapManagement::BeginPlay()
 
 void AXLagNPCSwapManagement::DoSwapPersons()
 {
-	if (WoodcutterTemplate == nullptr)
-		return;
-
-	int treeIndex = 0;
-	for (int i = 0; i < StartWoodcuterCount; i++)
+	if (WoodcutterTemplate != nullptr)
 	{
-		auto locator = RandomizeZeroPlacePosition(MapAccessor).Get() + FVector(0,0,200);
-		auto woodcutter = GetWorld()->SpawnActor<AXLagNPCWoodCutter>(WoodcutterTemplate, locator, FRotator::ZeroRotator);
-
-		if (woodcutter == nullptr)
-			continue;
-
-		auto scaleVector = CalculatePersonScale(WoodcuterDeviationHeightPercent, WoodcuterDeviationThicknessPercent);
-		woodcutter->SetActorScale3D(scaleVector);
-
-		if (SwapedTrees.Num() > treeIndex)
+		for (int i = 0; i < StartWoodcuterCount; i++)
 		{
-			auto task = new XLagNPCTaskBase;
-			for (auto j = 0; j < 5; j++)
-				task->SubTasks.push(XLagWoodCutterTaskFactory().BringTreeTaskCreate(SwapedTrees[treeIndex++], SwapedTreeStacks[0]));
+			auto locator = RandomizeZeroPlacePosition(MapAccessor).Get() + FVector(0, 0, 200);
+			auto woodcutter = GetWorld()->SpawnActor<AXLagNPCWoodCutter>(WoodcutterTemplate, locator, FRotator::ZeroRotator);
 
-			woodcutter->NpcTask = std::shared_ptr<XLagNPCTaskBase>(task);
+			if (woodcutter == nullptr)
+				continue;
+
+			auto scaleVector = CalculatePersonScale(WoodcuterDeviationHeightPercent, WoodcuterDeviationThicknessPercent);
+			woodcutter->SetActorScale3D(scaleVector);
+
+			Test_AttachTask_CutTrees(woodcutter, i);
+		}	
+	}
+
+	if (BuilderTemplate != nullptr)
+	{
+		for (int i = 0; i < StartBuilderCount; i++)
+		{
+			auto locator = RandomizeZeroPlacePosition(MapAccessor).Get() + FVector(0, 0, 200);
+			auto builder = GetWorld()->SpawnActor<AXLagNPCBuilderman>(BuilderTemplate, locator, FRotator::ZeroRotator);
+
+			if (builder == nullptr)
+				continue;
+
+			auto scaleVector = CalculatePersonScale(WoodcuterDeviationHeightPercent, WoodcuterDeviationThicknessPercent);
+			builder->SetActorScale3D(scaleVector);
 		}
+	}
+
+}
+
+void AXLagNPCSwapManagement::Test_AttachTask_CutTrees(AXLagNPCWoodCutter *woodcutter, int index)
+{
+	if (SwapedTrees.Num() > index * 5)
+	{
+		auto task = new XLagNPCTaskBase;
+		for (auto j = 0; j < 5; j++)
+			task->SubTasks.push(XLagWoodCutterTaskFactory().BringTreeTaskCreate(SwapedTrees[index *5 + j], SwapedTreeStacks[0]));
+
+		woodcutter->NpcTask = std::shared_ptr<XLagNPCTaskBase>(task);
 	}
 }
 

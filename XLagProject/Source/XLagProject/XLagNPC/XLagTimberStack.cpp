@@ -55,19 +55,22 @@ FVector AXLagTimberStack::CalculatePosition(int num, float diameter)
 
 			case 1:
 			{
-				result = l == 0 ? FVector((ml + 1) / 2 * diameter, 0, 0) : FVector(-diameter/2.0, 0, DeltaHeigth(diameter));
+				if (l == 0) result = FVector((ml + 1) / 2 * diameter, 0, 0); 
+				else result += FVector(-diameter / 2.0, 0, DeltaHeigth(diameter));
+
 				if (++l > ml){ ml++; dir = 2; l = 0;}
 			}
 			break;
 			
 			case 2:
 			{
-				result = l == 0 ? FVector(-1.f * diameter * (ml) / 2, 0, 0) : FVector(diameter / 2.0, 0, DeltaHeigth(diameter));
+				if (l == 0) result = FVector(-1.f * diameter * (ml) / 2, 0, 0);
+				else result += FVector(diameter / 2.0, 0, DeltaHeigth(diameter));
+
 				if (++l > ml) { ml++; dir = 1; l = 0;}
 			}
 			break;
 		}
-
 	} while (++index < num);
 
 	return result;

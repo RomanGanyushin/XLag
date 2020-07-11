@@ -169,6 +169,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCPutTreeTask.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBuilderman.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.cpp">
@@ -211,6 +214,9 @@
       <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Modify</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagTimberStack.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBuilderman.cpp">
       <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClCompile>
   </ItemGroup>

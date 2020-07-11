@@ -25,7 +25,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void AddTimber(AXLagCuttableTreeBase* tree);
 
-	UPROPERTY(BlueprintReadOnly, Category = "Current State Properties")
+	UPROPERTY(VisibleAnywhere, Category = "Current State Properties")
 	// Количество деревьев в стопке.
 	int Count = 0;
 

@@ -272,6 +272,7 @@
     <AdditionalOptions>/std:c++14</AdditionalOptions>
   </PropertyGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBuilderman.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagTimberStack.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagNPCTaskBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagNPCTaskMoveTo.h" />
@@ -298,6 +299,7 @@
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMap.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItem.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapWindow.cpp" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBuilderman.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagCuttableTreeBase.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBase.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCSwapManagement.cpp" />
