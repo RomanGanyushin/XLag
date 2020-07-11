@@ -24,4 +24,10 @@ public:
 
 	// Îבעוסûגאי הונוגמ.
 	void DoBroachTree(AXLagCuttableTreeBase *TargetTree);
+
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Cutting event"))
+	void OnCuttingEvent(float Value);
+
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Broaching event"))
+	void OnBroachingEvent(float Value);
 };
