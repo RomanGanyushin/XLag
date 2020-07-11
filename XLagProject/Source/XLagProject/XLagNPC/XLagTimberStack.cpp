@@ -28,7 +28,7 @@ void AXLagTimberStack::AddTimber(AXLagCuttableTreeBase* tree)
 {
 	tree->AttachToActor(this, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, false));	
 
-	auto diameter = tree->TimberDiameter;
+	auto diameter = tree->TimberDiameter * 100;
 	auto position = CalculatePosition(Count + 1, diameter) + FVector(0, 0, diameter / 2.f);
 	tree->SetActorRelativeLocation(position);
 	tree->SetActorRelativeRotation(FRotator(0, 0, 90));

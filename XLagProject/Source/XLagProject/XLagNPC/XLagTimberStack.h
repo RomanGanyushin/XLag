@@ -31,5 +31,5 @@ public:
 
 private:
 	FVector CalculatePosition(int num, float diameter);
-	inline float DeltaHeigth(float diameter) { return sqrt(pow(diameter, 2) - pow(diameter, 2)); }
+	inline float DeltaHeigth(float diameter) { return sqrt(pow(diameter, 2) - pow(diameter / 2.f, 2)); }
 };
