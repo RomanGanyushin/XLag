@@ -18,6 +18,7 @@ class XLagDynamicTerrainMapItem
 public:
 	std::vector<TerrainMapItemLevel>  Stack;
 	bool IsZeroLocation = false;
+	bool Changed = false;
 
 	OnSurfaceResourceObjectsEnum OnSurfaceResourceObjects = OnSurfaceResourceObjectsEnum::Empty;
 
@@ -39,6 +40,12 @@ public:
 			return nullptr;
 
 		return &Stack.back();
+	}
+
+	void Dig(float value)
+	{
+		Stack.back().Level -= value;
+		Changed = true;
 	}
 
 	const inline bool HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum type) const

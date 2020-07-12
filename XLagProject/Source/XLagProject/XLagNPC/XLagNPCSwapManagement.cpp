@@ -5,8 +5,9 @@
 #include "../XLagDynamicTerrain/Position/RandomizeZeroPlacePosition.h"
 #include "../XLagDynamicTerrain/Filters/SurfaceResourceMapItemFilter.h"
 
-//
+// Для отладки
 #include "../XLagTasks/XLagWoodCutterTaskFactory.h"
+#include "../XLagTasks/XLagMinerTaskFactory.h"
 
 // Sets default values
 AXLagNPCSwapManagement::AXLagNPCSwapManagement()
@@ -51,8 +52,29 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 			if (builder == nullptr)
 				continue;
 
-			auto scaleVector = CalculatePersonScale(WoodcuterDeviationHeightPercent, WoodcuterDeviationThicknessPercent);
+			auto scaleVector = CalculatePersonScale(BuilderDeviationHeightPercent, BuilderDeviationThicknessPercent);
 			builder->SetActorScale3D(scaleVector);
+		}
+	}
+
+	if (MinerTemplate != nullptr)
+	{
+		for (int i = 0; i < StartMinerCount; i++)
+		{
+			auto locator = RandomizeZeroPlacePosition(MapAccessor).Get() + FVector(0, 0, 200);
+			auto miner = GetWorld()->SpawnActor<AXLagNPCMiner>(MinerTemplate, locator, FRotator::ZeroRotator);
+
+			if (miner == nullptr)
+				continue;
+
+			auto scaleVector = CalculatePersonScale(MinerDeviationHeightPercent, MinerDeviationThicknessPercent);
+			miner->SetActorScale3D(scaleVector);
+
+			int posx = 10 + rand() % 90;
+			int posy = 10 + rand() % 90;
+
+			auto place = std::shared_ptr<ITerrainMapAccessor>(MapAccessor->CreateWindow(posx, posy, 5+rand()%5, 5+rand()%5));
+			miner->NpcTask = XLagMinerTaskFactory(place).AlignPlace();
 		}
 	}
 

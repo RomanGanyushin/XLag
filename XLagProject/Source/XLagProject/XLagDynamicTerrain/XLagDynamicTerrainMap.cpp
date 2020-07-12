@@ -1,4 +1,5 @@
 #include "XLagDynamicTerrainMap.h"
+#include "XLagDynamicTerrainMapWindow.h"
 #include <algorithm>
 
 XLagDynamicTerrainMap::XLagDynamicTerrainMap(int sizeX, int sizeY, int scale)
@@ -9,6 +10,11 @@ XLagDynamicTerrainMap::XLagDynamicTerrainMap(int sizeX, int sizeY, int scale)
 void XLagDynamicTerrainMap::Initialize()
 {
 	Map = new XLagDynamicTerrainMapItem[MapLenght()];
+}
+
+std::shared_ptr<ITerrainMapAccessor> XLagDynamicTerrainMap::CreateWindow(int const &x, int const &y, int const &sx, int const &sy)
+{
+	return std::shared_ptr<ITerrainMapAccessor>(new XLagDynamicTerrainMapWindow(this, x, y, sx, sy));
 }
 
 const FVector XLagDynamicTerrainMap::GetWorldPosition(int const &x, int const &y, GetPositionEnum flag) const
@@ -55,6 +61,23 @@ std::vector<XLagDynamicTerrainMapItem*> XLagDynamicTerrainMap::GetFilteredItems(
 
 		result.push_back(&Map[index]);
 	}
+
+	return result;
+}
+
+
+bool XLagDynamicTerrainMap::IsChanged()
+{
+	bool result = false;
+	for (int ix = 0; ix < SizeX(); ix++)
+		for (int iy = 0; iy < SizeX(); iy++)
+		{
+			if (Point(ix, iy).Changed)
+			{
+				result = true;
+				Point(ix, iy).Changed = false;
+			}
+		}
 
 	return result;
 }

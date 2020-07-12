@@ -1,8 +1,8 @@
 #include "XLagDynamicTerrainMapWindow.h"
 
 // #inhereddoc
-XLagDynamicTerrainMapWindow::XLagDynamicTerrainMapWindow(XLagDynamicTerrainMap *map, int width, int height)
-	:_fullMap(map), _width(width), _height(height), _offsetX(0), _offsetY(0)
+XLagDynamicTerrainMapWindow::XLagDynamicTerrainMapWindow(ITerrainMapAccessor *map, int off_x, int off_y, int width, int height)
+	:_fullMap(map), _width(width), _height(height), _offsetX(off_x), _offsetY(off_y)
 {
 	if (_fullMap == nullptr)
 	{
@@ -18,6 +18,11 @@ XLagDynamicTerrainMapWindow::XLagDynamicTerrainMapWindow(XLagDynamicTerrainMap *
 	{
 		throw std::exception();
 	}
+}
+
+std::shared_ptr<ITerrainMapAccessor> XLagDynamicTerrainMapWindow::CreateWindow(int const &x, int const &y, int const &sx, int const &sy)
+{
+	return std::shared_ptr<ITerrainMapAccessor>(new XLagDynamicTerrainMapWindow(_fullMap, x + _offsetX, y + _offsetY, sx, sy));
 }
 
 // #inhereddoc
@@ -52,4 +57,20 @@ const FVector XLagDynamicTerrainMapWindow::GetWorldPosition(XLagDynamicTerrainMa
 std::vector<XLagDynamicTerrainMapItem*> XLagDynamicTerrainMapWindow::GetFilteredItems(const IMapItemFilter& filter)
 {
 	return _fullMap->GetFilteredItems(filter);
+}
+
+bool XLagDynamicTerrainMapWindow::IsChanged()
+{
+	bool result = false;
+	for (int ix = 0; ix < SizeX(); ix++)
+		for (int iy = 0; iy < SizeX(); iy++)
+		{
+			if (Point(ix, iy).Changed)
+			{
+				result = true;
+				Point(ix, iy).Changed = false;
+			}
+		}
+
+	return result;
 }

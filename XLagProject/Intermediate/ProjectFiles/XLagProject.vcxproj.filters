@@ -172,6 +172,18 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBuilderman.h">
       <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCMiner.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMIDigGraundTask.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMinerTaskFactory.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Position\MinMaxLevelPlace.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\Position</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.cpp">
@@ -217,6 +229,9 @@
       <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBuilderman.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCMiner.cpp">
       <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClCompile>
   </ItemGroup>

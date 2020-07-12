@@ -100,8 +100,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	XLagDynamicTerrainMap* Map;
-	XLagDynamicTerrainMapWindow *CurrentMap;
+	std::shared_ptr<ITerrainMapAccessor> Map;
+	std::shared_ptr<ITerrainMapAccessor> CurrentMap;
 
 	void InitMap();
 	void InitGeometry();

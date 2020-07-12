@@ -107,6 +107,13 @@ void AXLagDynamicTerrainBase::BeginPlay()
 void AXLagDynamicTerrainBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (Map->IsChanged())
+	{
+		InitGeometry();
+	}
+
+
 	return;
 
 	//for (TObjectIterator<ACharacter> It; It; ++It)
@@ -189,16 +196,11 @@ void AXLagDynamicTerrainBase::InitializeLayers()
 
 void AXLagDynamicTerrainBase::InitMap()
 {
+	auto map = new XLagDynamicTerrainMap(FullMapSizeX, FullMapSizeY, Scale);
+	Map = std::shared_ptr<ITerrainMapAccessor>(map);
+	map->Initialize();
 
-	if (Map != nullptr)
-	{
-		delete Map;
-	}
-
-	Map = new XLagDynamicTerrainMap(FullMapSizeX, FullMapSizeY, Scale);
-	Map->Initialize();
-
-	CurrentMap = new XLagDynamicTerrainMapWindow(Map, WindowMapSizeX, WindowMapSizeY);
+	CurrentMap = Map->CreateWindow(0,0, WindowMapSizeX, WindowMapSizeY);
 
 	TerrainMapEditEditor editor(Map);
 

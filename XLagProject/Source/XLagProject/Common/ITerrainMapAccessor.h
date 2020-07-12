@@ -1,5 +1,5 @@
 #pragma once
-
+#include <memory>
 //TODO: заинтерфейсить XLagDynamicTerrainMapItem
 #include "../../XLagProject/XLagDynamicTerrain/XLagDynamicTerrainMapItem.h"
 #include "GetPositionEnum.h"
@@ -20,6 +20,9 @@ struct ITerrainMapAccessor
 	// Получает размер карты.
 	virtual const int MapLenght() const = 0;
 
+	// Создать окно.
+	virtual std::shared_ptr<ITerrainMapAccessor> CreateWindow(int const &x, int const &y, int const &sx, int const &sy) = 0;
+
 	// Получает точку по координате (x,y).
 	virtual XLagDynamicTerrainMapItem& Point(int const &x, int const &y) = 0;
 
@@ -35,4 +38,6 @@ struct ITerrainMapAccessor
 	virtual const FVector GetWorldPosition(XLagDynamicTerrainMapItem* item, GetPositionEnum flag) const = 0;
 
 	virtual std::vector<XLagDynamicTerrainMapItem*> GetFilteredItems(const IMapItemFilter& filter) = 0;
+
+	virtual bool IsChanged() = 0;
 };

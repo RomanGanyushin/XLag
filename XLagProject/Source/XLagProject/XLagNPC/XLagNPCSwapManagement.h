@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "XLagNPCWoodCutter.h"
 #include "XLagNPCBuilderman.h"
+#include "XLagNPCMiner.h"
 #include "XLagCuttableTreeBase.h"
 #include "XLagTimberStack.h"
 #include "../Common/ITerrainMapAccessor.h"
@@ -37,7 +38,7 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-	void SetMapAccessor(ITerrainMapAccessor *accessor) { MapAccessor = accessor; }
+	void SetMapAccessor(std::shared_ptr<ITerrainMapAccessor> accessor) { MapAccessor = accessor; }
 	void DoSwapPersons();
 	void DoSwapTrees();
 	void DoSwapTreeStack();
@@ -72,7 +73,7 @@ public:
 
 	// Количество дровосеков на старте игры. 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Builder Params")
-		int StartBuilderCount = 5;
+		int StartBuilderCount = 2;
 
 	// Амплитуда разброса роста (процент от норамльного роста).
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Builder Params")
@@ -81,6 +82,24 @@ public:
 	// Амплитуда разброма толщины (процент от норамльного роста).
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Builder Params")
 		int BuilderDeviationThicknessPercent = 10;
+
+// Свойства персонажа - шахтера.
+public:
+	// Шаблон дровосека.
+	UPROPERTY(EditAnywhere, Category = "Spawn Miner Params")
+		TSubclassOf<AXLagNPCMiner> MinerTemplate;
+
+	// Количество дровосеков на старте игры. 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Miner Params")
+		int StartMinerCount = 2;
+
+	// Амплитуда разброса роста (процент от норамльного роста).
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Miner Params")
+		int MinerDeviationHeightPercent = 30;
+
+	// Амплитуда разброма толщины (процент от норамльного роста).
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Miner Params")
+		int MinerDeviationThicknessPercent = 10;
 
 // Свойства высадки деревьев
 public:
@@ -103,13 +122,13 @@ public:
 
 public:
 
-	// Шаблон дровосека.
+	// Шаблон штабеля бревен.
 	UPROPERTY(EditAnywhere, Category = "Timber Stack Params")
 	TSubclassOf<AXLagTimberStack> TimberStackTemplate;
 	
 
 private:
-	ITerrainMapAccessor* MapAccessor;
+	std::shared_ptr<ITerrainMapAccessor> MapAccessor;
 	TArray<AXLagCuttableTreeBase*> SwapedTrees;
 	TArray<AXLagTimberStack*> SwapedTreeStacks;
 private:

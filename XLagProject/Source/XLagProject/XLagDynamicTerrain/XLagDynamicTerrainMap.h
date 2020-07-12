@@ -17,6 +17,8 @@ public:
 	const int MapLenght() const override { return _sizeX * _sizeY; }
 	const float Scale;
 
+	std::shared_ptr<ITerrainMapAccessor> CreateWindow(int const &x, int const &y, int const &sx, int const &sy) override;
+
     XLagDynamicTerrainMapItem& Point(int const &x, int const &y) override { return Map[x + y * SizeX()]; }
 	const XLagDynamicTerrainMapItem& PointConst(int const &x, int const &y) const override { return Map[x + y * SizeX()]; }
 	XLagDynamicTerrainMapItem& Point(int const &index) override { return Map[index]; }
@@ -29,6 +31,9 @@ public:
 
 	// #inhereddoc
 	std::vector<XLagDynamicTerrainMapItem*> GetFilteredItems(const IMapItemFilter& filter) override;
+
+	// #inhereddoc
+	bool IsChanged() override;
 
 private:
 	int _sizeX;

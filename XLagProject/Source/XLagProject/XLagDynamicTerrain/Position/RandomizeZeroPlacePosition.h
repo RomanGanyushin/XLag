@@ -5,7 +5,7 @@
 
 struct RandomizeZeroPlacePosition
 {
-	RandomizeZeroPlacePosition(ITerrainMapAccessor* accessor)
+	RandomizeZeroPlacePosition(std::shared_ptr<ITerrainMapAccessor> accessor)
 		:_accessor(accessor)
 	{
 	}
@@ -18,5 +18,5 @@ struct RandomizeZeroPlacePosition
 		return locator;
 	}
 
-	ITerrainMapAccessor* _accessor;
+	std::shared_ptr<ITerrainMapAccessor> _accessor;
 };

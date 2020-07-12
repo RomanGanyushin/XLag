@@ -1,6 +1,6 @@
 #include "XLagDynamicTerrainLayerGeometry.h"
 
-void XLagDynamicTerrainLayerGeometry::CreateFrom(ITerrainMapAccessor* map, int layerKind)
+void XLagDynamicTerrainLayerGeometry::CreateFrom(std::shared_ptr<ITerrainMapAccessor> map, int layerKind)
 {
 	Reset();
 
@@ -54,7 +54,7 @@ void XLagDynamicTerrainLayerGeometry::CreateFrom(ITerrainMapAccessor* map, int l
 		}
 }
 
-void XLagDynamicTerrainLayerGeometry::CreateTransFrom(ITerrainMapAccessor* map, int layerKind)
+void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMapAccessor> map, int layerKind)
 {
 	Reset();
 

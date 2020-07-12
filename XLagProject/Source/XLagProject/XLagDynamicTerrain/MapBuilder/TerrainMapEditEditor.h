@@ -4,8 +4,8 @@
 class TerrainMapEditEditor
 {
 public:
-	TerrainMapEditEditor(ITerrainMapAccessor *const accessor);
+	TerrainMapEditEditor(std::shared_ptr<ITerrainMapAccessor> accessor);
 	void FillByXY(ITerrainMapEditComponent *component);
 private:
-	ITerrainMapAccessor *const _accessor = nullptr;
+	std::shared_ptr<ITerrainMapAccessor>_accessor;
 };

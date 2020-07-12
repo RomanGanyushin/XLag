@@ -1,5 +1,4 @@
 #pragma once
-#include "XLagDynamicTerrainMap.h"
 #include "../Common/ITerrainMapAccessor.h"
 
 // Компонент оконного доступа к карте.
@@ -7,7 +6,7 @@ class XLagDynamicTerrainMapWindow : public ITerrainMapAccessor
 {
 private:
 	// Компонент полной карты.
-	XLagDynamicTerrainMap *_fullMap;
+	ITerrainMapAccessor *_fullMap;
 
 	// Ширина окна.
 	int _width;
@@ -23,7 +22,7 @@ private:
 
 public:
 	// Инициализрует новый экземпляр класса.
-	XLagDynamicTerrainMapWindow(XLagDynamicTerrainMap *map, int width, int height);
+	XLagDynamicTerrainMapWindow(ITerrainMapAccessor *map, int off_x, int off_y, int width, int height);
 
 	// #inhereddoc
 	const int SizeX() const override { return _width; }
@@ -33,6 +32,9 @@ public:
 
 	// #inhereddoc
 	const int MapLenght() const override { return _width * _height; }
+
+	// #inhereddoc
+	std::shared_ptr<ITerrainMapAccessor> CreateWindow(int const &x, int const &y, int const &sx, int const &sy) override;
 
 	// #inhereddoc
 	XLagDynamicTerrainMapItem& Point(int const &x, int const &y) override;
@@ -48,4 +50,6 @@ public:
 	const FVector GetWorldPosition(XLagDynamicTerrainMapItem* item, GetPositionEnum flag) const override;
 
 	std::vector<XLagDynamicTerrainMapItem*> GetFilteredItems(const IMapItemFilter& filter) override;
+
+	bool IsChanged() override;
 };
