@@ -31,7 +31,7 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Broaching event"))
 	void OnBroachingEvent(float Value);
 
-	UPROPERTY(EditAnywhere, Category = "Woodcutter Cutting")
-	bool  IsCuttingsss = false;;
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Woodcutter Cutting")
+	bool  IsCutting = false;;
 
 };

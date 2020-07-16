@@ -14,10 +14,10 @@ void AXLagNPCWoodCutter::DoCutTree(AXLagCuttableTreeBase *TargetTree)
 	TargetTree->Cut(1);
 	
 
-	if (IsCuttingsss)
+	if (IsCutting)
 		return;
 
-	IsCuttingsss = true;
+	IsCutting = true;
 
 
 	OnCuttingEvent(1.f);
@@ -27,7 +27,7 @@ void AXLagNPCWoodCutter::DoBroachTree(AXLagCuttableTreeBase *TargetTree)
 {
 	UE_LOG(LogTemp, Log, TEXT("Woodcutter broach the tree"));
 
-	IsCuttingsss = false;
+	IsCutting = false;
 	TargetTree->Broach(1);
 	OnBroachingEvent(1.f);
 }
