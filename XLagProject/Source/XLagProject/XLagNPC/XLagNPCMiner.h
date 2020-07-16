@@ -17,4 +17,5 @@ class XLAGPROJECT_API AXLagNPCMiner : public AXLagNPCBase
 
 public:
 	virtual void Dig(XLagDynamicTerrainMapItem& cell, float toLevel);
+	virtual void Pour(XLagDynamicTerrainMapItem& cell, float toLevel, TerrainElementEnum element);
 };

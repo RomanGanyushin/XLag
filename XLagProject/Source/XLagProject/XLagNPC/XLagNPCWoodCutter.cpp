@@ -12,12 +12,22 @@ void AXLagNPCWoodCutter::DoCutTree(AXLagCuttableTreeBase *TargetTree)
 {
 	UE_LOG(LogTemp, Log, TEXT("Woodcutter cut the tree"));
 	TargetTree->Cut(1);
+	
+
+	if (IsCuttingsss)
+		return;
+
+	IsCuttingsss = true;
+
+
 	OnCuttingEvent(1.f);
 }
 
 void AXLagNPCWoodCutter::DoBroachTree(AXLagCuttableTreeBase *TargetTree)
 {
 	UE_LOG(LogTemp, Log, TEXT("Woodcutter broach the tree"));
+
+	IsCuttingsss = false;
 	TargetTree->Broach(1);
 	OnBroachingEvent(1.f);
 }

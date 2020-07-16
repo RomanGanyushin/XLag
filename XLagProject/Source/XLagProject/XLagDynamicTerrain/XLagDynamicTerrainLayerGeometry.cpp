@@ -24,44 +24,44 @@ void XLagDynamicTerrainLayerGeometry::CreateFrom(std::shared_ptr<ITerrainMapAcce
 				continue;
 			}
 
-			auto fl = itemLevel00->Level; auto k = itemLevel00->LayerKind;
-			if (itemLevel10->Level > fl)
+			auto fl = itemLevel00->GetLevel(); auto k = itemLevel00->GetKind();
+		/*	if (itemLevel10->GetLevel() > fl)
 			{
-				fl = itemLevel10->Level;
-				k = itemLevel10->LayerKind;
+				fl = itemLevel10->GetLevel();
+				k = itemLevel10->GetKind();
 			}
-			if (itemLevel11->Level > fl)
+			if (itemLevel11->GetLevel() > fl)
 			{
-				fl = itemLevel11->Level;
-				k = itemLevel11->LayerKind;
+				fl = itemLevel11->GetLevel();
+				k = itemLevel11->GetKind();
 			}
 
-			if (itemLevel01->Level > fl)
+			if (itemLevel01->GetLevel() > fl)
 			{
-				fl = itemLevel01->Level;
-				k = itemLevel01->LayerKind;
-			}
+				fl = itemLevel01->GetLevel();
+				k = itemLevel01->GetKind();
+			}*/
 
 			if (k != layerKind)
 				continue;
 
 			AddQuadMesh(
-				FVector(100 * xIndex, 100 * yIndex, itemLevel00->Level),
-				FVector(100 * xIndex, 100 * (yIndex + 1), itemLevel01->Level),
-				FVector(100 * (xIndex + 1), 100 * (yIndex + 1), itemLevel11->Level),
-				FVector(100 * (xIndex + 1), 100 * yIndex, itemLevel10->Level),
+				FVector(100 * xIndex, 100 * yIndex, itemLevel00->GetLevel()),
+				FVector(100 * xIndex, 100 * (yIndex + 1), itemLevel01->GetLevel()),
+				FVector(100 * (xIndex + 1), 100 * (yIndex + 1), itemLevel11->GetLevel()),
+				FVector(100 * (xIndex + 1), 100 * yIndex, itemLevel10->GetLevel()),
 				triIndex);
 		}
 }
 
-void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMapAccessor> map, int layerKind)
+void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMapAccessor> map, int layerKind, int mainKind)
 {
 	Reset();
 
 	int32 triIndex = 0;
 
-	for (int xIndex = 0; xIndex < map->SizeX() - 1; xIndex++)
-		for (int yIndex = 0; yIndex < map->SizeY() - 1; yIndex++)
+	for (int xIndex = 1; xIndex < map->SizeX() - 1; xIndex++)
+		for (int yIndex = 1; yIndex < map->SizeY() - 1; yIndex++)
 		{
 			auto& item00 = map->Point(xIndex, yIndex);
 			auto& item10 = map->Point(xIndex + 1, yIndex);
@@ -78,45 +78,67 @@ void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMa
 				continue;
 			}
 
-			auto fl = itemLevel00->Level; auto k = itemLevel00->LayerKind;
-			if (itemLevel10->Level > fl)
+			auto fl = itemLevel00->GetLevel(); auto k = itemLevel00->GetKind();
+			/*if (itemLevel10->GetLevel() > fl)
 			{
-				fl = itemLevel10->Level;
-				k = itemLevel10->LayerKind;
+				fl = itemLevel10->GetLevel();
+				k = itemLevel10->GetKind();
 			}
-			if (itemLevel11->Level > fl)
+			if (itemLevel11->GetLevel() > fl)
 			{
-				fl = itemLevel11->Level;
-				k = itemLevel11->LayerKind;
-			}
-
-			if (itemLevel01->Level > fl)
-			{
-				fl = itemLevel01->Level;
-				k = itemLevel01->LayerKind;
+				fl = itemLevel11->GetLevel();
+				k = itemLevel11->GetKind();
 			}
 
+			if (itemLevel01->GetLevel() > fl)
+			{
+				fl = itemLevel01->GetLevel();
+				k = itemLevel01->GetKind();
+			}
+*/
 			if (k != layerKind)
 				continue;
 
 
 
-			AddQuadMesh(
-				FVector(100 * xIndex, 100 * yIndex, itemLevel00->Level),
-				FVector(100 * xIndex, 100 * (yIndex + 1), itemLevel01->Level),
-				FVector(100 * (xIndex + 1), 100 * (yIndex + 1), itemLevel11->Level),
-				FVector(100 * (xIndex + 1), 100 * yIndex, itemLevel10->Level),
+			AddQuadSMesh(
+				FVector(100 * xIndex, 100 * yIndex, itemLevel00->GetLevel()),
+				FVector(100 * xIndex, 100 * (yIndex + 1), itemLevel01->GetLevel()),
+				FVector(100 * (xIndex + 1), 100 * (yIndex + 1), itemLevel11->GetLevel()),
+				FVector(100 * (xIndex + 1), 100 * yIndex, itemLevel10->GetLevel()),
 				triIndex);
 
-			float a1 = itemLevel00->LayerKind == layerKind ? 1 : 0;
-			float a2 = itemLevel01->LayerKind == layerKind ? 1 : 0;
-			float a3 = itemLevel11->LayerKind == layerKind ? 1 : 0;
-			float a4 = itemLevel10->LayerKind == layerKind ? 1 : 0;
+			float a1 = 1;
+			float a2 = 1;
+			float a3 = 1;
+			float a4 = 1;
 
+			if (map->Point(xIndex - 1, yIndex).Get()->GetKind() == mainKind)
+			{
+				a1 = a2 = 0;
+			}
+
+
+			if (map->Point(xIndex, yIndex + 1).Get()->GetKind() == mainKind)
+			{
+				a2 = a3 = 0;
+			}
+
+			if (map->Point(xIndex + 1, yIndex).Get()->GetKind() == mainKind)
+			{
+				a3 = a4 = 0;
+			}
+
+			if (map->Point(xIndex, yIndex - 1).Get()->GetKind() == mainKind)
+			{
+				a4 = a1 = 0;
+			}
+
+			Colors.Add(FLinearColor(1, 1, 1, 1));		
 			Colors.Add(FLinearColor(a1, a1, a1, a1));
 			Colors.Add(FLinearColor(a2, a2, a2, a2));
 			Colors.Add(FLinearColor(a3, a3, a3, a3));
-			Colors.Add(FLinearColor(a4, a4, a4, a4));
+			Colors.Add(FLinearColor(a4, a4, a4, a4));			
 		}
 }
 
@@ -152,11 +174,53 @@ void XLagDynamicTerrainLayerGeometry::AddQuadMesh(FVector p1, FVector p2, FVecto
 	UVs.Add(FVector2D(vx2, vy2));
 	UVs.Add(FVector2D(vx3, vy3));
 	UVs.Add(FVector2D(vx4, vy4));
-	
-	/*UVs.Add(FVector2D(0.f, 0.f));
-	UVs.Add(FVector2D(0.f, 1.f));
-	UVs.Add(FVector2D(1.f, 1.f));
-	UVs.Add(FVector2D(1.f, 0.f));*/
+}
+
+void XLagDynamicTerrainLayerGeometry::AddQuadSMesh(FVector p1, FVector p2, FVector p3, FVector p4, int32& triIndex)
+{
+	auto center = (p1 + p2 + p3 + p4) / 4;
+
+	Vertices.Add(center);
+	Vertices.Add(p1);	Vertices.Add(p2);
+	Vertices.Add(p3);   Vertices.Add(p4);
+
+	Trinagles.Add(triIndex + 1);
+	Trinagles.Add(triIndex + 2);
+	Trinagles.Add(triIndex);
+	Trinagles.Add(triIndex + 2);
+	Trinagles.Add(triIndex + 3);
+	Trinagles.Add(triIndex);
+	Trinagles.Add(triIndex + 3);
+	Trinagles.Add(triIndex + 4);
+	Trinagles.Add(triIndex);
+	Trinagles.Add(triIndex + 4);
+	Trinagles.Add(triIndex + 1);
+	Trinagles.Add(triIndex);
+
+	triIndex +=5;
+
+	auto ThisNorm1 = FVector::CrossProduct(p3 - p1, p2 - p1);
+	auto ThisNorm2 = FVector::CrossProduct(p3 - p1, p2 - p1);
+	auto ThisNorm3 = FVector::CrossProduct(p4 - p1, p4 - p1);
+	auto ThisNorm4 = FVector::CrossProduct(p3 - p1, p2 - p1);
+ // TODO доделать
+
+	Normals.Add(ThisNorm1.GetSafeNormal());
+	Normals.Add(ThisNorm1.GetSafeNormal());
+	Normals.Add(ThisNorm2.GetSafeNormal());
+	Normals.Add(ThisNorm3.GetSafeNormal());
+	Normals.Add(ThisNorm4.GetSafeNormal());
+
+	auto vx1 = p1.X / 400.f; auto vy1 = p1.Y / 400.f;
+	auto vx2 = p2.X / 400.f; auto vy2 = p2.Y / 400.f;
+	auto vx3 = p3.X / 400.f; auto vy3 = p3.Y / 400.f;
+	auto vx4 = p4.X / 400.f; auto vy4 = p4.Y / 400.f;
+	auto vx = (vx1 + vx2 + vx3 + vx4) / 4; auto vy = (vy1 + vy2 + vy3 + vy4) / 4;
+	UVs.Add(FVector2D(vx, vy));
+	UVs.Add(FVector2D(vx1, vy1));
+	UVs.Add(FVector2D(vx2, vy2));
+	UVs.Add(FVector2D(vx3, vy3));
+	UVs.Add(FVector2D(vx4, vy4));
 }
 
 void XLagDynamicTerrainLayerGeometry::Reset()

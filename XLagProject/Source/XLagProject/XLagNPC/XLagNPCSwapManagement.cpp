@@ -70,11 +70,11 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 			auto scaleVector = CalculatePersonScale(MinerDeviationHeightPercent, MinerDeviationThicknessPercent);
 			miner->SetActorScale3D(scaleVector);
 
-			int posx = 10 + rand() % 90;
-			int posy = 10 + rand() % 90;
+			int posx = 10 + rand() % 80;
+			int posy = 10 + rand() % 80;
 
 			auto place = std::shared_ptr<ITerrainMapAccessor>(MapAccessor->CreateWindow(posx, posy, 5+rand()%5, 5+rand()%5));
-			miner->NpcTask = XLagMinerTaskFactory(place).AlignPlace();
+			miner->NpcTask = XLagMinerTaskFactory(place).AlignDigPlace(/*TerrainElementEnum::RockSandstone*/);
 		}
 	}
 

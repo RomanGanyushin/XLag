@@ -20,21 +20,36 @@ public:
 		start_y = std::max(0, iy - 1);
 		end_x = std::min(accessor->SizeX() -1, ix + 1);
 		end_y = std::min(accessor->SizeY() -1, iy + 1);
-	
-		for (auto x = start_x; x <= end_x; x++)
-		{
-			for (auto y = start_y; y <= end_y; y++)
+		
+		/*	for (auto x = start_x; x <= end_x; x++)
 			{
-				if (x == 0 && y == 0)
-					continue;
-
-				auto pointXY = accessor->PointConst(x, y).Get();
-				if (pointXY->LayerKind == _firstElement)
+				for (auto y = start_y; y <= end_y; y++)
 				{
-					return true;
+					if (x == 0 && y == 0)
+						continue;
+
+					auto pointXY = accessor->PointConst(x, y).Get();
+					if (pointXY->GetKind() == _firstElement)
+					{
+						return true;
+					}
 				}
 			}
-		}
+			return false;*/
+
+		if (accessor->PointConst(start_x, iy).Get()->GetKind() == _firstElement)
+			return true;
+
+
+		if (accessor->PointConst(end_x, iy).Get()->GetKind() == _firstElement)
+			return true;
+
+		if (accessor->PointConst(ix, start_y).Get()->GetKind() == _firstElement)
+			return true;
+
+		if (accessor->PointConst(ix, end_y).Get()->GetKind() == _firstElement)
+			return true;
+
 		return false;
 	}
 private:

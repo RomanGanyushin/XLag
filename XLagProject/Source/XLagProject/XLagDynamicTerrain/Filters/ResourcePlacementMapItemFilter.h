@@ -12,7 +12,7 @@ public:
 
 	const bool IsMatch(const XLagDynamicTerrainMapItem& item) const override
 	{
-		return item.Get()->LayerKind == _element 
+		return item.GetTopKind() == _element 
 			   && !item.IsZeroLocation
 			   && item.OnSurfaceResourceObjects == OnSurfaceResourceObjectsEnum::Empty;
 	}

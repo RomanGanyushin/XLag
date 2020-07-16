@@ -10,6 +10,19 @@ XLagDynamicTerrainMap::XLagDynamicTerrainMap(int sizeX, int sizeY, int scale)
 void XLagDynamicTerrainMap::Initialize()
 {
 	Map = new XLagDynamicTerrainMapItem[MapLenght()];
+
+	for (int x = 0; x <_sizeX; x++)
+		for (int y = 0; y < _sizeY; y++)
+		{
+			Point(x, y).B[0] = &Point(SafeX(x - 1), SafeY(y - 1));
+			Point(x, y).B[1] = &Point(SafeX(x - 1), SafeY(y));
+			Point(x, y).B[2] = &Point(SafeX(x - 1), SafeY(y + 1));
+			Point(x, y).B[3] = &Point(SafeX(x ), SafeY(y + 1));
+			Point(x, y).B[4] = &Point(SafeX(x + 1), SafeY(y + 1));
+			Point(x, y).B[5] = &Point(SafeX(x + 1), SafeY(y));
+			Point(x, y).B[6] = &Point(SafeX(x + 1), SafeY(y -1 ));
+			Point(x, y).B[7] = &Point(SafeX(x), SafeY(y + 1));
+		}
 }
 
 std::shared_ptr<ITerrainMapAccessor> XLagDynamicTerrainMap::CreateWindow(int const &x, int const &y, int const &sx, int const &sy)
@@ -19,10 +32,10 @@ std::shared_ptr<ITerrainMapAccessor> XLagDynamicTerrainMap::CreateWindow(int con
 
 const FVector XLagDynamicTerrainMap::GetWorldPosition(int const &x, int const &y, GetPositionEnum flag) const
 {
-	auto lev00 = PointConst(SafeX(x), SafeY(y)).Get()->Level;
-	auto lev01 = PointConst(SafeX(x), SafeY(y + 1)).Get()->Level;
-	auto lev11 = PointConst(SafeX(x + 1), SafeY(y + 1)).Get()->Level;
-	auto lev10 = PointConst(SafeX(x + 1), SafeY(y)).Get()->Level;
+	auto lev00 = PointConst(SafeX(x), SafeY(y)).GetTopLevel();
+	auto lev01 = PointConst(SafeX(x), SafeY(y + 1)).GetTopLevel();
+	auto lev11 = PointConst(SafeX(x + 1), SafeY(y + 1)).GetTopLevel();
+	auto lev10 = PointConst(SafeX(x + 1), SafeY(y)).GetTopLevel();
 
 	switch (flag)
 	{

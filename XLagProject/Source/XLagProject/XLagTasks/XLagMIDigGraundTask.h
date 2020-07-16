@@ -30,7 +30,7 @@ public:
 		XLagDynamicTerrainMapItem& mapCell = Map->Point(X, Y);
 		miner->Dig(mapCell, Level);
 
-		if (mapCell.Get()->Level - Level <= 1)
+		if (mapCell.GetTopLevel() - Level <= 1)
 		{
 			Completed = true;
 			UE_LOG(LogTemp, Log, TEXT("XLagMIDigGraundTask::Execute  Completed !!!!"));

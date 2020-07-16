@@ -92,6 +92,10 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* GroundGrassToRockBasalt;
 
+	/// Ground Gras To Rock Basalt component
+	UPROPERTY(VisibleAnywhere)
+		UProceduralMeshComponent* RockSandstoneToRockBasalt;
+
 	virtual void PostActorCreated() override;
 	virtual void PostLoad() override;
 

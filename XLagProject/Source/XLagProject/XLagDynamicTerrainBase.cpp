@@ -148,29 +148,6 @@ void AXLagDynamicTerrainBase::Tick(float DeltaTime)
 	if (avatar == nullptr)
 		return;
 
-	FVector toPlayer = avatar->GetActorLocation();
-	UE_LOG(LogTemp, Warning, TEXT("%f %f %f"), toPlayer.X, toPlayer.Y, toPlayer.Z);
-	auto mapCoordsX = (int)toPlayer.X / 100 + 50;
-	auto mapCoordsY = (int)toPlayer.Y / 100 + 50;
-
-	auto& level00 = Map->Point(mapCoordsX, mapCoordsY).Stack.back().Level;
-	auto& level01 = Map->Point(mapCoordsX, mapCoordsY+1).Stack.back().Level;
-	auto& level11 = Map->Point(mapCoordsX+1, mapCoordsY+1).Stack.back().Level;
-	auto& level10 = Map->Point(mapCoordsX+1, mapCoordsY).Stack.back().Level;
-	
-	auto lmin = std::min(std::min(level00, level01), std::min(level11, level10));
-	auto lmax = std::max(std::max(level00, level01), std::max(level11, level10));
-	auto ldelta = lmax - lmin;
-	auto lcut = std::min(ldelta, 1.f);
-	
-	level00 = std::max(level00 - lcut, lmin) - 1;
-	level01 = std::max(level01 - lcut, lmin) - 1;
-	level11 = std::max(level11 - lcut, lmin) - 1;
-	level10 = std::max(level10 - lcut, lmin) - 1;
-
-	UE_LOG(LogTemp, Warning, TEXT("Level %f"), level00);
-	InitGeometry();
-	
 }
 
 void AXLagDynamicTerrainBase::InitializeLayers()
@@ -192,6 +169,9 @@ void AXLagDynamicTerrainBase::InitializeLayers()
 
 	GroundGrassToRockBasalt = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GroundGrassToRockBasalt"));
 	GroundGrassToRockBasalt->SetupAttachment(TerrainScene);
+
+	RockSandstoneToRockBasalt = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("RockSandstoneToRockBasalt"));
+	RockSandstoneToRockBasalt->SetupAttachment(TerrainScene);
 }
 
 void AXLagDynamicTerrainBase::InitMap()
@@ -243,6 +223,7 @@ void AXLagDynamicTerrainBase::InitMap()
 	);
 	editor.FillByXY(&makeTransitionGrassToSandstone);
 
+
 	//// Tree
 	auto possiblePlace = Map->GetFilteredItems(ResourcePlacementMapItemFilter(TerrainElementEnum::GraundGrass));
 	int placeIndexCount = possiblePlace.size();
@@ -286,11 +267,14 @@ void AXLagDynamicTerrainBase::InitGeometry()
 	_geometry.CreateFrom(Map, TerrainElementEnum::RockBasalt);
 	GenerateLayerGeometry(RockBasalt, _geometry);
 
-	_geometry.CreateTransFrom(Map, TerrainElementEnum::GroundGrassToRockSandstoneTrans);
+	_geometry.CreateTransFrom(Map, TerrainElementEnum::GroundGrassToRockSandstoneTrans, TerrainElementEnum::GraundGrass);
 	GenerateLayerGeometry(GroundGrassToRockSandstone, _geometry);
 
-	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToRockBasaltTrans);
+	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToRockBasaltTrans, TerrainElementEnum::GraundGrass);
 	GenerateLayerGeometry(GroundGrassToRockBasalt, _geometry);
+
+	_geometry.CreateTransFrom(Map, TerrainElementEnum::RockSandstoneToRockBasaltTrans, TerrainElementEnum::RockSandstone);
+	GenerateLayerGeometry(RockSandstoneToRockBasalt, _geometry);
 }
 
 void AXLagDynamicTerrainBase::GenerateLayerGeometry(UProceduralMeshComponent* Component, XLagDynamicTerrainLayerGeometry& geometry)
@@ -303,7 +287,7 @@ void AXLagDynamicTerrainBase::AddGreader()
 {
 	return;
 	float x = 5000; float y = 5000;
-	float z = Map->Point(50, 50).Get()->Level + 10.f;
+	float z = Map->Point(50, 50).Get()->GetLevel() + 10.f;
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereVisualAsset(TEXT("/Game/excavator/greider"));
 	

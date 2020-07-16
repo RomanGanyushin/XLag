@@ -184,6 +184,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Position\MinMaxLevelPlace.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\Position</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMIPourGraundTask.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.cpp">

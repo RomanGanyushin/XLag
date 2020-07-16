@@ -11,11 +11,11 @@ void TerrainElementTranformComponent::DoEdit(ITerrainMapAccessor *const accessor
 	if (!IsCondition(accessor, ix, iy))
 		return;
 
-	accessor->Point(ix, iy).Stack.back().LayerKind = _toElement;
+	accessor->Point(ix, iy).ChangeTopKind(_toElement);
 }
 
 bool TerrainElementTranformComponent::IsCondition(ITerrainMapAccessor *const accessor, const int& ix, const int& iy)
 {
-	return (_fromElement == -1 || accessor->Point(ix, iy).Get()->LayerKind == _fromElement)
+	return (_fromElement == -1 || accessor->Point(ix, iy).GetTopKind() ==  _fromElement)
 		&& _condition.IsCondition(accessor, ix, iy);
 }

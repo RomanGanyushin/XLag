@@ -25,5 +25,5 @@ void PerlinFillerMapEditComponent::DoEdit(ITerrainMapAccessor *const accessor, c
 		(float)ix / _settings.XDevider, 
 		(float)iy / _settings.YDevider, _settings.Octaves) * _settings.Amplitude;
 
-	accessor->Point(ix, iy).Stack.push_back(TerrainMapItemLevel(level, _element));
+	accessor->Point(ix, iy).AddLayer(TerrainMapItemLevel(level, _element));
 }

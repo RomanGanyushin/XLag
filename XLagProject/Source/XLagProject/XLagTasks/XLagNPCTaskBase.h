@@ -2,7 +2,7 @@
 #include <queue>
 #include "memory"
 
-#define ENABLE_TASK_LOG
+//#define ENABLE_TASK_LOG
 
 class XLagNPCTaskBase
 {

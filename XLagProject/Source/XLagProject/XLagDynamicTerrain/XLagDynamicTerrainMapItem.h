@@ -1,26 +1,46 @@
 #pragma once
 #include <vector>
 #include "../../XLagProject//Common/OnSurfaceResourceObjectsEnum.h"
+#include "MapBuilder\TerrainElementEnum.h"
 
-struct TerrainMapItemLevel
+class TerrainMapItemLevel
 {
+public:
 	TerrainMapItemLevel(float level, int layerKind)
-		:Level(level), LayerKind(layerKind)
+		:_level(level), _layerKind(layerKind)
 	{
 	}
 
-	float Level;
-	int LayerKind;
+	inline bool IsLayerKind(const int layerKind) const { return layerKind == _layerKind; }
+	inline const float GetLevel() const { return _level; }
+	inline void ChangeLevel(const float& newLevel) { _level = newLevel; }
+	inline const int GetKind() const { return _layerKind; }
+	inline void ChangeKind(const int& newKind) { _layerKind = newKind; }
+
+private:
+	float _level;
+	int _layerKind;
 };
 
 class XLagDynamicTerrainMapItem
 {
-public:
+private:
 	std::vector<TerrainMapItemLevel>  Stack;
+
+public:
 	bool IsZeroLocation = false;
 	bool Changed = false;
 
 	OnSurfaceResourceObjectsEnum OnSurfaceResourceObjects = OnSurfaceResourceObjectsEnum::Empty;
+
+	void AddLayer(TerrainMapItemLevel item)
+	{
+		auto trd = item;
+		trd.ChangeKind(3);
+		trd.ChangeLevel(trd.GetLevel() - 100);
+		Stack.push_back(trd);
+		Stack.push_back(item);
+	}
 
 	const TerrainMapItemLevel* GetForLayerKind(int layerKind) const
 	{
@@ -28,7 +48,7 @@ public:
 			return nullptr;
 
 		auto& top = Stack.back();
-		if (top.LayerKind != layerKind)
+		if (!top.IsLayerKind(layerKind))
 			return nullptr;
 	
 		return &top;
@@ -42,9 +62,104 @@ public:
 		return &Stack.back();
 	}
 
+	const float GetTopLevel() const
+	{
+		if (Stack.empty())
+			return -10000.f;
+
+		return Stack.back().GetLevel();
+	}
+
+	const int GetTopKind() const
+	{
+		if (Stack.empty())
+			return -1;
+
+		return Stack.back().GetKind();
+	}
+
+	void ChangeTopKind(int newKind)
+	{
+		if (Stack.empty())
+			return;
+
+		Stack.back().ChangeKind(newKind);
+	}
+
+	void ChangeAllKind(int newKind)
+	{
+		if (Stack.empty())
+			return;
+
+		for (auto& it : Stack)
+			it.ChangeKind(newKind);
+	}
+
+
+	void MoveTopLevelTo(float level)
+	{
+		if (Stack.empty())
+			return;
+
+		auto delta = level - GetTopLevel();
+		for (auto &it : Stack)
+		{
+			it.ChangeLevel(it.GetLevel() + delta);
+		}
+	}
+
 	void Dig(float value)
 	{
-		Stack.back().Level -= value;
+		if (Stack.empty())
+			return;
+
+		auto currentLevel = Stack.back().GetLevel();
+		auto newLevel = currentLevel - value;
+
+		//Снимаем слой если необходимо:
+		while ((Stack.size() > 1) && (Stack[Stack.size() - 2].GetLevel() > newLevel))
+		{
+			UE_LOG(LogTemp, Log, TEXT(">>>>>>>>>>>>>> Delete layer >>>>>>>>>>>>>>>>>>>>>>>>>>>>"));
+			Stack.pop_back();
+		}
+
+		auto element = GetTopKind();
+
+		for (int i = 0; i < 8; i++)
+			if (B[i] != nullptr && B[i]->GetTopKind() != element)
+			{
+				B[i]->ChangeTopKind(TransitionTerrainElementCatalog::For((TerrainElementEnum)B[i]->GetTopKind(), (TerrainElementEnum)element));
+			}
+	
+		Stack.back().ChangeLevel(newLevel);
+
+		Changed = true;
+	}
+
+	void Pour(float value, TerrainElementEnum element)
+	{
+		if (Stack.empty())
+			return;
+
+		auto currentLevel = Stack.back().GetLevel();
+		auto newLevel = currentLevel + value;
+
+		////Добавляем слой если необходимо:
+		if (GetTopKind() != element)
+		{
+			Stack.push_back(TerrainMapItemLevel(newLevel, element));
+		}
+		else
+		{
+			for (int i=0; i< 8; i++)
+			if (B[i] != nullptr && B[i]->GetTopKind() != element)
+			{
+				B[i]->ChangeTopKind(TransitionTerrainElementCatalog::For((TerrainElementEnum)B[i]->GetTopKind(), element));
+			}
+			
+			Stack.back().ChangeLevel(newLevel);
+		}
+		
 		Changed = true;
 	}
 
@@ -52,4 +167,6 @@ public:
 	{
 		return  OnSurfaceResourceObjects == type;
 	}
+
+	XLagDynamicTerrainMapItem* B[8];
 };

@@ -13,7 +13,7 @@ public:
 
 	const bool IsCondition(const ITerrainMapAccessor *const accessor, const int& ix, const int& iy) const
 	{
-		return accessor->PointConst(ix,iy).Get()->Level >= _height;
+		return accessor->PointConst(ix,iy).GetTopLevel() >= _height;
 	}
 private:
 	const int _height;
