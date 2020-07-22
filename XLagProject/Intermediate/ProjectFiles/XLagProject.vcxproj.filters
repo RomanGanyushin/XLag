@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\XLagProject.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{F461BBF8-9340-46F8-8043-BA2193379D7C}</UniqueIdentifier>
+      <UniqueIdentifier>{93C9ADAF-86E4-4C43-BDFA-65829EA30EB3}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\XLagProject.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{51B431B2-C758-44E5-88B7-666A2E5D0649}</UniqueIdentifier>
+      <UniqueIdentifier>{C9BEB5A5-0506-488F-88A0-40EE10CDA11F}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,8 +30,14 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\XLagProject">
-      <UniqueIdentifier>{1B35A53E-2585-4B9F-BB63-1A76B51DA53F}</UniqueIdentifier>
+      <UniqueIdentifier>{9EE5F781-CA6B-411E-BF9C-7F4F7B7D34CD}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.cpp">
+      <Filter>Source\XLagProject</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.h">
+      <Filter>Source\XLagProject</Filter>
+    </ClInclude>
     <None Include="..\..\Source\XLagProject\XLagProject.Build.cs">
       <Filter>Source\XLagProject</Filter>
     </None>
@@ -53,227 +59,206 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagProjectGameMode.h">
       <Filter>Source\XLagProject</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.h">
-      <Filter>Source\XLagProject</Filter>
+    <Filter Include="Source\XLagProject\Common">
+      <UniqueIdentifier>{667C9F73-BE0D-4E92-BD16-EF0A8D2A9C32}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\XLagProject\Common\GetPositionEnum.h">
+      <Filter>Source\XLagProject\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMap.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItem.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapWindow.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\ITerrainMapEditComponent.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainLayerGeometry.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\TerrainElementEnum.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\TerrainMapEditEditor.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin2DAlgorithm.hpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditSettings.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\ITerrainElementTransofmCondition.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTranformComponent.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransformNeighbourCondition.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransofmBelowCondition.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransofmHigherCondition.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBase.h">
-      <Filter>Source\XLagProject\XLagNPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCSwapManagement.h">
-      <Filter>Source\XLagProject\XLagNPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagCuttableTreeBase.h">
-      <Filter>Source\XLagProject\XLagNPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCWoodCutter.h">
-      <Filter>Source\XLagProject\XLagNPC</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\Common\OnSurfaceResourceObjectsEnum.h">
+    <ClInclude Include="..\..\Source\XLagProject\Common\IMapItemFilter.h">
       <Filter>Source\XLagProject\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\Common\ITerrainMapAccessor.h">
       <Filter>Source\XLagProject\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\Common\GetPositionEnum.h">
+    <ClInclude Include="..\..\Source\XLagProject\Common\OnSurfaceResourceObjectsEnum.h">
       <Filter>Source\XLagProject\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\AligmentEditComponent.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Modify</Filter>
+    <Filter Include="Source\XLagProject\XLagDynamicTerrain">
+      <UniqueIdentifier>{3EBA671E-C8AE-44B5-B0B2-A352F0A1E532}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainLayerGeometry.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainLayerGeometry.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\AligmentEditComponentSettings.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Modify</Filter>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMap.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMap.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\Common\IMapItemFilter.h">
-      <Filter>Source\XLagProject\Common</Filter>
+    <None Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapFiller.hpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItem.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItem.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Filters\ZeroPlaceMapItemFilter.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\Filters</Filter>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapWindow.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapWindow.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Position\RandomizeZeroPlacePosition.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\Position</Filter>
-    </ClInclude>
+    <Filter Include="Source\XLagProject\XLagDynamicTerrain\Filters">
+      <UniqueIdentifier>{B7B7E60D-95E0-469F-BCB7-4E329B63C863}</UniqueIdentifier>
+    </Filter>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Filters\ResourcePlacementMapItemFilter.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\Filters</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Filters\SurfaceResourceMapItemFilter.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\Filters</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagNPCTaskBase.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Filters\ZeroPlaceMapItemFilter.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\Filters</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWoodCutterTaskFactory.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
+    <Filter Include="Source\XLagProject\XLagDynamicTerrain\MapBuilder">
+      <UniqueIdentifier>{C827CD7D-F5C6-408B-B6F6-0E63F06AF5E5}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\ITerrainMapEditComponent.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagNPCTaskMoveTo.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\TerrainElementEnum.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCCutTreeTask.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\TerrainMapEditEditor.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\TerrainMapEditEditor.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCBroachTreeTask.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
+    <Filter Include="Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components">
+      <UniqueIdentifier>{C8EA903F-5F88-4C07-8209-E4807EAA5D2B}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\AligmentEditComponent.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\AligmentEditComponent.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCGetTreeTask.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\AligmentEditComponentSettings.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagTimberStack.h">
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\ITerrainElementTransofmCondition.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+    </ClInclude>
+    <None Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin2DAlgorithm.hpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditSettings.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTranformComponent.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTranformComponent.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransformNeighbourCondition.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransofmBelowCondition.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransofmHigherCondition.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
+    </ClInclude>
+    <Filter Include="Source\XLagProject\XLagDynamicTerrain\Position">
+      <UniqueIdentifier>{8A7B8DC1-D103-4EE2-90B3-001D09906252}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Position\MinMaxLevelPlace.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\Position</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Position\RandomizeZeroPlacePosition.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\Position</Filter>
+    </ClInclude>
+    <Filter Include="Source\XLagProject\XLagNPC">
+      <UniqueIdentifier>{EABCC04D-B568-41F6-85E2-4495B9E3FD67}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagCuttableTreeBase.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagCuttableTreeBase.h">
       <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCPutTreeTask.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBase.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBase.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBuilderman.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBuilderman.h">
       <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCMiner.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCMiner.h">
       <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCSwapManagement.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCSwapManagement.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCWoodCutter.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCWoodCutter.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagTimberStack.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagTimberStack.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
+    <Filter Include="Source\XLagProject\XLagTasks">
+      <UniqueIdentifier>{CC12076C-F8AC-41A2-9440-100585204368}</UniqueIdentifier>
+    </Filter>
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMIDigGraundTask.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMinerTaskFactory.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Position\MinMaxLevelPlace.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\Position</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMIPourGraundTask.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.cpp">
-      <Filter>Source\XLagProject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMap.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItem.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapWindow.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainLayerGeometry.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\TerrainMapEditEditor.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\TerrainElementTranformComponent.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBase.cpp">
-      <Filter>Source\XLagProject\XLagNPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCSwapManagement.cpp">
-      <Filter>Source\XLagProject\XLagNPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagCuttableTreeBase.cpp">
-      <Filter>Source\XLagProject\XLagNPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCWoodCutter.cpp">
-      <Filter>Source\XLagProject\XLagNPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\AligmentEditComponent.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Modify</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagTimberStack.cpp">
-      <Filter>Source\XLagProject\XLagNPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBuilderman.cpp">
-      <Filter>Source\XLagProject\XLagNPC</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCMiner.cpp">
-      <Filter>Source\XLagProject\XLagNPC</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Source\XLagProject\XLagDynamicTerrain">
-      <UniqueIdentifier>{2a9b54dc-105f-455c-b9b1-cc0260ca86db}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\XLagProject\XLagDynamicTerrain\MapBuilder">
-      <UniqueIdentifier>{c009276e-f0f7-4c60-90d7-ddf882f3a9c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\XLagProject\XLagDynamicTerrain\GeometryBuilder">
-      <UniqueIdentifier>{1b79b2a0-1a85-4762-8e42-5d0881275c8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components">
-      <UniqueIdentifier>{672b2938-c030-42ef-8083-49d2738cca80}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin">
-      <UniqueIdentifier>{102ccef3-66e7-41a0-a3a2-9f5ae2550b60}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Transform">
-      <UniqueIdentifier>{eb6dda0b-71bb-45ef-8949-ceae10827ec6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Modify">
-      <UniqueIdentifier>{a9ffbd65-cfbb-4a87-9557-5d4b0cfea863}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\XLagProject\XLagNPC">
-      <UniqueIdentifier>{6fb0f7af-c2f7-4e10-aa8b-7ba56562054f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\XLagProject\Common">
-      <UniqueIdentifier>{d45eae99-d90b-42a8-af56-b503277885da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\XLagProject\XLagDynamicTerrain\Filters">
-      <UniqueIdentifier>{21cec524-fd43-4ed9-81c3-b4c79432db76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\XLagProject\XLagDynamicTerrain\Position">
-      <UniqueIdentifier>{1e8ab0c4-174a-4281-8b4d-b7b800d41cad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\XLagProject\XLagTasks">
-      <UniqueIdentifier>{04a518e7-1861-4f77-8c4c-c18ec6f1afc7}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagNPCTaskBase.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagNPCTaskMoveTo.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCBroachTreeTask.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCCutTreeTask.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCGetTreeTask.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCPutTreeTask.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWoodCutterTaskFactory.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
