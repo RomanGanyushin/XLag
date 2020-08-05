@@ -10,14 +10,14 @@ AXLagProjectGameMode::AXLagProjectGameMode()
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/ThirdPersonCPP/Blueprints/ThirdPersonCharacter"));
 	if (PlayerPawnBPClass.Class != NULL)
 	{
-		DefaultPawnClass = PlayerPawnBPClass.Class;
-		//DefaultPawnClass = nullptr;
+		//DefaultPawnClass = PlayerPawnBPClass.Class;
+		DefaultPawnClass = nullptr;
 		
 	}
 	// устанавливаем контроллер персонажа
-	//static ConstructorHelpers::FClassFinder<APlayerController> ThirdPersonController(TEXT("/Game/ThirdPersonCPP/Blueprints/ThirdPersonController"));
-	//if (ThirdPersonController.Class != NULL)
-	//{
-	//	PlayerControllerClass = ThirdPersonController.Class;
-//	}
+	static ConstructorHelpers::FClassFinder<APlayerController> ThirdPersonController(TEXT("/Game/ThirdPersonCPP/Blueprints/ThirdPersonController"));
+	if (ThirdPersonController.Class != NULL)
+	{
+		PlayerControllerClass = ThirdPersonController.Class;
+	}
 }
