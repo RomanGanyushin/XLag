@@ -35,7 +35,7 @@ public:
 
 		toMove.Normalize();
 
-		npc->AddMovementInput(toMove, DeltaTime * 10);
+		npc->AddMovementInput(toMove, 10);
 		auto rotator = toMove.Rotation();
 		rotator.Pitch = 0; // 0 off the pitch 
 
