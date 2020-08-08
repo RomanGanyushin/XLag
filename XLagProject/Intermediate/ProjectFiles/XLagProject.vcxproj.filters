@@ -175,16 +175,19 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCMiner.h">
       <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMIDigGraundTask.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMinerTaskFactory.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Position\MinMaxLevelPlace.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\Position</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMIPourGraundTask.h">
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagBuilderTaskFactory.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagBlDigGraundTask.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagBlPourGraundTask.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
   </ItemGroup>

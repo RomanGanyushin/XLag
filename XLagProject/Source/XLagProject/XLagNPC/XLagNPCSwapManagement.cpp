@@ -8,6 +8,7 @@
 // Для отладки
 #include "../XLagTasks/XLagWoodCutterTaskFactory.h"
 #include "../XLagTasks/XLagMinerTaskFactory.h"
+#include "../XLagTasks/XLagBuilderTaskFactory.h"
 
 // Sets default values
 AXLagNPCSwapManagement::AXLagNPCSwapManagement()
@@ -54,6 +55,8 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 
 			auto scaleVector = CalculatePersonScale(BuilderDeviationHeightPercent, BuilderDeviationThicknessPercent);
 			builder->SetActorScale3D(scaleVector);
+
+			Test_AttachTask_Dig(builder, i);
 		}
 	}
 
@@ -68,9 +71,7 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 				continue;
 
 			auto scaleVector = CalculatePersonScale(MinerDeviationHeightPercent, MinerDeviationThicknessPercent);
-			miner->SetActorScale3D(scaleVector);
-
-			Test_AttachTask_Dig(miner, i);
+			miner->SetActorScale3D(scaleVector);	
 		}
 	}
 
@@ -88,7 +89,7 @@ void AXLagNPCSwapManagement::Test_AttachTask_CutTrees(AXLagNPCWoodCutter *woodcu
 	}
 }
 
-void AXLagNPCSwapManagement::Test_AttachTask_Dig(AXLagNPCMiner *miner , int index)
+void AXLagNPCSwapManagement::Test_AttachTask_Dig(AXLagNPCBuilderman *builder , int index)
 {
 	int posx = 10 + rand() % 80;
 	int posy = 10 + rand() % 80;
@@ -96,12 +97,25 @@ void AXLagNPCSwapManagement::Test_AttachTask_Dig(AXLagNPCMiner *miner , int inde
 	auto place = std::shared_ptr<ITerrainMapAccessor>(MapAccessor->CreateWindow(posx, posy, 10, 10));
 
 	auto task = new XLagNPCTaskBase;
-	//task->SubTasks.push(XLagMinerTaskFactory(place).AlignDigPlace());
-	//task->SubTasks.push(XLagMinerTaskFactory(place).DigPlace(500));
-	task->SubTasks.push(XLagMinerTaskFactory(place).CleanLayerPlace());
 
-	miner->NpcTask = std::shared_ptr<XLagNPCTaskBase>(task);
-	//miner->NpcTask = XLagMinerTaskFactory(place).AlignDigPlace(/*TerrainElementEnum::RockSandstone*/);
+	if (index % 4 == 0)
+	{
+		task->SubTasks.push(XLagBuilderTaskFactory(place).CleanLayerPlace());
+	}
+	else if (index % 4 == 1)
+	{
+		task->SubTasks.push(XLagBuilderTaskFactory(place).AlignDigPlace());
+	}
+	else if (index % 4 == 2)
+	{
+		task->SubTasks.push(XLagBuilderTaskFactory(place).AlignPourPlace(TerrainElementEnum::RockSandstone));
+	}
+	else if (index % 4 == 3)
+	{
+		task->SubTasks.push(XLagBuilderTaskFactory(place).DigPlace(300));	
+	}
+
+	builder->NpcTask = std::shared_ptr<XLagNPCTaskBase>(task);
 }
 
 void AXLagNPCSwapManagement::DoSwapTrees()

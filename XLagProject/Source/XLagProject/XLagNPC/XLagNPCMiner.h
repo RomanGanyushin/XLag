@@ -15,7 +15,4 @@ class XLAGPROJECT_API AXLagNPCMiner : public AXLagNPCBase
 {
 	GENERATED_BODY()
 
-public:
-	virtual void Dig(XLagDynamicTerrainMapItem& cell, float toLevel, bool keepTopLayer);
-	virtual void Pour(XLagDynamicTerrainMapItem& cell, float toLevel, TerrainElementEnum element);
 };

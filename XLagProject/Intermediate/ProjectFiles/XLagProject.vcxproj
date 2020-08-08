@@ -276,9 +276,10 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBuilderman.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCMiner.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagTimberStack.h" />
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMIDigGraundTask.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagBuilderTaskFactory.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagBlDigGraundTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMinerTaskFactory.h" />
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMIPourGraundTask.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagBlPourGraundTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagNPCTaskBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagNPCTaskMoveTo.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCBroachTreeTask.h" />
