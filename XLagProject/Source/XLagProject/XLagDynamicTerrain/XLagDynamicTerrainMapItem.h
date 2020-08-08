@@ -108,7 +108,16 @@ public:
 		}
 	}
 
-	void Dig(float value)
+	const float GetHeghtTopLevel() const
+	{
+		if (Stack.size() < 2)
+			return 100000;
+
+		return Stack[Stack.size() - 1].GetLevel() - Stack[Stack.size() - 2].GetLevel();
+	}
+
+
+	void Dig(float value, bool keepTopLayer)
 	{
 		if (Stack.empty())
 			return;
@@ -117,20 +126,34 @@ public:
 		auto newLevel = currentLevel - value;
 
 		//Снимаем слой если необходимо:
-		while ((Stack.size() > 1) && (Stack[Stack.size() - 2].GetLevel() > newLevel))
+		if (!keepTopLayer)
 		{
-			UE_LOG(LogTemp, Log, TEXT(">>>>>>>>>>>>>> Delete layer >>>>>>>>>>>>>>>>>>>>>>>>>>>>"));
-			Stack.pop_back();
+			while ((Stack.size() > 1) && (Stack[Stack.size() - 2].GetLevel() > newLevel))
+			{
+				UE_LOG(LogTemp, Log, TEXT(">>>>>>>>>>>>>> Delete layer >>>>>>>>>>>>>>>>>>>>>>>>>>>>"));
+				Stack.pop_back();
+			}
+
+			auto element = GetTopKind();
+
+			for (int i = 0; i < 8; i++)
+				if (B[i] != nullptr && B[i]->GetTopKind() != element)
+				{
+					B[i]->ChangeTopKind(TransitionTerrainElementCatalog::For((TerrainElementEnum)B[i]->GetTopKind(), (TerrainElementEnum)element));
+				}
+		}
+		else
+		{
+			if (Stack.size() >= 2)
+			{
+				newLevel = Stack[Stack.size() -2 ].GetLevel() + 0.05;
+			}
+			else
+			{
+				return;
+			}		
 		}
 
-		auto element = GetTopKind();
-
-		for (int i = 0; i < 8; i++)
-			if (B[i] != nullptr && B[i]->GetTopKind() != element)
-			{
-				B[i]->ChangeTopKind(TransitionTerrainElementCatalog::For((TerrainElementEnum)B[i]->GetTopKind(), (TerrainElementEnum)element));
-			}
-	
 		Stack.back().ChangeLevel(newLevel);
 
 		Changed = true;

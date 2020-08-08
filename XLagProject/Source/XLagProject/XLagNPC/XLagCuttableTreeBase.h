@@ -86,7 +86,7 @@ public:
 
 
 protected:
-	int Sustainability = 1000;
+	int Sustainability = 100;
 
 	UStaticMeshComponent *AliveTree;
 	UStaticMesh *TimberObject;

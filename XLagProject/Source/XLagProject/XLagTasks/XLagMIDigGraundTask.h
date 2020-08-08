@@ -7,8 +7,8 @@
 class XLagMIDigGraundTask : public XLagNPCTaskBase
 {
 public:
-	XLagMIDigGraundTask(std::shared_ptr<ITerrainMapAccessor> map, int x, int y, float level) 
-		:Map(map), X(x), Y(y), Level(level)
+	XLagMIDigGraundTask(std::shared_ptr<ITerrainMapAccessor> map, int x, int y, float level, bool keepTopLayer)
+		:Map(map), X(x), Y(y), Level(level), KeepTopLayer(keepTopLayer)
 	{
 #ifdef ENABLE_TASK_LOG
 		UE_LOG(LogTemp, Log, TEXT("XLagMIDigGraundTask"));
@@ -28,7 +28,7 @@ public:
 		}
 
 		XLagDynamicTerrainMapItem& mapCell = Map->Point(X, Y);
-		miner->Dig(mapCell, Level);
+		miner->Dig(mapCell, Level, KeepTopLayer);
 
 		if (mapCell.GetTopLevel() - Level <= 1)
 		{
@@ -45,4 +45,5 @@ private:
 	int X;
 	int Y;
 	float Level;
+	bool KeepTopLayer;
 };

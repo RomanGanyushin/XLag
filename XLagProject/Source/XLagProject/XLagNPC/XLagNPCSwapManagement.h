@@ -136,4 +136,5 @@ private:
 
 private:
 	void Test_AttachTask_CutTrees(AXLagNPCWoodCutter *woodcutter, int index);
+	void Test_AttachTask_Dig(AXLagNPCMiner *miner, int index);
 };

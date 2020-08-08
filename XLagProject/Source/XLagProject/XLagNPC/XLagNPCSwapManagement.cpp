@@ -70,11 +70,7 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 			auto scaleVector = CalculatePersonScale(MinerDeviationHeightPercent, MinerDeviationThicknessPercent);
 			miner->SetActorScale3D(scaleVector);
 
-			int posx = 10 + rand() % 80;
-			int posy = 10 + rand() % 80;
-
-			auto place = std::shared_ptr<ITerrainMapAccessor>(MapAccessor->CreateWindow(posx, posy, 5+rand()%5, 5+rand()%5));
-			miner->NpcTask = XLagMinerTaskFactory(place).AlignDigPlace(/*TerrainElementEnum::RockSandstone*/);
+			Test_AttachTask_Dig(miner, i);
 		}
 	}
 
@@ -90,6 +86,22 @@ void AXLagNPCSwapManagement::Test_AttachTask_CutTrees(AXLagNPCWoodCutter *woodcu
 
 		woodcutter->NpcTask = std::shared_ptr<XLagNPCTaskBase>(task);
 	}
+}
+
+void AXLagNPCSwapManagement::Test_AttachTask_Dig(AXLagNPCMiner *miner , int index)
+{
+	int posx = 10 + rand() % 80;
+	int posy = 10 + rand() % 80;
+
+	auto place = std::shared_ptr<ITerrainMapAccessor>(MapAccessor->CreateWindow(posx, posy, 10, 10));
+
+	auto task = new XLagNPCTaskBase;
+	//task->SubTasks.push(XLagMinerTaskFactory(place).AlignDigPlace());
+	//task->SubTasks.push(XLagMinerTaskFactory(place).DigPlace(500));
+	task->SubTasks.push(XLagMinerTaskFactory(place).CleanLayerPlace());
+
+	miner->NpcTask = std::shared_ptr<XLagNPCTaskBase>(task);
+	//miner->NpcTask = XLagMinerTaskFactory(place).AlignDigPlace(/*TerrainElementEnum::RockSandstone*/);
 }
 
 void AXLagNPCSwapManagement::DoSwapTrees()

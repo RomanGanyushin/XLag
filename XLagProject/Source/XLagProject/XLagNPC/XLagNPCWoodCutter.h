@@ -20,18 +20,21 @@ class XLAGPROJECT_API AXLagNPCWoodCutter : public AXLagNPCBase
 
 public:
 	// Руби дерево.
-	void DoCutTree(AXLagCuttableTreeBase *TargetTree);
+	void BeginCutTree(AXLagCuttableTreeBase *targetTree);
 
 	// Обтесывай дерево.
-	void DoBroachTree(AXLagCuttableTreeBase *TargetTree);
+	void BeginBroachTree(AXLagCuttableTreeBase *targetTree);
 
-	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Cutting event"))
-	void OnCuttingEvent(float Value);
+	// Отменяет выполняемую команду.
+	void Cancel();
 
-	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Broaching event"))
-	void OnBroachingEvent(float Value);
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Woodcutter Cutting")
-	bool  IsCutting = false;;
+	bool  IsCutting = false;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Woodcutter Cutting")
+	bool  IsBroaching = false;
+
+private:
+	AXLagCuttableTreeBase *TargetTree = nullptr;
 };

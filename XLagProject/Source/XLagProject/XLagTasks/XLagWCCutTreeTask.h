@@ -27,10 +27,14 @@ public:
 		if (Tree->IsCutted())
 		{
 			Completed = true;
+			woodcutter->Cancel();
 		}
 		else
 		{
-			woodcutter->DoCutTree(Tree);
+			if (!woodcutter->IsCutting)
+			{
+				woodcutter->BeginCutTree(Tree);
+			}	
 		}	
 	}
 

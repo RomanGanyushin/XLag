@@ -6,28 +6,42 @@
 void AXLagNPCWoodCutter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-}
 
-void AXLagNPCWoodCutter::DoCutTree(AXLagCuttableTreeBase *TargetTree)
-{
-	UE_LOG(LogTemp, Log, TEXT("Woodcutter cut the tree"));
-	TargetTree->Cut(1);
-	
-
-	if (IsCutting)
+	if (TargetTree == nullptr)
 		return;
 
-	IsCutting = true;
+	if (IsCutting)
+	{
+		TargetTree->Cut(1);
+	}
 
-
-	OnCuttingEvent(1.f);
+	if (IsBroaching)
+	{
+		TargetTree->Broach(1);
+	}
 }
 
-void AXLagNPCWoodCutter::DoBroachTree(AXLagCuttableTreeBase *TargetTree)
+void AXLagNPCWoodCutter::BeginCutTree(AXLagCuttableTreeBase *targetTree)
+{
+	UE_LOG(LogTemp, Log, TEXT("Woodcutter cut the tree"));
+	
+	TargetTree = targetTree;
+	IsCutting = true;
+	IsBroaching = false;
+}
+
+void AXLagNPCWoodCutter::BeginBroachTree(AXLagCuttableTreeBase *targetTree)
 {
 	UE_LOG(LogTemp, Log, TEXT("Woodcutter broach the tree"));
 
+	TargetTree = targetTree;
 	IsCutting = false;
-	TargetTree->Broach(1);
-	OnBroachingEvent(1.f);
+	IsBroaching = true;
+}
+
+void AXLagNPCWoodCutter::Cancel()
+{
+	TargetTree = nullptr;
+	IsCutting = false;
+	IsBroaching = false;
 }

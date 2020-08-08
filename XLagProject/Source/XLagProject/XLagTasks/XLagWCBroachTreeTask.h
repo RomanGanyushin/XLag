@@ -28,18 +28,25 @@ public:
 			UE_LOG(LogTemp, Error, TEXT("XLagWCBroachTreeTask::Execute "));
 		}
 
-		if (!Tree->CanBroach())
+		if (Tree->IsTimber())
+		{
+			woodcutter->Cancel();
+			Completed = true;
 			return;
+		}
+
+		if (!Tree->CanBroach())
+		{
+			return;
+		}
 
 		if (!Tree->IsTimber())
 		{
-			woodcutter->DoBroachTree(Tree);
+			if (!woodcutter->IsBroaching)
+			{
+				woodcutter->BeginBroachTree(Tree);
+			}		
 		}
-		
-		if (Tree->IsTimber())
-		{
-			Completed = true;
-		}	
 	}
 
 	virtual bool IsSuccess() override { return Completed; }
