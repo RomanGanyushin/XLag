@@ -28,6 +28,8 @@ public:
 	/// <param name="layerKind">Kind of the layer.</param>
 	void CreateFrom(std::shared_ptr<ITerrainMapAccessor> map, int layerKind);
 	void CreateTransFrom(std::shared_ptr<ITerrainMapAccessor>  map, int layerKind, int mainKind);
+	void CreateSelection(std::shared_ptr<ITerrainMapAccessor>  map);
+	void CreateDefault();
 
 private:
 	void Reset();

@@ -9,6 +9,7 @@
 #include "XLagNPCMiner.h"
 #include "XLagCuttableTreeBase.h"
 #include "XLagTimberStack.h"
+#include "../XLagSelect/XLagSelectComponent.h"
 #include "../Common/ITerrainMapAccessor.h"
 #include "XLagNPCSwapManagement.generated.h"
 
@@ -126,6 +127,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Timber Stack Params")
 	TSubclassOf<AXLagTimberStack> TimberStackTemplate;
 	
+	// Шаблон выделения области
+	UPROPERTY(EditAnywhere, Category = "Selection Params")
+	TSubclassOf<AXLagSelectComponent> SelectionTemplate;
 
 private:
 	std::shared_ptr<ITerrainMapAccessor> MapAccessor;

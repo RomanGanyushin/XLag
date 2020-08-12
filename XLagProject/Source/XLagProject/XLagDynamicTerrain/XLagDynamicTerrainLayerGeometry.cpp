@@ -1,5 +1,13 @@
 #include "XLagDynamicTerrainLayerGeometry.h"
 
+void XLagDynamicTerrainLayerGeometry::CreateDefault()
+{
+	Reset();
+	int32 triIndex = 0;
+
+	AddQuadMesh( FVector(0,0,0), FVector(0,1,0), FVector(1,1,0), FVector(1,0,0), triIndex);
+}
+
 void XLagDynamicTerrainLayerGeometry::CreateFrom(std::shared_ptr<ITerrainMapAccessor> map, int layerKind)
 {
 	Reset();
@@ -25,23 +33,6 @@ void XLagDynamicTerrainLayerGeometry::CreateFrom(std::shared_ptr<ITerrainMapAcce
 			}
 
 			auto fl = itemLevel00->GetLevel(); auto k = itemLevel00->GetKind();
-		/*	if (itemLevel10->GetLevel() > fl)
-			{
-				fl = itemLevel10->GetLevel();
-				k = itemLevel10->GetKind();
-			}
-			if (itemLevel11->GetLevel() > fl)
-			{
-				fl = itemLevel11->GetLevel();
-				k = itemLevel11->GetKind();
-			}
-
-			if (itemLevel01->GetLevel() > fl)
-			{
-				fl = itemLevel01->GetLevel();
-				k = itemLevel01->GetKind();
-			}*/
-
 			if (k != layerKind)
 				continue;
 
@@ -79,23 +70,6 @@ void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMa
 			}
 
 			auto fl = itemLevel00->GetLevel(); auto k = itemLevel00->GetKind();
-			/*if (itemLevel10->GetLevel() > fl)
-			{
-				fl = itemLevel10->GetLevel();
-				k = itemLevel10->GetKind();
-			}
-			if (itemLevel11->GetLevel() > fl)
-			{
-				fl = itemLevel11->GetLevel();
-				k = itemLevel11->GetKind();
-			}
-
-			if (itemLevel01->GetLevel() > fl)
-			{
-				fl = itemLevel01->GetLevel();
-				k = itemLevel01->GetKind();
-			}
-*/
 			if (k != layerKind)
 				continue;
 
@@ -139,6 +113,39 @@ void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMa
 			Colors.Add(FLinearColor(a2, a2, a2, a2));
 			Colors.Add(FLinearColor(a3, a3, a3, a3));
 			Colors.Add(FLinearColor(a4, a4, a4, a4));			
+		}
+}
+
+void XLagDynamicTerrainLayerGeometry::CreateSelection(std::shared_ptr<ITerrainMapAccessor>  map)
+{
+	Reset();
+
+	int32 triIndex = 0;
+
+	for (int xIndex = 50; xIndex < 55; xIndex++)
+		for (int yIndex = 50; yIndex < 55; yIndex++)
+		{
+			auto& item00 = map->Point(xIndex, yIndex);
+			auto& item10 = map->Point(xIndex + 1, yIndex);
+			auto& item11 = map->Point(xIndex + 1, yIndex + 1);
+			auto& item01 = map->Point(xIndex, yIndex + 1);
+
+			auto itemLevel00 = item00.Get();
+			auto itemLevel10 = item10.Get();
+			auto itemLevel11 = item11.Get();
+			auto itemLevel01 = item01.Get();
+
+			if (itemLevel00 == nullptr || itemLevel10 == nullptr || itemLevel11 == nullptr || itemLevel01 == nullptr)
+			{
+				continue;
+			}
+
+			AddQuadMesh(
+				FVector(100 * xIndex, 100 * yIndex, itemLevel00->GetLevel() + 0.1),
+				FVector(100 * xIndex, 100 * (yIndex + 1), itemLevel01->GetLevel() + 0.1),
+				FVector(100 * (xIndex + 1), 100 * (yIndex + 1), itemLevel11->GetLevel() + 0.1),
+				FVector(100 * (xIndex + 1), 100 * yIndex, itemLevel10->GetLevel() + 0.1),
+				triIndex);
 		}
 }
 

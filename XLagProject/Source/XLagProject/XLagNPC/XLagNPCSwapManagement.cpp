@@ -75,6 +75,11 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 		}
 	}
 
+	if (SelectionTemplate != nullptr)
+	{
+		auto selection = GetWorld()->SpawnActor<AXLagSelectComponent>(SelectionTemplate, FVector(0, 0, 0), FRotator::ZeroRotator);
+		selection->Init(MapAccessor);
+	}
 }
 
 void AXLagNPCSwapManagement::Test_AttachTask_CutTrees(AXLagNPCWoodCutter *woodcutter, int index)

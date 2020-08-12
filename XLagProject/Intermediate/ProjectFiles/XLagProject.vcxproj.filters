@@ -190,6 +190,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagBlPourGraundTask.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagSelect\XLagSelectComponent.h">
+      <Filter>Source\XLagProject\XLagSelect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.cpp">
@@ -240,6 +243,9 @@
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCMiner.cpp">
       <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagSelect\XLagSelectComponent.cpp">
+      <Filter>Source\XLagProject\XLagSelect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagDynamicTerrain">
@@ -277,6 +283,9 @@
     </Filter>
     <Filter Include="Source\XLagProject\XLagTasks">
       <UniqueIdentifier>{04a518e7-1861-4f77-8c4c-c18ec6f1afc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagSelect">
+      <UniqueIdentifier>{7549f3c8-cebf-4ff0-8372-e16c5163d74d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
