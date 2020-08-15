@@ -45,6 +45,18 @@ const FVector XLagDynamicTerrainMap::GetWorldPosition(int const &x, int const &y
 		case GetPositionEnum::CenterHeghtPosition:
 			return FVector(x * Scale + Scale / 2.f, y * Scale + Scale / 2.f, std::max(std::max(lev00, lev01), std::max(lev11, lev10)));
 
+		case GetPositionEnum::LeftTopPosition:
+			return FVector(x * Scale, (y + 1) * Scale, lev01);
+
+		case GetPositionEnum::LeftBottomPosition:
+			return FVector(x * Scale, y * Scale, lev00);
+
+		case GetPositionEnum::RightTopPosition:
+			return FVector((x + 1) * Scale, (y + 1) * Scale, lev11);
+
+		case GetPositionEnum::RightBottomPosition:
+			return FVector((x + 1) * Scale, y * Scale, lev10);
+
 		default:
 			return FVector();
 	}

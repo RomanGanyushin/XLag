@@ -3,5 +3,9 @@
 enum GetPositionEnum
 {
 	CenterLowPosition,
-	CenterHeghtPosition
+	CenterHeghtPosition,
+	LeftTopPosition,
+	LeftBottomPosition,
+	RightTopPosition,
+	RightBottomPosition,
 };

@@ -1,25 +1,10 @@
 #pragma once
 #include "../Common/ITerrainMapAccessor.h"
+#include "../Abstracts/GeometryBuilderAbstract.h"
 
 // Компонет для гененерации геометрии земли.
-class XLagDynamicTerrainLayerGeometry
+class XLagDynamicTerrainLayerGeometry : public GeometryBuilderAbstract
 {
-public:
-	// Массив вершин.
-	TArray<FVector> Vertices;
-
-	// Массив индексов вершин треуголникаов.
-	TArray<int32> Trinagles;
-
-	// Массив нормалей к вершинам треугольников.
-	TArray<FVector> Normals;
-
-	// Массиа координат текстурных.
-	TArray<FVector2D> UVs;
-
-	// Массив описыващий цвета вершин.
-	TArray<FLinearColor> Colors;
-
 public:
 	/// <summary>
 	/// Creates from.
@@ -28,11 +13,4 @@ public:
 	/// <param name="layerKind">Kind of the layer.</param>
 	void CreateFrom(std::shared_ptr<ITerrainMapAccessor> map, int layerKind);
 	void CreateTransFrom(std::shared_ptr<ITerrainMapAccessor>  map, int layerKind, int mainKind);
-	void CreateSelection(std::shared_ptr<ITerrainMapAccessor>  map);
-	void CreateDefault();
-
-private:
-	void Reset();
-	void AddQuadMesh(FVector p1, FVector p2, FVector p3, FVector p4, int32& triIndex);
-	void AddQuadSMesh(FVector p1, FVector p2, FVector p3, FVector p4, int32& triIndex);
 };

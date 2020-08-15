@@ -7,7 +7,7 @@
 #include "ProceduralMeshComponent.h"
 #include "../XLagDynamicTerrain/XLagDynamicTerrainMap.h"
 #include "../XLagDynamicTerrain/XLagDynamicTerrainMapWindow.h"
-#include "../XLagDynamicTerrain/XLagDynamicTerrainLayerGeometry.h"
+#include "XLagSelectGeometryBuilder.h"
 #include "XLagSelectComponent.generated.h"
 
 UCLASS()
@@ -19,12 +19,36 @@ public:
 	// Sets default values for this actor's properties
 	AXLagSelectComponent();
 
-	/// Terrain scene property
+	/// Selection scene property
 	UPROPERTY(VisibleAnywhere)
 		USceneComponent* Root;
 	/// 
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* Selection;
+
+	UPROPERTY(EditAnywhere)
+		float WorldPoint1X;
+
+	UPROPERTY(EditAnywhere)
+		float WorldPoint1Y;
+
+	UPROPERTY(EditAnywhere)
+		float WorldPoint2X;
+
+	UPROPERTY(EditAnywhere)
+		float WorldPoint2Y;
+
+	UPROPERTY(EditAnywhere)
+		int CellWidth;
+
+	UPROPERTY(EditAnywhere)
+		int CellHeight;
+
+	UPROPERTY(EditAnywhere)
+		int CellPoistionX;
+
+	UPROPERTY(EditAnywhere)
+		int CellPoistionY;
 
 protected:
 	// Called when the game starts or when spawned
@@ -33,12 +57,15 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	virtual void PostEditChangeProperty(FPropertyChangedEvent & PropertyChangedEvent) override;
 
 public:
 	void Init(std::shared_ptr<ITerrainMapAccessor> map);
 
 private:
 	std::shared_ptr<ITerrainMapAccessor> Map;
-	std::shared_ptr<ITerrainMapAccessor> CurrentMap;
-	void GenerateLayerGeometry(UProceduralMeshComponent* Component, XLagDynamicTerrainLayerGeometry& geometry);
+	void GenerateLayerGeometry(UProceduralMeshComponent* Component, XLagSelectGeometryBuilder& geometry);
+
+	void RecalculateSelectView();
+	void RecalculateCellWidthAndPosition();
 };

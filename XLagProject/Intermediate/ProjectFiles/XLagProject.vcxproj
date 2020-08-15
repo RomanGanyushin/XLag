@@ -272,12 +272,16 @@
     <AdditionalOptions>/std:c++14</AdditionalOptions>
   </PropertyGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\XLagProject\Abstracts\GeometryBuilderAbstract.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagSelect\XLagSelectComponent.cpp" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagSelect\XLagSelectGeometryBuilder.cpp" />
+    <ClInclude Include="..\..\Source\XLagProject\Abstracts\GeometryBuilderAbstract.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Position\MinMaxLevelPlace.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBuilderman.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCMiner.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagTimberStack.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagSelect\XLagSelectComponent.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagSelect\XLagSelectGeometryBuilder.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagBuilderTaskFactory.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagBlDigGraundTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMinerTaskFactory.h" />

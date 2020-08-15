@@ -193,6 +193,12 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagSelect\XLagSelectComponent.h">
       <Filter>Source\XLagProject\XLagSelect</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagSelect\XLagSelectGeometryBuilder.h">
+      <Filter>Source\XLagProject\XLagSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\Abstracts\GeometryBuilderAbstract.h">
+      <Filter>Source\XLagProject\Abstracts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.cpp">
@@ -246,6 +252,12 @@
     <ClCompile Include="..\..\Source\XLagProject\XLagSelect\XLagSelectComponent.cpp">
       <Filter>Source\XLagProject\XLagSelect</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagSelect\XLagSelectGeometryBuilder.cpp">
+      <Filter>Source\XLagProject\XLagSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\Abstracts\GeometryBuilderAbstract.cpp">
+      <Filter>Source\XLagProject\Abstracts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagDynamicTerrain">
@@ -286,6 +298,9 @@
     </Filter>
     <Filter Include="Source\XLagProject\XLagSelect">
       <UniqueIdentifier>{7549f3c8-cebf-4ff0-8372-e16c5163d74d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\Abstracts">
+      <UniqueIdentifier>{1bcaa988-bafb-49de-bb1f-68863ba0ed14}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
