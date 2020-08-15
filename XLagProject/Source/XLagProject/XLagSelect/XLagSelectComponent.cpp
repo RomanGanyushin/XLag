@@ -25,6 +25,9 @@ AXLagSelectComponent::AXLagSelectComponent()
 void AXLagSelectComponent::Init(std::shared_ptr<ITerrainMapAccessor> map)
 {
 	Map = map;
+
+	RecalculateCellWidthAndPosition();
+	RecalculateSelectView();
 }
 
 // Called when the game starts or when spawned
