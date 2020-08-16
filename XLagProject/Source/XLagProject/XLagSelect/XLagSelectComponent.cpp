@@ -17,9 +17,13 @@ AXLagSelectComponent::AXLagSelectComponent()
 	Selection = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("Selection"));
 	Selection->SetupAttachment(Root);
 
+	SelectionGrid = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("SelectionGrid"));
+	SelectionGrid->SetupAttachment(Root);
+
 	XLagSelectGeometryBuilder _geometry;
 	_geometry.CreateDefault();
 	GenerateLayerGeometry(Selection, _geometry);
+	GenerateLayerGeometry(SelectionGrid, _geometry);
 }
 
 void AXLagSelectComponent::Init(std::shared_ptr<ITerrainMapAccessor> map)
@@ -97,6 +101,9 @@ void AXLagSelectComponent::RecalculateSelectView()
 	XLagSelectGeometryBuilder _geometry;
 	_geometry.CreateSelection(select);
 	GenerateLayerGeometry(Selection, _geometry);
+
+	_geometry.CreateGrid(select);
+	GenerateLayerGeometry(SelectionGrid, _geometry);
 }
 
 void AXLagSelectComponent::GenerateLayerGeometry(UProceduralMeshComponent* Component, XLagSelectGeometryBuilder& geometry)

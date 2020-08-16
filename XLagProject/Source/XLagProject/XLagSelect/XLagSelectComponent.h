@@ -26,6 +26,10 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* Selection;
 
+	/// Мателиал должен быть 2Side!
+	UPROPERTY(VisibleAnywhere)
+		UProceduralMeshComponent* SelectionGrid;
+
 	UPROPERTY(EditAnywhere)
 		float WorldPoint1X;
 
