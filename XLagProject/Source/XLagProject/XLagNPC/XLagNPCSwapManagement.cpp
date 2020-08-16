@@ -77,7 +77,7 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 
 	if (SelectionTemplate != nullptr)
 	{
-		auto selection = GetWorld()->SpawnActor<AXLagSelectComponent>(SelectionTemplate, FVector(0, 0, 0), FRotator::ZeroRotator);
+		auto selection = GetWorld()->SpawnActor<AXLagSelectComponent>(SelectionTemplate, FVector::ZeroVector, FRotator::ZeroRotator);
 		selection->Init(MapAccessor);
 	}
 }
@@ -121,6 +121,13 @@ void AXLagNPCSwapManagement::Test_AttachTask_Dig(AXLagNPCBuilderman *builder , i
 	}
 
 	builder->NpcTask = std::shared_ptr<XLagNPCTaskBase>(task);
+
+	/// Add selection
+	if (SelectionTemplate != nullptr)
+	{
+		auto selection = GetWorld()->SpawnActor<AXLagSelectComponent>(SelectionTemplate, FVector::ZeroVector, FRotator::ZeroRotator);
+		selection->Init(MapAccessor, place);
+	}
 }
 
 void AXLagNPCSwapManagement::DoSwapTrees()

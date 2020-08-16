@@ -34,6 +34,16 @@ void AXLagSelectComponent::Init(std::shared_ptr<ITerrainMapAccessor> map)
 	RecalculateSelectView();
 }
 
+void AXLagSelectComponent::Init(std::shared_ptr<ITerrainMapAccessor> map, std::shared_ptr<ITerrainMapAccessor> selection)
+{
+	WorldPoint1X = selection->GetWorldPosition(0, 0, LeftBottomPosition).X;
+	WorldPoint1Y = selection->GetWorldPosition(0, 0, LeftBottomPosition).Y;
+	WorldPoint2X = selection->GetWorldPosition(selection->SizeX() - 1, selection->SizeY() - 1, RightBottomPosition).X;
+	WorldPoint2Y = selection->GetWorldPosition(selection->SizeX() - 1, selection->SizeY() - 1, RightBottomPosition).Y;
+
+	Init(map);
+}
+
 // Called when the game starts or when spawned
 void AXLagSelectComponent::BeginPlay()
 {

@@ -65,6 +65,7 @@ public:
 
 public:
 	void Init(std::shared_ptr<ITerrainMapAccessor> map);
+	void Init(std::shared_ptr<ITerrainMapAccessor> map, std::shared_ptr<ITerrainMapAccessor> selection);
 
 private:
 	std::shared_ptr<ITerrainMapAccessor> Map;
