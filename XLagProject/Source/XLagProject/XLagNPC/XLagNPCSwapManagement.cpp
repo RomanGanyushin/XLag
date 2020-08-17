@@ -80,6 +80,11 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 		auto selection = GetWorld()->SpawnActor<AXLagSelectComponent>(SelectionTemplate, FVector::ZeroVector, FRotator::ZeroRotator);
 		selection->Init(MapAccessor);
 	}
+
+	if (BuildingTemplate != nullptr)
+	{
+		auto building = GetWorld()->SpawnActor<AXLagBuilding>(BuildingTemplate, FVector::ZeroVector, FRotator::ZeroRotator);
+	}
 }
 
 void AXLagNPCSwapManagement::Test_AttachTask_CutTrees(AXLagNPCWoodCutter *woodcutter, int index)

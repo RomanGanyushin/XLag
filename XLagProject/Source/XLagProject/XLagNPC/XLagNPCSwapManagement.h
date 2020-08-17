@@ -10,6 +10,7 @@
 #include "XLagCuttableTreeBase.h"
 #include "XLagTimberStack.h"
 #include "../XLagSelect/XLagSelectComponent.h"
+#include "../XLagBuildings/XLagBuilding.h"
 #include "../Common/ITerrainMapAccessor.h"
 #include "XLagNPCSwapManagement.generated.h"
 
@@ -131,6 +132,10 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Selection Params")
 	TSubclassOf<AXLagSelectComponent> SelectionTemplate;
 
+	// Шаблон здания.
+	UPROPERTY(EditAnywhere, Category = "Building Params")
+	TSubclassOf<AXLagBuilding> BuildingTemplate;
+	
 private:
 	std::shared_ptr<ITerrainMapAccessor> MapAccessor;
 	TArray<AXLagCuttableTreeBase*> SwapedTrees;
