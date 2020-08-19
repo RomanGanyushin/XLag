@@ -1,0 +1,36 @@
+{
+  "BuildingName": "House",
+  "GeneralSteps" :
+  [
+    {
+      "Id" : "GS1",
+      "Reference" : { "X": "0" , "Y": "0", "Z": "0" },
+      "SubStepIds" : ["S1"]
+    }  
+  ],
+  
+  "SubSteps" : 
+  [
+   {
+     "Id":"S1",
+     "Reference" : { "X":"0" , "Y":"0", "Z":"0" },
+     "Orientation" : { "X":"1" , "Y":"0", "Z":"0" },
+     "Action" : "Put",
+     "Element" : "Brick200x100x5",
+     "Repeat" :
+       {
+        "Count" : "5",
+        "IncrementalPosition" : { "X":"0" , "Y": "0", "Z": "0" },
+        "IncrementalRotation" : { "X":"0" , "Y": "0", "Z": "0" }
+       }    
+    }
+  ],
+  
+  "Elements" :
+  [
+   {
+     "Id" : "Brick200x100x50",
+     "Type" : "Internal"
+   }  
+  ]
+}

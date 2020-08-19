@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "XLagBuilding.generated.h"
 
+
 UCLASS()
 class XLAGPROJECT_API AXLagBuilding : public AActor
 {

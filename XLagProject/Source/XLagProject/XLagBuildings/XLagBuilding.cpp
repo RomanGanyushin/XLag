@@ -4,7 +4,11 @@
 #include "XLagBuilding.h"
 #include "XLagBuildingElement.h"
 
+//#include "Hal/PlatformFilemanager.h"
+//#include "JsonObjectConverter.h"
+//#include "Models/GeneralPlain.h"
 
+#include "Models/GeneralPlainSerialization.h"
 
 // Sets default values
 AXLagBuilding::AXLagBuilding()
@@ -41,6 +45,8 @@ AXLagBuilding::AXLagBuilding()
 			brick->SetWorldLocation(FVector(5000 + 20 * k* i + 10 * k * (j % 2), 5500, +5 * j *k));
 			brick->SetWorldScale3D(FVector(0.2 *k, 0.1*k, 0.05*k));
 		}
+
+	UGeneralPlainSerialization::LoadFromFile(FString(TEXT("building.json")));
 }
 
 // Called when the game starts or when spawned
