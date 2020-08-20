@@ -20,6 +20,9 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		USceneComponent* Root;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Elements Template")
+		UStaticMesh* BrickTemplet = nullptr;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -4,8 +4,8 @@
   [
     {
       "Id" : "GS1",
-      "Reference" : { "X": "0" , "Y": "0", "Z": "0" },
-      "SubStepIds" : ["S1"]
+      "Local" : { "X": "0" , "Y": "0", "Z": "0" },
+      "SubStepIds" : ["S1","S2"]
     }  
   ],
   
@@ -13,15 +13,28 @@
   [
    {
      "Id":"S1",
-     "Reference" : { "X":"0" , "Y":"0", "Z":"0" },
-     "Orientation" : { "X":"1" , "Y":"0", "Z":"0" },
+     "Local" : { "X":"0" , "Y":"0", "Z":"0" },
+     "Orientation" : { "Pitch":"0" , "Yaw":"0", "Roll":"0" },
      "Action" : "Put",
      "Element" : "Brick200x100x5",
      "Repeat" :
        {
         "Count" : "5",
-        "IncrementalPosition" : { "X":"0" , "Y": "0", "Z": "0" },
+        "IncrementalPosition" : { "X":"0.2" , "Y": "0", "Z": "0" },
         "IncrementalRotation" : { "X":"0" , "Y": "0", "Z": "0" }
+       }    
+    },
+    {
+     "Id":"S2",
+     "Local" : { "X":"0.95" , "Y":"0.05", "Z":"0" },
+     "Orientation" : { "Pitch":"0" , "Yaw":"90", "Roll":"0" },
+     "Action" : "Put",
+     "Element" : "Brick200x100x5",
+     "Repeat" :
+       {
+        "Count" : "5",
+        "IncrementalPosition" : { "X":"0" , "Y": "0.2", "Z": "0" },
+        "IncrementalRotation" : { "Pitch":"0" , "Yaw":"0", "Roll":"0" }
        }    
     }
   ],
