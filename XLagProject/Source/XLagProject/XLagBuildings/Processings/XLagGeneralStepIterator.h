@@ -1,5 +1,6 @@
 #pragma once
 #include "../Models/GeneralPlain.h"
+#include "XLagBuildParameterEvaluator.h"
 #include "XLagGeneralStepIterator.generated.h"
 
 UCLASS()
@@ -8,7 +9,9 @@ class UXLagGeneralStepIterator : public UObject
 	GENERATED_UCLASS_BODY()
 
 public:
+	void SetEvaluator(UXLagBuildParameterEvaluator* evaluator);
 	void SetGeneralPlain(FGeneralPlain *generalPlain);
+
 	const FGeneralStep* GetCurrentGeneralStep() const;
 	const FSubStep* GetCurrentSubStep() const;
 	const bool IsNewGeneralStep() const { return _isNextGeneralSteps; }
@@ -18,6 +21,7 @@ public:
 	void Next();
 
 private:
+	UXLagBuildParameterEvaluator* _evaluator;
 	FGeneralPlain* GeneralPlain = nullptr;
 	int32 _generalStepIndex = -1;
 	int32 _subStepIndex = -1;

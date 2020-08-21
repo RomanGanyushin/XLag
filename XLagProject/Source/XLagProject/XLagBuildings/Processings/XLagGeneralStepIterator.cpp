@@ -5,6 +5,11 @@ UXLagGeneralStepIterator::UXLagGeneralStepIterator(const FObjectInitializer& Obj
 {
 }
 
+void UXLagGeneralStepIterator::SetEvaluator(UXLagBuildParameterEvaluator* evaluator)
+{
+	_evaluator = evaluator;
+}
+
 void UXLagGeneralStepIterator::SetGeneralPlain(FGeneralPlain *generalPlain)
 {
 	GeneralPlain = generalPlain;
@@ -61,7 +66,8 @@ void UXLagGeneralStepIterator::InitializeNextGeneralStep()
 
 	if (currentGeneralStep != nullptr && !currentGeneralStep->Repeat.IsEmpty())
 	{
-		auto repateCount = FCString::Atoi(*currentGeneralStep->Repeat.Count);
+		auto repateCount = _evaluator->EvaluateInt(currentGeneralStep->Repeat.Count);
+
 		if (repateCount > _generalStepCount)
 		{
 			_generalStepCount++;

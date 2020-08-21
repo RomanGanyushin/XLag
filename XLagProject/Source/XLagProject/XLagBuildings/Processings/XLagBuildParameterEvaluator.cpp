@@ -3,7 +3,7 @@
 UXLagBuildParameterEvaluator::UXLagBuildParameterEvaluator(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-	
+	_mathEvaluator = MakeShareable(new FBasicMathExpressionEvaluator());
 }
 
 FVector UXLagBuildParameterEvaluator::Evaluate(const FUnboundedVector3& unbundedVector) const
@@ -26,6 +26,7 @@ FRotator UXLagBuildParameterEvaluator::Evaluate(const FUnboundedRotator3& unbund
 
 const int32 UXLagBuildParameterEvaluator::EvaluateInt(const FString& numeric) const
 {
+	auto calculated = _mathEvaluator->Evaluate(*numeric);
 	return numeric.IsEmpty() ? 0 : FCString::Atoi(*numeric);
 }
 

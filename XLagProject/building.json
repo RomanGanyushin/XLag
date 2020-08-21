@@ -7,7 +7,7 @@
       "Local" : { "X": "10" , "Y": "5", "Z": "2.5" },
       "SubStepIds": [ "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8" ],
       "Repeat": {
-        "Count": "5",
+        "Count": "5+5",
         "OffsetLocal": {
           "X": "5",
           "Y": "15",

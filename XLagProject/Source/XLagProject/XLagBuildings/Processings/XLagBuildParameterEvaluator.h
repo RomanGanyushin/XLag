@@ -1,6 +1,6 @@
 #pragma once
+#include "Math/BasicMathExpressionEvaluator.h"
 #include "../Models/GeneralPlain.h"
-
 #include "XLagBuildParameterEvaluator.generated.h"
 
 UCLASS()
@@ -21,4 +21,7 @@ public:
 
 	UPROPERTY() FVector CurrentPosition = FVector::ZeroVector;
 	UPROPERTY() FRotator CurrentOrientation = FRotator::ZeroRotator;
+
+private:
+	TSharedPtr<FBasicMathExpressionEvaluator> _mathEvaluator;
 };

@@ -5,6 +5,7 @@ UXLagBuildProcessing::UXLagBuildProcessing(const FObjectInitializer& ObjectIniti
 {
 	Evaluator = CreateDefaultSubobject<UXLagBuildParameterEvaluator>("Evaluator");
 	GeneralStepIterator = CreateDefaultSubobject<UXLagGeneralStepIterator>("Iterator_GS");
+	GeneralStepIterator->SetEvaluator(Evaluator);
 }
 
 void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate)

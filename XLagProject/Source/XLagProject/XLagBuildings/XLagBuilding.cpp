@@ -10,9 +10,6 @@
 
 #include "Models/GeneralPlainSerialization.h"
 
-
-
-
 // Sets default values
 AXLagBuilding::AXLagBuilding()
 {
@@ -34,8 +31,7 @@ void AXLagBuilding::BeginPlay()
 	_plain = UGeneralPlainSerialization::LoadFromFile(FString(TEXT("building.json")));
 
 	_processing = NewObject<UXLagBuildProcessing>();
-	_processing->SetGeneralPlain(_plain);
-	
+	_processing->SetGeneralPlain(_plain);	
 }
 
 // Called every frame
