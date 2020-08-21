@@ -83,7 +83,7 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 
 	if (BuildingTemplate != nullptr)
 	{
-		auto building = GetWorld()->SpawnActor<AXLagBuilding>(BuildingTemplate, FVector(5000,5000,100), FRotator::ZeroRotator);
+		auto building = GetWorld()->SpawnActor<AXLagBuilding>(BuildingTemplate, FVector(5000,5000, 0), FRotator::ZeroRotator);
 	}
 }
 
@@ -172,7 +172,6 @@ void AXLagNPCSwapManagement::DoSwapTreeStack()
 void AXLagNPCSwapManagement::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 FVector AXLagNPCSwapManagement::CalculatePersonScale(int deviationHeightPercent, int deviationThicknessPercent)

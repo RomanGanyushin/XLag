@@ -331,12 +331,18 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagBuildParameterEvaluator.h">
       <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagGeneralStepIterator.h">
+      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagBuildProcessing.cpp">
       <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagBuildParameterEvaluator.cpp">
+      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagGeneralStepIterator.cpp">
       <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
     </ClCompile>
   </ItemGroup>

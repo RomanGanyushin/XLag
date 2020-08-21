@@ -10,6 +10,8 @@ struct FUnboundedVector3
 	UPROPERTY() FString X;
 	UPROPERTY() FString Y;
 	UPROPERTY() FString Z;
+
+	const bool IsEmpty() const { return X.IsEmpty() && Y.IsEmpty() && Z.IsEmpty(); }
 };
 
 USTRUCT()
@@ -20,35 +22,47 @@ struct FUnboundedRotator3
 	UPROPERTY() FString Pitch;
 	UPROPERTY() FString Yaw;
 	UPROPERTY() FString Roll;
+
+	const bool IsEmpty() const { return Pitch.IsEmpty() && Yaw.IsEmpty() && Roll.IsEmpty(); }
 };
 
 USTRUCT()
-struct FRepeat
+struct FPositionSetup
+{
+	GENERATED_BODY()
+
+	UPROPERTY() FUnboundedVector3 Local;
+	UPROPERTY() FUnboundedRotator3 Orientation;
+	UPROPERTY() FUnboundedVector3 OffsetLocal;
+	UPROPERTY() FUnboundedRotator3 OffsetOrientation;
+};
+
+USTRUCT()
+struct FRepeat : public FPositionSetup
 {
 	GENERATED_BODY()
 	UPROPERTY() FString Count;
-	UPROPERTY() FUnboundedVector3 IncrementalPosition;
-	UPROPERTY() FUnboundedRotator3 IncrementalRotation;
+
+	const bool IsEmpty() const { return Count.IsEmpty() && IsEmpty(); }
 };
 
+
 USTRUCT()
-struct FGeneralStep
+struct FGeneralStep : public FPositionSetup
 {
 	GENERATED_BODY()
 
 	UPROPERTY() FString Id;
-	UPROPERTY() FUnboundedVector3 Local;
 	UPROPERTY() TArray<FString> SubStepIds;
+	UPROPERTY() FRepeat Repeat;
 };
 
 USTRUCT()
-struct FSubStep
+struct FSubStep : public FPositionSetup
 {
 	GENERATED_BODY()
 
 	UPROPERTY() FString Id;
-	UPROPERTY() FUnboundedVector3 Local;
-	UPROPERTY() FUnboundedRotator3 Orientation;
 	UPROPERTY() FString Action;
 	UPROPERTY() FString ElementId;
 	UPROPERTY() FRepeat Repeat;

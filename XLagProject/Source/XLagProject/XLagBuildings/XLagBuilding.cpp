@@ -9,7 +9,7 @@
 //#include "Models/GeneralPlain.h"
 
 #include "Models/GeneralPlainSerialization.h"
-#include "Processings/XLagBuildProcessing.h"
+
 
 
 
@@ -31,16 +31,21 @@ void AXLagBuilding::BeginPlay()
 	
 	UE_LOG(LogTemp, Log, TEXT("AXLagBuilding::Begin Play"));
 
-	auto plain = UGeneralPlainSerialization::LoadFromFile(FString(TEXT("building.json")));
+	_plain = UGeneralPlainSerialization::LoadFromFile(FString(TEXT("building.json")));
 
-	auto processing = NewObject<UXLagBuildProcessing>();
-	processing->SetGeneralPlain(plain);
-	processing->DoProcess(this, RootComponent, BrickTemplet);
+	_processing = NewObject<UXLagBuildProcessing>();
+	_processing->SetGeneralPlain(_plain);
+	
 }
 
 // Called every frame
 void AXLagBuilding::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (_processing == nullptr)
+		return;
+
+	_processing->DoProcess(this, RootComponent, BrickTemplet);
 }
 

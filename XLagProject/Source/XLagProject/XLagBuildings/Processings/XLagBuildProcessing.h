@@ -2,7 +2,18 @@
 
 #include "../Models/GeneralPlain.h"
 #include "XLagBuildParameterEvaluator.h"
+#include "XLagGeneralStepIterator.h"
 #include "XLagBuildProcessing.generated.h"
+
+USTRUCT()
+struct FRepeatCycle
+{
+	GENERATED_BODY()
+	int32 Index = 0;
+	int32 Count = 0;
+	FVector IncrementalPosition;
+	FRotator IncrementalRotator;
+};
 
 UCLASS()
 class UXLagBuildProcessing : public UClass
@@ -17,9 +28,10 @@ public:
 	UPROPERTY(BlueprintReadOnly) FString BuildingName;
 private:
 	UXLagBuildParameterEvaluator* Evaluator;
-	TSharedPtr<FGeneralPlain> GeneralPlain;
-	FGeneralStep *CurrentGeneralStep = nullptr;
-	const FSubStep* FindSubStepById(const FString& stepId) const;
-
-	void InitializePlain();
+	UXLagGeneralStepIterator *GeneralStepIterator;
+	TSharedPtr<FRepeatCycle> _repeatCycle;
+	void InitializeSubStep();
+	void ExecuteRepeatCycle(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate);
+	void SpawnBuildingElement(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate);
+	void SetupPosition(const FPositionSetup* setup);
 };

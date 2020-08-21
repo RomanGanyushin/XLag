@@ -33,3 +33,23 @@ const float UXLagBuildParameterEvaluator::EvaluateFloat(const FString& numeric) 
 {
 	return numeric.IsEmpty() ? 0.0 : FCString::Atof(*numeric);
 }
+
+
+void UXLagBuildParameterEvaluator::ResetLocal(const FVector& local)
+{
+	CurrentPosition = local;
+}
+
+void UXLagBuildParameterEvaluator::OffsetPosition(const FVector& offset)
+{
+	CurrentPosition += offset;
+}
+
+void UXLagBuildParameterEvaluator::ResetOrientation(const FRotator& rotator)
+{
+	CurrentOrientation = rotator;
+}
+void UXLagBuildParameterEvaluator::OffsetOrientation(const FRotator& offset)
+{
+	CurrentOrientation += offset;
+}

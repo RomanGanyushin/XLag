@@ -4,8 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "XLagBuilding.generated.h"
 
+#include "Processings/XLagBuildProcessing.h"
+#include "XLagBuilding.generated.h"
 
 UCLASS()
 class XLAGPROJECT_API AXLagBuilding : public AActor
@@ -31,4 +32,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+private:
+	TSharedPtr<FGeneralPlain> _plain;
+	UXLagBuildProcessing *_processing = nullptr;
 };

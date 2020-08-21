@@ -4,6 +4,7 @@ UXLagBuildProcessing::UXLagBuildProcessing(const FObjectInitializer& ObjectIniti
 	: Super(ObjectInitializer)
 {
 	Evaluator = CreateDefaultSubobject<UXLagBuildParameterEvaluator>("Evaluator");
+	GeneralStepIterator = CreateDefaultSubobject<UXLagGeneralStepIterator>("Iterator_GS");
 }
 
 void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate)
@@ -11,69 +12,107 @@ void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root, UStat
 	if (meshTemplate == nullptr)
 		return;
 
-	if (CurrentGeneralStep == nullptr)
+	if (GeneralStepIterator->IsComplite())
 		return;
 
-	static int brick_identify = 0; float k = 2;
-
-	for (size_t i = 0; i < CurrentGeneralStep->SubStepIds.Num(); i++)
+	if (_repeatCycle.Get() != nullptr)
 	{
-		auto& subStepId = CurrentGeneralStep->SubStepIds[i];
-		auto step = FindSubStepById(subStepId);
-		if (step == nullptr)
-			continue;
-		
-		auto ref = Evaluator->Evaluate(step->Local) * 100 * k;
-		auto ori = Evaluator->Evaluate(step->Orientation);
-	
-		auto repeat = Evaluator->EvaluateInt(step->Repeat.Count);
-		
-		auto incPos = Evaluator->Evaluate(step->Repeat.IncrementalPosition) * 100 * k;
-		auto incRot = Evaluator->Evaluate(step->Repeat.IncrementalRotation);
-		
-		for (size_t j = 0; j < repeat; j++)
-		{
-			auto name = FName(FString::Printf(TEXT("Brick_%d"), brick_identify++));
-			auto brick = NewObject<UStaticMeshComponent>(owner, name);
-			brick->SetupAttachment(root);
-			brick->SetStaticMesh(meshTemplate);
-			brick->SetRelativeRotation(ori);
-			brick->SetRelativeLocation(ref);	
-			brick->SetRelativeScale3D(FVector(0.2 *k, 0.1*k, 0.05*k));
-			brick->RegisterComponent();
-
-			ref += incPos;
-		}
+		ExecuteRepeatCycle(owner, root, meshTemplate);
+		return;
 	}
+
+	if (GeneralStepIterator->IsNewGeneralStep())
+	{
+		// Initialize general step;
+		auto generalStep = GeneralStepIterator->GetCurrentGeneralStep();
+		SetupPosition(generalStep);
+
+		GeneralStepIterator->Confirm();
+	}
+
+	if (GeneralStepIterator->IsNextGeneralCycleStep())
+	{
+		auto generalStep = GeneralStepIterator->GetCurrentGeneralStep();
+		auto incrementalPosition = Evaluator->Evaluate(generalStep->Repeat.OffsetLocal);
+		auto incrementalRotator = Evaluator->Evaluate(generalStep->Repeat.OffsetOrientation);
+		Evaluator->OffsetPosition(incrementalPosition);
+		Evaluator->OffsetOrientation(incrementalRotator);
+
+		GeneralStepIterator->Confirm();
+	}
+
+	InitializeSubStep();
 }
 
 void UXLagBuildProcessing::SetGeneralPlain(TSharedPtr<FGeneralPlain> generalPlain)
 {
-	GeneralPlain = generalPlain;
-	InitializePlain();
+	GeneralStepIterator->SetGeneralPlain(generalPlain.Get());
 }
 
-void UXLagBuildProcessing::InitializePlain()
+void UXLagBuildProcessing::InitializeSubStep()
 {
-	BuildingName = GeneralPlain->BuildingName;
-	if (GeneralPlain->GeneralSteps.Num() == 0)
-	{
-		// To Complite
+	auto step = GeneralStepIterator->GetCurrentSubStep();
+
+	if (step == nullptr)
 		return;
-	}
 
-	CurrentGeneralStep = &GeneralPlain->GeneralSteps[0];
+	SetupPosition(step);
+	
+	_repeatCycle = MakeShareable(new FRepeatCycle());
+	_repeatCycle->Count = Evaluator->EvaluateInt(step->Repeat.Count);
+	_repeatCycle->IncrementalPosition = Evaluator->Evaluate(step->Repeat.OffsetLocal);
+	_repeatCycle->IncrementalRotator = Evaluator->Evaluate(step->Repeat.OffsetOrientation);
 }
 
-const FSubStep* UXLagBuildProcessing::FindSubStepById(const FString& stepId) const
+void UXLagBuildProcessing::SetupPosition(const FPositionSetup* setup)
 {
-	for (int i = 0; i < GeneralPlain->SubSteps.Num(); i++)
+	if (!setup->Local.IsEmpty())
 	{
-		if (GeneralPlain->SubSteps[i].Id.Equals(stepId, ESearchCase::IgnoreCase))
-		{
-			return &GeneralPlain->SubSteps[i];
-		}
+		auto ref = Evaluator->Evaluate(setup->Local);
+		Evaluator->ResetLocal(ref);
 	}
 
-	return nullptr;
+	if (!setup->Orientation.IsEmpty())
+	{
+		auto ori = Evaluator->Evaluate(setup->Orientation);
+		Evaluator->ResetOrientation(ori);
+	}
+
+	if (!setup->OffsetLocal.IsEmpty())
+	{
+		auto offset = Evaluator->Evaluate(setup->OffsetLocal);
+		Evaluator->OffsetPosition(offset);
+	}
+
+	if (!setup->OffsetOrientation.IsEmpty())
+	{
+		auto offset = Evaluator->Evaluate(setup->OffsetOrientation);
+		Evaluator->OffsetOrientation(offset);
+	}
+}
+
+void UXLagBuildProcessing::ExecuteRepeatCycle(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate)
+{
+	SpawnBuildingElement(owner, root, meshTemplate);
+	_repeatCycle->Index++;
+
+	if (_repeatCycle->Count <= _repeatCycle->Index)
+	{
+		_repeatCycle.Reset();
+		GeneralStepIterator->Next();
+	}
+}
+
+void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate)
+{
+	auto brick = NewObject<UStaticMeshComponent>(owner);
+	brick->SetupAttachment(root);
+	brick->SetStaticMesh(meshTemplate);
+	brick->SetRelativeRotation(Evaluator->CurrentOrientation);
+	brick->SetRelativeLocation(Evaluator->CurrentPosition);
+	brick->SetRelativeScale3D(FVector(0.2, 0.1, 0.05));
+	brick->RegisterComponent();
+
+	Evaluator->OffsetPosition(_repeatCycle->IncrementalPosition);
+	Evaluator->OffsetOrientation(_repeatCycle->IncrementalRotator);
 }
