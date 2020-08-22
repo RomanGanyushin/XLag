@@ -2,6 +2,16 @@
 
 #include "GeneralPlain.generated.h"
 
+USTRUCT() struct FXLagBuildParameter
+{
+	GENERATED_BODY()
+
+	UPROPERTY() FString Name;
+	UPROPERTY() FString Value;
+	FString NameInExpression() const { return FString::Printf(TEXT("{%s}"), *Name); }
+};
+
+
 USTRUCT()
 struct FUnboundedVector3
 {
@@ -35,6 +45,8 @@ struct FPositionSetup
 	UPROPERTY() FUnboundedRotator3 Orientation;
 	UPROPERTY() FUnboundedVector3 OffsetLocal;
 	UPROPERTY() FUnboundedRotator3 OffsetOrientation;
+
+	const bool IsEmpty() const { return Local.IsEmpty() && Orientation.IsEmpty() && OffsetLocal.IsEmpty() && OffsetOrientation.IsEmpty(); }
 };
 
 USTRUCT()
@@ -43,7 +55,7 @@ struct FRepeat : public FPositionSetup
 	GENERATED_BODY()
 	UPROPERTY() FString Count;
 
-	const bool IsEmpty() const { return Count.IsEmpty() && IsEmpty(); }
+	const bool IsEmpty() const { return Count.IsEmpty() && FPositionSetup::IsEmpty(); }
 };
 
 
@@ -69,6 +81,18 @@ struct FSubStep : public FPositionSetup
 };
 
 USTRUCT()
+struct FBuildingElement
+{
+	GENERATED_BODY()
+
+	UPROPERTY() FString Id;
+	UPROPERTY() FString Type;
+	UPROPERTY() FString Length;
+	UPROPERTY() FString Width;
+	UPROPERTY() FString Height;
+};
+
+USTRUCT()
 struct FGeneralPlain
 {
 	GENERATED_BODY()
@@ -76,4 +100,6 @@ struct FGeneralPlain
 	UPROPERTY() FString BuildingName;
 	UPROPERTY() TArray<FGeneralStep> GeneralSteps;
 	UPROPERTY() TArray<FSubStep> SubSteps;
+	UPROPERTY() TArray<FXLagBuildParameter> Parameters;
+	UPROPERTY() TArray<FBuildingElement> Elements;
 };

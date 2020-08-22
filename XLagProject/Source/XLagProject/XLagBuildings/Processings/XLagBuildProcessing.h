@@ -21,15 +21,16 @@ class UXLagBuildProcessing : public UClass
 	GENERATED_UCLASS_BODY()
 
 public:	
-	void SetGeneralPlain(TSharedPtr<FGeneralPlain> generalPlain);
+	void SetGeneralPlain(FGeneralPlain* generalPlain);
 	void DoProcess(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate);
 
 public:	
 	UPROPERTY(BlueprintReadOnly) FString BuildingName;
 private:
-	UXLagBuildParameterEvaluator* Evaluator;
+	FXLagBuildParameterEvaluator* Evaluator;
 	UXLagGeneralStepIterator *GeneralStepIterator;
-	TSharedPtr<FRepeatCycle> _repeatCycle;
+	FRepeatCycle* _repeatCycle;
+	void GenerateParametersFrom(TArray<FBuildingElement> elements);
 	void InitializeSubStep();
 	void ExecuteRepeatCycle(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate);
 	void SpawnBuildingElement(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate);

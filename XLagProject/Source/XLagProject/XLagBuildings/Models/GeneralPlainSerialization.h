@@ -5,5 +5,5 @@
 class UGeneralPlainSerialization
 {
 public:
-	static TSharedPtr<FGeneralPlain> LoadFromFile(FString filename);
+	static FGeneralPlain* LoadFromFile(FString filename);
 };

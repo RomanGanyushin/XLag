@@ -42,6 +42,10 @@ void AXLagBuilding::Tick(float DeltaTime)
 	if (_processing == nullptr)
 		return;
 
-	_processing->DoProcess(this, RootComponent, BrickTemplet);
+	for (size_t i = 0; i < 1; i++)
+	{
+		_processing->DoProcess(this, RootComponent, BrickTemplet);
+	}
+	
 }
 

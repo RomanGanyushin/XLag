@@ -4,206 +4,164 @@
   [
     {
       "Id" : "GS1",
-      "Local" : { "X": "10" , "Y": "5", "Z": "2.5" },
+      "Local": {
+        "X": "{Brick200x100x50.Length}/2",
+        "Y": "{Brick200x100x50.Width}/2",
+        "Z": "{Brick200x100x50.Height}/2"
+      },
       "SubStepIds": [ "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8" ],
       "Repeat": {
-        "Count": "5+5",
+        "Count": "({Height}/{Brick200x100x50.Height})/2",
         "OffsetLocal": {
-          "X": "5",
-          "Y": "15",
-          "Z": "5"
+          "X": "{Brick200x100x50.Length}/4",
+          "Y": "{Brick200x100x50.Width}*3/2",
+          "Z": "{Brick200x100x50.Height}"
         },
-        "OffsetOrientation": {
-          "Pitch": "0",
-          "Yaw": "90",
-          "Roll": "0"
-        }
+        "OffsetOrientation": { "Yaw": "90" }
       }
     }  
   ],
-
-  "SubSteps": [
+  "Parameters": 
+  [
     {
-      "Id": "S1",
-      "Action": "Put",
-      "Element": "Brick200x100x5",
-      "Repeat": {
-        "Count": "15",
-        "OffsetLocal": {
-          "X": "20",
-          "Y": "0",
-          "Z": "0"
-        }
-      }
+      "Name": "Height",
+      "Value": "250"
     },
     {
-      "Id": "S2",
-      "OffsetLocal": {
-        "X": "-5",
-        "Y": "5",
-        "Z": "0"
-      },
-      "OffsetOrientation": {
-        "Pitch": "0",
-        "Yaw": "90",
-        "Roll": "0"
-      },
-      "Action": "Put",
-      "Element": "Brick200x100x5",
-      "Repeat": {
-        "Count": "15",
-        "OffsetLocal": {
-          "X": "0",
-          "Y": "20",
-          "Z": "0"
-        }
-      }
+      "Name": "Length",
+      "Value": "5000"
     },
     {
-      "Id": "S3",
-      "OffsetLocal": {
-        "X": "-15",
-        "Y": "-15",
-        "Z": "0"
-      },
-      "OffsetOrientation": {
-        "Pitch": "0",
-        "Yaw": "90",
-        "Roll": "0"
-      },
-      "Action": "Put",
-      "Element": "Brick200x100x5",
-      "Repeat": {
-        "Count": "15",
-        "OffsetLocal": {
-          "X": "-20",
-          "Y": "0",
-          "Z": "0"
-        }
-      }
-    },
-    {
-      "Id": "S4",
-      "OffsetLocal": {
-        "X": "15",
-        "Y": "-15",
-        "Z": "0"
-      },
-      "OffsetOrientation": {
-        "Pitch": "0",
-        "Yaw": "90",
-        "Roll": "0"
-      },
-      "Action": "Put",
-      "Element": "Brick200x100x5",
-      "Repeat": {
-        "Count": "14",
-        "OffsetLocal": {
-          "X": "0",
-          "Y": "-20",
-          "Z": "0"
-        }
-      }
-    },
-    {
-      "Id": "S5",
-      "Action": "Put",
-      "Element": "Brick200x100x5",
-      "OffsetLocal": {
-        "X": "15",
-        "Y": "5",
-        "Z": "5"
-      },
-      "OffsetOrientation": {
-        "Pitch": "0",
-        "Yaw": "90",
-        "Roll": "0"
-      },
-      "Repeat": {
-        "Count": "15",
-        "OffsetLocal": {
-          "X": "20",
-          "Y": "0",
-          "Z": "0"
-        }
-      }
-    },
-    {
-      "Id": "S6",
-      "OffsetLocal": {
-        "X": "-15",
-        "Y": "15",
-        "Z": "0"
-      },
-      "OffsetOrientation": {
-        "Pitch": "0",
-        "Yaw": "90",
-        "Roll": "0"
-      },
-      "Action": "Put",
-      "Element": "Brick200x100x5",
-      "Repeat": {
-        "Count": "14",
-        "OffsetLocal": {
-          "X": "0",
-          "Y": "20",
-          "Z": "0"
-        }
-      }
-    },
-    {
-      "Id": "S7",
-      "OffsetLocal": {
-        "X": "-5",
-        "Y": "-5",
-        "Z": "0"
-      },
-      "OffsetOrientation": {
-        "Pitch": "0",
-        "Yaw": "90",
-        "Roll": "0"
-      },
-      "Action": "Put",
-      "Element": "Brick200x100x5",
-      "Repeat": {
-        "Count": "15",
-        "OffsetLocal": {
-          "X": "-20",
-          "Y": "0",
-          "Z": "0"
-        }
-      }
-    },
-    {
-      "Id": "S8",
-      "OffsetLocal": {
-        "X": "5",
-        "Y": "-5",
-        "Z": "0"
-      },
-      "OffsetOrientation": {
-        "Pitch": "0",
-        "Yaw": "90",
-        "Roll": "0"
-      },
-      "Action": "Put",
-      "Element": "Brick200x100x5",
-      "Repeat": {
-        "Count": "15",
-        "OffsetLocal": {
-          "X": "0",
-          "Y": "-20",
-          "Z": "0"
-        }
-      }
+      "Name": "Width",
+      "Value": "5000"
     }
   ],
-  
-  "Elements" :
-  [
-   {
-     "Id" : "Brick200x100x50",
-     "Type" : "Internal"
-   }  
-  ]
+  "SubSteps" :
+    [
+      {
+        "Id": "S1",
+        "Action": "Put",
+        "Element": "Brick200x100x5",
+        "Repeat": {
+          "Count": "{Length}/{Brick200x100x50.Length}",
+          "OffsetLocal": {
+            "X": "{Brick200x100x50.Length}"
+          }
+        }
+      },
+      {
+        "Id": "S2",
+        "OffsetLocal": {
+          "X": "-{Brick200x100x50.Length}/4",
+          "Y": "{Brick200x100x50.Width} /2"
+        },
+        "OffsetOrientation": { "Yaw": "90" },
+        "Action": "Put",
+        "Element": "Brick200x100x5",
+        "Repeat": {
+          "Count": "{Width}/{Brick200x100x50.Length}",
+          "OffsetLocal": { "Y": "{Brick200x100x50.Length}" }
+        }
+      },
+      {
+        "Id": "S3",
+        "OffsetLocal": {
+          "X": "-15",
+          "Y": "-15"
+        },
+        "OffsetOrientation": {
+          "Yaw": "90"
+        },
+        "Action": "Put",
+        "Element": "Brick200x100x5",
+        "Repeat": {
+          "Count": "{Length}/{Brick200x100x50.Length}",
+          "OffsetLocal": { "X": "-{Brick200x100x50.Length}" }
+        }
+      },
+      {
+        "Id": "S4",
+        "OffsetLocal": {
+          "X": "15",
+          "Y": "-15"
+        },
+        "OffsetOrientation": {"Yaw": "90" },
+        "Action": "Put",
+        "Element": "Brick200x100x5",
+        "Repeat": {
+          "Count": "{Width}/{Brick200x100x50.Length} - 1",
+          "OffsetLocal": { "Y": "-{Brick200x100x50.Length}" }
+        }
+      },
+      {
+        "Id": "S5",
+        "Action": "Put",
+        "Element": "Brick200x100x5",
+        "OffsetLocal": {
+          "X": "15",
+          "Y": "5",
+          "Z": "{Brick200x100x50.Height}"
+        },
+        "OffsetOrientation": { "Yaw": "90" },
+        "Repeat": {
+          "Count": "{Length}/{Brick200x100x50.Length}",
+          "OffsetLocal": { "X": "{Brick200x100x50.Length}" }
+        }
+      },
+      {
+        "Id": "S6",
+        "OffsetLocal": {
+          "X": "-15",
+          "Y": "15"
+        },
+        "OffsetOrientation": { "Yaw": "90" },
+        "Action": "Put",
+        "Element": "Brick200x100x5",
+        "Repeat": {
+          "Count": "{Width}/{Brick200x100x50.Length} - 1",
+          "OffsetLocal": {
+            "Y": "{Brick200x100x50.Length}"
+          }
+        }
+      },
+      {
+        "Id": "S7",
+        "OffsetLocal": {
+          "X": "-5",
+          "Y": "-5"
+        },
+        "OffsetOrientation": { "Yaw": "90" },
+        "Action": "Put",
+        "Element": "Brick200x100x5",
+        "Repeat": {
+          "Count": "{Length}/{Brick200x100x50.Length}",
+          "OffsetLocal": { "X": "-{Brick200x100x50.Length}" }
+        }
+      },
+      {
+        "Id": "S8",
+        "OffsetLocal": {
+          "X": "5",
+          "Y": "-5"
+        },
+        "OffsetOrientation": { "Yaw": "90"},
+        "Action": "Put",
+        "Element": "Brick200x100x5",
+        "Repeat": {
+          "Count": "{Width}/{Brick200x100x50.Length}",
+          "OffsetLocal": { "Y": "-{Brick200x100x50.Length}" }
+        }
+      }
+    ],
+
+    "Elements":
+    [
+      {
+        "Id": "Brick200x100x50",
+        "Type": "Internal",
+        "Length" : "20",
+        "Width": "10",
+        "Height" : "5"
+      }
+    ]
 }

@@ -33,6 +33,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	TSharedPtr<FGeneralPlain> _plain;
+	FGeneralPlain* _plain;
 	UXLagBuildProcessing *_processing = nullptr;
 };

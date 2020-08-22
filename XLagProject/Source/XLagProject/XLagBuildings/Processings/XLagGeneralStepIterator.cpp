@@ -5,7 +5,7 @@ UXLagGeneralStepIterator::UXLagGeneralStepIterator(const FObjectInitializer& Obj
 {
 }
 
-void UXLagGeneralStepIterator::SetEvaluator(UXLagBuildParameterEvaluator* evaluator)
+void UXLagGeneralStepIterator::SetEvaluator(FXLagBuildParameterEvaluator* evaluator)
 {
 	_evaluator = evaluator;
 }
@@ -47,19 +47,6 @@ void UXLagGeneralStepIterator::Next()
 	NextSubStep();
 }
 
-
-void UXLagGeneralStepIterator::InitializeBeginGeneralStep()
-{
-	if (GeneralPlain->GeneralSteps.Num() == 0)
-	{
-		InitializeComplite();
-		return;
-	}
-
-	_generalStepIndex = 0;
-	IntializeBeginSubStep();
-}
-
 void UXLagGeneralStepIterator::InitializeNextGeneralStep()
 {
 	auto currentGeneralStep = GetCurrentGeneralStep();
@@ -68,16 +55,16 @@ void UXLagGeneralStepIterator::InitializeNextGeneralStep()
 	{
 		auto repateCount = _evaluator->EvaluateInt(currentGeneralStep->Repeat.Count);
 
-		if (repateCount > _generalStepCount)
+		if (repateCount > ++_generalStepCount)
 		{
-			_generalStepCount++;
+
 			_isNextGeneralCycleStep = true;
 			IntializeBeginSubStep();
 			return;
 		}
 	}
 	
-	_generalStepCount = 0;
+	_generalStepCount = 1;
 	_generalStepIndex++;
 	
 	if (GeneralPlain->GeneralSteps.Num() <= _generalStepIndex)

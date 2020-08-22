@@ -9,7 +9,7 @@ class UXLagGeneralStepIterator : public UObject
 	GENERATED_UCLASS_BODY()
 
 public:
-	void SetEvaluator(UXLagBuildParameterEvaluator* evaluator);
+	void SetEvaluator(FXLagBuildParameterEvaluator* evaluator);
 	void SetGeneralPlain(FGeneralPlain *generalPlain);
 
 	const FGeneralStep* GetCurrentGeneralStep() const;
@@ -21,7 +21,7 @@ public:
 	void Next();
 
 private:
-	UXLagBuildParameterEvaluator* _evaluator;
+	FXLagBuildParameterEvaluator* _evaluator;
 	FGeneralPlain* GeneralPlain = nullptr;
 	int32 _generalStepIndex = -1;
 	int32 _subStepIndex = -1;
@@ -32,7 +32,6 @@ private:
 	int _generalStepCount = 0;
 
 	void BeginInitialize();
-	void InitializeBeginGeneralStep();
 	void InitializeNextGeneralStep();
 	void IntializeBeginSubStep();
 	void FindNextSubStep();

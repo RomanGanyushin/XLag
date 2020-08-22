@@ -1,7 +1,7 @@
 #include "GeneralPlainSerialization.h"
 #include "JsonObjectConverter.h"
 
-TSharedPtr<FGeneralPlain> UGeneralPlainSerialization::LoadFromFile(FString filename)
+FGeneralPlain* UGeneralPlainSerialization::LoadFromFile(FString filename)
 {
 	FGeneralPlain* result = new FGeneralPlain();
 
@@ -38,5 +38,5 @@ TSharedPtr<FGeneralPlain> UGeneralPlainSerialization::LoadFromFile(FString filen
 		UE_LOG(LogTemp, Error, TEXT("AXLagBuilding File not found : %s"), *filepath);
 	}
 
-	return MakeShareable(result);
+	return result;
 }

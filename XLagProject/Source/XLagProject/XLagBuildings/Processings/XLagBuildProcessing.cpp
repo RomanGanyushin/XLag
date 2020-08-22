@@ -3,7 +3,7 @@
 UXLagBuildProcessing::UXLagBuildProcessing(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
-	Evaluator = CreateDefaultSubobject<UXLagBuildParameterEvaluator>("Evaluator");
+	Evaluator = new FXLagBuildParameterEvaluator();
 	GeneralStepIterator = CreateDefaultSubobject<UXLagGeneralStepIterator>("Iterator_GS");
 	GeneralStepIterator->SetEvaluator(Evaluator);
 }
@@ -16,7 +16,7 @@ void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root, UStat
 	if (GeneralStepIterator->IsComplite())
 		return;
 
-	if (_repeatCycle.Get() != nullptr)
+	if (_repeatCycle != nullptr)
 	{
 		ExecuteRepeatCycle(owner, root, meshTemplate);
 		return;
@@ -45,9 +45,21 @@ void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root, UStat
 	InitializeSubStep();
 }
 
-void UXLagBuildProcessing::SetGeneralPlain(TSharedPtr<FGeneralPlain> generalPlain)
+void UXLagBuildProcessing::SetGeneralPlain(FGeneralPlain* generalPlain)
 {
-	GeneralStepIterator->SetGeneralPlain(generalPlain.Get());
+	Evaluator->SetParameters(generalPlain->Parameters);
+	GenerateParametersFrom(generalPlain->Elements);
+	GeneralStepIterator->SetGeneralPlain(generalPlain);
+}
+
+void UXLagBuildProcessing::GenerateParametersFrom(TArray<FBuildingElement> elements)
+{
+	for (auto& it : elements)
+	{
+		Evaluator->SetParameter(FString::Printf(TEXT("%s.Length"), *it.Id), it.Length);
+		Evaluator->SetParameter(FString::Printf(TEXT("%s.Width"), *it.Id), it.Width);
+		Evaluator->SetParameter(FString::Printf(TEXT("%s.Height"), *it.Id), it.Height);
+	}
 }
 
 void UXLagBuildProcessing::InitializeSubStep()
@@ -59,7 +71,10 @@ void UXLagBuildProcessing::InitializeSubStep()
 
 	SetupPosition(step);
 	
-	_repeatCycle = MakeShareable(new FRepeatCycle());
+	if (_repeatCycle != nullptr)
+		delete _repeatCycle;
+
+	_repeatCycle = new FRepeatCycle();
 	_repeatCycle->Count = Evaluator->EvaluateInt(step->Repeat.Count);
 	_repeatCycle->IncrementalPosition = Evaluator->Evaluate(step->Repeat.OffsetLocal);
 	_repeatCycle->IncrementalRotator = Evaluator->Evaluate(step->Repeat.OffsetOrientation);
@@ -99,7 +114,9 @@ void UXLagBuildProcessing::ExecuteRepeatCycle(UObject* owner, USceneComponent*ro
 
 	if (_repeatCycle->Count <= _repeatCycle->Index)
 	{
-		_repeatCycle.Reset();
+		delete _repeatCycle;
+		_repeatCycle = nullptr;
+
 		GeneralStepIterator->Next();
 	}
 }

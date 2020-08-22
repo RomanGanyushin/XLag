@@ -3,12 +3,13 @@
 #include "../Models/GeneralPlain.h"
 #include "XLagBuildParameterEvaluator.generated.h"
 
-UCLASS()
-class UXLagBuildParameterEvaluator : public UObject
+USTRUCT()
+struct FXLagBuildParameterEvaluator
 {
-	GENERATED_UCLASS_BODY()
+	GENERATED_BODY()
 
 public:
+	FXLagBuildParameterEvaluator();
 	FVector Evaluate(const FUnboundedVector3& unbundedVector) const;
 	FRotator Evaluate(const FUnboundedRotator3& unbundedVector) const;
 	const int32 EvaluateInt(const FString& numeric) const;
@@ -19,9 +20,16 @@ public:
 	void ResetOrientation(const FRotator& rotator);
 	void OffsetOrientation(const FRotator& offset);
 
+	void SetParameter(FString name, FString value);
+	void SetParameters(TArray<FXLagBuildParameter> params);
+	FXLagBuildParameter* FindParameter(FString name);
+
 	UPROPERTY() FVector CurrentPosition = FVector::ZeroVector;
 	UPROPERTY() FRotator CurrentOrientation = FRotator::ZeroRotator;
 
 private:
-	TSharedPtr<FBasicMathExpressionEvaluator> _mathEvaluator;
+	TArray<FXLagBuildParameter*> _parameters;
+	FBasicMathExpressionEvaluator* _mathEvaluator;
+	const float CalculateValue(const FString numeric) const;
+	const FString PatchParameters(const FString expression) const;
 };
