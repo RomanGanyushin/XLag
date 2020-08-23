@@ -29,9 +29,9 @@
       "Orientation": { "Yaw": "0" },
       "SubStepIds": [ "R1", "R2", "R3" ],
       "Repeat": {
-        "Count": "14",
+        "Count": "{RoofRaftCount}",
         "Local": {
-          "X": "80 * {GeneralStepIndex}",
+          "X": "(({Length} - {Brus.Width} * {RoofRaftCount}) / ({RoofRaftCount} - 1) + {Brus.Width}) * {GeneralStepIndex} + (0.75*{Brus.Width})",
           "Z": "{Height}",
           "Y": "{Width}/2"
         },
@@ -39,20 +39,41 @@
       }
     }
   ],
-      "Parameters": [
-        {
-          "Name": "Height",
-          "Value": "270"
-        },
-        {
-          "Name": "Length",
-          "Value": "1000"
-        },
-        {
-          "Name": "Width",
-          "Value": "500"
-        }
-      ],
+  "Parameters": [
+    {
+      "Name": "Height",
+      "Value": "270",
+      "Description": "Высота дома. Должна быть кратна высоте кирпича."
+    },
+    {
+      "Name": "Length",
+      "Value": "1000",
+      "Description": "Длина дома. Должна быть кратна длине кирпича."
+    },
+    {
+      "Name": "Width",
+      "Value": "500",
+      "Description": "Ширина дома. Должна быть кратна ширине кирпича."
+    },
+    {
+      "Name": "RoofOffset",
+      "Value": "50",
+      "Description": "Вылет крыши."
+    },
+    {
+      "Name": "RoofRaftCount",
+      "Value": "8",
+      "Description": "Количество стропил крыши"
+    },
+    {
+      "Name": "Brus.Width",
+      "Value": "15"
+    },
+    {
+      "Name": "Brus.Height",
+      "Value": "20"
+    }
+  ],
   "SubSteps": [
     {
       "Id": "S1",
@@ -172,18 +193,18 @@
       "Id": "R1",
       "Action": "Put",
       "ElementId": "Wood_Brus",
-      "ElementParams": ["600", "20", "15", "1" ],
-      "OffsetLocal": { "Z": "{Wood_Brus.Height} / 2" }
+      "ElementParams": [ "{Width} + (2 * {RoofOffset})", "{Brus.Height}", "{Brus.Width}", "1" ],
+      "OffsetLocal": { "Z": "{Brus.Height} / 2" }
     },
     {
       "Id": "R2",
       "Action": "Put",
       "ElementId": "Wood_Brus",
-      "ElementParams": [ "600 / sqrt(2)", "20", "15", "1" ],
+      "ElementParams": [ "(({Width} + (2 * {RoofOffset})) -2 * {Brus.Height})/ sqrt(2)", "{Brus.Height}", "{Brus.Width}", "1" ],
       "OffsetLocal": {
-        "X": "{Wood_Brus.Width}",
-        "Y": "(-(300 - 20 / sqrt(2)) / 2) + ({Wood_Brus.Width} / sqrt(2))",
-        "Z": "((300 - 20 / sqrt(2)) / 2 )"
+        "X": "{Brus.Width}",
+        "Y": "(-(({Width} + (2 * {RoofOffset}))/2 - {Brus.Height} / sqrt(2)) / 2) + ({Brus.Width} / sqrt(2))",
+        "Z": "((({Width} + (2 * {RoofOffset}))/2 - {Brus.Height} / sqrt(2)) / 2 )"
       },
       "OffsetOrientation": {
         "Pitch": "180",
@@ -194,9 +215,9 @@
       "Id": "R3",
       "Action": "Put",
       "ElementId": "Wood_Brus",
-      "ElementParams": [ "600 / sqrt(2)", "20", "15", "1" ],
+      "ElementParams": [ "({Width} + (2 * {RoofOffset}) - 2 * {Brus.Height})/ sqrt(2)", "{Brus.Height}", "{Brus.Width}", "1" ],
       "OffsetLocal": {
-        "Y": "(300 - 20 / sqrt(2)) - 2 * ({Wood_Brus.Width} / sqrt(2))"
+        "Y": "(({Width} + (2 * {RoofOffset}))/2 - {Brus.Height} / sqrt(2)) - 2 * ({Brus.Width} / sqrt(2))"
       },
       "OffsetOrientation": {
         "Roll": "-90"
@@ -216,9 +237,6 @@
       "Id": "Wood_Brus",
       "Type": "Custom",
       "Material": "Wood",
-      "Length": "600",
-      "Width": "15",
-      "Height": "20",
       "Comments": "Параметрический брус. Arg1 - длина, Arg2- высота, Arg3 - ширина, Arg4 - тангенс угла запила.",
       "Geometry": {
         "Plane": "XY",
