@@ -77,7 +77,38 @@ struct FSubStep : public FPositionSetup
 	UPROPERTY() FString Id;
 	UPROPERTY() FString Action;
 	UPROPERTY() FString ElementId;
+	UPROPERTY() TArray<FString> ElementParams;
 	UPROPERTY() FRepeat Repeat;
+};
+
+USTRUCT()
+struct FXProfilePoint
+{
+	GENERATED_BODY()
+
+	UPROPERTY() FString Id;
+	UPROPERTY() FString U;
+	UPROPERTY() FString V;
+};
+
+USTRUCT()
+struct FXElementProfile
+{
+	GENERATED_BODY()
+
+	UPROPERTY() TArray<FXProfilePoint> Points;
+	UPROPERTY() TArray<FString> Contur;
+	UPROPERTY() TArray<FString> Mesh;
+};
+
+USTRUCT()
+struct FXElementGeometry
+{
+	GENERATED_BODY()
+
+	UPROPERTY() FXElementProfile Profile;
+	UPROPERTY() FString Plane;
+	UPROPERTY() FString Extrude;
 };
 
 USTRUCT()
@@ -90,6 +121,8 @@ struct FBuildingElement
 	UPROPERTY() FString Length;
 	UPROPERTY() FString Width;
 	UPROPERTY() FString Height;
+	UPROPERTY() FString Material;
+	UPROPERTY() FXElementGeometry Geometry;
 };
 
 USTRUCT()

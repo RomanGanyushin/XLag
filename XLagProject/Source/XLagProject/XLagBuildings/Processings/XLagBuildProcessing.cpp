@@ -1,14 +1,17 @@
 #include "XLagBuildProcessing.h"
 
+#include "ProceduralMeshComponent.h"
+#include "XLagDynamicBuildingElementGeometry.h"
+
 UXLagBuildProcessing::UXLagBuildProcessing(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
 	Evaluator = new FXLagBuildParameterEvaluator();
-	GeneralStepIterator = CreateDefaultSubobject<UXLagGeneralStepIterator>("Iterator_GS");
+	GeneralStepIterator = new FXLagGeneralStepIterator();
 	GeneralStepIterator->SetEvaluator(Evaluator);
 }
 
-void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate)
+void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate, UMaterial* woodMaterial)
 {
 	if (meshTemplate == nullptr)
 		return;
@@ -18,7 +21,7 @@ void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root, UStat
 
 	if (_repeatCycle != nullptr)
 	{
-		ExecuteRepeatCycle(owner, root, meshTemplate);
+		ExecuteRepeatCycle(owner, root, meshTemplate, woodMaterial);
 		return;
 	}
 
@@ -27,18 +30,13 @@ void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root, UStat
 		// Initialize general step;
 		auto generalStep = GeneralStepIterator->GetCurrentGeneralStep();
 		SetupPosition(generalStep);
-
 		GeneralStepIterator->Confirm();
 	}
 
 	if (GeneralStepIterator->IsNextGeneralCycleStep())
 	{
 		auto generalStep = GeneralStepIterator->GetCurrentGeneralStep();
-		auto incrementalPosition = Evaluator->Evaluate(generalStep->Repeat.OffsetLocal);
-		auto incrementalRotator = Evaluator->Evaluate(generalStep->Repeat.OffsetOrientation);
-		Evaluator->OffsetPosition(incrementalPosition);
-		Evaluator->OffsetOrientation(incrementalRotator);
-
+		SetupPosition(&generalStep->Repeat);
 		GeneralStepIterator->Confirm();
 	}
 
@@ -47,6 +45,7 @@ void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root, UStat
 
 void UXLagBuildProcessing::SetGeneralPlain(FGeneralPlain* generalPlain)
 {
+	GeneralPlain = generalPlain;
 	Evaluator->SetParameters(generalPlain->Parameters);
 	GenerateParametersFrom(generalPlain->Elements);
 	GeneralStepIterator->SetGeneralPlain(generalPlain);
@@ -107,9 +106,11 @@ void UXLagBuildProcessing::SetupPosition(const FPositionSetup* setup)
 	}
 }
 
-void UXLagBuildProcessing::ExecuteRepeatCycle(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate)
+void UXLagBuildProcessing::ExecuteRepeatCycle(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate, UMaterial* woodMaterial)
 {
-	SpawnBuildingElement(owner, root, meshTemplate);
+	SpawnBuildingElement(owner, root, meshTemplate, woodMaterial);
+
+
 	_repeatCycle->Index++;
 
 	if (_repeatCycle->Count <= _repeatCycle->Index)
@@ -121,16 +122,55 @@ void UXLagBuildProcessing::ExecuteRepeatCycle(UObject* owner, USceneComponent*ro
 	}
 }
 
-void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate)
+void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate, UMaterial* woodMaterial)
 {
-	auto brick = NewObject<UStaticMeshComponent>(owner);
-	brick->SetupAttachment(root);
-	brick->SetStaticMesh(meshTemplate);
-	brick->SetRelativeRotation(Evaluator->CurrentOrientation);
-	brick->SetRelativeLocation(Evaluator->CurrentPosition);
-	brick->SetRelativeScale3D(FVector(0.2, 0.1, 0.05));
-	brick->RegisterComponent();
+	auto step = GeneralStepIterator->GetCurrentSubStep();
+	auto elementId = step->ElementId;
+	auto element = GeneralPlain->Elements.FindByPredicate([elementId](auto& it) { return it.Id.Equals(elementId, ESearchCase::IgnoreCase);});
 
-	Evaluator->OffsetPosition(_repeatCycle->IncrementalPosition);
-	Evaluator->OffsetOrientation(_repeatCycle->IncrementalRotator);
+	int argIndex = 1;
+	for (auto& it: step->ElementParams)
+	{
+		auto value = Evaluator->Evaluate(it);
+		Evaluator->SetParameter(FString::Printf(TEXT("%s.Arg%d"),*element->Id, argIndex++), FString::Printf(TEXT("%f"), value));
+	}
+
+	if (element == nullptr)
+	{
+		// Log Error;
+		return;
+	}
+
+	if (element->Type.Equals(TEXT("Internal"), ESearchCase::IgnoreCase))
+	{
+		auto brick = NewObject<UStaticMeshComponent>(owner);
+		brick->SetupAttachment(root);
+		brick->SetStaticMesh(meshTemplate);
+		brick->SetRelativeRotation(Evaluator->CurrentOrientation);
+		brick->SetRelativeLocation(Evaluator->CurrentPosition);
+		brick->SetRelativeScale3D(FVector(0.2, 0.1, 0.05));
+		brick->RegisterComponent();
+
+		Evaluator->OffsetPosition(_repeatCycle->IncrementalPosition);
+		Evaluator->OffsetOrientation(_repeatCycle->IncrementalRotator);
+	}
+	else if(element->Type.Equals(TEXT("Custom"), ESearchCase::IgnoreCase))
+	{
+		auto custom = NewObject<UProceduralMeshComponent>(owner);
+		custom->SetupAttachment(root);
+
+		XLagDynamicBuildingElementGeometry geometry;
+		geometry.Create(element->Geometry, Evaluator);
+
+		custom->CreateMeshSection_LinearColor(0, geometry.Vertices, geometry.Trinagles, geometry.Normals, geometry.UVs, geometry.Colors, TArray<FProcMeshTangent>(), true);
+		custom->SetRelativeRotation(Evaluator->CurrentOrientation);
+		custom->SetRelativeLocation(Evaluator->CurrentPosition);
+		custom->SetMaterial(0, woodMaterial);
+		custom->RegisterComponent();
+
+		Evaluator->OffsetPosition(_repeatCycle->IncrementalPosition);
+		Evaluator->OffsetOrientation(_repeatCycle->IncrementalRotator);
+	}
+
+	
 }

@@ -96,12 +96,6 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\XLagBuilding.h">
       <Filter>Source\XLagProject\XLagBuildings</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingElement.cpp">
-      <Filter>Source\XLagProject\XLagBuildings</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingElement.h">
-      <Filter>Source\XLagProject\XLagBuildings</Filter>
-    </ClInclude>
     <Filter Include="Source\XLagProject\XLagBuildings\Models">
       <UniqueIdentifier>{0D6ED2D1-397E-4A5D-89FB-458045F21B26}</UniqueIdentifier>
     </Filter>
@@ -334,6 +328,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagGeneralStepIterator.h">
       <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagDynamicBuildingElementGeometry.h">
+      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagBuildProcessing.cpp">
@@ -343,6 +340,9 @@
       <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagGeneralStepIterator.cpp">
+      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagDynamicBuildingElementGeometry.cpp">
       <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
     </ClCompile>
   </ItemGroup>

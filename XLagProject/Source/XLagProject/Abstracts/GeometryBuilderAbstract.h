@@ -24,6 +24,7 @@ public:
 
 protected:
 	void Reset();
+	void AddTriangleMesh(FVector p1, FVector p2, FVector p3, int32& triIndex);
 	void AddQuadMesh(FVector p1, FVector p2, FVector p3, FVector p4, int32& triIndex);
 	void AddQuadSMesh(FVector p1, FVector p2, FVector p3, FVector p4, int32& triIndex);
 };

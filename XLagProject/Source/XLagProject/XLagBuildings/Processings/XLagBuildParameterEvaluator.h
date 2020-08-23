@@ -12,6 +12,8 @@ public:
 	FXLagBuildParameterEvaluator();
 	FVector Evaluate(const FUnboundedVector3& unbundedVector) const;
 	FRotator Evaluate(const FUnboundedRotator3& unbundedVector) const;
+	double Evaluate(const FString& arg) const;
+
 	const int32 EvaluateInt(const FString& numeric) const;
 	const float EvaluateFloat(const FString& numeric) const;
 

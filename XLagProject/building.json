@@ -1,9 +1,8 @@
 {
   "BuildingName": "House",
-  "GeneralSteps" :
-  [
+  "GeneralSteps": [
     {
-      "Id" : "GS1",
+      "Id": "GS1",
       "Local": {
         "X": "{Brick200x100x50.Length}/2",
         "Y": "{Brick200x100x50.Width}/2",
@@ -19,149 +18,275 @@
         },
         "OffsetOrientation": { "Yaw": "90" }
       }
-    }  
-  ],
-  "Parameters": 
-  [
-    {
-      "Name": "Height",
-      "Value": "250"
     },
     {
-      "Name": "Length",
-      "Value": "5000"
-    },
-    {
-      "Name": "Width",
-      "Value": "5000"
+      "Id": "GS2",
+      "Local": {
+        "X": "0",
+        "Y": "{Width}/2",
+        "Z": "{Height}"
+      },
+      "Orientation": { "Yaw": "0" },
+      "SubStepIds": [ "R1", "R2", "R3" ],
+      "Repeat": {
+        "Count": "14",
+        "Local": {
+          "X": "80 * {GeneralStepIndex}",
+          "Z": "{Height}",
+          "Y": "{Width}/2"
+        },
+        "Orientation": { "Yaw": "0" }
+      }
     }
   ],
-  "SubSteps" :
-    [
-      {
-        "Id": "S1",
-        "Action": "Put",
-        "Element": "Brick200x100x5",
-        "Repeat": {
-          "Count": "{Length}/{Brick200x100x50.Length}",
-          "OffsetLocal": {
-            "X": "{Brick200x100x50.Length}"
-          }
+      "Parameters": [
+        {
+          "Name": "Height",
+          "Value": "270"
+        },
+        {
+          "Name": "Length",
+          "Value": "1000"
+        },
+        {
+          "Name": "Width",
+          "Value": "500"
         }
-      },
-      {
-        "Id": "S2",
+      ],
+  "SubSteps": [
+    {
+      "Id": "S1",
+      "Action": "Put",
+      "ElementId": "Brick200x100x50",
+      "Repeat": {
+        "Count": "{Length}/{Brick200x100x50.Length}",
         "OffsetLocal": {
-          "X": "-{Brick200x100x50.Length}/4",
-          "Y": "{Brick200x100x50.Width} /2"
-        },
-        "OffsetOrientation": { "Yaw": "90" },
-        "Action": "Put",
-        "Element": "Brick200x100x5",
-        "Repeat": {
-          "Count": "{Width}/{Brick200x100x50.Length}",
-          "OffsetLocal": { "Y": "{Brick200x100x50.Length}" }
-        }
-      },
-      {
-        "Id": "S3",
-        "OffsetLocal": {
-          "X": "-15",
-          "Y": "-15"
-        },
-        "OffsetOrientation": {
-          "Yaw": "90"
-        },
-        "Action": "Put",
-        "Element": "Brick200x100x5",
-        "Repeat": {
-          "Count": "{Length}/{Brick200x100x50.Length}",
-          "OffsetLocal": { "X": "-{Brick200x100x50.Length}" }
-        }
-      },
-      {
-        "Id": "S4",
-        "OffsetLocal": {
-          "X": "15",
-          "Y": "-15"
-        },
-        "OffsetOrientation": {"Yaw": "90" },
-        "Action": "Put",
-        "Element": "Brick200x100x5",
-        "Repeat": {
-          "Count": "{Width}/{Brick200x100x50.Length} - 1",
-          "OffsetLocal": { "Y": "-{Brick200x100x50.Length}" }
-        }
-      },
-      {
-        "Id": "S5",
-        "Action": "Put",
-        "Element": "Brick200x100x5",
-        "OffsetLocal": {
-          "X": "15",
-          "Y": "5",
-          "Z": "{Brick200x100x50.Height}"
-        },
-        "OffsetOrientation": { "Yaw": "90" },
-        "Repeat": {
-          "Count": "{Length}/{Brick200x100x50.Length}",
-          "OffsetLocal": { "X": "{Brick200x100x50.Length}" }
-        }
-      },
-      {
-        "Id": "S6",
-        "OffsetLocal": {
-          "X": "-15",
-          "Y": "15"
-        },
-        "OffsetOrientation": { "Yaw": "90" },
-        "Action": "Put",
-        "Element": "Brick200x100x5",
-        "Repeat": {
-          "Count": "{Width}/{Brick200x100x50.Length} - 1",
-          "OffsetLocal": {
-            "Y": "{Brick200x100x50.Length}"
-          }
-        }
-      },
-      {
-        "Id": "S7",
-        "OffsetLocal": {
-          "X": "-5",
-          "Y": "-5"
-        },
-        "OffsetOrientation": { "Yaw": "90" },
-        "Action": "Put",
-        "Element": "Brick200x100x5",
-        "Repeat": {
-          "Count": "{Length}/{Brick200x100x50.Length}",
-          "OffsetLocal": { "X": "-{Brick200x100x50.Length}" }
-        }
-      },
-      {
-        "Id": "S8",
-        "OffsetLocal": {
-          "X": "5",
-          "Y": "-5"
-        },
-        "OffsetOrientation": { "Yaw": "90"},
-        "Action": "Put",
-        "Element": "Brick200x100x5",
-        "Repeat": {
-          "Count": "{Width}/{Brick200x100x50.Length}",
-          "OffsetLocal": { "Y": "-{Brick200x100x50.Length}" }
+          "X": "{Brick200x100x50.Length}"
         }
       }
-    ],
+    },
+    {
+      "Id": "S2",
+      "OffsetLocal": {
+        "X": "-{Brick200x100x50.Length}/4",
+        "Y": "{Brick200x100x50.Width} /2"
+      },
+      "OffsetOrientation": { "Yaw": "90" },
+      "Action": "Put",
+      "ElementId": "Brick200x100x50",
+      "Repeat": {
+        "Count": "{Width}/{Brick200x100x50.Length}",
+        "OffsetLocal": { "Y": "{Brick200x100x50.Length}" }
+      }
+    },
+    {
+      "Id": "S3",
+      "OffsetLocal": {
+        "X": "-15",
+        "Y": "-15"
+      },
+      "OffsetOrientation": {
+        "Yaw": "90"
+      },
+      "Action": "Put",
+      "ElementId": "Brick200x100x50",
+      "Repeat": {
+        "Count": "{Length}/{Brick200x100x50.Length}",
+        "OffsetLocal": { "X": "-{Brick200x100x50.Length}" }
+      }
+    },
+    {
+      "Id": "S4",
+      "OffsetLocal": {
+        "X": "15",
+        "Y": "-15"
+      },
+      "OffsetOrientation": { "Yaw": "90" },
+      "Action": "Put",
+      "ElementId": "Brick200x100x50",
+      "Repeat": {
+        "Count": "{Width}/{Brick200x100x50.Length} - 1",
+        "OffsetLocal": { "Y": "-{Brick200x100x50.Length}" }
+      }
+    },
+    {
+      "Id": "S5",
+      "Action": "Put",
+      "ElementId": "Brick200x100x50",
+      "OffsetLocal": {
+        "X": "15",
+        "Y": "5",
+        "Z": "{Brick200x100x50.Height}"
+      },
+      "OffsetOrientation": { "Yaw": "90" },
+      "Repeat": {
+        "Count": "{Length}/{Brick200x100x50.Length}",
+        "OffsetLocal": { "X": "{Brick200x100x50.Length}" }
+      }
+    },
+    {
+      "Id": "S6",
+      "OffsetLocal": {
+        "X": "-15",
+        "Y": "15"
+      },
+      "OffsetOrientation": { "Yaw": "90" },
+      "Action": "Put",
+      "ElementId": "Brick200x100x50",
+      "Repeat": {
+        "Count": "{Width}/{Brick200x100x50.Length} - 1",
+        "OffsetLocal": {
+          "Y": "{Brick200x100x50.Length}"
+        }
+      }
+    },
+    {
+      "Id": "S7",
+      "OffsetLocal": {
+        "X": "-5",
+        "Y": "-5"
+      },
+      "OffsetOrientation": { "Yaw": "90" },
+      "Action": "Put",
+      "ElementId": "Brick200x100x50",
+      "Repeat": {
+        "Count": "{Length}/{Brick200x100x50.Length}",
+        "OffsetLocal": { "X": "-{Brick200x100x50.Length}" }
+      }
+    },
+    {
+      "Id": "S8",
+      "OffsetLocal": {
+        "X": "5",
+        "Y": "-5"
+      },
+      "OffsetOrientation": { "Yaw": "90" },
+      "Action": "Put",
+      "ElementId": "Brick200x100x50",
+      "Repeat": {
+        "Count": "{Width}/{Brick200x100x50.Length}",
+        "OffsetLocal": { "Y": "-{Brick200x100x50.Length}" }
+      }
+    },
+    {
+      "Id": "R1",
+      "Action": "Put",
+      "ElementId": "Brus_Down_Rooof",
+      "ElementParams": ["600", "20", "15", "1" ],
+      "OffsetLocal": { "Z": "{Brus_Side_Rooof.Height} / 2" }
+    },
+    {
+      "Id": "R2",
+      "Action": "Put",
+      "ElementId": "Brus_Side_Rooof",
+      "OffsetLocal": {
+        "Y": "(-(300 - 20 / sqrt(2)) / 2) + ({Brus_Side_Rooof.Width} / sqrt(2))",
+        "Z": "((300 - 20 / sqrt(2)) / 2 )",
+        "X": "{Brus_Side_Rooof.Width}"
+      },
+      "OffsetOrientation": {
+        "Pitch": "180",
+        "Roll": "45"
+      }
+    },
+    {
+      "Id": "R3",
+      "Action": "Put",
+      "ElementId": "Brus_Side_Rooof",
+      "OffsetLocal": {
+        "Y": "(300 - 20 / sqrt(2)) - 2 * ({Brus_Side_Rooof.Width} / sqrt(2))"
+      },
+      "OffsetOrientation": {
+        "Roll": "-90"
+      }
+    }
+  ],
 
-    "Elements":
-    [
-      {
-        "Id": "Brick200x100x50",
-        "Type": "Internal",
-        "Length" : "20",
-        "Width": "10",
-        "Height" : "5"
+  "Elements": [
+    {
+      "Id": "Brick200x100x50",
+      "Type": "Internal",
+      "Length": "20",
+      "Width": "10",
+      "Height": "5"
+    },
+    {
+      "Id": "Brus_Down_Rooof",
+      "Type": "Custom",
+      "Material": "Wood",
+      "Length": "600",
+      "Width": "15",
+      "Height": "20",
+      "Comments": "Параметрический брус. Arg1 - длина, Arg2- высота, Arg3 - ширина, Arg4 - тангенс угла запила.",
+      "Geometry": {
+        "Plane": "XY",
+        "Profile": {
+          "Points": [
+            {
+              "Id": "1",
+              "U": "-{Brus_Down_Rooof.Arg1}/2",
+              "V": "-{Brus_Down_Rooof.Arg2}/2"
+            },
+            {
+              "Id": "2",
+              "U": "-{Brus_Down_Rooof.Arg1}/2 + ({Brus_Down_Rooof.Arg2} * {Brus_Down_Rooof.Arg4})",
+              "V": "{Brus_Down_Rooof.Arg2}/2"
+            },
+            {
+              "Id": "3",
+              "U": "{Brus_Down_Rooof.Arg1}/2 - ({Brus_Down_Rooof.Arg2} * {Brus_Down_Rooof.Arg4})",
+              "V": "{Brus_Down_Rooof.Arg2}/2"
+            },
+            {
+              "Id": "4",
+              "U": "{Brus_Down_Rooof.Arg1}/2",
+              "V": "-{Brus_Down_Rooof.Arg2}/2"
+            }
+          ],
+          "Contur": [ "1", "2", "3", "4" ],
+          "Mesh": [ "1", "2", "3", "1", "3", "4" ]
+        },
+        "Extrude": "{Brus_Down_Rooof.Arg3}"
       }
-    ]
+    },
+
+    {
+      "Id": "Brus_Side_Rooof",
+      "Type": "Custom",
+      "Material": "Wood",
+      "Length": "600",
+      "Width": "15",
+      "Height": "20",
+      "Geometry": {
+        "Plane": "XY",
+        "Profile": {
+          "Points": [
+            {
+              "Id": "1",
+              "U": "-(300 - 20 / sqrt(2)) / sqrt(2)",
+              "V": "-10"
+            },
+            {
+              "Id": "2",
+              "U": "(-(300 - 20 / sqrt(2)) / sqrt(2)) +20",
+              "V": "10"
+            },
+            {
+              "Id": "3",
+              "U": "((300 - 20 / sqrt(2)) / sqrt(2)) -20",
+              "V": "10"
+            },
+            {
+              "Id": "4",
+              "U": "(300 - 20 / sqrt(2)) / sqrt(2)",
+              "V": "-10"
+            }
+          ],
+          "Contur": [ "1", "2", "3", "4" ],
+          "Mesh": [ "1", "2", "3", "1", "3", "4" ]
+        },
+        "Extrude": "15"
+      }
+    }
+  ]
 }

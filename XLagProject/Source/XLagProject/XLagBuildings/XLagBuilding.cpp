@@ -2,7 +2,6 @@
 
 
 #include "XLagBuilding.h"
-#include "XLagBuildingElement.h"
 
 //#include "Hal/PlatformFilemanager.h"
 //#include "JsonObjectConverter.h"
@@ -42,9 +41,9 @@ void AXLagBuilding::Tick(float DeltaTime)
 	if (_processing == nullptr)
 		return;
 
-	for (size_t i = 0; i < 1; i++)
+	for (size_t i = 0; i < 100; i++)
 	{
-		_processing->DoProcess(this, RootComponent, BrickTemplet);
+		_processing->DoProcess(this, RootComponent, BrickTemplet, WoodMaterial);
 	}
 	
 }

@@ -3,10 +3,10 @@
 #include "XLagBuildParameterEvaluator.h"
 #include "XLagGeneralStepIterator.generated.h"
 
-UCLASS()
-class UXLagGeneralStepIterator : public UObject
+USTRUCT()
+struct FXLagGeneralStepIterator
 {
-	GENERATED_UCLASS_BODY()
+	GENERATED_BODY()
 
 public:
 	void SetEvaluator(FXLagBuildParameterEvaluator* evaluator);

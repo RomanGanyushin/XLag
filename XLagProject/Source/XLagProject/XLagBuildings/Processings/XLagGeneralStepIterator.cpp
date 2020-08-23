@@ -1,22 +1,17 @@
 #include "XLagGeneralStepIterator.h"
 
-UXLagGeneralStepIterator::UXLagGeneralStepIterator(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer)
-{
-}
-
-void UXLagGeneralStepIterator::SetEvaluator(FXLagBuildParameterEvaluator* evaluator)
+void FXLagGeneralStepIterator::SetEvaluator(FXLagBuildParameterEvaluator* evaluator)
 {
 	_evaluator = evaluator;
 }
 
-void UXLagGeneralStepIterator::SetGeneralPlain(FGeneralPlain *generalPlain)
+void FXLagGeneralStepIterator::SetGeneralPlain(FGeneralPlain *generalPlain)
 {
 	GeneralPlain = generalPlain;
 	BeginInitialize();
 }
 
-void UXLagGeneralStepIterator::BeginInitialize()
+void FXLagGeneralStepIterator::BeginInitialize()
 {
 	if (GeneralPlain == nullptr || GeneralPlain->GeneralSteps.Num() == 0)
 		return;
@@ -24,7 +19,7 @@ void UXLagGeneralStepIterator::BeginInitialize()
 	InitializeNextGeneralStep();
 }
 
-const FGeneralStep* UXLagGeneralStepIterator::GetCurrentGeneralStep() const
+const FGeneralStep* FXLagGeneralStepIterator::GetCurrentGeneralStep() const
 {
 	if (_generalStepIndex == -1)
 		return nullptr;
@@ -32,7 +27,7 @@ const FGeneralStep* UXLagGeneralStepIterator::GetCurrentGeneralStep() const
 	return &GeneralPlain->GeneralSteps[_generalStepIndex];
 }
 
-const FSubStep* UXLagGeneralStepIterator::GetCurrentSubStep() const
+const FSubStep* FXLagGeneralStepIterator::GetCurrentSubStep() const
 {
 	auto generalStep = GetCurrentGeneralStep();
 	if (generalStep == nullptr)
@@ -42,12 +37,12 @@ const FSubStep* UXLagGeneralStepIterator::GetCurrentSubStep() const
 	return FindSubStepById(stepId);
 }
 
-void UXLagGeneralStepIterator::Next()
+void FXLagGeneralStepIterator::Next()
 {
 	NextSubStep();
 }
 
-void UXLagGeneralStepIterator::InitializeNextGeneralStep()
+void FXLagGeneralStepIterator::InitializeNextGeneralStep()
 {
 	auto currentGeneralStep = GetCurrentGeneralStep();
 
@@ -55,17 +50,19 @@ void UXLagGeneralStepIterator::InitializeNextGeneralStep()
 	{
 		auto repateCount = _evaluator->EvaluateInt(currentGeneralStep->Repeat.Count);
 
-		if (repateCount > ++_generalStepCount)
+		_generalStepCount++;
+		if (repateCount > _generalStepCount)
 		{
-
-			_isNextGeneralCycleStep = true;
+			_evaluator->SetParameter(TEXT("GeneralStepIndex"), FString::Printf(TEXT("%d"), _generalStepCount));
+			_isNextGeneralCycleStep = true;	
 			IntializeBeginSubStep();
 			return;
 		}
 	}
 	
-	_generalStepCount = 1;
+	_generalStepCount = 0;
 	_generalStepIndex++;
+	_evaluator->SetParameter(TEXT("GeneralStepIndex"), FString::Printf(TEXT("%d"), _generalStepCount));
 	
 	if (GeneralPlain->GeneralSteps.Num() <= _generalStepIndex)
 	{
@@ -78,13 +75,13 @@ void UXLagGeneralStepIterator::InitializeNextGeneralStep()
 	}
 }
 
-void UXLagGeneralStepIterator::IntializeBeginSubStep()
+void FXLagGeneralStepIterator::IntializeBeginSubStep()
 {
 	_subStepIndex = -1;
 	NextSubStep();	
 }
 
-void UXLagGeneralStepIterator::NextSubStep()
+void FXLagGeneralStepIterator::NextSubStep()
 {
 	auto subStepIdsCount = GetCurrentGeneralStep()->SubStepIds.Num();
 	FindNextSubStep();
@@ -97,7 +94,7 @@ void UXLagGeneralStepIterator::NextSubStep()
 }
 
 
-void UXLagGeneralStepIterator::FindNextSubStep()
+void FXLagGeneralStepIterator::FindNextSubStep()
 {
 	while (++_subStepIndex < GetCurrentGeneralStep()->SubStepIds.Num())
 	{
@@ -106,7 +103,7 @@ void UXLagGeneralStepIterator::FindNextSubStep()
 	}
 }
 
-void UXLagGeneralStepIterator::InitializeComplite()
+void FXLagGeneralStepIterator::InitializeComplite()
 {
 	_generalStepIndex = -1;
 	_subStepIndex = -1;
@@ -114,7 +111,7 @@ void UXLagGeneralStepIterator::InitializeComplite()
 }
 
 
-const FSubStep* UXLagGeneralStepIterator::FindSubStepById(const FString& stepId) const
+const FSubStep* FXLagGeneralStepIterator::FindSubStepById(const FString& stepId) const
 {
 	for (int i = 0; i < GeneralPlain->SubSteps.Num(); i++)
 	{

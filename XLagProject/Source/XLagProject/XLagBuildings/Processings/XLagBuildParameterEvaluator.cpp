@@ -58,6 +58,11 @@ FRotator FXLagBuildParameterEvaluator::Evaluate(const FUnboundedRotator3& unbund
 	return result;
 }
 
+double FXLagBuildParameterEvaluator::Evaluate(const FString& arg) const
+{
+	return EvaluateFloat(arg);
+}
+
 const int32 FXLagBuildParameterEvaluator::EvaluateInt(const FString& numeric) const
 {
 	return (int32)CalculateValue(numeric);

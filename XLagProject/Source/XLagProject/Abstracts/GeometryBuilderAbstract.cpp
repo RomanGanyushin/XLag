@@ -1,5 +1,29 @@
 #include "GeometryBuilderAbstract.h"
 
+void GeometryBuilderAbstract::AddTriangleMesh(FVector p1, FVector p2, FVector p3, int32& triIndex)
+{
+	Vertices.Add(p1);	Vertices.Add(p2); Vertices.Add(p3);   
+
+	Trinagles.Add(triIndex);
+	Trinagles.Add(triIndex + 1);
+	Trinagles.Add(triIndex + 2);
+
+	triIndex += 3;
+
+	auto ThisNorm = FVector::CrossProduct(p3 - p1, p2 - p1).GetSafeNormal();
+
+	Normals.Add(ThisNorm);
+	Normals.Add(ThisNorm);
+	Normals.Add(ThisNorm);
+
+	auto vx1 = p1.X / 400.f; auto vy1 = p1.Y / 400.f;
+	auto vx2 = p2.X / 400.f; auto vy2 = p2.Y / 400.f;
+	auto vx3 = p3.X / 400.f; auto vy3 = p3.Y / 400.f;
+	UVs.Add(FVector2D(vx1, vy1));
+	UVs.Add(FVector2D(vx2, vy2));
+	UVs.Add(FVector2D(vx3, vy3));
+}
+
 void GeometryBuilderAbstract::AddQuadMesh(FVector p1, FVector p2, FVector p3, FVector p4, int32& triIndex)
 {
 	Vertices.Add(p1);	Vertices.Add(p2);
