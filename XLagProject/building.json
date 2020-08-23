@@ -308,7 +308,7 @@
     {
       "Id": "Wood_Brus",
       "Type": "Custom",
-      "Material": "Wood",
+      "Material": "LightWood",
       "Comments": "Параметрический брус. Arg1 - длина, Arg2- высота, Arg3 - ширина, Arg4 - тангенс угла запила.",
       "Geometry": {
         "Plane": "XY",
@@ -344,7 +344,7 @@
     {
       "Id": "RoofSurface",
       "Type": "Custom",
-      "Material": "Wood",
+      "Material": "MetalCrome",
       "Comments": "Крышка семитричная, 90 градусов. Arg1 - длина катета. Arg2 - продольность.",
       "Geometry": {
         "Plane": "XY",

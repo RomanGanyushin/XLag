@@ -331,6 +331,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagDynamicBuildingElementGeometry.h">
       <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\InternalElementSuite.h">
+      <Filter>Source\XLagProject\XLagBuildings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagBuildProcessing.cpp">
@@ -344,6 +347,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagDynamicBuildingElementGeometry.cpp">
       <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\InternalElementSuite.cpp">
+      <Filter>Source\XLagProject\XLagBuildings</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -22,7 +22,7 @@ class UXLagBuildProcessing : public UClass
 
 public:	
 	void SetGeneralPlain(FGeneralPlain* generalPlain);
-	void DoProcess(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate, UMaterial* woodMaterial);
+	void DoProcess(UObject* owner, USceneComponent*root);
 
 public:	
 	UPROPERTY(BlueprintReadOnly) FString BuildingName;
@@ -33,7 +33,7 @@ private:
 	FRepeatCycle* _repeatCycle;
 	void GenerateParametersFrom(TArray<FBuildingElement> elements);
 	void InitializeSubStep();
-	void ExecuteRepeatCycle(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate, UMaterial* woodMaterial);
-	void SpawnBuildingElement(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate, UMaterial* woodMaterial);
+	void ExecuteRepeatCycle(UObject* owner, USceneComponent* root);
+	void SpawnBuildingElement(UObject* owner, USceneComponent* root);
 	void SetupPosition(const FPositionSetup* setup);
 };

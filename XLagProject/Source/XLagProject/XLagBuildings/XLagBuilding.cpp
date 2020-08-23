@@ -2,11 +2,6 @@
 
 
 #include "XLagBuilding.h"
-
-//#include "Hal/PlatformFilemanager.h"
-//#include "JsonObjectConverter.h"
-//#include "Models/GeneralPlain.h"
-
 #include "Models/GeneralPlainSerialization.h"
 
 // Sets default values
@@ -43,8 +38,7 @@ void AXLagBuilding::Tick(float DeltaTime)
 
 	for (size_t i = 0; i < 100; i++)
 	{
-		_processing->DoProcess(this, RootComponent, BrickTemplet, WoodMaterial);
+		_processing->DoProcess(this, RootComponent);
 	}
-	
 }
 

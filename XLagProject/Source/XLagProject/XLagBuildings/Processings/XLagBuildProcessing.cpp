@@ -1,6 +1,7 @@
 #include "XLagBuildProcessing.h"
 
 #include "ProceduralMeshComponent.h"
+#include "../InternalElementSuite.h"
 #include "XLagDynamicBuildingElementGeometry.h"
 
 UXLagBuildProcessing::UXLagBuildProcessing(const FObjectInitializer& ObjectInitializer)
@@ -11,17 +12,14 @@ UXLagBuildProcessing::UXLagBuildProcessing(const FObjectInitializer& ObjectIniti
 	GeneralStepIterator->SetEvaluator(Evaluator);
 }
 
-void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate, UMaterial* woodMaterial)
+void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root)
 {
-	if (meshTemplate == nullptr)
-		return;
-
 	if (GeneralStepIterator->IsComplite())
 		return;
 
 	if (_repeatCycle != nullptr)
 	{
-		ExecuteRepeatCycle(owner, root, meshTemplate, woodMaterial);
+		ExecuteRepeatCycle(owner, root);
 		return;
 	}
 
@@ -106,10 +104,9 @@ void UXLagBuildProcessing::SetupPosition(const FPositionSetup* setup)
 	}
 }
 
-void UXLagBuildProcessing::ExecuteRepeatCycle(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate, UMaterial* woodMaterial)
+void UXLagBuildProcessing::ExecuteRepeatCycle(UObject* owner, USceneComponent* root)
 {
-	SpawnBuildingElement(owner, root, meshTemplate, woodMaterial);
-
+	SpawnBuildingElement(owner, root);
 
 	_repeatCycle->Index++;
 
@@ -122,7 +119,7 @@ void UXLagBuildProcessing::ExecuteRepeatCycle(UObject* owner, USceneComponent*ro
 	}
 }
 
-void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent*root, UStaticMesh *meshTemplate, UMaterial* woodMaterial)
+void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent* root)
 {
 	auto step = GeneralStepIterator->GetCurrentSubStep();
 	auto elementId = step->ElementId;
@@ -143,9 +140,13 @@ void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent*
 
 	if (element->Type.Equals(TEXT("Internal"), ESearchCase::IgnoreCase))
 	{
+		//TODO: Закешировать.
+		auto resources = AInternalElementSuite::GetSuite();
+		auto templateObject = resources != nullptr ? resources->GetTemplate(elementId) : nullptr;
+
 		auto brick = NewObject<UStaticMeshComponent>(owner);
 		brick->SetupAttachment(root);
-		brick->SetStaticMesh(meshTemplate);
+		brick->SetStaticMesh(templateObject);
 		brick->SetRelativeRotation(Evaluator->CurrentOrientation);
 		brick->SetRelativeLocation(Evaluator->CurrentPosition);
 		brick->SetRelativeScale3D(FVector(0.2, 0.1, 0.05));
@@ -156,6 +157,10 @@ void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent*
 	}
 	else if(element->Type.Equals(TEXT("Custom"), ESearchCase::IgnoreCase))
 	{
+		//TODO: Закешировать.
+		auto resources = AInternalElementSuite::GetSuite();
+		auto material = resources != nullptr ? resources->GetMaterial(element->Material) : nullptr;
+
 		auto custom = NewObject<UProceduralMeshComponent>(owner);
 		custom->SetupAttachment(root);
 
@@ -165,7 +170,7 @@ void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent*
 		custom->CreateMeshSection_LinearColor(0, geometry.Vertices, geometry.Trinagles, geometry.Normals, geometry.UVs, geometry.Colors, TArray<FProcMeshTangent>(), true);
 		custom->SetRelativeRotation(Evaluator->CurrentOrientation);
 		custom->SetRelativeLocation(Evaluator->CurrentPosition);
-		custom->SetMaterial(0, woodMaterial);
+		custom->SetMaterial(0, material);
 		custom->RegisterComponent();
 
 		Evaluator->OffsetPosition(_repeatCycle->IncrementalPosition);
