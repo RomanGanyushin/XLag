@@ -171,18 +171,19 @@
     {
       "Id": "R1",
       "Action": "Put",
-      "ElementId": "Brus_Down_Rooof",
+      "ElementId": "Wood_Brus",
       "ElementParams": ["600", "20", "15", "1" ],
-      "OffsetLocal": { "Z": "{Brus_Side_Rooof.Height} / 2" }
+      "OffsetLocal": { "Z": "{Wood_Brus.Height} / 2" }
     },
     {
       "Id": "R2",
       "Action": "Put",
-      "ElementId": "Brus_Side_Rooof",
+      "ElementId": "Wood_Brus",
+      "ElementParams": [ "600 / sqrt(2)", "20", "15", "1" ],
       "OffsetLocal": {
-        "Y": "(-(300 - 20 / sqrt(2)) / 2) + ({Brus_Side_Rooof.Width} / sqrt(2))",
-        "Z": "((300 - 20 / sqrt(2)) / 2 )",
-        "X": "{Brus_Side_Rooof.Width}"
+        "X": "{Wood_Brus.Width}",
+        "Y": "(-(300 - 20 / sqrt(2)) / 2) + ({Wood_Brus.Width} / sqrt(2))",
+        "Z": "((300 - 20 / sqrt(2)) / 2 )"
       },
       "OffsetOrientation": {
         "Pitch": "180",
@@ -192,9 +193,10 @@
     {
       "Id": "R3",
       "Action": "Put",
-      "ElementId": "Brus_Side_Rooof",
+      "ElementId": "Wood_Brus",
+      "ElementParams": [ "600 / sqrt(2)", "20", "15", "1" ],
       "OffsetLocal": {
-        "Y": "(300 - 20 / sqrt(2)) - 2 * ({Brus_Side_Rooof.Width} / sqrt(2))"
+        "Y": "(300 - 20 / sqrt(2)) - 2 * ({Wood_Brus.Width} / sqrt(2))"
       },
       "OffsetOrientation": {
         "Roll": "-90"
@@ -211,7 +213,7 @@
       "Height": "5"
     },
     {
-      "Id": "Brus_Down_Rooof",
+      "Id": "Wood_Brus",
       "Type": "Custom",
       "Material": "Wood",
       "Length": "600",
@@ -224,68 +226,29 @@
           "Points": [
             {
               "Id": "1",
-              "U": "-{Brus_Down_Rooof.Arg1}/2",
-              "V": "-{Brus_Down_Rooof.Arg2}/2"
+              "U": "-{Wood_Brus.Arg1}/2",
+              "V": "-{Wood_Brus.Arg2}/2"
             },
             {
               "Id": "2",
-              "U": "-{Brus_Down_Rooof.Arg1}/2 + ({Brus_Down_Rooof.Arg2} * {Brus_Down_Rooof.Arg4})",
-              "V": "{Brus_Down_Rooof.Arg2}/2"
+              "U": "-{Wood_Brus.Arg1}/2 + ({Wood_Brus.Arg2} * {Wood_Brus.Arg4})",
+              "V": "{Wood_Brus.Arg2}/2"
             },
             {
               "Id": "3",
-              "U": "{Brus_Down_Rooof.Arg1}/2 - ({Brus_Down_Rooof.Arg2} * {Brus_Down_Rooof.Arg4})",
-              "V": "{Brus_Down_Rooof.Arg2}/2"
+              "U": "{Wood_Brus.Arg1}/2 - ({Wood_Brus.Arg2} * {Wood_Brus.Arg4})",
+              "V": "{Wood_Brus.Arg2}/2"
             },
             {
               "Id": "4",
-              "U": "{Brus_Down_Rooof.Arg1}/2",
-              "V": "-{Brus_Down_Rooof.Arg2}/2"
+              "U": "{Wood_Brus.Arg1}/2",
+              "V": "-{Wood_Brus.Arg2}/2"
             }
           ],
           "Contur": [ "1", "2", "3", "4" ],
           "Mesh": [ "1", "2", "3", "1", "3", "4" ]
         },
-        "Extrude": "{Brus_Down_Rooof.Arg3}"
-      }
-    },
-
-    {
-      "Id": "Brus_Side_Rooof",
-      "Type": "Custom",
-      "Material": "Wood",
-      "Length": "600",
-      "Width": "15",
-      "Height": "20",
-      "Geometry": {
-        "Plane": "XY",
-        "Profile": {
-          "Points": [
-            {
-              "Id": "1",
-              "U": "-(300 - 20 / sqrt(2)) / sqrt(2)",
-              "V": "-10"
-            },
-            {
-              "Id": "2",
-              "U": "(-(300 - 20 / sqrt(2)) / sqrt(2)) +20",
-              "V": "10"
-            },
-            {
-              "Id": "3",
-              "U": "((300 - 20 / sqrt(2)) / sqrt(2)) -20",
-              "V": "10"
-            },
-            {
-              "Id": "4",
-              "U": "(300 - 20 / sqrt(2)) / sqrt(2)",
-              "V": "-10"
-            }
-          ],
-          "Contur": [ "1", "2", "3", "4" ],
-          "Mesh": [ "1", "2", "3", "1", "3", "4" ]
-        },
-        "Extrude": "15"
+        "Extrude": "{Wood_Brus.Arg3}"
       }
     }
   ]
