@@ -20,7 +20,7 @@
       }
     },
     {
-      "Id": "GS2",
+      "Id": "GS2 - Установка стропил",
       "Local": {
         "X": "0",
         "Y": "{Width}/2",
@@ -37,6 +37,14 @@
         },
         "Orientation": { "Yaw": "0" }
       }
+    },
+    {
+      "Id": "GS3 - Обрешетка крыши",
+      "SubStepIds": [ "F1", "F2" ]
+    },
+    {
+      "Id": "GS4 - Кровля",
+      "SubStepIds": [ "M1"]
     }
   ],
   "Parameters": [
@@ -47,7 +55,7 @@
     },
     {
       "Name": "Length",
-      "Value": "1000",
+      "Value": "800",
       "Description": "Длина дома. Должна быть кратна длине кирпича."
     },
     {
@@ -72,6 +80,14 @@
     {
       "Name": "Brus.Height",
       "Value": "20"
+    },
+    {
+      "Name": "Plank.Width",
+      "Value": "2"
+    },
+    {
+      "Name": "Plank.Height",
+      "Value": "10"
     }
   ],
   "SubSteps": [
@@ -222,6 +238,62 @@
       "OffsetOrientation": {
         "Roll": "-90"
       }
+    },
+    {
+      "Id": "F1",
+      "Action": "Put",
+      "ElementId": "Wood_Brus",
+      "ElementParams": [ "{Length} + (2 * {RoofOffset})", "{Plank.Height}", "{Plank.Width}", "0" ],
+      "Local": {
+        "X": "{Length}/2",
+        "Y": "-{RoofOffset} + ({Plank.Width} / 2)",
+        "Z": "{Height} + ({Plank.Height} / 2)"
+      },
+      "Orientation": {
+        "Yaw": "90",
+        "Pitch": "-45"
+      },
+      "Repeat": {
+        "Count": "(({Width} * sqrt(2)) / 2) / ({Plank.Height} * 2) - 2",
+        "OffsetLocal": {
+          "Y": "{Plank.Height} * 2",
+          "Z": "{Plank.Height} * 2"
+        }
+      }
+    },
+    {
+      "Id": "F2",
+      "Action": "Put",
+      "ElementId": "Wood_Brus",
+      "ElementParams": [ "{Length} + (2 * {RoofOffset})", "{Plank.Height}", "{Plank.Width}", "0" ],
+      "Local": {
+        "X": "{Length}/2",
+        "Y": "{Width} + {RoofOffset} - (1 * ({Plank.Width} / 2))",
+        "Z": "{Height} + ({Plank.Height} / 2)"
+      },
+      "Orientation": {
+        "Yaw": "90",
+        "Pitch": "45"
+      },
+      "Repeat": {
+        "Count": "(({Width} * sqrt(2)) / 2) / ({Plank.Height} * 2) - 2",
+        "OffsetLocal": {
+          "Y": "- {Plank.Height} * 2",
+          "Z": "{Plank.Height} * 2"
+        }
+      }
+    },
+    {
+      "Id": "M1",
+      "Action": "Put",
+      "ElementId": "RoofSurface",
+      "ElementParams": [ "({Width} + {RoofOffset}) / 2 + ({Plank.Width} + {Brus.Height}) * sqrt(2)", "{Length} +  2 *{RoofOffset}" ],
+      "Local": {
+        "X": "-{RoofOffset}",
+        "Y": "{Width} / 2",
+        "Z": "{Height} + ({Width} + {RoofOffset}) / 2 + ({Plank.Width} + {Brus.Height}) * sqrt(2)"
+      },
+      "Orientation": { "Yaw": "0" }
     }
   ],
 
@@ -267,6 +339,52 @@
           "Mesh": [ "1", "2", "3", "1", "3", "4" ]
         },
         "Extrude": "{Wood_Brus.Arg3}"
+      }
+    },
+    {
+      "Id": "RoofSurface",
+      "Type": "Custom",
+      "Material": "Wood",
+      "Comments": "Крышка семитричная, 90 градусов. Arg1 - длина катета. Arg2 - продольность.",
+      "Geometry": {
+        "Plane": "XY",
+        "Profile": {
+          "Points": [
+            {
+              "Id": "1",
+              "U": "-{RoofSurface.Arg1}",
+              "V": "-{RoofSurface.Arg1}"
+            },
+            {
+              "Id": "2",
+              "U": "-{RoofSurface.Arg1}",
+              "V": "-{RoofSurface.Arg1} + 1"
+            },
+            {
+              "Id": "3",
+              "U": "0",
+              "V": "1"
+            },
+            {
+              "Id": "4",
+              "U": "{RoofSurface.Arg1}",
+              "V": "-{RoofSurface.Arg1} + 1"
+            },
+            {
+              "Id": "5",
+              "U": "{RoofSurface.Arg1}",
+              "V": "-{RoofSurface.Arg1}"
+            },
+            {
+              "Id": "6",
+              "U": "0",
+              "V": "0"
+            }
+          ],
+          "Contur": [ "1", "2", "3", "4", "5", "6" ],
+          "Mesh": [ "1", "2", "3", "1", "3", "6", "3", "4", "5", "6", "4", "5" ]
+        },
+        "Extrude": "{RoofSurface.Arg2}"
       }
     }
   ]

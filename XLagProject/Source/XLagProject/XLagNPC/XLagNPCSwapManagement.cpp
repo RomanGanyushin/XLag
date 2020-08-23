@@ -83,7 +83,7 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 
 	if (BuildingTemplate != nullptr)
 	{
-		auto building = GetWorld()->SpawnActor<AXLagBuilding>(BuildingTemplate, FVector(5000,5000, 0), FRotator::ZeroRotator);
+		auto building = GetWorld()->SpawnActor<AXLagBuilding>(BuildingTemplate, FVector(5000 +  100, 5000 + 100, 0), FRotator::ZeroRotator);
 	}
 }
 
