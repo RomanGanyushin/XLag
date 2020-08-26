@@ -56,29 +56,22 @@ void AXLagSelectComponent::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void AXLagSelectComponent::PostEditChangeProperty(struct FPropertyChangedEvent& e)
+void AXLagSelectComponent::SetFirstWorldPoint(float x, float y)
 {
-	Super::PostEditChangeProperty(e);
+	WorldPoint1X = x;
+	WorldPoint1Y = y;
 
-	FName PropertyName = (e.Property != NULL) ? e.Property->GetFName() : NAME_None;
-	UE_LOG(LogTemp, Log, TEXT("AXLagSelectComponent::PostEditChangeProperty %s"), *PropertyName.ToString());
-	
-	if (PropertyName == GET_MEMBER_NAME_CHECKED(AXLagSelectComponent, WorldPoint1X) || 
-		PropertyName == GET_MEMBER_NAME_CHECKED(AXLagSelectComponent, WorldPoint1Y) ||
-		PropertyName == GET_MEMBER_NAME_CHECKED(AXLagSelectComponent, WorldPoint2X) ||
-		PropertyName == GET_MEMBER_NAME_CHECKED(AXLagSelectComponent, WorldPoint2Y))
-	{
-		RecalculateCellWidthAndPosition();
-		RecalculateSelectView();
-	}
-	else 
-	if (PropertyName == GET_MEMBER_NAME_CHECKED(AXLagSelectComponent, CellPoistionX) ||
-		PropertyName == GET_MEMBER_NAME_CHECKED(AXLagSelectComponent, CellPoistionY) ||
-		PropertyName == GET_MEMBER_NAME_CHECKED(AXLagSelectComponent, CellWidth) ||
-		PropertyName == GET_MEMBER_NAME_CHECKED(AXLagSelectComponent, CellHeight))
-	{
-		RecalculateSelectView();
-	}
+	RecalculateCellWidthAndPosition();
+	RecalculateSelectView();
+}
+
+void AXLagSelectComponent::SetSecondWorldPoint(float x, float y)
+{
+	WorldPoint2X = x;
+	WorldPoint2Y = y;
+
+	RecalculateCellWidthAndPosition();
+	RecalculateSelectView();
 }
 
 void AXLagSelectComponent::RecalculateCellWidthAndPosition()

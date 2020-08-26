@@ -30,6 +30,9 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* SelectionGrid;
 
+	UFUNCTION(BlueprintCallable) void SetFirstWorldPoint(float x, float y);
+	UFUNCTION(BlueprintCallable) void SetSecondWorldPoint(float x, float y);
+
 	UPROPERTY(EditAnywhere)
 		float WorldPoint1X;
 
@@ -61,7 +64,6 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	virtual void PostEditChangeProperty(FPropertyChangedEvent & PropertyChangedEvent) override;
 
 public:
 	void Init(std::shared_ptr<ITerrainMapAccessor> map);
