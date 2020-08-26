@@ -82,71 +82,33 @@ void AXLagDynamicTerrainBase::BeginPlay()
 		UE_LOG(LogTemp, Log, TEXT("Swap managment not found"));
 	}
 
-	APawn *avatar = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
-	if (avatar == nullptr)
-		return;
+	//APawn *avatar = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+	//if (avatar == nullptr)
+	//	return;
 
-	auto locator = RandomizeZeroPlacePosition(Map).Get();
-	avatar->SetActorLocation(locator + FVector(0, 0, 200));
-
-
-	/*for (TObjectIterator<ACharacter> It; It; ++It)
-	{
-		ACharacter* CurrentObject = *It;
-		UE_LOG(LogTemp, Log, TEXT(">>> Found UObject named: %s"), *CurrentObject->GetName());
-
-		if (CurrentObject->GetName().Equals(TEXT("BuilderCharter_2"), ESearchCase::CaseSensitive))
-		{
-			CurrentObject->AddMovementInput(FVector(1.f, 0.f, 0.f));
-			UE_LOG(LogTemp, Log, TEXT(">>>>>>>>>>>>>>> Moving >>>>>>>>>>>>>>>>>>>"));
-		}
-	}*/
+	//auto locator = RandomizeZeroPlacePosition(Map).Get();
+	//avatar->SetActorLocation(locator + FVector(0, 0, 200));
 }
-
 // Called every frame
 void AXLagDynamicTerrainBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	float static UpdateDelayConter = 0;
+
+	UpdateDelayConter += DeltaTime;
+	if (UpdateDelayConter < 5.0f)
+		return;
+
 	if (Map->IsChanged())
 	{
+		UpdateDelayConter = 0;
 		InitGeometry();
 	}
 
-
-	return;
-
-	//for (TObjectIterator<ACharacter> It; It; ++It)
-	//{
-	//	ACharacter* CurrentObject = *It;
-	//	UE_LOG(LogTemp, Log, TEXT(">>> Found UObject named: %s"), *CurrentObject->GetName());
-
-	//	if (CurrentObject->GetName().Equals(TEXT("BuilderCharter_2"), ESearchCase::CaseSensitive))
-	//	{
-	//		FVector toTree = AnyTreeLocation - CurrentObject->GetActorLocation();
-	//		toTree.Normalize();
-
-	//		CurrentObject->AddMovementInput(toTree, DeltaTime * 10);
-	//		FRotator toTreeRotation = toTree.Rotation();
-	//		toTreeRotation.Pitch = 0; // 0 off the pitch 
-	//		
-	//		auto curRot = CurrentObject->GetActorRotation();
-	//		auto delta = toTreeRotation - curRot;
-	//		delta.Pitch = 0;
-	//		CurrentObject->AddActorLocalRotation(delta);
-	//		
-
-	//		UE_LOG(LogTemp, Log, TEXT(">>>>>>>>>>>>>>> Moving >>>>>>>>>>>>>>>>>>>"));
-	//		//UE_LOG(LogTemp, Log, TEXT("Rotator %f"), );
-	//	}
-	//}
-
-	Super::Tick(DeltaTime);
-		return;
-
-	APawn *avatar = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
-	if (avatar == nullptr)
-		return;
+	//APawn *avatar = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+	//if (avatar == nullptr)
+	//	return;
 
 }
 
