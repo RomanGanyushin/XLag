@@ -44,7 +44,20 @@
     },
     {
       "Id": "GS4 - Кровля",
-      "SubStepIds": [ "M1"]
+      "SubStepIds": [ "M1" ]
+    },
+    {
+      "Id": "GS5 - Фронтоны",
+      "SubStepIds": [ "A1", "A2" ],
+      "Local": {
+        "X": "-{Plank.Width}",
+        "Y": "{Width}/2",
+        "Z": "{Height} + ({Plank.Height} / 2)"
+      },
+      "Orientation": {
+        "Yaw": "0",
+        "Pitch": "0"
+      }
     }
   ],
   "Parameters": [
@@ -88,6 +101,11 @@
     {
       "Name": "Plank.Height",
       "Value": "10"
+    },
+    {
+      "Name": "Window.Level",
+      "Value": "80",
+      "Description": "Значение уровня окна от пола"
     }
   ],
   "SubSteps": [
@@ -294,6 +312,35 @@
         "Z": "{Height} + ({Width} + {RoofOffset}) / 2 + ({Plank.Width} + {Brus.Height}) * sqrt(2)"
       },
       "Orientation": { "Yaw": "0" }
+    },
+    {
+      "Id": "A1",
+      "Action": "Put",
+      "ElementId": "Wood_Brus",
+      "ElementParams": [ "{Width} + 2 * {RoofOffset} - (2 * {Plank.Height} * {SubStepIndex} )", "{Plank.Height}", "{Plank.Width}", "1" ],
+      "Repeat": {
+        "Count": "{Window.Level} / {Plank.Height}",
+        "OffsetLocal": {
+          "Z": "{Plank.Height}"
+        }
+      }
+    },
+    {
+      "Id": "A2",
+      "Action": "Put",
+      "ElementId": "Wood_Brus",
+      "ElementParams": [ "(({Width} - 100)/ 2 + {RoofOffset} - (2 * {Plank.Height} * ({Window.Level} / {Plank.Height}))) - ({Plank.Height} * {SubStepIndex}) ", "{Plank.Height}", "{Plank.Width}", "1" ],
+      "Local": {
+        "X": "-{Plank.Width}",
+        "Y": "({Plank.Height} * ({Window.Level} / {Plank.Height}))-{RoofOffset}",
+        "Z": "{Height} + ({Plank.Height} / 2) + {Window.Level}"
+      },
+      "Repeat": {
+        "Count": "5",
+        "OffsetLocal": {
+          "Z": "{Plank.Height}"
+        }
+      }
     }
   ],
 

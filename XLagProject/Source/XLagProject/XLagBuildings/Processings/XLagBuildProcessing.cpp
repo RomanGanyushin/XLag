@@ -68,6 +68,8 @@ void UXLagBuildProcessing::InitializeSubStep()
 
 	SetupPosition(step);
 	
+	Evaluator->SetParameter(TEXT("SubStepIndex"), TEXT("0"));
+
 	if (_repeatCycle != nullptr)
 		delete _repeatCycle;
 
@@ -109,6 +111,7 @@ void UXLagBuildProcessing::ExecuteRepeatCycle(UObject* owner, USceneComponent* r
 	SpawnBuildingElement(owner, root);
 
 	_repeatCycle->Index++;
+	Evaluator->SetParameter(TEXT("SubStepIndex"), FString::Printf(TEXT("%d"), _repeatCycle->Index));
 
 	if (_repeatCycle->Count <= _repeatCycle->Index)
 	{
