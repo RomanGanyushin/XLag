@@ -41,6 +41,16 @@ void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root)
 	InitializeSubStep();
 }
 
+void UXLagBuildProcessing::CreatePreview(UObject* owner, USceneComponent*root)
+{
+	isPreviewMode = true;
+
+	while (!GeneralStepIterator->IsComplite())
+	{
+		DoProcess(owner, root);
+	}
+}
+
 void UXLagBuildProcessing::SetGeneralPlain(FGeneralPlain* generalPlain)
 {
 	GeneralPlain = generalPlain;
@@ -162,7 +172,19 @@ void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent*
 	{
 		//TODO: Закешировать.
 		auto resources = AInternalElementSuite::GetSuite();
-		auto material = resources != nullptr ? resources->GetMaterial(element->Material) : nullptr;
+		UMaterial* material = nullptr;
+
+		if (resources != nullptr)
+		{
+			if (isPreviewMode)
+			{
+
+			}
+			else
+			{
+				material = resources->GetMaterial(element->Material);
+			}
+		}
 
 		auto custom = NewObject<UProceduralMeshComponent>(owner);
 		custom->SetupAttachment(root);

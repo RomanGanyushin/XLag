@@ -19,13 +19,9 @@ void AXLagBuilding::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
 	UE_LOG(LogTemp, Log, TEXT("AXLagBuilding::Begin Play"));
 
-	_plain = UGeneralPlainSerialization::LoadFromFile(FString(TEXT("building.json")));
-
-	_processing = NewObject<UXLagBuildProcessing>();
-	_processing->SetGeneralPlain(_plain);	
+	
 }
 
 // Called every frame
@@ -33,12 +29,20 @@ void AXLagBuilding::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (_processing == nullptr)
+	/*if (_processing == nullptr)
 		return;
 
 	for (size_t i = 0; i < 100; i++)
 	{
 		_processing->DoProcess(this, RootComponent);
-	}
+	}*/
+}
+
+void AXLagBuilding::DoShowPreview(bool isShow)
+{
+	_plain = UGeneralPlainSerialization::LoadFromFile(FString(TEXT("building.json")));
+	_processing = NewObject<UXLagBuildProcessing>();
+	_processing->SetGeneralPlain(_plain);
+	_processing->CreatePreview(this, RootComponent);
 }
 

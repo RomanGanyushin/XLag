@@ -23,6 +23,7 @@ class UXLagBuildProcessing : public UClass
 public:	
 	void SetGeneralPlain(FGeneralPlain* generalPlain);
 	void DoProcess(UObject* owner, USceneComponent*root);
+	void CreatePreview(UObject* owner, USceneComponent*root);
 
 public:	
 	UPROPERTY(BlueprintReadOnly) FString BuildingName;
@@ -36,4 +37,6 @@ private:
 	void ExecuteRepeatCycle(UObject* owner, USceneComponent* root);
 	void SpawnBuildingElement(UObject* owner, USceneComponent* root);
 	void SetupPosition(const FPositionSetup* setup);
+
+	bool isPreviewMode = false;
 };

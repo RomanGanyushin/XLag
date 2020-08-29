@@ -21,6 +21,12 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		USceneComponent* Root;
 
+	UPROPERTY(EditAnywhere, BlueprintSetter = DoShowPreview)
+		bool ShowPreview = false;
+
+	UFUNCTION(BlueprintSetter)
+		void DoShowPreview(bool isShow);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
