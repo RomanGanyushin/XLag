@@ -155,8 +155,13 @@ void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent*
 	{
 		//TODO: Закешировать.
 		auto resources = AInternalElementSuite::GetSuite();
-		auto templateObject = resources != nullptr ? resources->GetTemplate(elementId) : nullptr;
+		UStaticMesh* templateObject = nullptr;
 
+		if (resources != nullptr)
+		{
+			templateObject = resources->GetTemplate(elementId, isPreviewMode);
+		}
+	
 		auto brick = NewObject<UStaticMeshComponent>(owner);
 		brick->SetupAttachment(root);
 		brick->SetStaticMesh(templateObject);
@@ -176,14 +181,7 @@ void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent*
 
 		if (resources != nullptr)
 		{
-			if (isPreviewMode)
-			{
-
-			}
-			else
-			{
-				material = resources->GetMaterial(element->Material);
-			}
+			material = resources->GetMaterial(element->Material, isPreviewMode);
 		}
 
 		auto custom = NewObject<UProceduralMeshComponent>(owner);
@@ -201,6 +199,4 @@ void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent*
 		Evaluator->OffsetPosition(_repeatCycle->IncrementalPosition);
 		Evaluator->OffsetOrientation(_repeatCycle->IncrementalRotator);
 	}
-
-	
 }
