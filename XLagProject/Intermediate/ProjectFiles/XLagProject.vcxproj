@@ -272,6 +272,7 @@
     <AdditionalOptions>/std:c++14</AdditionalOptions>
   </PropertyGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskManager.cpp" />
     <None Include="..\..\XLagProject.uproject" />
     <None Include="..\..\Source\XLagProject.Target.cs" />
     <None Include="..\..\Source\XLagProjectEditor.Target.cs" />
@@ -439,6 +440,7 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMinerTaskFactory.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagNPCTaskBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagNPCTaskMoveTo.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTaskManager.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCBroachTreeTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCCutTreeTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCGetTreeTask.h" />
