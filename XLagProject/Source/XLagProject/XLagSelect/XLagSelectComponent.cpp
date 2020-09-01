@@ -99,13 +99,13 @@ void AXLagSelectComponent::RecalculateSelectView()
 	if (CellWidth == 0 || CellHeight == 0)
 		return;
 
-	auto select = Map->CreateWindow(CellPoistionX, CellPoistionY, CellWidth, CellHeight);
+	Select = Map->CreateWindow(CellPoistionX, CellPoistionY, CellWidth, CellHeight);
 
 	XLagSelectGeometryBuilder _geometry;
-	_geometry.CreateSelection(select);
+	_geometry.CreateSelection(Select);
 	GenerateLayerGeometry(Selection, _geometry);
 
-	_geometry.CreateGrid(select);
+	_geometry.CreateGrid(Select);
 	GenerateLayerGeometry(SelectionGrid, _geometry);
 }
 

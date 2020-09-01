@@ -68,7 +68,7 @@ public:
 public:
 	void Init(std::shared_ptr<ITerrainMapAccessor> map);
 	void Init(std::shared_ptr<ITerrainMapAccessor> map, std::shared_ptr<ITerrainMapAccessor> selection);
-
+	std::shared_ptr<ITerrainMapAccessor> Select;
 private:
 	std::shared_ptr<ITerrainMapAccessor> Map;
 	void GenerateLayerGeometry(UProceduralMeshComponent* Component, XLagSelectGeometryBuilder& geometry);

@@ -39,7 +39,7 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 			auto scaleVector = CalculatePersonScale(WoodcuterDeviationHeightPercent, WoodcuterDeviationThicknessPercent);
 			woodcutter->SetActorScale3D(scaleVector);
 
-			Test_AttachTask_CutTrees(woodcutter, i);
+			//Test_AttachTask_CutTrees(woodcutter, i);
 		}	
 	}
 
@@ -56,7 +56,7 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 			auto scaleVector = CalculatePersonScale(BuilderDeviationHeightPercent, BuilderDeviationThicknessPercent);
 			builder->SetActorScale3D(scaleVector);
 
-			Test_AttachTask_Dig(builder, i);
+			//Test_AttachTask_Dig(builder, i);
 		}
 	}
 

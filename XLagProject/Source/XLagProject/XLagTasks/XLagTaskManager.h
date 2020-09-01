@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../XLagSelect/XLagSelectComponent.h"
+#include "../XLagNPC/XLagNPCBase.h"
 #include "XLagTaskManager.generated.h"
 
 UENUM()
@@ -27,6 +28,9 @@ class UXLagTaskBase : public UObject
 public:
 	FString TaskTypeName;
 	ProfessionType ProfessionType;
+
+	UPROPERTY(BlueprintReadOnly) TArray<AXLagNPCBase*> Executers;
+	UPROPERTY(BlueprintReadOnly) AXLagSelectComponent *Select;
 };
 
 UCLASS()
@@ -43,6 +47,20 @@ class XLAGPROJECT_API AXLagTaskManager : public AActor
 
 public:
 	AXLagTaskManager();
+
+	inline static AXLagTaskManager* GetTaskManager()
+	{
+		AXLagTaskManager *currentObject = nullptr;
+
+		for (TObjectIterator<AXLagTaskManager> It; It; ++It)
+		{
+			currentObject = *It;
+		}
+
+		return currentObject;
+	}
+
 	UFUNCTION(BlueprintCallable) void CreateGroundAlignTask(AXLagSelectComponent *select, GroundAlignType type, float zParameter);
-	UPROPERTY() TArray<TSubclassOf<UXLagTaskBase>> Tasks;
+	UFUNCTION(BlueprintCallable) void TakeTask(UXLagTaskBase* task, AXLagNPCBase *npc);
+	UPROPERTY() TArray<UXLagTaskBase*> Tasks;
 };
