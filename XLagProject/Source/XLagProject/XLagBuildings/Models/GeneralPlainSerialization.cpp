@@ -3,9 +3,9 @@
 
 FGeneralPlain* UGeneralPlainSerialization::LoadFromFile(FString filename)
 {
-	FGeneralPlain* result = new FGeneralPlain();
+	FGeneralPlain* result = nullptr;
 
-	FString AbsolutePathFile = FPaths::ProjectUserDir();
+	FString AbsolutePathFile = FPaths::EngineUserDir();
 	FString Content;
 	
 	UE_LOG(LogTemp, Log, TEXT("AXLagBuilding Dir: %s"), *AbsolutePathFile);
@@ -21,7 +21,7 @@ FGeneralPlain* UGeneralPlainSerialization::LoadFromFile(FString filename)
 		FFileHelper::LoadFileToString(Content, *filepath);
 		UE_LOG(LogTemp, Log, TEXT("AXLagBuilding - %s "), *Content);
 
-	
+		result = new FGeneralPlain();
 		if (FJsonObjectConverter::JsonObjectStringToUStruct(Content, result, 0, 0))
 		{
 			UE_LOG(LogTemp, Log, TEXT("AXLagBuilding Convert success"));
@@ -31,6 +31,8 @@ FGeneralPlain* UGeneralPlainSerialization::LoadFromFile(FString filename)
 		else
 		{
 			UE_LOG(LogTemp, Error, TEXT("vAXLagBuilding Convert fail"));
+			delete result;
+			result = nullptr;
 		}
 	}
 	else

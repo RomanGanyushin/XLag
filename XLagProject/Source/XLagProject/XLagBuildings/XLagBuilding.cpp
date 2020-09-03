@@ -41,6 +41,9 @@ void AXLagBuilding::Tick(float DeltaTime)
 void AXLagBuilding::DoShowPreview(bool isShow)
 {
 	_plain = UGeneralPlainSerialization::LoadFromFile(FString(TEXT("building.json")));
+	if (_plain == nullptr)
+		return;
+
 	_processing = NewObject<UXLagBuildProcessing>();
 	_processing->SetGeneralPlain(_plain);
 	_processing->CreatePreview(this, RootComponent);
