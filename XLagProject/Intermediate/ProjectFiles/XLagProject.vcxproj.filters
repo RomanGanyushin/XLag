@@ -337,6 +337,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTaskManager.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\Common\ProfessionTypeEnum.h">
+      <Filter>Source\XLagProject\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagBuildProcessing.cpp">

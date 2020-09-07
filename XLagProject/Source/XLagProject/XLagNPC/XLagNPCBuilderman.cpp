@@ -5,13 +5,15 @@
 #include "../XLagTasks/XLagTaskManager.h"
 #include "../XLagTasks/XLagBuilderTaskFactory.h"
 
+
 void AXLagNPCBuilderman::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (!IsDiging && !IsPouring)
+	/*if (!IsDiging && !IsPouring)
 	{
 		auto manager = AXLagTaskManager::GetTaskManager();
+
 		if (manager != nullptr && manager->Tasks.Num() > 0)
 		{
 			auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
@@ -21,7 +23,7 @@ void AXLagNPCBuilderman::Tick(float DeltaTime)
 			NpcTask = task;
 			manager->Tasks.Reset();
 		}
-	}
+	}*/
 
 	if (IsDiging && digMemo.get() != nullptr)
 	{
@@ -70,4 +72,10 @@ void AXLagNPCBuilderman::Cancel()
 	pourMemo.reset();
 	IsDiging = false;
 	IsPouring = false;
+}
+
+void AXLagNPCBuilderman::OfferAccept(UXLagTaskBase* task)
+{
+	AXLagNPCBase::OfferAccept(task);
+
 }

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "../XLagTasks/XLagNPCTaskBase.h"
+#include "../Common/ProfessionTypeEnum.h"
 #include "XLagNPCBase.generated.h"
 
 UCLASS()
@@ -29,5 +30,16 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Текущая задача, выполняемая песонажем.
+	UPROPERTY()  UXLagTaskBase* CurrentTask;
+	UFUNCTION() virtual void OfferAccept(UXLagTaskBase* task);
+
 	std::shared_ptr<XLagNPCTaskBase> NpcTask;
+
+protected:
+	UFUNCTION() virtual void OnTaskManager_TaskChanged(AXLagTaskManager* manager, UXLagTaskBase* task);
+	
+protected:
+	virtual ProfessionTypeEnum GetCurrentProfession() { return ProfessionTypeEnum::Unknow; }
+	virtual bool CanConfirmTask(UXLagTaskBase* task) {return false; }
 };

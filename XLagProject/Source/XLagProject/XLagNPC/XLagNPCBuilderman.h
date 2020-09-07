@@ -56,7 +56,13 @@ public:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Builderman Working")
 		bool  IsPouring = false;
 
+	virtual void OfferAccept(UXLagTaskBase* task) override;
+
 private:
 	std::shared_ptr<DigMemo> digMemo;
 	std::shared_ptr<PourMemo> pourMemo;
+
+protected:
+	virtual ProfessionTypeEnum GetCurrentProfession() override { return ProfessionTypeEnum::Builder; }
+	virtual bool CanConfirmTask(UXLagTaskBase* task) override { return true; }
 };
