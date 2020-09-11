@@ -1,17 +1,36 @@
 #include "XLagTaskManager.h"
+#include "XLagBuilderTaskFactory.h"
 
 AXLagTaskManager::AXLagTaskManager()
 {
 	
 }
 
+void AXLagTaskManager::Tick(float DeltaTime)
+{
+	for (auto& it : Tasks)
+	{
+		for (auto &e : it->Executers)
+		{
+			it->NpcTask->Execute(e, DeltaTime);
+		}
+	}
+}
+
 void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, GroundAlignType type, float zParameter)
 {
+	// Создает задачу.
 	auto newTask = NewObject<UXLagTask_CreateGroundAlign>();
 	newTask->SetAlignRegion(select->Select);
 	Tasks.Add(newTask);
 
 	SearchAndChooseExecuters(newTask);
+
+	// Планируем выполнение.
+	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
+	auto place = newTask->Select->Select;
+	task->SubTasks.push(XLagBuilderTaskFactory(place).AlignDigPlace());
+	newTask->NpcTask = task;
 }
 
 void AXLagTaskManager::ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task)

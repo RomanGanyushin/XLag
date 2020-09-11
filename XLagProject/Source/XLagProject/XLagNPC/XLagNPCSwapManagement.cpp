@@ -87,53 +87,53 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 	}
 }
 
-void AXLagNPCSwapManagement::Test_AttachTask_CutTrees(AXLagNPCWoodCutter *woodcutter, int index)
-{
-	if (SwapedTrees.Num() > index * 5)
-	{
-		auto task = new XLagNPCTaskBase;
-		for (auto j = 0; j < 5; j++)
-			task->SubTasks.push(XLagWoodCutterTaskFactory().BringTreeTaskCreate(SwapedTrees[index *5 + j], SwapedTreeStacks[0]));
+//void AXLagNPCSwapManagement::Test_AttachTask_CutTrees(AXLagNPCWoodCutter *woodcutter, int index)
+//{
+//	if (SwapedTrees.Num() > index * 5)
+//	{
+//		auto task = new XLagNPCTaskBase;
+//		for (auto j = 0; j < 5; j++)
+//			task->SubTasks.push(XLagWoodCutterTaskFactory().BringTreeTaskCreate(SwapedTrees[index *5 + j], SwapedTreeStacks[0]));
+//
+//		woodcutter->NpcTask = std::shared_ptr<XLagNPCTaskBase>(task);
+//	}
+//}
 
-		woodcutter->NpcTask = std::shared_ptr<XLagNPCTaskBase>(task);
-	}
-}
-
-void AXLagNPCSwapManagement::Test_AttachTask_Dig(AXLagNPCBuilderman *builder , int index)
-{
-	int posx = 10 + rand() % 80;
-	int posy = 10 + rand() % 80;
-
-	auto place = std::shared_ptr<ITerrainMapAccessor>(MapAccessor->CreateWindow(posx, posy, 10, 10));
-
-	auto task = new XLagNPCTaskBase;
-
-	if (index % 4 == 0)
-	{
-		task->SubTasks.push(XLagBuilderTaskFactory(place).CleanLayerPlace());
-	}
-	else if (index % 4 == 1)
-	{
-		task->SubTasks.push(XLagBuilderTaskFactory(place).AlignDigPlace());
-	}
-	else if (index % 4 == 2)
-	{
-		task->SubTasks.push(XLagBuilderTaskFactory(place).AlignPourPlace(TerrainElementEnum::RockSandstone));
-	}
-	else if (index % 4 == 3)
-	{
-		task->SubTasks.push(XLagBuilderTaskFactory(place).DigPlace(300));	
-	}
-
-	builder->NpcTask = std::shared_ptr<XLagNPCTaskBase>(task);
-
-	/// Add selection
-	if (SelectionTemplate != nullptr)
-	{
-		auto selection = GetWorld()->SpawnActor<AXLagSelectComponent>(SelectionTemplate, FVector::ZeroVector, FRotator::ZeroRotator);
-		selection->Init(MapAccessor, place);
-	}
-}
+//void AXLagNPCSwapManagement::Test_AttachTask_Dig(AXLagNPCBuilderman *builder , int index)
+//{
+//	int posx = 10 + rand() % 80;
+//	int posy = 10 + rand() % 80;
+//
+//	auto place = std::shared_ptr<ITerrainMapAccessor>(MapAccessor->CreateWindow(posx, posy, 10, 10));
+//
+//	auto task = new XLagNPCTaskBase;
+//
+//	if (index % 4 == 0)
+//	{
+//		task->SubTasks.push(XLagBuilderTaskFactory(place).CleanLayerPlace());
+//	}
+//	else if (index % 4 == 1)
+//	{
+//		task->SubTasks.push(XLagBuilderTaskFactory(place).AlignDigPlace());
+//	}
+//	else if (index % 4 == 2)
+//	{
+//		task->SubTasks.push(XLagBuilderTaskFactory(place).AlignPourPlace(TerrainElementEnum::RockSandstone));
+//	}
+//	else if (index % 4 == 3)
+//	{
+//		task->SubTasks.push(XLagBuilderTaskFactory(place).DigPlace(300));	
+//	}
+//
+//	builder->NpcTask = std::shared_ptr<XLagNPCTaskBase>(task);
+//
+//	/// Add selection
+//	if (SelectionTemplate != nullptr)
+//	{
+//		auto selection = GetWorld()->SpawnActor<AXLagSelectComponent>(SelectionTemplate, FVector::ZeroVector, FRotator::ZeroRotator);
+//		selection->Init(MapAccessor, place);
+//	}
+//}
 
 void AXLagNPCSwapManagement::DoSwapTrees()
 {

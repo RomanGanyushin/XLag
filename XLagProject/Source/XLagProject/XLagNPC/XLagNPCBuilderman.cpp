@@ -2,8 +2,6 @@
 
 
 #include "XLagNPCBuilderman.h"
-#include "../XLagTasks/XLagTaskManager.h"
-#include "../XLagTasks/XLagBuilderTaskFactory.h"
 
 
 void AXLagNPCBuilderman::Tick(float DeltaTime)

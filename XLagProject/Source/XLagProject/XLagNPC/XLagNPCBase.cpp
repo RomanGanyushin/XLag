@@ -30,10 +30,10 @@ void AXLagNPCBase::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 
-	if (IsExistTask())
+	/*if (IsExistTask())
 	{
 		NpcTask->Execute(this, DeltaTime);
-	}
+	}*/
 }
 
 // Called to bind functionality to input

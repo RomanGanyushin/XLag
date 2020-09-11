@@ -4,8 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "../XLagTasks/XLagNPCTaskBase.h"
-#include "../Common/ProfessionTypeEnum.h"
 #include "XLagNPCBase.generated.h"
 
 UCLASS()
@@ -21,7 +19,6 @@ protected:
 	virtual void BeginPlay() override;
 
 protected:
-	inline bool IsExistTask() { return NpcTask != nullptr; }
 
 public:	
 	// Called every frame

@@ -3,6 +3,7 @@
 #include "../XLagSelect/XLagSelectComponent.h"
 #include "../XLagNPC/XLagNPCBase.h"
 #include "../Common/ProfessionTypeEnum.h"
+#include "XLagNPCTaskBase.h"
 #include "XLagTaskManager.generated.h"
 
 UENUM()
@@ -36,6 +37,10 @@ public:
 	UPROPERTY(BlueprintReadOnly) int MinimalExecuterCount;
 	UPROPERTY(BlueprintReadOnly) TArray<AXLagNPCBase*> Executers;
 	UPROPERTY(BlueprintReadOnly) TEnumAsByte<TaskStateEnum> State;
+	UPROPERTY(BlueprintReadOnly) AXLagSelectComponent *Select;
+
+public:
+	std::shared_ptr<XLagNPCTaskBase> NpcTask;
 };
 
 UCLASS()
@@ -82,6 +87,9 @@ public:
 
 		return currentObject;
 	}
+
+	// Called when the game starts or when spawned
+	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable) void CreateGroundAlignTask(AXLagSelectComponent *select, GroundAlignType type, float zParameter);
 	UFUNCTION(BlueprintCallable) void ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task);
