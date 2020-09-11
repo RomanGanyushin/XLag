@@ -2,12 +2,12 @@
 	"Targets": [
 		{
 			"Name": "XLagProject",
-			"Path": "C:\\Repositories\\XLag\\XLagProject\\Source\\XLagProject.Target.cs",
+			"Path": "D:\\repository\\xlagrepos\\XLag\\XLagProject\\Source\\XLagProject.Target.cs",
 			"Type": "Game"
 		},
 		{
 			"Name": "XLagProjectEditor",
-			"Path": "C:\\Repositories\\XLag\\XLagProject\\Source\\XLagProjectEditor.Target.cs",
+			"Path": "D:\\repository\\xlagrepos\\XLag\\XLagProject\\Source\\XLagProjectEditor.Target.cs",
 			"Type": "Editor"
 		}
 	]

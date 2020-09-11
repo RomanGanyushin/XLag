@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\XLagProject.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{16981D99-5D1B-48C8-B8FE-523D5A6096B6}</UniqueIdentifier>
+      <UniqueIdentifier>{EFC0C634-8982-47B5-A9D3-F8B803DF6806}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\XLagProject.Target.cs">
       <Filter>Source</Filter>
@@ -12,8 +12,9 @@
       <Filter>Source</Filter>
     </None>
     <None Include="..\..\building.json" />
+    <None Include="..\..\copy_buildings.bat" />
     <Filter Include="Config">
-      <UniqueIdentifier>{E58CDD32-88E8-4742-99F1-0B1DC8763EA7}</UniqueIdentifier>
+      <UniqueIdentifier>{AF16C93B-169D-4F6B-BA36-BB208B563683}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -31,7 +32,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\XLagProject">
-      <UniqueIdentifier>{8C1816AC-9B5E-43CF-8AA4-FC65639FFFA9}</UniqueIdentifier>
+      <UniqueIdentifier>{6958D108-FD7C-4B47-B271-784500815FBD}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrainBase.cpp">
       <Filter>Source\XLagProject</Filter>
@@ -61,7 +62,7 @@
       <Filter>Source\XLagProject</Filter>
     </ClInclude>
     <Filter Include="Source\XLagProject\Abstracts">
-      <UniqueIdentifier>{E55AE94D-EE09-4CA6-9B20-E476D7D65111}</UniqueIdentifier>
+      <UniqueIdentifier>{A105E0AD-C797-47B5-B2F6-4B21A126F962}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\XLagProject\Abstracts\GeometryBuilderAbstract.cpp">
       <Filter>Source\XLagProject\Abstracts</Filter>
@@ -70,7 +71,7 @@
       <Filter>Source\XLagProject\Abstracts</Filter>
     </ClInclude>
     <Filter Include="Source\XLagProject\Common">
-      <UniqueIdentifier>{664C260C-63D8-43EA-90FF-6B32EF1E7DDC}</UniqueIdentifier>
+      <UniqueIdentifier>{14413141-DD07-47B6-9A54-96A837EB4748}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\XLagProject\Common\GeometryBuiderBase.h">
       <Filter>Source\XLagProject\Common</Filter>
@@ -87,9 +88,18 @@
     <ClInclude Include="..\..\Source\XLagProject\Common\OnSurfaceResourceObjectsEnum.h">
       <Filter>Source\XLagProject\Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\Common\ProfessionTypeEnum.h">
+      <Filter>Source\XLagProject\Common</Filter>
+    </ClInclude>
     <Filter Include="Source\XLagProject\XLagBuildings">
-      <UniqueIdentifier>{0BF0EBFE-34F0-489A-B3BC-1BE1D4603782}</UniqueIdentifier>
+      <UniqueIdentifier>{9F8784D0-D43C-4A1D-9E01-326AA71A350D}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\InternalElementSuite.cpp">
+      <Filter>Source\XLagProject\XLagBuildings</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\InternalElementSuite.h">
+      <Filter>Source\XLagProject\XLagBuildings</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\XLagBuilding.cpp">
       <Filter>Source\XLagProject\XLagBuildings</Filter>
     </ClCompile>
@@ -97,7 +107,7 @@
       <Filter>Source\XLagProject\XLagBuildings</Filter>
     </ClInclude>
     <Filter Include="Source\XLagProject\XLagBuildings\Models">
-      <UniqueIdentifier>{0D6ED2D1-397E-4A5D-89FB-458045F21B26}</UniqueIdentifier>
+      <UniqueIdentifier>{7A8A0EEA-1A7F-471A-AD58-EB5290CF93EB}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Models\GeneralPlain.h">
       <Filter>Source\XLagProject\XLagBuildings\Models</Filter>
@@ -108,8 +118,35 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Models\GeneralPlainSerialization.h">
       <Filter>Source\XLagProject\XLagBuildings\Models</Filter>
     </ClInclude>
+    <Filter Include="Source\XLagProject\XLagBuildings\Processings">
+      <UniqueIdentifier>{223C73A2-EFAF-44DF-97E7-5B3863585FC7}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagBuildParameterEvaluator.cpp">
+      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagBuildParameterEvaluator.h">
+      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagBuildProcessing.cpp">
+      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagBuildProcessing.h">
+      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagDynamicBuildingElementGeometry.cpp">
+      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagDynamicBuildingElementGeometry.h">
+      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagGeneralStepIterator.cpp">
+      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagGeneralStepIterator.h">
+      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
+    </ClInclude>
     <Filter Include="Source\XLagProject\XLagDynamicTerrain">
-      <UniqueIdentifier>{4D4FDFCA-E312-431F-B7AB-AE686297E701}</UniqueIdentifier>
+      <UniqueIdentifier>{4BE4BEDF-6A98-44C2-9F7D-D0377F1EF8C7}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainLayerGeometry.cpp">
       <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
@@ -139,7 +176,7 @@
       <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
     </ClInclude>
     <Filter Include="Source\XLagProject\XLagDynamicTerrain\Filters">
-      <UniqueIdentifier>{88850C3A-D9DB-472A-BC24-7C23EFDD7205}</UniqueIdentifier>
+      <UniqueIdentifier>{747FE6BE-C602-4907-9FBB-3072D0C2C2EB}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Filters\ResourcePlacementMapItemFilter.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\Filters</Filter>
@@ -151,7 +188,7 @@
       <Filter>Source\XLagProject\XLagDynamicTerrain\Filters</Filter>
     </ClInclude>
     <Filter Include="Source\XLagProject\XLagDynamicTerrain\MapBuilder">
-      <UniqueIdentifier>{DF3C253D-2B6E-46F1-9E2A-6081C686E2E2}</UniqueIdentifier>
+      <UniqueIdentifier>{6CFD2578-1E84-493E-B01B-B3DE63A740D2}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\ITerrainMapEditComponent.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
@@ -166,7 +203,7 @@
       <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
     </ClInclude>
     <Filter Include="Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components">
-      <UniqueIdentifier>{FE175988-B3B8-42BE-BE08-3A32588FFBFA}</UniqueIdentifier>
+      <UniqueIdentifier>{AECA854D-5C2C-49B0-BD8C-0746D1FE5820}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\AligmentEditComponent.cpp">
       <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
@@ -208,7 +245,7 @@
       <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
     </ClInclude>
     <Filter Include="Source\XLagProject\XLagDynamicTerrain\Position">
-      <UniqueIdentifier>{B9D833C9-AC4F-4249-80F3-737770C110CD}</UniqueIdentifier>
+      <UniqueIdentifier>{333EDD3D-3174-41D7-B1B7-0940EA104616}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Position\MinMaxLevelPlace.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\Position</Filter>
@@ -217,7 +254,7 @@
       <Filter>Source\XLagProject\XLagDynamicTerrain\Position</Filter>
     </ClInclude>
     <Filter Include="Source\XLagProject\XLagNPC">
-      <UniqueIdentifier>{186C3379-D39A-41E1-8336-5A9E5F0B7825}</UniqueIdentifier>
+      <UniqueIdentifier>{76AFA246-74C9-43A3-8411-44FCD9A52EE6}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagCuttableTreeBase.cpp">
       <Filter>Source\XLagProject\XLagNPC</Filter>
@@ -262,7 +299,7 @@
       <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClInclude>
     <Filter Include="Source\XLagProject\XLagSelect">
-      <UniqueIdentifier>{4DB68866-BA33-44E4-915C-9460CDC20169}</UniqueIdentifier>
+      <UniqueIdentifier>{36208210-39F3-4C12-928D-E67B754AECDD}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\XLagProject\XLagSelect\XLagSelectComponent.cpp">
       <Filter>Source\XLagProject\XLagSelect</Filter>
@@ -277,7 +314,7 @@
       <Filter>Source\XLagProject\XLagSelect</Filter>
     </ClInclude>
     <Filter Include="Source\XLagProject\XLagTasks">
-      <UniqueIdentifier>{44F45E54-51AE-4739-86C7-19C9BDFA0999}</UniqueIdentifier>
+      <UniqueIdentifier>{F94BD47C-6CF7-4C59-A7DE-94647D0C6E00}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagBlDigGraundTask.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
@@ -297,6 +334,12 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagNPCTaskMoveTo.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskManager.cpp">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTaskManager.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCBroachTreeTask.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
@@ -312,53 +355,5 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWoodCutterTaskFactory.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Source\XLagProject\XLagBuildings\Processings">
-      <UniqueIdentifier>{2d46e92f-3a06-4060-9490-8bcd99c0a3fa}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagBuildProcessing.h">
-      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagBuildParameterEvaluator.h">
-      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagGeneralStepIterator.h">
-      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagDynamicBuildingElementGeometry.h">
-      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\InternalElementSuite.h">
-      <Filter>Source\XLagProject\XLagBuildings</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTaskManager.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\Common\ProfessionTypeEnum.h">
-      <Filter>Source\XLagProject\Common</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagBuildProcessing.cpp">
-      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagBuildParameterEvaluator.cpp">
-      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagGeneralStepIterator.cpp">
-      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\Processings\XLagDynamicBuildingElementGeometry.cpp">
-      <Filter>Source\XLagProject\XLagBuildings\Processings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\InternalElementSuite.cpp">
-      <Filter>Source\XLagProject\XLagBuildings</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskManager.cpp">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
