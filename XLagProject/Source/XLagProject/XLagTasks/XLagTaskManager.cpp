@@ -22,8 +22,7 @@ void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, Groun
 	// Создает задачу.
 	auto newTask = NewObject<UXLagTask_CreateGroundAlign>();
 	newTask->SetAlignRegion(select->Select);
-	Tasks.Add(newTask);
-
+	
 	SearchAndChooseExecuters(newTask);
 
 	// Планируем выполнение.
@@ -31,6 +30,8 @@ void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, Groun
 	auto place = newTask->Select->Select;
 	task->SubTasks.push(XLagBuilderTaskFactory(place).AlignDigPlace());
 	newTask->NpcTask = task;
+
+	Tasks.Add(newTask);
 }
 
 void AXLagTaskManager::ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task)

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "../Common/ProfessionTypeEnum.h"
 #include "XLagNPCBase.generated.h"
 
 UCLASS()
@@ -30,8 +31,6 @@ public:
 	// Текущая задача, выполняемая песонажем.
 	UPROPERTY()  UXLagTaskBase* CurrentTask;
 	UFUNCTION() virtual void OfferAccept(UXLagTaskBase* task);
-
-	std::shared_ptr<XLagNPCTaskBase> NpcTask;
 
 protected:
 	UFUNCTION() virtual void OnTaskManager_TaskChanged(AXLagTaskManager* manager, UXLagTaskBase* task);
