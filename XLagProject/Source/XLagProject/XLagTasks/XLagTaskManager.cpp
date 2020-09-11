@@ -3,11 +3,13 @@
 
 AXLagTaskManager::AXLagTaskManager()
 {
-	
+	PrimaryActorTick.bCanEverTick = true;
 }
 
 void AXLagTaskManager::Tick(float DeltaTime)
 {
+	Super::Tick(DeltaTime);
+
 	for (auto& it : Tasks)
 	{
 		for (auto &e : it->Executers)
@@ -27,7 +29,7 @@ void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, Groun
 
 	// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
-	auto place = newTask->Select->Select;
+	auto place = select->Select;
 	task->SubTasks.push(XLagBuilderTaskFactory(place).AlignDigPlace());
 	newTask->NpcTask = task;
 
