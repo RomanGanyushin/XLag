@@ -5,11 +5,6 @@
 #include "../XLagDynamicTerrain/Position/RandomizeZeroPlacePosition.h"
 #include "../XLagDynamicTerrain/Filters/SurfaceResourceMapItemFilter.h"
 
-// Для отладки
-#include "../XLagTasks/XLagWoodCutterTaskFactory.h"
-#include "../XLagTasks/XLagMinerTaskFactory.h"
-#include "../XLagTasks/XLagBuilderTaskFactory.h"
-
 // Sets default values
 AXLagNPCSwapManagement::AXLagNPCSwapManagement()
 {

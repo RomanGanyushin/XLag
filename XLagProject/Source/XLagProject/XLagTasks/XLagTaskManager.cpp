@@ -1,6 +1,6 @@
 #include "XLagTaskManager.h"
-#include "XLagBuilderTaskFactory.h"
-#include "../Common/TerrainElementEnum.h"
+#include "InternalTasks/XLagBuilderTaskFactory.h"
+#include "XLagTask_CreateGroundAlign.h"
 
 AXLagTaskManager::AXLagTaskManager()
 {
@@ -40,7 +40,7 @@ void AXLagTaskManager::Tick(float DeltaTime)
 	}
 }
 
-void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, GroundAlignType type, TerrainElementEnum pourElement, float zParameter, int RequiredWorkerNumber)
+void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, GroundAlignTypeEnum type, TerrainElementEnum pourElement, float zParameter, int RequiredWorkerNumber)
 {
 	// Создает задачу.
 	auto newTask = NewObject<UXLagTask_CreateGroundAlign>();

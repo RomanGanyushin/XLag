@@ -313,43 +313,10 @@
     <Filter Include="Source\XLagProject\XLagTasks">
       <UniqueIdentifier>{FABD9445-331A-4619-A9C2-502F0FD61798}</UniqueIdentifier>
     </Filter>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagBlDigGraundTask.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagBlPourGraundTask.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagBuilderTaskFactory.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagMinerTaskFactory.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagNPCTaskBase.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagNPCTaskMoveTo.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
-    </ClInclude>
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskManager.cpp">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTaskManager.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCBroachTreeTask.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCCutTreeTask.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCGetTreeTask.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWCPutTreeTask.h">
-      <Filter>Source\XLagProject\XLagTasks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWoodCutterTaskFactory.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
   </ItemGroup>
@@ -357,5 +324,55 @@
     <ClInclude Include="..\..\Source\XLagProject\Common\TerrainElementEnum.h">
       <Filter>Source\XLagProject\Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagBlDigGraundTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagBlPourGraundTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagBuilderTaskFactory.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMinerTaskFactory.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCTaskBase.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCTaskMoveTo.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWCBroachTreeTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWCCutTreeTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWCGetTreeTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWCPutTreeTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWoodCutterTaskFactory.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\Common\GroundAlignTypeEnum.h">
+      <Filter>Source\XLagProject\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\TaskStateEnum.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTaskBase.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateGroundAlign.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
+      <UniqueIdentifier>{85af7930-3f50-4aa5-8941-a90381b4d41f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
