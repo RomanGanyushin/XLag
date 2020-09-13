@@ -1,6 +1,6 @@
 #pragma once
+#include "../../../Common/TerrainElementEnum.h"
 #include "../ITerrainMapEditComponent.h"
-#include "../TerrainElementEnum.h"
 #include "ITerrainElementTransofmCondition.h"
 
 class TerrainElementTranformComponent : public ITerrainMapEditComponent

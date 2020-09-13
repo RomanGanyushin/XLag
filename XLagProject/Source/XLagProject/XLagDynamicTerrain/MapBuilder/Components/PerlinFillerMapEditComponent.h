@@ -1,6 +1,6 @@
 #pragma once
 #include "../ITerrainMapEditComponent.h"
-#include "../TerrainElementEnum.h"
+#include "../../../Common/TerrainElementEnum.h"
 #include "PerlinFillerMapEditSettings.h"
 #include "Perlin2DAlgorithm.hpp"
 

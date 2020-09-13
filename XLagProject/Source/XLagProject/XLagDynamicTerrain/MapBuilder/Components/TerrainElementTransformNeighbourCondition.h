@@ -1,6 +1,6 @@
 #pragma once
 #include "ITerrainElementTransofmCondition.h"
-#include "../TerrainElementEnum.h"
+#include "../../../Common/TerrainElementEnum.h"
 #include <algorithm>
 
 class TerrainElementTransformNeighbourCondition : public ITerrainElementTransofmCondition

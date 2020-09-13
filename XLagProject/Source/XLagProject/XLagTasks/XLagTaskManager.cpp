@@ -1,5 +1,6 @@
 #include "XLagTaskManager.h"
 #include "XLagBuilderTaskFactory.h"
+#include "../Common/TerrainElementEnum.h"
 
 AXLagTaskManager::AXLagTaskManager()
 {
@@ -39,7 +40,7 @@ void AXLagTaskManager::Tick(float DeltaTime)
 	}
 }
 
-void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, GroundAlignType type, float zParameter)
+void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, GroundAlignType type, TerrainElementEnum pourElement, float zParameter)
 {
 	// Создает задачу.
 	auto newTask = NewObject<UXLagTask_CreateGroundAlign>();
@@ -49,7 +50,22 @@ void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, Groun
 	// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
-	task->SubTasks.push(XLagBuilderTaskFactory(place).AlignDigPlace());
+	
+	switch (type)
+	{
+		case Diging:
+		{
+			task->SubTasks.push(XLagBuilderTaskFactory(place).AlignDigPlace());
+		}
+		break;
+
+		case Pouring:
+		{
+			task->SubTasks.push(XLagBuilderTaskFactory(place).AlignPourPlace(pourElement));
+		}
+		break;
+	}
+	
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.

@@ -4,7 +4,7 @@
 #include "ProceduralMeshComponent.h"
 #include "XLagDynamicTerrain\XLagDynamicTerrainMapFiller.hpp"
 
-#include "XLagDynamicTerrain\MapBuilder\TerrainElementEnum.h"
+#include "Common\TerrainElementEnum.h"
 #include "XLagDynamicTerrain\MapBuilder\TerrainMapEditEditor.h"
 #include "XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.h"
 #include "XLagDynamicTerrain\MapBuilder\Components\AligmentEditComponent.h"

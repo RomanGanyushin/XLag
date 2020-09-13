@@ -92,7 +92,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// Создает задачу выравнивания.
-	UFUNCTION(BlueprintCallable) void CreateGroundAlignTask(AXLagSelectComponent *select, GroundAlignType type, float zParameter);
+	UFUNCTION(BlueprintCallable) void CreateGroundAlignTask(AXLagSelectComponent *select, GroundAlignType type, TerrainElementEnum pourElement, float zParameter);
 
 	// Запрос на исполнение задачи со стороны npc.
 	UFUNCTION(BlueprintCallable) void ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task);

@@ -193,9 +193,6 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\ITerrainMapEditComponent.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\TerrainElementEnum.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
-    </ClInclude>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\TerrainMapEditEditor.cpp">
       <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder</Filter>
     </ClCompile>
@@ -354,6 +351,11 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagWoodCutterTaskFactory.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\XLagProject\Common\TerrainElementEnum.h">
+      <Filter>Source\XLagProject\Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

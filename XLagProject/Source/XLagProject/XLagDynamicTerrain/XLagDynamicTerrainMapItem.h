@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "../../XLagProject//Common/OnSurfaceResourceObjectsEnum.h"
-#include "MapBuilder\TerrainElementEnum.h"
+#include "../../XLagProject//Common/TerrainElementEnum.h"
 
 class TerrainMapItemLevel
 {

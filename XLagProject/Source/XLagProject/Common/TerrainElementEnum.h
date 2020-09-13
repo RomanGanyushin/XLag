@@ -1,13 +1,15 @@
 #pragma once
+#include "TerrainElementEnum.generated.h"
 
 // Перечислитель элементов земли.
+UENUM(BlueprintType)
 enum TerrainElementEnum
 {	
 	// Земля с дикой растительностью.
-	GraundGrass,
+	GraundGrass UMETA(DisplayName = "Graund Grass"),
 	
 	// Склальная порода.
-	RockSandstone,
+	RockSandstone UMETA(DisplayName = "Rock Sandstone"),
 	GroundGrassToRockSandstoneTrans,
 	RockBasalt,
 	GrondGrassToRockBasaltTrans,

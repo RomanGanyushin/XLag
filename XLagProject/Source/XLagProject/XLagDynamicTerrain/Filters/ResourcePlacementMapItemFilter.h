@@ -1,6 +1,6 @@
 #pragma once
 #include "../../Common/IMapItemFilter.h"
-#include "../MapBuilder/TerrainElementEnum.h"
+#include "../../Common/TerrainElementEnum.h"
 
 class ResourcePlacementMapItemFilter : public IMapItemFilter
 {

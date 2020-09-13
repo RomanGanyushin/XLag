@@ -1,7 +1,7 @@
 #pragma once
 #include "../../Common/IMapItemFilter.h"
 #include "../../Common/OnSurfaceResourceObjectsEnum.h"
-#include "../MapBuilder/TerrainElementEnum.h"
+#include "../../Common/TerrainElementEnum.h"
 
 class SurfaceResourceMapItemFilter : public IMapItemFilter
 {
