@@ -48,7 +48,7 @@ void AXLagNPCBase::OnTaskManager_TaskChanged(AXLagTaskManager* manager, UXLagTas
 		UE_LOG(LogTemp, Error, TEXT("OnTaskManager_TaskChanged: argument 'task' is null"));
 	}
 
-	if (task->ProfessionType != ProfessionTypeEnum::Builder) // Если профессия не совпадает, то выходим из обработчика.
+	if (task->ProfessionType != GetCurrentProfession()) // Если профессия не совпадает, то выходим из обработчика.
 		return;
 
 	if (CurrentTask != nullptr) // Проверяем что персонаж свободен.

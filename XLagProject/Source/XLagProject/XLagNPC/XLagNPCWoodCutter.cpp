@@ -45,3 +45,8 @@ void AXLagNPCWoodCutter::Cancel()
 	IsCutting = false;
 	IsBroaching = false;
 }
+
+void AXLagNPCWoodCutter::OfferAccept(UXLagTaskBase* task)
+{
+	AXLagNPCBase::OfferAccept(task);
+}

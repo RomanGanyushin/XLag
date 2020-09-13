@@ -25,6 +25,10 @@ public:
 	// Sets default values for this pawn's properties
 	AXLagCuttableTreeBase();
 
+	void SetPlaceId(long placeId) {
+		PlaceId = placeId;
+	}
+
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Static Mesh")
 	UStaticMesh* Mesh;
@@ -41,6 +45,8 @@ public:
 
 	// Состояние дерева.
 	AXLagCuttableTreeState State = AXLagCuttableTreeState::Growing;
+
+	long PlaceId;
 
 	ConstructorHelpers::FObjectFinder<UStaticMesh>*fv;
 

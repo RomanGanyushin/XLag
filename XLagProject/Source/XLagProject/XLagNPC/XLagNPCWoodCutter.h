@@ -35,6 +35,12 @@ public:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Woodcutter Cutting")
 	bool  IsBroaching = false;
 
+	virtual void OfferAccept(UXLagTaskBase* task) override;
+
 private:
 	AXLagCuttableTreeBase *TargetTree = nullptr;
+
+protected:
+	virtual ProfessionTypeEnum GetCurrentProfession() override { return ProfessionTypeEnum::Treecutter; }
+	virtual bool CanConfirmTask(UXLagTaskBase* task) override { return true; }
 };

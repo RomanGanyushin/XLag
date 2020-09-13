@@ -369,10 +369,30 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateGroundAlign.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CuttingTreeRegion.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTaskRegionBase.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
       <UniqueIdentifier>{85af7930-3f50-4aa5-8941-a90381b4d41f}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateGroundAlign.cpp">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskBase.cpp">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CuttingTreeRegion.cpp">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskRegionBase.cpp">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -10,7 +10,6 @@ AXLagNPCSwapManagement::AXLagNPCSwapManagement()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts or when spawned
@@ -50,8 +49,6 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 
 			auto scaleVector = CalculatePersonScale(BuilderDeviationHeightPercent, BuilderDeviationThicknessPercent);
 			builder->SetActorScale3D(scaleVector);
-
-			//Test_AttachTask_Dig(builder, i);
 		}
 	}
 
@@ -151,6 +148,7 @@ void AXLagNPCSwapManagement::DoSwapTrees()
 
 		auto tree = GetWorld()->SpawnActor<AXLagCuttableTreeBase>(treeTemplate, loction, rotator);
 		tree->UpdateAge(MinimalAge + rand() % int(MaximalAge - MinimalAge));
+		tree->SetPlaceId(mapItem->GetId());
 
 		SwapedTrees.Add(tree);
 	}	

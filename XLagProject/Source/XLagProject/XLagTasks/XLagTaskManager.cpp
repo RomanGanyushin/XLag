@@ -1,6 +1,10 @@
 #include "XLagTaskManager.h"
 #include "InternalTasks/XLagBuilderTaskFactory.h"
+#include "InternalTasks/XLagWoodCutterTaskFactory.h"
+#include "../XLagDynamicTerrain/Filters/SurfaceResourceMapItemFilter.h"
+#include "../XLagNpc/XLagNPCSwapManagement.h"
 #include "XLagTask_CreateGroundAlign.h"
+#include "XLagTask_CuttingTreeRegion.h"
 
 AXLagTaskManager::AXLagTaskManager()
 {
@@ -44,7 +48,7 @@ void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, Groun
 {
 	// Создает задачу.
 	auto newTask = NewObject<UXLagTask_CreateGroundAlign>();
-	newTask->SetAlignRegion(select->Select);
+	newTask->SetRegion(select->Select);
 	newTask->State = TaskStateEnum::Recruitment;
 	
 	// Планируем выполнение.
@@ -82,6 +86,43 @@ void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, Groun
 	Tasks.Add(newTask);
 
 	SearchAndChooseExecuters(newTask);	
+}
+
+void AXLagTaskManager::CreateCuttingTreeTask(AXLagSelectComponent *select, AXLagTimberStack *timberStack, int RequiredWorkerNumber)
+{
+	// Создает задачу.
+	auto newTask = NewObject<UXLagTask_CuttingTreeRegion>();
+	newTask->SetRegion(select->Select);
+	newTask->State = TaskStateEnum::Recruitment;
+
+	// Планируем выполнение.
+	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
+	auto place = select->Select;
+
+	// Получаем клетки из региона где есть деревья.
+	auto mapRequireTrees = place->GetFilteredItems(SurfaceResourceMapItemFilter(OnSurfaceResourceObjectsEnum::Tree));
+	if (mapRequireTrees.empty())
+		return;
+
+	auto swapper = AXLagNPCSwapManagement::GetManagment();
+
+	for (auto mapItemPtr : mapRequireTrees)
+	{
+		long placeId = mapItemPtr->GetId();
+		auto ppTree = swapper->SwapedTrees.FindByPredicate([placeId](auto& pt) {return pt->PlaceId == placeId; });
+		if (ppTree == nullptr)
+			continue;
+
+		task->SubTasks.push(XLagWoodCutterTaskFactory().BringTreeTaskCreate(*ppTree, timberStack));
+	}
+
+
+	newTask->NpcTask = task;
+
+	// Добавляем в стек.
+	Tasks.Add(newTask);
+
+	SearchAndChooseExecuters(newTask);
 }
 
 void AXLagTaskManager::ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task)

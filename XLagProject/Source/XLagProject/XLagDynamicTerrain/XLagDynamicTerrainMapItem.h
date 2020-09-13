@@ -24,12 +24,21 @@ private:
 
 class XLagDynamicTerrainMapItem
 {
+public:
+	XLagDynamicTerrainMapItem() 
+	{
+		static long id_counter = 0;
+		_id = id_counter++;
+	}
+
 private:
 	std::vector<TerrainMapItemLevel>  Stack;
-
+	long _id;
 public:
 	bool IsZeroLocation = false;
 	bool Changed = false;
+	
+	const long GetId() const { return _id; }
 
 	OnSurfaceResourceObjectsEnum OnSurfaceResourceObjects = OnSurfaceResourceObjectsEnum::Empty;
 

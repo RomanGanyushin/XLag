@@ -8,21 +8,6 @@ void AXLagNPCBuilderman::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	/*if (!IsDiging && !IsPouring)
-	{
-		auto manager = AXLagTaskManager::GetTaskManager();
-
-		if (manager != nullptr && manager->Tasks.Num() > 0)
-		{
-			auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
-			auto cgaask = manager->Tasks[0];
-			auto place = cgaask->Select->Select;
-			task->SubTasks.push(XLagBuilderTaskFactory(place).AlignDigPlace());
-			NpcTask = task;
-			manager->Tasks.Reset();
-		}
-	}*/
-
 	if (IsDiging && digMemo.get() != nullptr)
 	{
 		auto targetSlice = digMemo->targetCell->GetTopLevel() - digMemo->ToLevel;
@@ -75,5 +60,4 @@ void AXLagNPCBuilderman::Cancel()
 void AXLagNPCBuilderman::OfferAccept(UXLagTaskBase* task)
 {
 	AXLagNPCBase::OfferAccept(task);
-
 }

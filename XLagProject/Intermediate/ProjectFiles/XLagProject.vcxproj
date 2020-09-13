@@ -272,7 +272,13 @@
     <AdditionalOptions>/std:c++14</AdditionalOptions>
   </PropertyGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskRegionBase.cpp" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CuttingTreeRegion.cpp" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskBase.cpp" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateGroundAlign.cpp" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTaskRegionBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateGroundAlign.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CuttingTreeRegion.h" />
     <None Include="..\..\XLagProject.uproject" />
     <None Include="..\..\Source\XLagProject.Target.cs" />
     <None Include="..\..\Source\XLagProjectEditor.Target.cs" />

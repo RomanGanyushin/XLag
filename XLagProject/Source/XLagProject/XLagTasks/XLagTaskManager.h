@@ -33,6 +33,9 @@ public:
 	// Создает задачу выравнивания.
 	UFUNCTION(BlueprintCallable) void CreateGroundAlignTask(AXLagSelectComponent *select, GroundAlignTypeEnum type, TerrainElementEnum pourElement, float zParameter, int RequiredWorkerNumber);
 
+	// Создает задачу вырубки.
+	UFUNCTION(BlueprintCallable) void CreateCuttingTreeTask(AXLagSelectComponent *select, AXLagTimberStack *timberStack, int RequiredWorkerNumber);
+
 	// Запрос на исполнение задачи со стороны npc.
 	UFUNCTION(BlueprintCallable) void ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task);
 

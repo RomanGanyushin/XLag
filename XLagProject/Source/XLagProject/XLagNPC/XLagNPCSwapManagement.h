@@ -138,6 +138,8 @@ public:
 	
 private:
 	std::shared_ptr<ITerrainMapAccessor> MapAccessor;
+
+public:
 	TArray<AXLagCuttableTreeBase*> SwapedTrees;
 	TArray<AXLagTimberStack*> SwapedTreeStacks;
 private:

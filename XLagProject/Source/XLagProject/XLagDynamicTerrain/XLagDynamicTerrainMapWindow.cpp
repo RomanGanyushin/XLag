@@ -56,7 +56,20 @@ const FVector XLagDynamicTerrainMapWindow::GetWorldPosition(XLagDynamicTerrainMa
 
 std::vector<XLagDynamicTerrainMapItem*> XLagDynamicTerrainMapWindow::GetFilteredItems(const IMapItemFilter& filter)
 {
-	return _fullMap->GetFilteredItems(filter);
+	std::vector<XLagDynamicTerrainMapItem*> result;
+
+	for (int ix = 0; ix < SizeX(); ix++)
+		for (int iy = 0; iy < SizeX(); iy++)
+		{
+			auto& item = Point(ix, iy);
+
+			if (filter.IsMatch(item))
+			{
+				result.push_back(&item);
+			}
+		}
+
+	return result;
 }
 
 bool XLagDynamicTerrainMapWindow::IsChanged()
