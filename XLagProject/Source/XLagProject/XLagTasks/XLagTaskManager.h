@@ -18,7 +18,7 @@ UENUM(BlueprintType)
 enum TaskStateEnum
 {
 	Created UMETA(DisplayName = "Created"),
-	WaitForBegin UMETA(DisplayName = "WaitForBeging"),
+	Recruitment UMETA(DisplayName = "Recruitment"),
 	InProgess UMETA(DisplayName = "InProgess"),
 	Done UMETA(DisplayName = "Done")
 };
@@ -51,7 +51,7 @@ class UXLagTask_CreateGroundAlign: public UXLagTaskBase
 	{
 		ProfessionType = ProfessionTypeEnum::Builder;
 		TaskTypeName = TEXT("GroundAlignTask");
-		MaximalExecuterCount = 2;
+		MaximalExecuterCount = 1;
 		MinimalExecuterCount = 1;
 		State = TaskStateEnum::Created;
 	}
@@ -91,9 +91,13 @@ public:
 	// Called when the game starts or when spawned
 	virtual void Tick(float DeltaTime) override;
 
+	// Создает задачу выравнивания.
 	UFUNCTION(BlueprintCallable) void CreateGroundAlignTask(AXLagSelectComponent *select, GroundAlignType type, float zParameter);
+
+	// Запрос на исполнение задачи со стороны npc.
 	UFUNCTION(BlueprintCallable) void ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task);
 
+	// Задачи.
 	UPROPERTY() TArray<UXLagTaskBase*> Tasks;
 
 	// Событие возникающее при поиске исполнитея задачи.
@@ -105,6 +109,7 @@ private:
 	TMap<UXLagTaskBase*, TArray<AXLagNPCBase*>> _requestForExecution;
 
 private:
+	void SearchAndChooseExecuters();
 	void SearchAndChooseExecuters(UXLagTaskBase* task);
 
 };

@@ -28,12 +28,6 @@ void AXLagNPCBase::BeginPlay()
 void AXLagNPCBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-
-	/*if (IsExistTask())
-	{
-		NpcTask->Execute(this, DeltaTime);
-	}*/
 }
 
 // Called to bind functionality to input
@@ -57,17 +51,27 @@ void AXLagNPCBase::OnTaskManager_TaskChanged(AXLagTaskManager* manager, UXLagTas
 	if (task->ProfessionType != ProfessionTypeEnum::Builder) // Если профессия не совпадает, то выходим из обработчика.
 		return;
 
+	if (CurrentTask != nullptr) // Проверяем что персонаж свободен.
+	{
+		return;
+	}
+
+
 	if (!CanConfirmTask(task)) // Проверяем, что персонаж может выполнить задачу. 
 		return;
 
 	// Подаем заявку на выполнение задач.
 	manager->ApplyForTask(this, task);
-	
 }
 
 void AXLagNPCBase::OfferAccept(UXLagTaskBase* task)
 {
 	CurrentTask = task;
+}
+
+void AXLagNPCBase::FreeOf(UXLagTaskBase* task)
+{
+	CurrentTask = nullptr;
 }
 
 

@@ -10,12 +10,32 @@ void AXLagTaskManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	auto IsSomeNpcReleased = false;
+
 	for (auto& it : Tasks)
 	{
+		if (it->State != TaskStateEnum::InProgess)
+			continue;
+
 		for (auto &e : it->Executers)
 		{
 			it->NpcTask->Execute(e, DeltaTime);
 		}
+
+		if (it->NpcTask->IsSuccess())
+		{
+			for (auto &e : it->Executers)
+			{
+				e->FreeOf(it);
+				it->State = TaskStateEnum::Done;
+				IsSomeNpcReleased = true;
+			}
+		}
+	}
+
+	if (IsSomeNpcReleased)
+	{
+		SearchAndChooseExecuters();
 	}
 }
 
@@ -24,16 +44,18 @@ void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, Groun
 	// Создает задачу.
 	auto newTask = NewObject<UXLagTask_CreateGroundAlign>();
 	newTask->SetAlignRegion(select->Select);
+	newTask->State = TaskStateEnum::Recruitment;
 	
-	SearchAndChooseExecuters(newTask);
-
 	// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
 	task->SubTasks.push(XLagBuilderTaskFactory(place).AlignDigPlace());
 	newTask->NpcTask = task;
 
+	// Добавляем в стек.
 	Tasks.Add(newTask);
+
+	SearchAndChooseExecuters(newTask);	
 }
 
 void AXLagTaskManager::ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task)
@@ -45,6 +67,16 @@ void AXLagTaskManager::ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task)
 	_requestForExecution[task].Add(npc);
 }
 
+void AXLagTaskManager::SearchAndChooseExecuters()
+{
+	for (auto& it : Tasks)
+	{
+		if (it->State != TaskStateEnum::Recruitment)
+			continue;
+
+		SearchAndChooseExecuters(it);
+	}
+}
 
 void AXLagTaskManager::SearchAndChooseExecuters(UXLagTaskBase* task)
 {
@@ -55,11 +87,7 @@ void AXLagTaskManager::SearchAndChooseExecuters(UXLagTaskBase* task)
 		return;
 
 	auto& executers = _requestForExecution[task];
-	if (executers.Num() < task->MaximalExecuterCount)
-	{
-		//CancelationTask(task);
-	}
-
+	
 	auto takeExecutorCount = std::min(task->MaximalExecuterCount, executers.Num());
 	for (int execIndex = 0; execIndex < takeExecutorCount; execIndex++)
 	{
@@ -70,6 +98,10 @@ void AXLagTaskManager::SearchAndChooseExecuters(UXLagTaskBase* task)
 		executers[execIndex]->OfferAccept(task);
 	}
 
-	task->State = TaskStateEnum::WaitForBegin;
+	if (task->Executers.Num() >= task->MinimalExecuterCount)
+	{
+		task->State = TaskStateEnum::InProgess;
+	}
+
 	_requestForExecution.Reset();
 }

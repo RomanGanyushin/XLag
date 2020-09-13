@@ -30,9 +30,16 @@ public:
 
 	// Текущая задача, выполняемая песонажем.
 	UPROPERTY()  UXLagTaskBase* CurrentTask;
+
+	// Утвердить предложение по работе.
 	UFUNCTION() virtual void OfferAccept(UXLagTaskBase* task);
 
+	// Освободить от работы.
+	UFUNCTION() virtual void FreeOf(UXLagTaskBase* task);
+
 protected:
+
+	// 
 	UFUNCTION() virtual void OnTaskManager_TaskChanged(AXLagTaskManager* manager, UXLagTaskBase* task);
 	
 protected:
