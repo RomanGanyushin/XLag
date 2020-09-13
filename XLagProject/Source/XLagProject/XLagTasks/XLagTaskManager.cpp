@@ -40,7 +40,7 @@ void AXLagTaskManager::Tick(float DeltaTime)
 	}
 }
 
-void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, GroundAlignType type, TerrainElementEnum pourElement, float zParameter)
+void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, GroundAlignType type, TerrainElementEnum pourElement, float zParameter, int RequiredWorkerNumber)
 {
 	// Создает задачу.
 	auto newTask = NewObject<UXLagTask_CreateGroundAlign>();
