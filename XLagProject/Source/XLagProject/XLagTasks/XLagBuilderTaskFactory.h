@@ -33,12 +33,12 @@ public:
 		auto maximalVector = Place->GetWorldPosition(maximalLocation.first, maximalLocation.second, GetPositionEnum::CenterHeghtPosition);
 
 		auto sliceHeight = maximalVector.Z - minimalVector.Z;
-		auto maxSlice = 50;
+		auto maxSlice = 100;
 
 
 		for (int n = 0; n < int(sliceHeight / maxSlice) + 1; n++)
-			for (int i = 0; i < Place->SizeX(); i++)
-				for (int j = 0; j < Place->SizeY(); j++)
+			for (int i = 0; i <= Place->SizeX(); i++)
+				for (int j = 0; j <= Place->SizeY(); j++)
 				{
 					auto current_lev = maximalVector.Z - maxSlice * n;
 					current_lev = std::max(current_lev, minimalVector.Z);
@@ -68,15 +68,21 @@ public:
 		auto maxSlice = 100;
 
 		for (int n = 0; n < int(sliceHeight / maxSlice) + 1; n++)
-			for (int i = 0; i < Place->SizeX(); i++)
-				for (int j = 0; j < Place->SizeY(); j++)
+			for (int i = 0; i <= Place->SizeX(); i++)
+				for (int j = 0; j <= Place->SizeY(); j++)
 				{
 					auto current_lev = minimalVector.Z + maxSlice * n;
 					current_lev = std::min(current_lev, maximalVector.Z);
 
 					auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
-					if (pos.Z > current_lev)
+					
+					/*if (pos.Z > current_lev - maxSlice)
 						continue;
+
+					if (pos.Z > current_lev)
+					{
+						current_lev = maximalVector.Z;
+					}*/
 
 					result->SubTasks.push(MoveTo(pos));
 					result->SubTasks.push(Pour(i, j, current_lev, element));
@@ -96,14 +102,38 @@ public:
 		auto maxSlice = 100;
 
 		for (int n = 0; n < int(sliceHeight / maxSlice) + 1; n++)
-			for (int i = n + 1; i < Place->SizeX() - n - 1; i++)
-				for (int j = n + 1; j < Place->SizeY() - n - 1; j++)
+			for (int i = n /*+ 1*/; i <= Place->SizeX() - n /*- 1*/; i++)
+				for (int j = n /*+ 1*/; j <= Place->SizeY() - n /*- 1*/; j++)
 				{
 					auto current_lev = minimalVector.Z - maxSlice * n;
 					auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
 
 					result->SubTasks.push(MoveTo(pos));
 					result->SubTasks.push(Dig(i, j, current_lev, false));
+				}
+
+		return result;
+	}
+
+	//  Насыпание.
+	std::shared_ptr<XLagNPCTaskBase> PourPlace(float sliceHeight, TerrainElementEnum element)
+	{
+		auto result = std::make_shared<XLagNPCTaskBase>();
+
+		auto maximalLocation = MinMaxLevelPlace(Place).FindMaximalLevel();
+		auto maximalVector = Place->GetWorldPosition(maximalLocation.first, maximalLocation.second, GetPositionEnum::CenterHeghtPosition);
+
+		auto maxSlice = 100;
+
+		for (int n = 0; n < int(sliceHeight / maxSlice) + 1; n++)
+			for (int i = n; i <= Place->SizeX() - n /*- 1*/; i++)
+				for (int j = n; j <= Place->SizeY() - n /*- 1*/; j++)
+				{
+					auto current_lev = maximalVector.Z + maxSlice * n;
+					auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
+
+					result->SubTasks.push(MoveTo(pos));
+					result->SubTasks.push(Pour(i, j, current_lev, element));
 				}
 
 		return result;

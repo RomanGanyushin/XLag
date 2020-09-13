@@ -56,12 +56,22 @@ void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, Groun
 		case Diging:
 		{
 			task->SubTasks.push(XLagBuilderTaskFactory(place).AlignDigPlace());
+
+			if (zParameter != 0.0f)
+			{
+				task->SubTasks.push(XLagBuilderTaskFactory(place).DigPlace(zParameter));
+			}			
 		}
 		break;
 
 		case Pouring:
 		{
 			task->SubTasks.push(XLagBuilderTaskFactory(place).AlignPourPlace(pourElement));
+
+			if (zParameter != 0.0f)
+			{
+				task->SubTasks.push(XLagBuilderTaskFactory(place).PourPlace(zParameter, pourElement));
+			}
 		}
 		break;
 	}
