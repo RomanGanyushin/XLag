@@ -8,6 +8,11 @@ TerrainElementTranformComponent::TerrainElementTranformComponent(const ITerrainE
 
 void TerrainElementTranformComponent::DoEdit(ITerrainMapAccessor *const accessor, const int& ix, const int& iy)
 {
+	if (accessor == nullptr)
+	{
+		return;
+	}
+
 	if (!IsCondition(accessor, ix, iy))
 		return;
 
@@ -16,6 +21,11 @@ void TerrainElementTranformComponent::DoEdit(ITerrainMapAccessor *const accessor
 
 bool TerrainElementTranformComponent::IsCondition(ITerrainMapAccessor *const accessor, const int& ix, const int& iy)
 {
+	if (accessor == nullptr)
+	{
+		return false;
+	}
+
 	return (_fromElement == -1 || accessor->Point(ix, iy).GetTopKind() ==  _fromElement)
 		&& _condition.IsCondition(accessor, ix, iy);
 }
