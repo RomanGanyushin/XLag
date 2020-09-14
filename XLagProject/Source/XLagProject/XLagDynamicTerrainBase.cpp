@@ -34,9 +34,9 @@ AXLagDynamicTerrainBase::AXLagDynamicTerrainBase()
 	RootComponent = TerrainScene;
 	InitializeLayers();
 
-	InitMap();
-	InitGeometry();
-	AddGreader();
+	//InitMap();
+	//InitGeometry();
+	//AddGreader();
 
 	UE_LOG(LogTemp, Warning, TEXT("AXLagDynamicTerrainBase construct 056"));
 
