@@ -375,6 +375,12 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTaskRegionBase.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingManager.h">
+      <Filter>Source\XLagProject\XLagBuildings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingDescription.h">
+      <Filter>Source\XLagProject\XLagBuildings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -393,6 +399,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskRegionBase.cpp">
       <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingManager.cpp">
+      <Filter>Source\XLagProject\XLagBuildings</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

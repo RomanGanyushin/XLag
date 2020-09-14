@@ -20,8 +20,6 @@ void AXLagBuilding::BeginPlay()
 	Super::BeginPlay();
 
 	UE_LOG(LogTemp, Log, TEXT("AXLagBuilding::Begin Play"));
-
-	
 }
 
 // Called every frame
@@ -47,5 +45,7 @@ void AXLagBuilding::DoShowPreview(bool isShow)
 	_processing = NewObject<UXLagBuildProcessing>();
 	_processing->SetGeneralPlain(_plain);
 	_processing->CreatePreview(this, RootComponent);
+
+	this->SetActorEnableCollision(false);
 }
 
