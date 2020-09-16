@@ -167,7 +167,7 @@ void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent*
 		brick->SetStaticMesh(templateObject);
 		brick->SetRelativeRotation(Evaluator->CurrentOrientation);
 		brick->SetRelativeLocation(Evaluator->CurrentPosition);
-		brick->SetRelativeScale3D(FVector(0.2, 0.1, 0.05));
+		//brick->SetRelativeScale3D(FVector(0.2, 0.1, 0.05));
 		brick->RegisterComponent();
 
 		Evaluator->OffsetPosition(_repeatCycle->IncrementalPosition);
