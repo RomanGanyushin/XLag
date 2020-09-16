@@ -44,9 +44,9 @@ AXLagDynamicTerrainBase::AXLagDynamicTerrainBase()
 
 void AXLagDynamicTerrainBase::PostActorCreated()
 {
-	InitMap();
+	/*InitMap();
 	InitGeometry();
-	AddGreader();
+	AddGreader();*/
 	Super::PostActorCreated();
 }
 
