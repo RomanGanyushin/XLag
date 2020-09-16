@@ -381,10 +381,34 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingDescription.h">
       <Filter>Source\XLagProject\XLagBuildings</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\XLagMineralManager.h">
+      <Filter>Source\XLagProject\XLagMinerals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\XLagMineralDesc.h">
+      <Filter>Source\XLagProject\XLagMinerals\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\XLagMineralManager.cpp">
+      <Filter>Source\XLagProject\XLagMinerals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\OccurrenceMineralTypeEnum.h">
+      <Filter>Source\XLagProject\XLagMinerals\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\MiningMethodTypeEnum.h">
+      <Filter>Source\XLagProject\XLagMinerals\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\OccurrenceMeneralGenDesc.h">
+      <Filter>Source\XLagProject\XLagMinerals\Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
       <UniqueIdentifier>{85af7930-3f50-4aa5-8941-a90381b4d41f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagMinerals">
+      <UniqueIdentifier>{0c994a87-7563-4b42-9891-508a28de48bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagMinerals\Models">
+      <UniqueIdentifier>{483d3e56-5057-4163-b14c-9348da06363a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
