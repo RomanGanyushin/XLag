@@ -5,15 +5,24 @@
 UENUM(BlueprintType)
 enum TerrainElementEnum
 {	
+	None UMETA(DisplayName = "None"),
+
 	// Земля с дикой растительностью.
 	GraundGrass UMETA(DisplayName = "Graund Grass"),
-	
-	// Склальная порода.
-	RockSandstone UMETA(DisplayName = "Rock Sandstone"),
 	GroundGrassToRockSandstoneTrans,
-	RockBasalt,
 	GrondGrassToRockBasaltTrans,
-	RockSandstoneToRockBasaltTrans
+	GrondGrassToCoilTrans,
+
+	// Песок.
+	RockSandstone UMETA(DisplayName = "Rock Sandstone"),
+	RockSandstoneToRockBasaltTrans,
+	
+	// Скала.
+	RockBasalt,	
+	
+	// Уголь.
+	Coil UMETA(DisplayName = "Coil")
+
 };
 
 class TransitionTerrainElementCatalog
@@ -36,6 +45,12 @@ public:
 			|| (elem2 == TerrainElementEnum::GraundGrass && elem1 == TerrainElementEnum::RockSandstone))
 		{
 			return TerrainElementEnum::GroundGrassToRockSandstoneTrans;
+		}
+
+		if ((elem1 == TerrainElementEnum::GraundGrass && elem2 == TerrainElementEnum::Coil)
+			|| (elem2 == TerrainElementEnum::GraundGrass && elem1 == TerrainElementEnum::Coil))
+		{
+			return TerrainElementEnum::GrondGrassToCoilTrans;
 		}
 
 		if ((elem1 == TerrainElementEnum::RockSandstone && elem2 == TerrainElementEnum::RockBasalt)

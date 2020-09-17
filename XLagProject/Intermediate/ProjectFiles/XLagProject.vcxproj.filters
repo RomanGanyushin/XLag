@@ -393,10 +393,10 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\OccurrenceMineralTypeEnum.h">
       <Filter>Source\XLagProject\XLagMinerals\Models</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\MiningMethodTypeEnum.h">
+    <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\OccurrenceMeneralGenDesc.h">
       <Filter>Source\XLagProject\XLagMinerals\Models</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\OccurrenceMeneralGenDesc.h">
+    <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\MiningMethodTypeEnum.h">
       <Filter>Source\XLagProject\XLagMinerals\Models</Filter>
     </ClInclude>
   </ItemGroup>

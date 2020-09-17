@@ -1,6 +1,6 @@
 #pragma once
-#include "MiningMethodTypeEnum.h"
 #include "OccurrenceMineralTypeEnum.h"
+#include "OccurrenceMeneralGenDesc.h"
 #include "..\..\Common\TerrainElementEnum.h"
 
 #include "XLagMineralDesc.generated.h"
@@ -16,18 +16,18 @@ struct FXLagMineralDesc
 	// Значение, показывающее что ресурс необходимо искать.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool SearchRequire;
 
-	// Метод добычи.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TEnumAsByte<MiningMethodTypeEnum> MiningMethodType;
-
-	// Метод залегания.
+	// Тип залегания.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TEnumAsByte<OccurrenceMineralTypeEnum> OccurrenceMineralType;
 
-	// Связанный элеменет ланшафта.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) TEnumAsByte<TerrainElementEnum> LinkedTerrainElement;
+	// Элеменет ланшафта, представляющий ресурс.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TEnumAsByte<TerrainElementEnum> MineralTerrainElement;
 
 	// Трудоемкость поиска.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float SearchComplexity;
 	
 	// Трудоемкость добычи.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MiningComplexity;
+
+	// Параметры генерации.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FOccurrenceMeneralGenDesc OccurrenceMeneralGenDesc;
 };

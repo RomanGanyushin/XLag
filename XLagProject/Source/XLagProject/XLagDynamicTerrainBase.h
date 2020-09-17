@@ -84,6 +84,10 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* RockBasalt;
 
+	/// Coil component
+	UPROPERTY(VisibleAnywhere)
+		UProceduralMeshComponent* Coil;
+
 	/// Ground Gras To Rock Sandstone component
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* GroundGrassToRockSandstone;
@@ -91,6 +95,10 @@ public:
 	/// Ground Gras To Rock Basalt component
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* GroundGrassToRockBasalt;
+
+	/// Ground Gras To Coil component
+	UPROPERTY(VisibleAnywhere)
+		UProceduralMeshComponent* GroundGrassToCoil;
 
 	/// Ground Gras To Rock Basalt component
 	UPROPERTY(VisibleAnywhere)
