@@ -11,7 +11,7 @@ enum TerrainElementEnum
 	GraundGrass UMETA(DisplayName = "Graund Grass"),
 	GroundGrassToRockSandstoneTrans,
 	GrondGrassToRockBasaltTrans,
-	GrondGrassToCoilTrans,
+	GrondGrassToCoalTrans,
 
 	// ѕесок.
 	RockSandstone UMETA(DisplayName = "Rock Sandstone"),
@@ -21,7 +21,7 @@ enum TerrainElementEnum
 	RockBasalt,	
 	
 	// ”голь.
-	Coil UMETA(DisplayName = "Coil")
+	Coal UMETA(DisplayName = "Coal")
 
 };
 
@@ -47,10 +47,10 @@ public:
 			return TerrainElementEnum::GroundGrassToRockSandstoneTrans;
 		}
 
-		if ((elem1 == TerrainElementEnum::GraundGrass && elem2 == TerrainElementEnum::Coil)
-			|| (elem2 == TerrainElementEnum::GraundGrass && elem1 == TerrainElementEnum::Coil))
+		if ((elem1 == TerrainElementEnum::GraundGrass && elem2 == TerrainElementEnum::Coal)
+			|| (elem2 == TerrainElementEnum::GraundGrass && elem1 == TerrainElementEnum::Coal))
 		{
-			return TerrainElementEnum::GrondGrassToCoilTrans;
+			return TerrainElementEnum::GrondGrassToCoalTrans;
 		}
 
 		if ((elem1 == TerrainElementEnum::RockSandstone && elem2 == TerrainElementEnum::RockBasalt)

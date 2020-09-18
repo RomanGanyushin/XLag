@@ -14,6 +14,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Descriptions") 
 		TArray<FXLagMineralDesc> MineralDescCollection;
 
+	/*UPROPERTY(BlueprintReadOnly, BlueprintGetter = GetSearchableMeneralDescCollection)
+		TArray<FXLagMineralDesc> SearchableMeneralDescCollection;*/
+
+	// Получает коллецию изыскиваемых полезных ископаемых.
+	UFUNCTION(BlueprintCallable) const TArray<FXLagMineralDesc> GetSearchableMeneralDescCollection() const;
 
 public:
 	static AXLagMineralManager* GetMineralManager()

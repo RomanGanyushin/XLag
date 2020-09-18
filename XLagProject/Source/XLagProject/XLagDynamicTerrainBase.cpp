@@ -125,8 +125,8 @@ void AXLagDynamicTerrainBase::InitializeLayers()
 	RockBasalt = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("RockBasalt"));
 	RockBasalt->SetupAttachment(TerrainScene);
 
-	Coil = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("Coil"));
-	Coil->SetupAttachment(TerrainScene);
+	Coal = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("Coal"));
+	Coal->SetupAttachment(TerrainScene);
 
 	GroundGrassToRockSandstone = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GroundGrassToRockSandstone"));
 	GroundGrassToRockSandstone->SetupAttachment(TerrainScene);
@@ -134,8 +134,8 @@ void AXLagDynamicTerrainBase::InitializeLayers()
 	GroundGrassToRockBasalt = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GroundGrassToRockBasalt"));
 	GroundGrassToRockBasalt->SetupAttachment(TerrainScene);
 
-	GroundGrassToCoil = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GroundGrassToCoil"));
-	GroundGrassToCoil->SetupAttachment(TerrainScene);
+	GroundGrassToCoal = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GroundGrassToCoal"));
+	GroundGrassToCoal->SetupAttachment(TerrainScene);
 
 	RockSandstoneToRockBasalt = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("RockSandstoneToRockBasalt"));
 	RockSandstoneToRockBasalt->SetupAttachment(TerrainScene);
@@ -234,8 +234,8 @@ void AXLagDynamicTerrainBase::InitGeometry()
 	_geometry.CreateFrom(Map, TerrainElementEnum::RockBasalt);
 	GenerateLayerGeometry(RockBasalt, _geometry);
 
-	_geometry.CreateFrom(Map, TerrainElementEnum::Coil);
-	GenerateLayerGeometry(Coil, _geometry);
+	_geometry.CreateFrom(Map, TerrainElementEnum::Coal);
+	GenerateLayerGeometry(Coal, _geometry);
 
 	_geometry.CreateTransFrom(Map, TerrainElementEnum::GroundGrassToRockSandstoneTrans, TerrainElementEnum::GraundGrass);
 	GenerateLayerGeometry(GroundGrassToRockSandstone, _geometry);
@@ -243,8 +243,8 @@ void AXLagDynamicTerrainBase::InitGeometry()
 	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToRockBasaltTrans, TerrainElementEnum::GraundGrass);
 	GenerateLayerGeometry(GroundGrassToRockBasalt, _geometry);
 
-	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToCoilTrans, TerrainElementEnum::GraundGrass);
-	GenerateLayerGeometry(GroundGrassToCoil, _geometry);
+	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToCoalTrans, TerrainElementEnum::GraundGrass);
+	GenerateLayerGeometry(GroundGrassToCoal, _geometry);
 
 	_geometry.CreateTransFrom(Map, TerrainElementEnum::RockSandstoneToRockBasaltTrans, TerrainElementEnum::RockSandstone);
 	GenerateLayerGeometry(RockSandstoneToRockBasalt, _geometry);

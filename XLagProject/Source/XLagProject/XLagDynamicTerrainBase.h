@@ -86,7 +86,7 @@ public:
 
 	/// Coil component
 	UPROPERTY(VisibleAnywhere)
-		UProceduralMeshComponent* Coil;
+		UProceduralMeshComponent* Coal;
 
 	/// Ground Gras To Rock Sandstone component
 	UPROPERTY(VisibleAnywhere)
@@ -98,7 +98,7 @@ public:
 
 	/// Ground Gras To Coil component
 	UPROPERTY(VisibleAnywhere)
-		UProceduralMeshComponent* GroundGrassToCoil;
+		UProceduralMeshComponent* GroundGrassToCoal;
 
 	/// Ground Gras To Rock Basalt component
 	UPROPERTY(VisibleAnywhere)
