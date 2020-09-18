@@ -399,6 +399,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\MiningMethodTypeEnum.h">
       <Filter>Source\XLagProject\XLagMinerals\Models</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_SearchMineralRegion.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -426,6 +429,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingManager.cpp">
       <Filter>Source\XLagProject\XLagBuildings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_SearchMineralRegion.cpp">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

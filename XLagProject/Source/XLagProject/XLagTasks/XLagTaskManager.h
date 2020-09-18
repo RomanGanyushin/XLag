@@ -1,7 +1,9 @@
 #pragma once
 
-#include "../Common/GroundAlignTypeEnum.h"
 #include "XLagTaskBase.h"
+#include "../Common/GroundAlignTypeEnum.h"
+#include "../XLagMinerals/Models/XLagMineralDesc.h"
+
 #include "XLagTaskManager.generated.h"
 
 
@@ -35,6 +37,9 @@ public:
 
 	// Создает задачу вырубки.
 	UFUNCTION(BlueprintCallable) void CreateCuttingTreeTask(AXLagSelectComponent *select, AXLagTimberStack *timberStack, int RequiredWorkerNumber);
+
+	// Создать задачу поиска полезных ископаемых.
+	UFUNCTION(BlueprintCallable) void CreateSearchMineralTask(AXLagSelectComponent *select, const FXLagMineralDesc mineral, int RequiredWorkerNumber);
 
 	// Запрос на исполнение задачи со стороны npc.
 	UFUNCTION(BlueprintCallable) void ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task);

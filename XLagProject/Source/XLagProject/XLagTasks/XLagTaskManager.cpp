@@ -5,6 +5,7 @@
 #include "../XLagNpc/XLagNPCSwapManagement.h"
 #include "XLagTask_CreateGroundAlign.h"
 #include "XLagTask_CuttingTreeRegion.h"
+#include "XLagTask_SearchMineralRegion.h"
 
 AXLagTaskManager::AXLagTaskManager()
 {
@@ -123,6 +124,15 @@ void AXLagTaskManager::CreateCuttingTreeTask(AXLagSelectComponent *select, AXLag
 	Tasks.Add(newTask);
 
 	SearchAndChooseExecuters(newTask);
+}
+
+void AXLagTaskManager::CreateSearchMineralTask(AXLagSelectComponent *select, const FXLagMineralDesc mineral, int RequiredWorkerNumber)
+{
+	// Создает задачу.
+	auto newTask = NewObject<UXLagTask_SearchMineralRegion>();
+	newTask->SetRegion(select->Select);
+	newTask->State = TaskStateEnum::Recruitment;
+
 }
 
 void AXLagTaskManager::ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task)

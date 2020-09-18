@@ -44,18 +44,21 @@ AXLagDynamicTerrainBase::AXLagDynamicTerrainBase()
 
 void AXLagDynamicTerrainBase::PostActorCreated()
 {
+	Super::PostActorCreated();
+
 	InitMap();
 	InitGeometry();
 	//AddGreader();
-	Super::PostActorCreated();
+	
 }
 
 void AXLagDynamicTerrainBase::PostLoad()
 {
+	Super::PostLoad();
+
 	InitMap();
 	InitGeometry();
 	//AddGreader();
-	Super::PostLoad();
 }
 
 // Called when the game starts or when spawned
