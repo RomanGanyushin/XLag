@@ -4,3 +4,7 @@
 #include "XLagNPCMiner.h"
 
 
+void AXLagNPCMiner::OfferAccept(UXLagTaskBase* task)
+{
+	AXLagNPCBase::OfferAccept(task);
+}

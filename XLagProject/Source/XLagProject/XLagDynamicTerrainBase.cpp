@@ -48,7 +48,7 @@ void AXLagDynamicTerrainBase::PostActorCreated()
 
 	InitMap();
 	InitGeometry();
-	//AddGreader();
+	AddGreader();
 	
 }
 
@@ -58,7 +58,7 @@ void AXLagDynamicTerrainBase::PostLoad()
 
 	InitMap();
 	InitGeometry();
-	//AddGreader();
+	AddGreader();
 }
 
 // Called when the game starts or when spawned

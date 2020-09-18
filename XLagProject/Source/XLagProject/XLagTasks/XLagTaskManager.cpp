@@ -1,6 +1,7 @@
 #include "XLagTaskManager.h"
 #include "InternalTasks/XLagBuilderTaskFactory.h"
 #include "InternalTasks/XLagWoodCutterTaskFactory.h"
+#include "InternalTasks/XLagMinerTaskFactory.h"
 #include "../XLagDynamicTerrain/Filters/SurfaceResourceMapItemFilter.h"
 #include "../XLagNpc/XLagNPCSwapManagement.h"
 #include "XLagTask_CreateGroundAlign.h"
@@ -133,6 +134,16 @@ void AXLagTaskManager::CreateSearchMineralTask(AXLagSelectComponent *select, con
 	newTask->SetRegion(select->Select);
 	newTask->State = TaskStateEnum::Recruitment;
 
+	// Планируем выполнение.
+	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
+	auto place = select->Select;
+	task->SubTasks.push(XLagMinerTaskFactory(place).Search());
+	newTask->NpcTask = task;
+
+	// Добавляем в стек.
+	Tasks.Add(newTask);
+
+	SearchAndChooseExecuters(newTask);
 }
 
 void AXLagTaskManager::ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task)
