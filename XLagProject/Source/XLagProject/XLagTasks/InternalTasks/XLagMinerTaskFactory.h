@@ -2,7 +2,9 @@
 
 #include "XLagNPCTaskBase.h"
 #include "XLagNPCTaskMoveTo.h"
+#include "XLagMiSearchMineralTask.h"
 #include "../../XLagDynamicTerrain\Position/MinMaxLevelPlace.h"
+#include "../../XLagMinerals/Models/XLagMineralDesc.h"
 #include "../../Common/ITerrainMapAccessor.h"
 
 /*
@@ -21,7 +23,7 @@ public:
 	}
 
 	// Выравнивнивание насыпанием.
-	std::shared_ptr<XLagNPCTaskBase> Search()
+	std::shared_ptr<XLagNPCTaskBase> Search(const FXLagMineralDesc mineral)
 	{
 		auto result = std::make_shared<XLagNPCTaskBase>();
 
@@ -32,7 +34,7 @@ public:
 				auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
 
 				result->SubTasks.push(MoveTo(pos));
-				//result->SubTasks.push(Dig(i, j, current_lev, true));
+				result->SubTasks.push(Search(i, j, mineral));
 			}
 
 		return result;
@@ -43,6 +45,12 @@ public:
 	std::shared_ptr<XLagNPCTaskBase> MoveTo(const FVector& location)
 	{
 		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskMoveTo(location, CompliteDistanceToTree * SpaceScale, 10));
+		return result;
+	}
+
+	std::shared_ptr<XLagNPCTaskBase> Search(int x, int y, const FXLagMineralDesc mineral)
+	{
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagMiSearchMineralTask(Place, x, y, mineral));
 		return result;
 	}
 

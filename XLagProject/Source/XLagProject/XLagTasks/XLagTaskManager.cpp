@@ -137,7 +137,7 @@ void AXLagTaskManager::CreateSearchMineralTask(AXLagSelectComponent *select, con
 	// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
-	task->SubTasks.push(XLagMinerTaskFactory(place).Search());
+	task->SubTasks.push(XLagMinerTaskFactory(place).Search(mineral));
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.

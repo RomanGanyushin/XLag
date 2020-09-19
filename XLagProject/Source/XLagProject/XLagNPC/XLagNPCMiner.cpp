@@ -8,3 +8,12 @@ void AXLagNPCMiner::OfferAccept(UXLagTaskBase* task)
 {
 	AXLagNPCBase::OfferAccept(task);
 }
+
+bool AXLagNPCMiner::SearchMineral(XLagDynamicTerrainMapItem& cell, const FXLagMineralDesc mineral, float DeltaTime)
+{
+	auto force = DeltaTime;
+	auto isComplite = cell.SearchResource(mineral, force);
+	IsSearching = !isComplite;
+
+	return isComplite;
+}

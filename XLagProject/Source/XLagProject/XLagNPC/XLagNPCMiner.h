@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "XLagNPCBase.h"
 #include "../XLagDynamicTerrain/XLagDynamicTerrainMapItem.h"
+#include "../XLagMinerals/XLagMineralManager.h"
 #include "XLagNPCMiner.generated.h"
 
 /**
@@ -18,7 +19,25 @@ class XLAGPROJECT_API AXLagNPCMiner : public AXLagNPCBase
 public:
 	virtual void OfferAccept(UXLagTaskBase* task) override;
 
+	// »щи минерал в клетке.
+	virtual bool SearchMineral(XLagDynamicTerrainMapItem& cell, const FXLagMineralDesc mineral, float DeltaTime);
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Miner Working")
+		bool  IsSearching = false;
+
 private:
 	virtual ProfessionTypeEnum GetCurrentProfession() override { return ProfessionTypeEnum::Miner; }
 	virtual bool CanConfirmTask(UXLagTaskBase* task) override { return true; }
+
+private:
+	inline AXLagMineralManager* GetMineralManager()
+	{
+		static AXLagMineralManager* mineralManager = nullptr;
+		if (mineralManager == nullptr)
+		{
+			mineralManager = AXLagMineralManager::GetMineralManager();
+		}
+
+		return mineralManager;
+	}
 };

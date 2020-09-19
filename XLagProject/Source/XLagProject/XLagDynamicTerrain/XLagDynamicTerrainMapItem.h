@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
-#include "../../XLagProject//Common/OnSurfaceResourceObjectsEnum.h"
-#include "../../XLagProject//Common/TerrainElementEnum.h"
+#include <map>
+#include "../Common/OnSurfaceResourceObjectsEnum.h"
+#include "../Common/TerrainElementEnum.h"
+#include "../XLagMinerals/Models/XLagMineralDesc.h"
 
 class TerrainMapItemLevel
 {
@@ -33,6 +35,11 @@ public:
 
 private:
 	std::vector<TerrainMapItemLevel>  Stack;
+
+	// Время затраченного на поиск ресурса.
+	std::map<int, float> _resurceSearchTimeMap;
+	
+	// Идентификатор клетки.	
 	long _id;
 public:
 	bool IsZeroLocation = false;
@@ -193,6 +200,25 @@ public:
 		}
 		
 		Changed = true;
+	}
+
+	bool SearchResource(const FXLagMineralDesc& mineral, float force)
+	{
+		if (_resurceSearchTimeMap.find(mineral.ID) == _resurceSearchTimeMap.end())
+		{
+			_resurceSearchTimeMap[mineral.ID] = force;
+		}
+		else
+		{
+			_resurceSearchTimeMap[mineral.ID] += force;
+		}
+
+		if (_resurceSearchTimeMap[mineral.ID] < mineral.SearchComplexity)
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 	const inline bool HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum type) const

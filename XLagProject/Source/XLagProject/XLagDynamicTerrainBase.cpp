@@ -162,7 +162,8 @@ void AXLagDynamicTerrainBase::InitMap()
 	editor.FillByXY(&perlinComp);
 
 	// ¬ыравнивание по высоте, так чтобы центральна€ часть заданным радиусом была в 0 уровне по высоте.
-	AligmentEditComponent aligment(AligmentEditComponentSettings(FullMapSizeX / 2, FullMapSizeX / 2, ZeroLocationRadius, ZeroLocationHeight));
+	AligmentEditComponentSettings aligmentSettings(FullMapSizeX / 2, FullMapSizeX / 2, ZeroLocationRadius, ZeroLocationHeight);
+	AligmentEditComponent aligment(aligmentSettings);
 	editor.FillByXY(&aligment);
 
 	TerrainElementTranformComponent makeRock(

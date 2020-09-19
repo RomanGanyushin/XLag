@@ -13,6 +13,9 @@ struct FXLagMineralDesc
 	// Название.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Name;
 
+	// Идентификатор.
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) int ID;
+
 	// Значение, показывающее что ресурс необходимо искать.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool SearchRequire;
 
@@ -23,6 +26,7 @@ struct FXLagMineralDesc
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TEnumAsByte<TerrainElementEnum> MineralTerrainElement;
 
 	// Трудоемкость поиска.
+	// Время в секундах, затрачиваемое мафнером со средними характеристиками.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float SearchComplexity;
 	
 	// Трудоемкость добычи.

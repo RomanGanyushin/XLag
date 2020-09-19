@@ -14,8 +14,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Descriptions") 
 		TArray<FXLagMineralDesc> MineralDescCollection;
 
-	/*UPROPERTY(BlueprintReadOnly, BlueprintGetter = GetSearchableMeneralDescCollection)
-		TArray<FXLagMineralDesc> SearchableMeneralDescCollection;*/
+	// Метод завершения создания коллекции.
+	UFUNCTION(BlueprintCallable) void CompliteCreate();
 
 	// Получает коллецию изыскиваемых полезных ископаемых.
 	UFUNCTION(BlueprintCallable) const TArray<FXLagMineralDesc> GetSearchableMeneralDescCollection() const;
