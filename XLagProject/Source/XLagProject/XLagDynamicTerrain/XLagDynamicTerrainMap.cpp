@@ -22,6 +22,10 @@ void XLagDynamicTerrainMap::Initialize()
 			Point(x, y).B[5] = &Point(SafeX(x + 1), SafeY(y));
 			Point(x, y).B[6] = &Point(SafeX(x + 1), SafeY(y -1 ));
 			Point(x, y).B[7] = &Point(SafeX(x), SafeY(y + 1));
+
+			using std::placeholders::_1;
+			using std::placeholders::_2;
+			Point(x, y).CreateMineralLayerEventRaise = std::bind(&XLagDynamicTerrainMap::CreateMineralLayerEventHandler, this, _1, _2);			 
 		}
 }
 
@@ -64,14 +68,8 @@ const FVector XLagDynamicTerrainMap::GetWorldPosition(int const &x, int const &y
 
 const FVector XLagDynamicTerrainMap::GetWorldPosition(XLagDynamicTerrainMapItem* item, GetPositionEnum flag) const
 {
-	auto index = item - &Map[0];
-
-	if (index < 0 || index >= MapLenght())
-		throw std::exception("Index out of array");
-
-	int y = index / SizeX();
-	int x = index - y * SizeX();
-	return GetWorldPosition(x, y, flag);
+	auto coord = GetCoordinate(item);
+	return GetWorldPosition(coord.X, coord.Y, flag);
 }
 
 // #inhereddoc
@@ -105,4 +103,43 @@ bool XLagDynamicTerrainMap::IsChanged()
 		}
 
 	return result;
+}
+
+void XLagDynamicTerrainMap::CreateMineralLayerEventHandler(XLagDynamicTerrainMapItem* sender, const FXLagMineralDesc& mineral)
+{
+	auto mineralGenDesc = mineral.OccurrenceMeneralGenDesc;
+
+	if (mineralGenDesc.UnderTerrainElement != sender->GetTopKind()) // ѕровер€ем условие залегани€.
+		return;
+
+	auto coord = GetCoordinate(sender);
+	auto analystSize = 10;
+	auto analystRect = CoordinateRect(SafeX(coord.X - analystSize), SafeY(coord.Y - analystSize),
+		SafeX(coord.X + analystSize), SafeY(coord.Y + analystSize));
+
+	float aroundMineralQuantity = 0.0f;
+
+	for (int x = analystRect.Point1.X; x <= analystRect.Point2.X; x++)
+		for (int y = analystRect.Point1.Y; y <= analystRect.Point2.Y; y++)
+			aroundMineralQuantity += PointConst(x, y).MeasureResourceQuantity(mineral.MineralTerrainElement);
+
+	float currentMineralAvvarage = aroundMineralQuantity / analystRect.Square();
+	
+	if (currentMineralAvvarage > mineralGenDesc.AverageQuantity) // ≈сли плотность минералов выше, то игнорируем генерацию.
+		return;
+
+
+	auto resurceRect = CoordinateRect(SafeX(coord.X - 3), SafeY(coord.Y - 3),
+		SafeX(coord.X + 3), SafeY(coord.Y + 3));
+
+	for (int x = resurceRect.Point1.X; x <= resurceRect.Point2.X; x++) // ƒелаем костыльное месторождение.
+		for (int y = resurceRect.Point1.Y; y <= resurceRect.Point2.Y; y++)
+		{
+			if (PointConst(x, y).GetTopKind() != mineralGenDesc.UnderTerrainElement)
+				continue;
+
+			auto level = PointConst(x, y).GetTopLevel();
+			Point(x, y).AddLayer(TerrainMapItemLevel(level - 10, mineral.MineralTerrainElement));
+			Point(x, y).AddLayer(TerrainMapItemLevel(level - 300, TerrainElementEnum::RockBasalt));
+		}		
 }

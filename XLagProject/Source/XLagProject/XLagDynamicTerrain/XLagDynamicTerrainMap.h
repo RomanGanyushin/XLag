@@ -1,6 +1,7 @@
 #pragma once
 
 #include "XLagDynamicTerrainMapItem.h"
+#include "Geometry/Geometry.h"
 #include "../Common/ITerrainMapAccessor.h"
 #include "../Common/IMapItemFilter.h"
 
@@ -39,8 +40,23 @@ private:
 	int _sizeX;
 	int _sizeY;
 	XLagDynamicTerrainMapItem *Map;
+	
+	void CreateMineralLayerEventHandler(XLagDynamicTerrainMapItem* sender, const FXLagMineralDesc& mineral);
 
 private:
 	inline const int SafeX(const int x) const { return x < 0 ? 0 : x >= _sizeX ? _sizeX - 1 : x; }
 	inline const int SafeY(const int y) const { return y < 0 ? 0 : y >= _sizeY ? _sizeY - 1 : y; }
+	
+	inline const CoordinatePoint GetCoordinate(XLagDynamicTerrainMapItem* item) const
+	{
+		if (item == nullptr)
+			throw std::exception("Argument null exception");
+
+		auto index = item - &Map[0];
+
+		if (index < 0 || index >= MapLenght())
+			throw std::exception("Index out of array");
+
+		return CoordinatePoint(index / SizeX(), index - (index / SizeX()) * SizeX());
+	}
 };

@@ -280,6 +280,9 @@
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_SearchMineralRegion.cpp" />
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingDescription.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingManager.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Geometry\CoordinatePoint.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Geometry\CoordinateRect.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Geometry\Geometry.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\MiningMethodTypeEnum.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\OccurrenceMeneralGenDesc.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\OccurrenceMineralTypeEnum.h" />

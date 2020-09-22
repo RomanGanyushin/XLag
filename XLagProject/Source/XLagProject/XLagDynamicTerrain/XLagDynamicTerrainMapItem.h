@@ -51,11 +51,15 @@ public:
 
 	void AddLayer(TerrainMapItemLevel item)
 	{
-		auto trd = item;
-		trd.ChangeKind(3);
-		trd.ChangeLevel(trd.GetLevel() - 100);
-		Stack.push_back(trd);
-		Stack.push_back(item);
+		if (Stack.empty())
+		{
+			Stack.push_back(item);
+			return;
+		}
+		
+		auto newItemLayer = item.GetLevel();
+		auto upperItemLayer = std::find_if(Stack.begin(), Stack.end(), [newItemLayer](auto& it) { return it.GetLevel() > newItemLayer; });
+		Stack.insert(upperItemLayer, item);
 	}
 
 	const TerrainMapItemLevel* GetForLayerKind(int layerKind) const
@@ -111,6 +115,26 @@ public:
 			it.ChangeKind(newKind);
 	}
 
+	const bool CheckForKind(int kind) const
+	{
+		return std::find_if(Stack.begin(), Stack.end(), [kind](auto& it)
+		{ return it.IsLayerKind(kind); }) != Stack.end();
+	}
+
+	const float MeasureResourceQuantity(int kind) const
+	{
+		auto foundResourceItem = std::find_if(Stack.begin(), Stack.end(), [kind](auto& it)
+		{ return it.IsLayerKind(kind); });
+
+		if (foundResourceItem == Stack.end())
+			return 0;
+
+		if (foundResourceItem == Stack.begin())
+			return 1; // Если это последний слой.
+
+		auto nextItem = foundResourceItem - 1;
+		return (nextItem->GetLevel() - foundResourceItem->GetLevel()) / 100.0;
+	}
 
 	void MoveTopLevelTo(float level)
 	{
@@ -214,10 +238,15 @@ public:
 		}
 
 		if (_resurceSearchTimeMap[mineral.ID] < mineral.SearchComplexity)
-		{
 			return false;
-		}
 
+		if (CheckForKind(mineral.MineralTerrainElement)) // Если минерал уже есть, то ничего не делаем.
+			return true;
+
+		CreateMineralLayerEventRaise(this, mineral);
+
+		TerrainMapItemLevel new_it(GetTopLevel() - 10, 3);
+		Stack.insert(Stack.begin(), new_it);
 		return true;
 	}
 
@@ -227,4 +256,5 @@ public:
 	}
 
 	XLagDynamicTerrainMapItem* B[8];
+	std::function<void(XLagDynamicTerrainMapItem*, const FXLagMineralDesc& mineral)> CreateMineralLayerEventRaise;
 };

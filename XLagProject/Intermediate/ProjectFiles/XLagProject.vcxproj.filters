@@ -405,6 +405,15 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiSearchMineralTask.h">
       <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Geometry\CoordinateRect.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Geometry\CoordinatePoint.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Geometry\Geometry.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -415,6 +424,9 @@
     </Filter>
     <Filter Include="Source\XLagProject\XLagMinerals\Models">
       <UniqueIdentifier>{483d3e56-5057-4163-b14c-9348da06363a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagDynamicTerrain\Geometry">
+      <UniqueIdentifier>{9f4bed13-dd5f-4206-96ee-a46b138b0a9d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

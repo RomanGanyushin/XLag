@@ -34,8 +34,8 @@ AXLagDynamicTerrainBase::AXLagDynamicTerrainBase()
 	RootComponent = TerrainScene;
 	InitializeLayers();
 
-	/*InitMap();
-	InitGeometry();*/
+	InitMap();
+	InitGeometry();
 	//AddGreader();
 
 	UE_LOG(LogTemp, Warning, TEXT("AXLagDynamicTerrainBase construct 056"));
@@ -166,37 +166,42 @@ void AXLagDynamicTerrainBase::InitMap()
 	AligmentEditComponent aligment(aligmentSettings);
 	editor.FillByXY(&aligment);
 
+	TerrainElementTransofmHigherCondition thc(400);
 	TerrainElementTranformComponent makeRock(
-		TerrainElementTransofmHigherCondition(400),
+		thc,
 		TerrainElementEnum::GraundGrass,
 		TerrainElementEnum::RockBasalt);
 	editor.FillByXY(&makeRock);
 
+	TerrainElementTransofmBelowCondition tbc(-400);
 	TerrainElementTranformComponent makeHollow(
-		TerrainElementTransofmBelowCondition(-400),
+		tbc,
 		TerrainElementEnum::GraundGrass,
 		TerrainElementEnum::RockSandstone);
 	editor.FillByXY(&makeHollow);
 
+	TerrainElementTransformNeighbourCondition tnc_gb(TerrainElementEnum::RockBasalt);
 	TerrainElementTranformComponent makeTransitionGrassToBasalt
 	(
-		TerrainElementTransformNeighbourCondition(TerrainElementEnum::RockBasalt),
+		tnc_gb,
 		TerrainElementEnum::GraundGrass,
 		TerrainElementEnum::GrondGrassToRockBasaltTrans
 	);
 	editor.FillByXY(&makeTransitionGrassToBasalt);
 
+	TerrainElementTransformNeighbourCondition tnc_rb(TerrainElementEnum::RockSandstone);
 	TerrainElementTranformComponent makeTransitionGrassToSandstone
 	(
-		TerrainElementTransformNeighbourCondition(TerrainElementEnum::RockSandstone),
+		tnc_rb,
 		TerrainElementEnum::GraundGrass,
 		TerrainElementEnum::GroundGrassToRockSandstoneTrans
 	);
 	editor.FillByXY(&makeTransitionGrassToSandstone);
 
 
-	//// Tree
-	auto possiblePlace = Map->GetFilteredItems(ResourcePlacementMapItemFilter(TerrainElementEnum::GraundGrass));
+	//// Tree	
+	ResourcePlacementMapItemFilter rp_filter(TerrainElementEnum::GraundGrass);
+	auto possiblePlace = Map->GetFilteredItems(rp_filter);
 	int placeIndexCount = possiblePlace.size();
 	UE_LOG(LogTemp, Log, TEXT("Graund Grass square %d m2"), placeIndexCount);
 
