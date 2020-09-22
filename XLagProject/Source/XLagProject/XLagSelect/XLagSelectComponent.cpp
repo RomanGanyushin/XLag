@@ -58,10 +58,10 @@ void AXLagSelectComponent::Tick(float DeltaTime)
 
 void AXLagSelectComponent::SetFirstWorldPoint(float x, float y)
 {
-	WorldPoint1X = x;
-	WorldPoint1Y = y;
+	CellPoistionX = WorldPoint1X = x;
+	CellPoistionY = WorldPoint1Y = y;
 
-	RecalculateCellWidthAndPosition();
+	CellWidth = CellHeight = 1;
 	RecalculateSelectView();
 }
 
@@ -90,8 +90,8 @@ void AXLagSelectComponent::RecalculateCellWidthAndPosition()
 	CellPoistionX = std::min(index_x1, index_x2);
 	CellPoistionY = std::min(index_y1, index_y2);
 
-	CellWidth = std::abs(index_x1 - index_x2);
-	CellHeight = std::abs(index_y1 - index_y2);
+	CellWidth = std::abs(index_x1 - index_x2) + 1;
+	CellHeight = std::abs(index_y1 - index_y2) + 1;
 }
 
 void AXLagSelectComponent::RecalculateSelectView()

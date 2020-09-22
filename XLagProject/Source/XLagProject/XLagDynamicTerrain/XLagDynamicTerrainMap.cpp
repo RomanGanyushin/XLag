@@ -125,21 +125,23 @@ void XLagDynamicTerrainMap::CreateMineralLayerEventHandler(XLagDynamicTerrainMap
 
 	float currentMineralAvvarage = aroundMineralQuantity / analystRect.Square();
 	
-	if (currentMineralAvvarage > mineralGenDesc.AverageQuantity) // ≈сли плотность минералов выше, то игнорируем генерацию.
+	if (currentMineralAvvarage != 0.0f/*> mineralGenDesc.AverageQuantity*/) // ≈сли плотность минералов выше, то игнорируем генерацию.
 		return;
 
 
-	auto resurceRect = CoordinateRect(SafeX(coord.X - 3), SafeY(coord.Y - 3),
-		SafeX(coord.X + 3), SafeY(coord.Y + 3));
+	auto resurceRect = CoordinateRect(SafeX(coord.X - 5), SafeY(coord.Y - 5),
+		SafeX(coord.X + 5), SafeY(coord.Y + 5));
 
-	for (int x = resurceRect.Point1.X; x <= resurceRect.Point2.X; x++) // ƒелаем костыльное месторождение.
+	 for (int x = resurceRect.Point1.X; x <= resurceRect.Point2.X; x++) // ƒелаем костыльное месторождение.
 		for (int y = resurceRect.Point1.Y; y <= resurceRect.Point2.Y; y++)
 		{
-			if (PointConst(x, y).GetTopKind() != mineralGenDesc.UnderTerrainElement)
+			auto& item = Point(x, y);
+
+			if (item.GetTopKind() != mineralGenDesc.UnderTerrainElement)
 				continue;
 
-			auto level = PointConst(x, y).GetTopLevel();
-			Point(x, y).AddLayer(TerrainMapItemLevel(level - 50, mineral.MineralTerrainElement));
-			//Point(x, y).AddLayer(TerrainMapItemLevel(level - 300, TerrainElementEnum::RockBasalt));
+			auto level = item.GetTopLevel();
+			item.AddLayer(TerrainMapItemLevel(level - 100, mineral.MineralTerrainElement));
+			item.AddLayer(TerrainMapItemLevel(level - 200, TerrainElementEnum::RockBasalt));
 		}		
 }

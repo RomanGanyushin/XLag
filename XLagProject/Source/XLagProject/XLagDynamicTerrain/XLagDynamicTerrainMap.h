@@ -57,6 +57,6 @@ private:
 		if (index < 0 || index >= MapLenght())
 			throw std::exception("Index out of array");
 
-		return CoordinatePoint(index / SizeX(), index - (index / SizeX()) * SizeX());
+		return CoordinatePoint(index - (index / SizeX()) * SizeX(), index / SizeX());
 	}
 };

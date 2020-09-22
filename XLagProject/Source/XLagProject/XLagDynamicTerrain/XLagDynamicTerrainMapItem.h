@@ -133,7 +133,7 @@ public:
 			return 1; // Если это последний слой.
 
 		auto nextItem = foundResourceItem - 1;
-		return (nextItem->GetLevel() - foundResourceItem->GetLevel()) / 100.0;
+		return (foundResourceItem->GetLevel() - nextItem->GetLevel()) / 100.0;
 	}
 
 	void MoveTopLevelTo(float level)
@@ -165,12 +165,14 @@ public:
 		auto currentLevel = Stack.back().GetLevel();
 		auto newLevel = currentLevel - value;
 
+		UE_LOG(LogTemp, Log, TEXT("Dig Info: SZ:%d"), Stack.size());
+
 		//Снимаем слой если необходимо:
 		if (!keepTopLayer)
 		{
 			while ((Stack.size() > 1) && (Stack[Stack.size() - 2].GetLevel() > newLevel))
 			{
-				UE_LOG(LogTemp, Log, TEXT(">>>>>>>>>>>>>> Delete layer >>>>>>>>>>>>>>>>>>>>>>>>>>>>"));
+				UE_LOG(LogTemp, Log, TEXT("Dig: Delete layer"));
 				Stack.pop_back();
 			}
 
