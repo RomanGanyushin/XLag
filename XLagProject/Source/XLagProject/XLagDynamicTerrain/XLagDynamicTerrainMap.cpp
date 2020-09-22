@@ -129,8 +129,8 @@ void XLagDynamicTerrainMap::CreateMineralLayerEventHandler(XLagDynamicTerrainMap
 		return;
 
 
-	auto resurceRect = CoordinateRect(SafeX(coord.X - 5), SafeY(coord.Y - 5),
-		SafeX(coord.X + 5), SafeY(coord.Y + 5));
+	auto resurceRect = CoordinateRect(SafeX(coord.X - 3), SafeY(coord.Y - 3),
+		SafeX(coord.X + 3), SafeY(coord.Y + 3));
 
 	 for (int x = resurceRect.Point1.X; x <= resurceRect.Point2.X; x++) // Делаем костыльное месторождение.
 		for (int y = resurceRect.Point1.Y; y <= resurceRect.Point2.Y; y++)
@@ -141,7 +141,7 @@ void XLagDynamicTerrainMap::CreateMineralLayerEventHandler(XLagDynamicTerrainMap
 				continue;
 
 			auto level = item.GetTopLevel();
-			item.AddLayer(TerrainMapItemLevel(level - 100, mineral.MineralTerrainElement));
+			item.AddLayer(TerrainMapItemLevel(level - 10, mineral.MineralTerrainElement));
 			item.AddLayer(TerrainMapItemLevel(level - 200, TerrainElementEnum::RockBasalt));
 		}		
 }

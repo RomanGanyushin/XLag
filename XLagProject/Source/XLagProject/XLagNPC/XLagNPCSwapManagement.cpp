@@ -67,9 +67,9 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 		}
 	}
 
-	if (SelectionTemplate != nullptr)
+	if (OperationSelectionTemplate != nullptr)
 	{
-		auto selection = GetWorld()->SpawnActor<AXLagSelectComponent>(SelectionTemplate, FVector::ZeroVector, FRotator::ZeroRotator);
+		auto selection = GetWorld()->SpawnActor<AXLagSelectComponent>(OperationSelectionTemplate, FVector::ZeroVector, FRotator::ZeroRotator);
 		selection->Init(MapAccessor);
 	}
 

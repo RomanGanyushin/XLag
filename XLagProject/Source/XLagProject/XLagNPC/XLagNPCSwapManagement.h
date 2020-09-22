@@ -130,7 +130,7 @@ public:
 	
 	// Шаблон выделения области
 	UPROPERTY(EditAnywhere, Category = "Selection Params")
-	TSubclassOf<AXLagSelectComponent> SelectionTemplate;
+	TSubclassOf<AXLagSelectComponent> OperationSelectionTemplate;
 
 	// Шаблон здания.
 	UPROPERTY(EditAnywhere, Category = "Building Params")
