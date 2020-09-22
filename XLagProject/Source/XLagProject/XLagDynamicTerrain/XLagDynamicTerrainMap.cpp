@@ -139,7 +139,7 @@ void XLagDynamicTerrainMap::CreateMineralLayerEventHandler(XLagDynamicTerrainMap
 				continue;
 
 			auto level = PointConst(x, y).GetTopLevel();
-			Point(x, y).AddLayer(TerrainMapItemLevel(level - 10, mineral.MineralTerrainElement));
-			Point(x, y).AddLayer(TerrainMapItemLevel(level - 300, TerrainElementEnum::RockBasalt));
+			Point(x, y).AddLayer(TerrainMapItemLevel(level - 50, mineral.MineralTerrainElement));
+			//Point(x, y).AddLayer(TerrainMapItemLevel(level - 300, TerrainElementEnum::RockBasalt));
 		}		
 }
