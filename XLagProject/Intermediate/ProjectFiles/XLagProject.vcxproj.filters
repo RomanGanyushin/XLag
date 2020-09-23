@@ -148,12 +148,6 @@
     <Filter Include="Source\XLagProject\XLagDynamicTerrain">
       <UniqueIdentifier>{540D35DC-885A-4C38-877B-9839E7AE845A}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainLayerGeometry.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainLayerGeometry.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClInclude>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMap.cpp">
       <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
     </ClCompile>
@@ -414,6 +408,12 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Geometry\Geometry.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagColorizeMapGeometryBuilder.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\GeometryBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagDynamicTerrainLayerGeometry.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\GeometryBuilder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -427,6 +427,9 @@
     </Filter>
     <Filter Include="Source\XLagProject\XLagDynamicTerrain\Geometry">
       <UniqueIdentifier>{9f4bed13-dd5f-4206-96ee-a46b138b0a9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagDynamicTerrain\GeometryBuilder">
+      <UniqueIdentifier>{ddf19af5-10de-419f-b995-c9dc1e9de395}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -447,6 +450,13 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_SearchMineralRegion.cpp">
       <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClCompile>
+    <ClCompile Include="XLagColorizeMapGeometryBuilder.cpp" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagColorizeMapGeometryBuilder.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\GeometryBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagDynamicTerrainLayerGeometry.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain\GeometryBuilder</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

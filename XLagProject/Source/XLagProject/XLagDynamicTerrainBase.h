@@ -1,17 +1,14 @@
 /// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "ProceduralMeshComponent.h"
-#include "XLagDynamicTerrain/XLagDynamicTerrainMap.h"
 #include "XLagDynamicTerrain/XLagDynamicTerrainMapWindow.h"
-#include "XLagDynamicTerrain/XLagDynamicTerrainLayerGeometry.h"
-#include "XLagNPC/XLagCuttableTreeBase.h"
-#include "XLagNPC/XLagNPCBase.h"
-#include "XLagDynamicTerrainBase.generated.h"
 
+#include "XLagNPC/XLagCuttableTreeBase.h"
+#include "Abstracts/GeometryBuilderAbstract.h"
+#include "XLagDynamicTerrainBase.generated.h"
 
 UCLASS()
 class XLAGPROJECT_API AXLagDynamicTerrainBase : public AActor

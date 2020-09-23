@@ -14,12 +14,10 @@
 #include "XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransformNeighbourCondition.h"
 #include "XLagDynamicTerrain\Position\RandomizeZeroPlacePosition.h"
 #include "XLagDynamicTerrain\Filters\ResourcePlacementMapItemFilter.h"
+#include "XLagDynamicTerrain\GeometryBuilder\XLagColorizeMapGeometryBuilder.h"
+#include "XLagDynamicTerrain\GeometryBuilder\XLagDynamicTerrainLayerGeometry.h"
 
 #include "Kismet/GameplayStatics.h"
-#include "UObject/UObjectGlobals.h"
-#include "GameFramework/Character.h"
-#include "XLagNPC/XLagNPCBase.h"
-
 #include "XLagNPC/XLagNPCSwapManagement.h"
 
 
@@ -49,7 +47,6 @@ void AXLagDynamicTerrainBase::PostActorCreated()
 	InitMap();
 	InitGeometry();
 	AddGreader();
-	
 }
 
 void AXLagDynamicTerrainBase::PostLoad()
@@ -262,9 +259,9 @@ void AXLagDynamicTerrainBase::InitGeometry()
 	_geometry.CreateTransFrom(Map, TerrainElementEnum::RockSandstoneToRockBasaltTrans, TerrainElementEnum::RockSandstone);
 	GenerateLayerGeometry(RockSandstoneToRockBasalt, &_geometry);
 
-	XLagSelectGeometryBuilder _selectGeometry;
-	_selectGeometry.CreateSelection2(Map);
-	GenerateLayerGeometry(ColorizeMapper, &_selectGeometry);
+	XLagColorizeMapGeometryBuilder _colorizeMapGeometry;
+	_colorizeMapGeometry.CreateColorizeMap(Map);
+	GenerateLayerGeometry(ColorizeMapper, &_colorizeMapGeometry);
 }
 
 void AXLagDynamicTerrainBase::GenerateLayerGeometry(UProceduralMeshComponent* Component, GeometryBuilderAbstract* geometry)

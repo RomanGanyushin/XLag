@@ -9,7 +9,12 @@ class TerrainMapItemLevel
 {
 public:
 	TerrainMapItemLevel(float level, int layerKind)
-		:_level(level), _layerKind(layerKind)
+		:_level(level), _layerKind(layerKind), _mineralId(0)
+	{
+	}
+
+	TerrainMapItemLevel(float level, int layerKind, int mineralId)
+		:_level(level), _layerKind(layerKind), _mineralId(mineralId)
 	{
 	}
 
@@ -18,10 +23,12 @@ public:
 	inline void ChangeLevel(const float& newLevel) { _level = newLevel; }
 	inline const int GetKind() const { return _layerKind; }
 	inline void ChangeKind(const int& newKind) { _layerKind = newKind; }
+	inline const int GetMineralId() const { return _mineralId; }
 
 private:
 	float _level;
 	int _layerKind;
+	int _mineralId;
 };
 
 class XLagDynamicTerrainMapItem
@@ -115,10 +122,10 @@ public:
 			it.ChangeKind(newKind);
 	}
 
-	const bool CheckForKind(int kind) const
+	const bool CheckForMineral(int mineralId) const
 	{
-		return std::find_if(Stack.begin(), Stack.end(), [kind](auto& it)
-		{ return it.IsLayerKind(kind); }) != Stack.end();
+		return std::find_if(Stack.begin(), Stack.end(), [mineralId](auto& it)
+		{ return it.GetMineralId() == mineralId; }) != Stack.end();
 	}
 
 	const float MeasureResourceQuantity(int kind) const
@@ -242,13 +249,10 @@ public:
 		if (_resurceSearchTimeMap[mineral.ID] < mineral.SearchComplexity)
 			return false;
 
-		if (CheckForKind(mineral.MineralTerrainElement)) // ≈сли минерал уже есть, то ничего не делаем.
+		if (CheckForMineral(mineral.ID)) // ≈сли минерал уже есть, то ничего не делаем.
 			return true;
 
 		CreateMineralLayerEventRaise(this, mineral);
-
-		TerrainMapItemLevel new_it(GetTopLevel() - 10, 3);
-		Stack.insert(Stack.begin(), new_it);
 		return true;
 	}
 

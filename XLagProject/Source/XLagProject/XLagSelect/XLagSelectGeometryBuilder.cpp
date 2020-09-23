@@ -28,32 +28,6 @@ void XLagSelectGeometryBuilder::CreateSelection(std::shared_ptr<ITerrainMapAcces
 		}
 }
 
-void XLagSelectGeometryBuilder::CreateSelection2(std::shared_ptr<ITerrainMapAccessor>  select)
-{
-	Reset();
-
-	int32 triIndex = 0;
-	FVector quadVertext[4];
-
-	for (int xIndex = 0; xIndex < select->SizeX(); xIndex++)
-		for (int yIndex = 0; yIndex < select->SizeY(); yIndex++)
-		{
-			quadVertext[0] = select->GetWorldPosition(xIndex, yIndex, GetPositionEnum::LeftBottomPosition) + FVector(0, 0, SurfaceOffset);
-			quadVertext[1] = select->GetWorldPosition(xIndex, yIndex, GetPositionEnum::LeftTopPosition) + FVector(0, 0, SurfaceOffset);
-			quadVertext[2] = select->GetWorldPosition(xIndex, yIndex, GetPositionEnum::RightTopPosition) + FVector(0, 0, SurfaceOffset);
-			quadVertext[3] = select->GetWorldPosition(xIndex, yIndex, GetPositionEnum::RightBottomPosition) + FVector(0, 0, SurfaceOffset);
-
-			auto& item = select->PointConst(xIndex, yIndex);
-			float alf = item.CheckForKind(TerrainElementEnum::Coal) ? 1.0 : 0;
-
-			Colors.Add(FLinearColor(1, 0, 0, alf));
-			Colors.Add(FLinearColor(1, 0, 0, alf));
-			Colors.Add(FLinearColor(1, 0, 0, alf));
-			Colors.Add(FLinearColor(1, 0, 0, alf));
-
-			AddQuadMesh(quadVertext[0], quadVertext[1], quadVertext[2], quadVertext[3], triIndex);
-		}
-}
 
 void XLagSelectGeometryBuilder::CreateGrid(std::shared_ptr<ITerrainMapAccessor> select)
 {

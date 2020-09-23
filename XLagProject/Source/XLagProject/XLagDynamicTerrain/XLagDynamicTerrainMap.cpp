@@ -137,11 +137,12 @@ void XLagDynamicTerrainMap::CreateMineralLayerEventHandler(XLagDynamicTerrainMap
 		{
 			auto& item = Point(x, y);
 
-			if (item.GetTopKind() != mineralGenDesc.UnderTerrainElement)
+			if (mineralGenDesc.UnderTerrainElement != TerrainElementEnum::None
+				&& item.GetTopKind() != mineralGenDesc.UnderTerrainElement) // Проверяем условие верхнего элемента.
 				continue;
 
 			auto level = item.GetTopLevel();
-			item.AddLayer(TerrainMapItemLevel(level - 10, mineral.MineralTerrainElement));
+			item.AddLayer(TerrainMapItemLevel(level - 10, mineral.MineralTerrainElement, mineral.ID));
 			item.AddLayer(TerrainMapItemLevel(level - 200, TerrainElementEnum::RockBasalt));
 			item.Changed = true;
 		}		
