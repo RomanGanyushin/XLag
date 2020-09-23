@@ -104,6 +104,10 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* RockSandstoneToRockBasalt;
 
+	/// 
+	UPROPERTY(VisibleAnywhere)
+		UProceduralMeshComponent* ColorizeMapper;
+
 	virtual void PostActorCreated() override;
 	virtual void PostLoad() override;
 
@@ -124,7 +128,7 @@ protected:
 
 protected:
 	void InitializeLayers();
-	void GenerateLayerGeometry(UProceduralMeshComponent* Component, XLagDynamicTerrainLayerGeometry& geometry);
+	void GenerateLayerGeometry(UProceduralMeshComponent* Component, GeometryBuilderAbstract* geometry);
 
 public:	
 	// Called every frame
