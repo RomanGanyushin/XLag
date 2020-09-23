@@ -22,7 +22,7 @@ public:
 	{
 	}
 
-	// Выравнивнивание насыпанием.
+	// Поиск минерала.
 	std::shared_ptr<XLagNPCTaskBase> Search(const FXLagMineralDesc mineral)
 	{
 		auto result = std::make_shared<XLagNPCTaskBase>();
@@ -40,6 +40,24 @@ public:
 		return result;
 	}
 
+	// Добыча минерала.
+	std::shared_ptr<XLagNPCTaskBase> Extract(const FXLagMineralDesc mineral)
+	{
+		auto result = std::make_shared<XLagNPCTaskBase>();
+
+		for (int i = 0; i < Place->SizeX(); i++)
+			for (int j = 0; j < Place->SizeY(); j++)
+			{
+				auto thisPoint = Place->Point(i, j);
+				auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
+
+				result->SubTasks.push(MoveTo(pos));
+				result->SubTasks.push(Extract(i, j, mineral));
+			}
+
+		return result;
+	}
+
 	// Двигайся до указанной локации.
 	// Todo: вынести в базовый.
 	std::shared_ptr<XLagNPCTaskBase> MoveTo(const FVector& location)
@@ -49,6 +67,12 @@ public:
 	}
 
 	std::shared_ptr<XLagNPCTaskBase> Search(int x, int y, const FXLagMineralDesc mineral)
+	{
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagMiSearchMineralTask(Place, x, y, mineral));
+		return result;
+	}
+
+	std::shared_ptr<XLagNPCTaskBase> Extract(int x, int y, const FXLagMineralDesc mineral)
 	{
 		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagMiSearchMineralTask(Place, x, y, mineral));
 		return result;

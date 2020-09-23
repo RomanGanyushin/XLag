@@ -280,8 +280,8 @@
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CuttingTreeRegion.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskBase.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateGroundAlign.cpp" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_ExtractMineralRegion.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_SearchMineralRegion.cpp" />
-    <ClCompile Include="XLagColorizeMapGeometryBuilder.cpp" />
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingDescription.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingManager.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagColorizeMapGeometryBuilder.h" />
@@ -296,7 +296,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\XLagMineralManager.cpp" />
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\XLagMineralDesc.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\XLagMineralManager.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiExtractMineralTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiSearchMineralTask.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_ExtractMineralRegion.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_SearchMineralRegion.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTaskRegionBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateGroundAlign.h" />

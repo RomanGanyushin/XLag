@@ -7,6 +7,7 @@
 #include "XLagTask_CreateGroundAlign.h"
 #include "XLagTask_CuttingTreeRegion.h"
 #include "XLagTask_SearchMineralRegion.h"
+#include "XLagTask_ExtractMineralRegion.h"
 
 AXLagTaskManager::AXLagTaskManager()
 {
@@ -144,6 +145,25 @@ void AXLagTaskManager::CreateSearchMineralTask(AXLagSelectComponent *select, con
 	Tasks.Add(newTask);
 
 	SearchAndChooseExecuters(newTask);
+}
+
+void AXLagTaskManager::CreateExtractMineralTask(AXLagSelectComponent *select, const FXLagMineralDesc mineral, int RequiredWorkerNumber)
+{
+	// Создает задачу.
+	auto newTask = NewObject<UXLagTask_ExtractMineralRegion>();
+	newTask->SetRegion(select->Select);
+	newTask->State = TaskStateEnum::Recruitment;
+
+	// Планируем выполнение.
+	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
+	auto place = select->Select;
+	task->SubTasks.push(XLagMinerTaskFactory(place).Extract(mineral));
+	newTask->NpcTask = task;
+
+	// Добавляем в стек.
+	Tasks.Add(newTask);
+
+	SearchAndChooseExecuters(newTask);	
 }
 
 void AXLagTaskManager::ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task)

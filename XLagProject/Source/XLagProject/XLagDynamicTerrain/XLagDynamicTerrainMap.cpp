@@ -23,9 +23,11 @@ void XLagDynamicTerrainMap::Initialize()
 			Point(x, y).B[6] = &Point(SafeX(x + 1), SafeY(y -1 ));
 			Point(x, y).B[7] = &Point(SafeX(x), SafeY(y + 1));
 
-			using std::placeholders::_1;
-			using std::placeholders::_2;
-			Point(x, y).CreateMineralLayerEventRaise = std::bind(&XLagDynamicTerrainMap::CreateMineralLayerEventHandler, this, _1, _2);			 
+			Point(x, y).CreateMineralLayerEventRaise = std::bind(
+				&XLagDynamicTerrainMap::CreateMineralLayerEventHandler,
+				this,
+				std::placeholders::_1,
+				std::placeholders::_2);
 		}
 }
 

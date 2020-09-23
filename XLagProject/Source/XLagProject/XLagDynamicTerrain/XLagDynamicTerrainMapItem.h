@@ -23,6 +23,9 @@ private:
 
 	// Время затраченного на поиск ресурса.
 	std::map<int, float> _resurceSearchTimeMap;
+
+	// Время затраченнное на добычу ресурса.
+	std::map<int, float> _resurceExtractTimeMap;
 	
 	// Идентификатор клетки.	
 	long _id;
@@ -231,6 +234,33 @@ public:
 			return true;
 
 		CreateMineralLayerEventRaise(this, mineral);
+		return true;
+	}
+
+	bool ExtractResource(const FXLagMineralDesc& mineral, float force)
+	{
+		if (!CheckForMineral(mineral.ID)) // Если минерала нет, то ничего не делаем.
+			return true;
+
+		if (_resurceExtractTimeMap.find(mineral.ID) == _resurceExtractTimeMap.end())
+		{
+			_resurceExtractTimeMap[mineral.ID] = force;
+		}
+		else
+		{
+			_resurceExtractTimeMap[mineral.ID] += force;
+		}
+
+		// Костыль..
+		
+		if (_resurceExtractTimeMap[mineral.ID] < 200) 
+			return false;
+
+		auto currentLevel = Stack.back().GetLevel();
+		auto newLevel = currentLevel - 50;
+		Stack.back().ChangeLevel(newLevel);
+		Changed = true;
+		
 		return true;
 	}
 

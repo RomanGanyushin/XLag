@@ -17,3 +17,12 @@ bool AXLagNPCMiner::SearchMineral(XLagDynamicTerrainMapItem& cell, const FXLagMi
 
 	return isComplite;
 }
+
+bool AXLagNPCMiner::ExtractMineral(XLagDynamicTerrainMapItem& cell, const FXLagMineralDesc mineral, float DeltaTime)
+{
+	auto force = DeltaTime;
+	auto isComplite = cell.ExtractResource(mineral, force);
+	IsExtracting = !isComplite;
+
+	return isComplite;
+}

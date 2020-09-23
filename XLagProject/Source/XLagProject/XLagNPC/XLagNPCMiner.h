@@ -22,9 +22,15 @@ public:
 	// Ищи минерал в клетке.
 	virtual bool SearchMineral(XLagDynamicTerrainMapItem& cell, const FXLagMineralDesc mineral, float DeltaTime);
 
+	// Добудь минерал из клетки.
+	virtual bool ExtractMineral(XLagDynamicTerrainMapItem& cell, const FXLagMineralDesc mineral, float DeltaTime);
+
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Miner Working")
 		bool  IsSearching = false;
-
+	
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Miner Working")
+		bool  IsExtracting = false;
+	
 private:
 	virtual ProfessionTypeEnum GetCurrentProfession() override { return ProfessionTypeEnum::Miner; }
 	virtual bool CanConfirmTask(UXLagTaskBase* task) override { return true; }
