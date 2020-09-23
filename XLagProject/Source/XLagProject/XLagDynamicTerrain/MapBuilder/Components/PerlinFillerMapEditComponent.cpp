@@ -5,8 +5,8 @@
 PerlinFillerMapEditComponent::PerlinFillerMapEditComponent(
 	const TerrainElementEnum element, 
 	const PerlinFillerMapEditSettings settings)
-	:_settings(settings),
-	_perlin2DAlgorithm(new Perlin2DAlgorithm(time(0))), _element(element)
+	:_perlin2DAlgorithm(new Perlin2DAlgorithm(time(nullptr))),
+	_element(element), _settings(settings)
 {
 }
 
@@ -21,9 +21,9 @@ PerlinFillerMapEditComponent::~PerlinFillerMapEditComponent()
 
 void PerlinFillerMapEditComponent::DoEdit(ITerrainMapAccessor *const accessor, const int& ix, const int& iy)
 {
-	auto level = _perlin2DAlgorithm->Noise(
-		(float)ix / _settings.XDevider, 
-		(float)iy / _settings.YDevider, _settings.Octaves) * _settings.Amplitude;
+	const auto level = _perlin2DAlgorithm->Noise(
+		static_cast<float>(ix) / _settings.XDevider, 
+		static_cast<float>(iy) / _settings.YDevider, _settings.Octaves) * _settings.Amplitude;
 
-	accessor->Point(ix, iy).AddLayer(TerrainMapItemLevel(level, _element));
+	accessor->Point(ix, iy).AddLayer(XLagDynamicTerrainMapItemLayer(level, _element));
 }

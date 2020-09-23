@@ -1,35 +1,13 @@
 #pragma once
+#include <algorithm>
 #include <vector>
 #include <map>
+#include <functional>
+
+#include "XLagDynamicTerrainMapItemLayer.h"
 #include "../Common/OnSurfaceResourceObjectsEnum.h"
 #include "../Common/TerrainElementEnum.h"
 #include "../XLagMinerals/Models/XLagMineralDesc.h"
-
-class TerrainMapItemLevel
-{
-public:
-	TerrainMapItemLevel(float level, int layerKind)
-		:_level(level), _layerKind(layerKind), _mineralId(0)
-	{
-	}
-
-	TerrainMapItemLevel(float level, int layerKind, int mineralId)
-		:_level(level), _layerKind(layerKind), _mineralId(mineralId)
-	{
-	}
-
-	inline bool IsLayerKind(const int layerKind) const { return layerKind == _layerKind; }
-	inline const float GetLevel() const { return _level; }
-	inline void ChangeLevel(const float& newLevel) { _level = newLevel; }
-	inline const int GetKind() const { return _layerKind; }
-	inline void ChangeKind(const int& newKind) { _layerKind = newKind; }
-	inline const int GetMineralId() const { return _mineralId; }
-
-private:
-	float _level;
-	int _layerKind;
-	int _mineralId;
-};
 
 class XLagDynamicTerrainMapItem
 {
@@ -41,7 +19,7 @@ public:
 	}
 
 private:
-	std::vector<TerrainMapItemLevel>  Stack;
+	std::vector<XLagDynamicTerrainMapItemLayer>  Stack;
 
 	// Время затраченного на поиск ресурса.
 	std::map<int, float> _resurceSearchTimeMap;
@@ -56,7 +34,7 @@ public:
 
 	OnSurfaceResourceObjectsEnum OnSurfaceResourceObjects = OnSurfaceResourceObjectsEnum::Empty;
 
-	void AddLayer(TerrainMapItemLevel item)
+	void AddLayer(XLagDynamicTerrainMapItemLayer item)
 	{
 		if (Stack.empty())
 		{
@@ -69,19 +47,19 @@ public:
 		Stack.insert(upperItemLayer, item);
 	}
 
-	const TerrainMapItemLevel* GetForLayerKind(int layerKind) const
+	const XLagDynamicTerrainMapItemLayer* GetForLayerKind(TerrainElementEnum layerKind) const
 	{
 		if (Stack.empty())
 			return nullptr;
 
 		auto& top = Stack.back();
-		if (!top.IsLayerKind(layerKind))
+		if (!top.IsTerrainElement(layerKind))
 			return nullptr;
 	
 		return &top;
 	}
 
-	const TerrainMapItemLevel* Get() const
+	const XLagDynamicTerrainMapItemLayer* Get() const
 	{
 		if (Stack.empty())
 			return nullptr;
@@ -102,24 +80,24 @@ public:
 		if (Stack.empty())
 			return -1;
 
-		return Stack.back().GetKind();
+		return Stack.back().GetTerrainElement();
 	}
 
-	void ChangeTopKind(int newKind)
+	void ChangeTopKind(TerrainElementEnum newKind)
 	{
 		if (Stack.empty())
 			return;
 
-		Stack.back().ChangeKind(newKind);
+		Stack.back().ChangeTerrainElement(newKind);
 	}
 
-	void ChangeAllKind(int newKind)
+	void ChangeAllKind(TerrainElementEnum newKind)
 	{
 		if (Stack.empty())
 			return;
 
 		for (auto& it : Stack)
-			it.ChangeKind(newKind);
+			it.ChangeTerrainElement(newKind);
 	}
 
 	const bool CheckForMineral(int mineralId) const
@@ -128,10 +106,10 @@ public:
 		{ return it.GetMineralId() == mineralId; }) != Stack.end();
 	}
 
-	const float MeasureResourceQuantity(int kind) const
+	const float MeasureResourceQuantity(int mineralId) const
 	{
-		auto foundResourceItem = std::find_if(Stack.begin(), Stack.end(), [kind](auto& it)
-		{ return it.IsLayerKind(kind); });
+		auto foundResourceItem = std::find_if(Stack.begin(), Stack.end(), [mineralId](auto& it)
+		{ return it.GetMineralId() == mineralId; });
 
 		if (foundResourceItem == Stack.end())
 			return 0;
@@ -219,7 +197,7 @@ public:
 		////Добавляем слой если необходимо:
 		if (GetTopKind() != element)
 		{
-			Stack.push_back(TerrainMapItemLevel(newLevel, element));
+			Stack.push_back(XLagDynamicTerrainMapItemLayer(newLevel, element));
 		}
 		else
 		{

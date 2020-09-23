@@ -29,7 +29,7 @@ public:
 						continue;
 
 					auto pointXY = accessor->PointConst(x, y).Get();
-					if (pointXY->GetKind() == _firstElement)
+					if (pointXY->GetTerrainElement() == _firstElement)
 					{
 						return true;
 					}
@@ -37,17 +37,17 @@ public:
 			}
 			return false;*/
 
-		if (accessor->PointConst(start_x, iy).Get()->GetKind() == _firstElement)
+		if (accessor->PointConst(start_x, iy).Get()->GetTerrainElement() == _firstElement)
 			return true;
 
 
-		if (accessor->PointConst(end_x, iy).Get()->GetKind() == _firstElement)
+		if (accessor->PointConst(end_x, iy).Get()->GetTerrainElement() == _firstElement)
 			return true;
 
-		if (accessor->PointConst(ix, start_y).Get()->GetKind() == _firstElement)
+		if (accessor->PointConst(ix, start_y).Get()->GetTerrainElement() == _firstElement)
 			return true;
 
-		if (accessor->PointConst(ix, end_y).Get()->GetKind() == _firstElement)
+		if (accessor->PointConst(ix, end_y).Get()->GetTerrainElement() == _firstElement)
 			return true;
 
 		return false;

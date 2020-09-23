@@ -414,6 +414,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagDynamicTerrainLayerGeometry.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\GeometryBuilder</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItemLayer.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -457,6 +460,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagDynamicTerrainLayerGeometry.cpp">
       <Filter>Source\XLagProject\XLagDynamicTerrain\GeometryBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItemLayer.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

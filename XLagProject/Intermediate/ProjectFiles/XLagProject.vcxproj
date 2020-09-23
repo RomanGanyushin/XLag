@@ -275,6 +275,7 @@
     <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingManager.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagColorizeMapGeometryBuilder.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagDynamicTerrainLayerGeometry.cpp" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItemLayer.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskRegionBase.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CuttingTreeRegion.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskBase.cpp" />
@@ -288,6 +289,7 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Geometry\CoordinatePoint.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Geometry\CoordinateRect.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Geometry\Geometry.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItemLayer.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\MiningMethodTypeEnum.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\OccurrenceMeneralGenDesc.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\OccurrenceMineralTypeEnum.h" />

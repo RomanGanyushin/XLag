@@ -3,7 +3,7 @@
 #include <algorithm>
 
 XLagDynamicTerrainMap::XLagDynamicTerrainMap(int sizeX, int sizeY, int scale)
-	: _sizeX(sizeX), _sizeY (sizeY), Scale(scale)
+	: Scale(scale), _sizeX(sizeX), _sizeY (sizeY)
 {
 }
 
@@ -31,7 +31,7 @@ void XLagDynamicTerrainMap::Initialize()
 
 std::shared_ptr<ITerrainMapAccessor> XLagDynamicTerrainMap::CreateWindow(int const &x, int const &y, int const &sx, int const &sy)
 {
-	return std::shared_ptr<ITerrainMapAccessor>(new XLagDynamicTerrainMapWindow(this, x, y, sx, sy));
+	return std::make_shared<XLagDynamicTerrainMapWindow>(this, x, y, sx, sy);
 }
 
 const FVector XLagDynamicTerrainMap::GetWorldPosition(int const &x, int const &y, GetPositionEnum flag) const
@@ -68,7 +68,7 @@ const FVector XLagDynamicTerrainMap::GetWorldPosition(int const &x, int const &y
 
 const FVector XLagDynamicTerrainMap::GetWorldPosition(XLagDynamicTerrainMapItem* item, GetPositionEnum flag) const
 {
-	auto coord = GetCoordinate(item);
+	const auto coord = GetCoordinate(item);
 	return GetWorldPosition(coord.X, coord.Y, flag);
 }
 
@@ -142,8 +142,8 @@ void XLagDynamicTerrainMap::CreateMineralLayerEventHandler(XLagDynamicTerrainMap
 				continue;
 
 			auto level = item.GetTopLevel();
-			item.AddLayer(TerrainMapItemLevel(level - 10, mineral.MineralTerrainElement, mineral.ID));
-			item.AddLayer(TerrainMapItemLevel(level - 200, TerrainElementEnum::RockBasalt));
+			item.AddLayer(XLagDynamicTerrainMapItemLayer(level - 10, mineral.MineralTerrainElement, mineral.ID));
+			item.AddLayer(XLagDynamicTerrainMapItemLayer(level - 200, TerrainElementEnum::RockBasalt));
 			item.Changed = true;
 		}		
 }

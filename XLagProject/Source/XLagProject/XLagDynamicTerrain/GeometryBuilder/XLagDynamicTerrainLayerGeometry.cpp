@@ -24,7 +24,7 @@ void XLagDynamicTerrainLayerGeometry::CreateFrom(std::shared_ptr<ITerrainMapAcce
 				continue;
 			}
 
-			auto fl = itemLevel00->GetLevel(); auto k = itemLevel00->GetKind();
+			auto fl = itemLevel00->GetLevel(); auto k = itemLevel00->GetTerrainElement();
 			if (k != layerKind)
 				continue;
 
@@ -61,7 +61,7 @@ void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMa
 				continue;
 			}
 
-			auto fl = itemLevel00->GetLevel(); auto k = itemLevel00->GetKind();
+			auto fl = itemLevel00->GetLevel(); auto k = itemLevel00->GetTerrainElement();
 			if (k != layerKind)
 				continue;
 
@@ -79,23 +79,23 @@ void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMa
 			float a3 = 1;
 			float a4 = 1;
 
-			if (map->Point(xIndex - 1, yIndex).Get()->GetKind() == mainKind)
+			if (map->Point(xIndex - 1, yIndex).Get()->GetTerrainElement() == mainKind)
 			{
 				a1 = a2 = 0;
 			}
 
 
-			if (map->Point(xIndex, yIndex + 1).Get()->GetKind() == mainKind)
+			if (map->Point(xIndex, yIndex + 1).Get()->GetTerrainElement() == mainKind)
 			{
 				a2 = a3 = 0;
 			}
 
-			if (map->Point(xIndex + 1, yIndex).Get()->GetKind() == mainKind)
+			if (map->Point(xIndex + 1, yIndex).Get()->GetTerrainElement() == mainKind)
 			{
 				a3 = a4 = 0;
 			}
 
-			if (map->Point(xIndex, yIndex - 1).Get()->GetKind() == mainKind)
+			if (map->Point(xIndex, yIndex - 1).Get()->GetTerrainElement() == mainKind)
 			{
 				a4 = a1 = 0;
 			}
