@@ -296,6 +296,7 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\XLagMineralManager.cpp" />
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\XLagMineralDesc.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\XLagMineralManager.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiDischargeMineralTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiExtractMineralTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiSearchMineralTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_ExtractMineralRegion.h" />

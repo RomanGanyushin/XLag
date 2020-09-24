@@ -237,31 +237,19 @@ public:
 		return true;
 	}
 
-	bool ExtractResource(const FXLagMineralDesc& mineral, float force)
+	float ExtractResource(const FXLagMineralDesc& mineral, float force)
 	{
 		if (!CheckForMineral(mineral.ID)) // Если минерала нет, то ничего не делаем.
-			return true;
+			return 0.0f;
 
-		if (_resurceExtractTimeMap.find(mineral.ID) == _resurceExtractTimeMap.end())
-		{
-			_resurceExtractTimeMap[mineral.ID] = force;
-		}
-		else
-		{
-			_resurceExtractTimeMap[mineral.ID] += force;
-		}
-
-		// Костыль..
-		
-		if (_resurceExtractTimeMap[mineral.ID] < 200) 
-			return false;
-
+		float extractedLayerHeight = force; // Пока так.
+			
 		auto currentLevel = Stack.back().GetLevel();
-		auto newLevel = currentLevel - 50;
+		auto newLevel = currentLevel - extractedLayerHeight;
 		Stack.back().ChangeLevel(newLevel);
 		Changed = true;
 		
-		return true;
+		return extractedLayerHeight;
 	}
 
 	const inline bool HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum type) const

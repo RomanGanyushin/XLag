@@ -1,6 +1,4 @@
 #pragma once
-
-
 #include "XLagNPCTaskBase.h"
 #include "../../XLagNPC/XLagNPCMiner.h"
 #include "../../Common/ITerrainMapAccessor.h"
@@ -14,7 +12,7 @@ public:
 	{
 	}
 
-	virtual void Execute(ACharacter *npc, float DeltaTime) override
+	void Execute(ACharacter *npc, float DeltaTime) override
 	{
 		if (Completed)
 			return;

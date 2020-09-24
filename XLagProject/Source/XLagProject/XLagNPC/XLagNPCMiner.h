@@ -30,6 +30,11 @@ public:
 	
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Miner Working")
 		bool  IsExtracting = false;
+
+	// Îבתול המבûעמדמ לטםונאכא.
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Miner Working")
+		float  ExtractedMineralQuantity = 0.0f;
+	
 	
 private:
 	virtual ProfessionTypeEnum GetCurrentProfession() override { return ProfessionTypeEnum::Miner; }

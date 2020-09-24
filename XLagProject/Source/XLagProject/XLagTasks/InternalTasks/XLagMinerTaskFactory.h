@@ -3,7 +3,8 @@
 #include "XLagNPCTaskBase.h"
 #include "XLagNPCTaskMoveTo.h"
 #include "XLagMiSearchMineralTask.h"
-#include "../../XLagDynamicTerrain\Position/MinMaxLevelPlace.h"
+#include "XLagMiExtractMineralTask.h"
+#include "XLagMiDischargeMineralTask.h"
 #include "../../XLagMinerals/Models/XLagMineralDesc.h"
 #include "../../Common/ITerrainMapAccessor.h"
 
@@ -32,9 +33,10 @@ public:
 			{
 				auto thisPoint = Place->Point(i, j);
 				auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
+				
 
 				result->SubTasks.push(MoveTo(pos));
-				result->SubTasks.push(Search(i, j, mineral));
+				result->SubTasks.push(Search(i, j, mineral));				
 			}
 
 		return result;
@@ -50,9 +52,12 @@ public:
 			{
 				auto thisPoint = Place->Point(i, j);
 				auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
+				auto stock = FVector(5000, 5000, 0);
 
 				result->SubTasks.push(MoveTo(pos));
 				result->SubTasks.push(Extract(i, j, mineral));
+				result->SubTasks.push(MoveTo(stock));
+				result->SubTasks.push(Discharge());
 			}
 
 		return result;
@@ -74,7 +79,13 @@ public:
 
 	std::shared_ptr<XLagNPCTaskBase> Extract(int x, int y, const FXLagMineralDesc mineral)
 	{
-		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagMiSearchMineralTask(Place, x, y, mineral));
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagMiExtractMineralTask(Place, x, y, mineral));
+		return result;
+	}
+
+	std::shared_ptr<XLagNPCTaskBase> Discharge()
+	{
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagMiDischargeMineralTask());
 		return result;
 	}
 

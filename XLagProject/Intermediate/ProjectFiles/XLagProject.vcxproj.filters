@@ -423,6 +423,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiExtractMineralTask.h">
       <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiDischargeMineralTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
