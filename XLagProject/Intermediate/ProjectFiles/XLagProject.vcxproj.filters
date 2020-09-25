@@ -61,21 +61,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagProjectGameMode.h">
       <Filter>Source\XLagProject</Filter>
     </ClInclude>
-    <Filter Include="Source\XLagProject\Abstracts">
-      <UniqueIdentifier>{1FB78777-5F09-46BA-89F3-75AB3142B9DA}</UniqueIdentifier>
-    </Filter>
-    <ClCompile Include="..\..\Source\XLagProject\Abstracts\GeometryBuilderAbstract.cpp">
-      <Filter>Source\XLagProject\Abstracts</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\XLagProject\Abstracts\GeometryBuilderAbstract.h">
-      <Filter>Source\XLagProject\Abstracts</Filter>
-    </ClInclude>
     <Filter Include="Source\XLagProject\Common">
       <UniqueIdentifier>{B75A5D50-3FEC-41B9-A2AD-4A9DB9026107}</UniqueIdentifier>
     </Filter>
-    <ClInclude Include="..\..\Source\XLagProject\Common\GeometryBuiderBase.h">
-      <Filter>Source\XLagProject\Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\Common\GetPositionEnum.h">
       <Filter>Source\XLagProject\Common</Filter>
     </ClInclude>
@@ -298,12 +286,6 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagSelect\XLagSelectComponent.h">
       <Filter>Source\XLagProject\XLagSelect</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\XLagProject\XLagSelect\XLagSelectGeometryBuilder.cpp">
-      <Filter>Source\XLagProject\XLagSelect</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\XLagProject\XLagSelect\XLagSelectGeometryBuilder.h">
-      <Filter>Source\XLagProject\XLagSelect</Filter>
-    </ClInclude>
     <Filter Include="Source\XLagProject\XLagTasks">
       <UniqueIdentifier>{FABD9445-331A-4619-A9C2-502F0FD61798}</UniqueIdentifier>
     </Filter>
@@ -387,9 +369,6 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\OccurrenceMineralTypeEnum.h">
       <Filter>Source\XLagProject\XLagMinerals\Models</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\OccurrenceMeneralGenDesc.h">
-      <Filter>Source\XLagProject\XLagMinerals\Models</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\MiningMethodTypeEnum.h">
       <Filter>Source\XLagProject\XLagMinerals\Models</Filter>
     </ClInclude>
@@ -398,15 +377,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiSearchMineralTask.h">
       <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Geometry\CoordinateRect.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Geometry\CoordinatePoint.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\Geometry\Geometry.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagColorizeMapGeometryBuilder.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\GeometryBuilder</Filter>
@@ -426,6 +396,36 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiDischargeMineralTask.h">
       <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagMineralStack.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagGeometry\Primitives\CoordinatePoint.h">
+      <Filter>Source\XLagProject\XLagGeometry\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagGeometry\Primitives\CoordinateRect.h">
+      <Filter>Source\XLagProject\XLagGeometry\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagGeometry\Builders\GeometryBuilderAbstract.h">
+      <Filter>Source\XLagProject\XLagGeometry\Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagGeometry\Builders\XLagSelectGeometryBuilder.h">
+      <Filter>Source\XLagProject\XLagGeometry\Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagGeometry\GeometryPrimitives.h">
+      <Filter>Source\XLagProject\XLagGeometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagGeometry\Builders\XLagColorizeMapGeometryBuilder.h">
+      <Filter>Source\XLagProject\XLagGeometry\Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagGeometry\Builders\XLagDynamicTerrainLayerGeometry.h">
+      <Filter>Source\XLagProject\XLagGeometry\Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagGeometry\Builders\XLagMineralStackGeometryBuilder.h">
+      <Filter>Source\XLagProject\XLagGeometry\Builders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\OccurrenceMineralGenDesc.h">
+      <Filter>Source\XLagProject\XLagMinerals\Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -437,11 +437,17 @@
     <Filter Include="Source\XLagProject\XLagMinerals\Models">
       <UniqueIdentifier>{483d3e56-5057-4163-b14c-9348da06363a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\XLagProject\XLagDynamicTerrain\Geometry">
-      <UniqueIdentifier>{9f4bed13-dd5f-4206-96ee-a46b138b0a9d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\XLagProject\XLagDynamicTerrain\GeometryBuilder">
       <UniqueIdentifier>{ddf19af5-10de-419f-b995-c9dc1e9de395}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagGeometry">
+      <UniqueIdentifier>{ef1b5418-3b01-497e-b96c-7d06b54bc268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagGeometry\Primitives">
+      <UniqueIdentifier>{b7689884-6bb2-4c2f-8ab4-084c0def2fdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagGeometry\Builders">
+      <UniqueIdentifier>{dd375e50-878e-4c19-965a-d9ed404bac22}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -474,6 +480,24 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_ExtractMineralRegion.cpp">
       <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagMineralStack.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagGeometry\Builders\GeometryBuilderAbstract.cpp">
+      <Filter>Source\XLagProject\XLagGeometry\Builders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagGeometry\Builders\XLagSelectGeometryBuilder.cpp">
+      <Filter>Source\XLagProject\XLagGeometry\Builders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagGeometry\Builders\XLagColorizeMapGeometryBuilder.cpp">
+      <Filter>Source\XLagProject\XLagGeometry\Builders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagGeometry\Builders\XLagDynamicTerrainLayerGeometry.cpp">
+      <Filter>Source\XLagProject\XLagGeometry\Builders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagGeometry\Builders\XLagMineralStackGeometryBuilder.cpp">
+      <Filter>Source\XLagProject\XLagGeometry\Builders</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

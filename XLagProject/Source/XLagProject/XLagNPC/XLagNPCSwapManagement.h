@@ -9,6 +9,7 @@
 #include "XLagNPCMiner.h"
 #include "XLagCuttableTreeBase.h"
 #include "XLagTimberStack.h"
+#include "XLagMineralStack.h"
 #include "../XLagSelect/XLagSelectComponent.h"
 #include "../XLagBuildings/XLagBuilding.h"
 #include "../Common/ITerrainMapAccessor.h"
@@ -44,6 +45,7 @@ public:
 	void DoSwapPersons();
 	void DoSwapTrees();
 	void DoSwapTreeStack();
+	void DoSwapMineralStack(const FXLagMineralDesc& mineral);
 
 public:	
 	// Called every frame
@@ -126,15 +128,19 @@ public:
 
 	// Шаблон штабеля бревен.
 	UPROPERTY(EditAnywhere, Category = "Timber Stack Params")
-	TSubclassOf<AXLagTimberStack> TimberStackTemplate;
+		TSubclassOf<AXLagTimberStack> TimberStackTemplate;
+
+	// Шаблон штабеля бревен.
+	UPROPERTY(EditAnywhere, Category = "Mineral Stack Params")
+		TSubclassOf<AXLagMineralStack> MineralStackTemplate;
 	
 	// Шаблон выделения области
 	UPROPERTY(EditAnywhere, Category = "Selection Params")
-	TSubclassOf<AXLagSelectComponent> OperationSelectionTemplate;
+		TSubclassOf<AXLagSelectComponent> OperationSelectionTemplate;
 
 	// Шаблон здания.
 	UPROPERTY(EditAnywhere, Category = "Building Params")
-	TSubclassOf<AXLagBuilding> BuildingTemplate;
+		TSubclassOf<AXLagBuilding> BuildingTemplate;
 	
 private:
 	std::shared_ptr<ITerrainMapAccessor> MapAccessor;
@@ -142,6 +148,8 @@ private:
 public:
 	TArray<AXLagCuttableTreeBase*> SwapedTrees;
 	TArray<AXLagTimberStack*> SwapedTreeStacks;
+	TArray<AXLagMineralStack*> SwapedMineralStacks;
+	
 private:
 	FVector CalculatePersonScale(int deviationHeightPercent, int deviationThicknessPercent);
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "XLagDynamicTerrainMapItem.h"
-#include "Geometry/Geometry.h"
+#include "../XLagGeometry/GeometryPrimitives.h"
 #include "../Common/ITerrainMapAccessor.h"
 #include "../Common/IMapItemFilter.h"
 

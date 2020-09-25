@@ -15,7 +15,6 @@ AXLagTimberStack::AXLagTimberStack()
 void AXLagTimberStack::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame

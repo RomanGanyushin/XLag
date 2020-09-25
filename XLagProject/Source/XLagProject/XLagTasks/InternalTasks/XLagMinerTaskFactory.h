@@ -7,6 +7,7 @@
 #include "XLagMiDischargeMineralTask.h"
 #include "../../XLagMinerals/Models/XLagMineralDesc.h"
 #include "../../Common/ITerrainMapAccessor.h"
+#include "../../XLagNPC/XLagMineralStack.h"
 
 /*
  Фабрика задач для шахтера.
@@ -43,7 +44,7 @@ public:
 	}
 
 	// Добыча минерала.
-	std::shared_ptr<XLagNPCTaskBase> Extract(const FXLagMineralDesc mineral)
+	std::shared_ptr<XLagNPCTaskBase> Extract(const FXLagMineralDesc mineral, AXLagMineralStack* stack)
 	{
 		auto result = std::make_shared<XLagNPCTaskBase>();
 
@@ -52,12 +53,11 @@ public:
 			{
 				auto thisPoint = Place->Point(i, j);
 				auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
-				auto stock = FVector(5000, 5000, 0);
 
 				result->SubTasks.push(MoveTo(pos));
 				result->SubTasks.push(Extract(i, j, mineral));
-				result->SubTasks.push(MoveTo(stock));
-				result->SubTasks.push(Discharge());
+				result->SubTasks.push(MoveTo(stack->GetActorLocation()));
+				result->SubTasks.push(Discharge(stack));
 			}
 
 		return result;
@@ -83,9 +83,9 @@ public:
 		return result;
 	}
 
-	std::shared_ptr<XLagNPCTaskBase> Discharge()
+	std::shared_ptr<XLagNPCTaskBase> Discharge(AXLagMineralStack* stack)
 	{
-		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagMiDischargeMineralTask());
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagMiDischargeMineralTask(stack));
 		return result;
 	}
 

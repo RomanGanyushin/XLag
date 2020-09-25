@@ -109,7 +109,7 @@ bool XLagDynamicTerrainMap::IsChanged()
 
 void XLagDynamicTerrainMap::CreateMineralLayerEventHandler(XLagDynamicTerrainMapItem* sender, const FXLagMineralDesc& mineral)
 {
-	auto mineralGenDesc = mineral.OccurrenceMeneralGenDesc;
+	auto mineralGenDesc = mineral.OccurrenceMineralGenDesc;
 
 	if (mineralGenDesc.UnderTerrainElement != sender->GetTopKind()) // Проверяем условие залегания.
 		return;

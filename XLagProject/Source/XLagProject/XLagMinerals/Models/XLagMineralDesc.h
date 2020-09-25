@@ -1,6 +1,6 @@
 #pragma once
 #include "OccurrenceMineralTypeEnum.h"
-#include "OccurrenceMeneralGenDesc.h"
+#include "OccurrenceMineralGenDesc.h"
 #include "..\..\Common\TerrainElementEnum.h"
 
 #include "XLagMineralDesc.generated.h"
@@ -25,6 +25,9 @@ struct FXLagMineralDesc
 	// Элеменет ланшафта, представляющий ресурс.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) TEnumAsByte<TerrainElementEnum> MineralTerrainElement;
 
+	// Материал представления ресурса.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) UMaterial* MineralPresentMaterial;
+
 	// Трудоемкость поиска.
 	// Время в секундах, затрачиваемое мафнером со средними характеристиками.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float SearchComplexity;
@@ -33,5 +36,5 @@ struct FXLagMineralDesc
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MiningComplexity;
 
 	// Параметры генерации.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite) FOccurrenceMeneralGenDesc OccurrenceMeneralGenDesc;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) FOccurrenceMineralGenDesc OccurrenceMineralGenDesc;
 };

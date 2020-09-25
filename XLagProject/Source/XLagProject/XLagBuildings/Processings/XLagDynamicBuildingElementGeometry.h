@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Models/GeneralPlain.h"
-#include "../../Abstracts/GeometryBuilderAbstract.h"
+#include "../../XLagGeometry/Builders/GeometryBuilderAbstract.h"
 #include "XLagBuildParameterEvaluator.h"
 
 class XLagDynamicBuildingElementGeometry : public GeometryBuilderAbstract

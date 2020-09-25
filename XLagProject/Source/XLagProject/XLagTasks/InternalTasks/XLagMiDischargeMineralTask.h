@@ -1,11 +1,13 @@
 #pragma once
 #include "XLagNPCTaskBase.h"
 #include "../../XLagNPC/XLagNPCMiner.h"
+#include "../../XLagNPC/XLagMineralStack.h"
 
 class XLagMiDischargeMineralTask : public XLagNPCTaskBase
 {
 public:
-	XLagMiDischargeMineralTask()		
+	XLagMiDischargeMineralTask(AXLagMineralStack* stack)
+		:_stack(stack)
 	{
 	}
 
@@ -21,6 +23,7 @@ public:
 			return;
 		}
 
+		_stack->AddMineral(miner->ExtractedMineralQuantity);
 		miner->ExtractedMineralQuantity = 0.0f;
 		Completed = true;
 	}
@@ -29,4 +32,5 @@ public:
 	bool Completed = false;
 
 private:		
+	AXLagMineralStack* _stack;
 };

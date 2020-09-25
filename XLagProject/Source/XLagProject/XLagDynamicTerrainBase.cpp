@@ -14,8 +14,8 @@
 #include "XLagDynamicTerrain\MapBuilder\Components\TerrainElementTransformNeighbourCondition.h"
 #include "XLagDynamicTerrain\Position\RandomizeZeroPlacePosition.h"
 #include "XLagDynamicTerrain\Filters\ResourcePlacementMapItemFilter.h"
-#include "XLagDynamicTerrain\GeometryBuilder\XLagColorizeMapGeometryBuilder.h"
-#include "XLagDynamicTerrain\GeometryBuilder\XLagDynamicTerrainLayerGeometry.h"
+#include "XLagGeometry\Builders\XLagColorizeMapGeometryBuilder.h"
+#include "XLagGeometry\Builders\XLagDynamicTerrainLayerGeometry.h"
 
 #include "Kismet/GameplayStatics.h"
 #include "XLagNPC/XLagNPCSwapManagement.h"
@@ -63,18 +63,23 @@ void AXLagDynamicTerrainBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto management = AXLagNPCSwapManagement::GetManagment();
-	if (management != nullptr)
+	auto swapManager = AXLagNPCSwapManagement::GetManagment();
+	auto mineralManager = AXLagMineralManager::GetMineralManager();
+	
+	if (swapManager != nullptr)
 	{
-		management->SetMapAccessor(CurrentMap);
+		swapManager->SetMapAccessor(CurrentMap);
 
-		management->DoSwapTrees();
+		swapManager->DoSwapTrees();
 		UE_LOG(LogTemp, Log, TEXT("Do Swap Trees"));
 
-		management->DoSwapTreeStack();
+		swapManager->DoSwapTreeStack();
 		UE_LOG(LogTemp, Log, TEXT("Do Swap Tree Stack"));
 
-		management->DoSwapPersons();
+		swapManager->DoSwapMineralStack(mineralManager->GetSearchableMeneralDescCollection()[0]);
+		UE_LOG(LogTemp, Log, TEXT("Do Swap Mineral Stack"));
+
+		swapManager->DoSwapPersons();
 		UE_LOG(LogTemp, Log, TEXT("Do Swap Persons"));
 	}
 	else

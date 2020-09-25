@@ -7,7 +7,7 @@
 #include "XLagDynamicTerrain/XLagDynamicTerrainMapWindow.h"
 
 #include "XLagNPC/XLagCuttableTreeBase.h"
-#include "Abstracts/GeometryBuilderAbstract.h"
+#include "XLagGeometry/Builders/GeometryBuilderAbstract.h"
 #include "XLagDynamicTerrainBase.generated.h"
 
 UCLASS()

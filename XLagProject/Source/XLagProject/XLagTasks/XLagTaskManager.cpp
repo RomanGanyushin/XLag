@@ -147,8 +147,20 @@ void AXLagTaskManager::CreateSearchMineralTask(AXLagSelectComponent *select, con
 	SearchAndChooseExecuters(newTask);
 }
 
-void AXLagTaskManager::CreateExtractMineralTask(AXLagSelectComponent *select, const FXLagMineralDesc mineral, int RequiredWorkerNumber)
+void AXLagTaskManager::CreateExtractMineralTask(AXLagSelectComponent *select, const FXLagMineralDesc mineral, AXLagMineralStack* stack, int RequiredWorkerNumber)
 {
+	if (stack == nullptr) // Если не указано куда нести, то первый.
+	{
+		auto swapManagment = AXLagNPCSwapManagement::GetManagment();
+		stack = *swapManagment->SwapedMineralStacks
+			.FindByPredicate([mineral](auto& it) { return it->ContentMineral.ID == mineral.ID; });
+
+		if (stack == nullptr) // Не найдено место для склада.
+		{
+			return;
+		}
+	}
+	
 	// Создает задачу.
 	auto newTask = NewObject<UXLagTask_ExtractMineralRegion>();
 	newTask->SetRegion(select->Select);
@@ -157,7 +169,7 @@ void AXLagTaskManager::CreateExtractMineralTask(AXLagSelectComponent *select, co
 	// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
-	task->SubTasks.push(XLagMinerTaskFactory(place).Extract(mineral));
+	task->SubTasks.push(XLagMinerTaskFactory(place).Extract(mineral, stack));
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.

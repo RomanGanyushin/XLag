@@ -7,7 +7,7 @@
 #include "ProceduralMeshComponent.h"
 #include "../XLagDynamicTerrain/XLagDynamicTerrainMap.h"
 #include "../XLagDynamicTerrain/XLagDynamicTerrainMapWindow.h"
-#include "XLagSelectGeometryBuilder.h"
+#include "../XLagGeometry/Builders/XLagSelectGeometryBuilder.h"
 #include "XLagSelectComponent.generated.h"
 
 UCLASS()
