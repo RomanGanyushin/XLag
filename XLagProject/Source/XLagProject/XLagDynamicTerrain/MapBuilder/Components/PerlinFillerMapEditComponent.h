@@ -1,8 +1,8 @@
 #pragma once
 #include "../ITerrainMapEditComponent.h"
 #include "../../../Common/TerrainElementEnum.h"
+#include "../../../XLagGeometry/Algorithms/Perlin2DAlgorithm.hpp"
 #include "PerlinFillerMapEditSettings.h"
-#include "Perlin2DAlgorithm.hpp"
 
 // Компонент для заполнения карты по шуму Перлина.
 class PerlinFillerMapEditComponent : public ITerrainMapEditComponent

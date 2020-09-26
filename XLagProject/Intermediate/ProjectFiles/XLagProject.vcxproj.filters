@@ -196,9 +196,6 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\ITerrainElementTransofmCondition.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
     </ClInclude>
-    <None Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\Perlin2DAlgorithm.hpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
-    </None>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.cpp">
       <Filter>Source\XLagProject\XLagDynamicTerrain\MapBuilder\Components</Filter>
     </ClCompile>
@@ -426,6 +423,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\OccurrenceMineralGenDesc.h">
       <Filter>Source\XLagProject\XLagMinerals\Models</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagGeometry\Algorithms\Perlin2DAlgorithm.hpp">
+      <Filter>Source\XLagProject\XLagGeometry\Algorithms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -448,6 +448,9 @@
     </Filter>
     <Filter Include="Source\XLagProject\XLagGeometry\Builders">
       <UniqueIdentifier>{dd375e50-878e-4c19-965a-d9ed404bac22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagGeometry\Algorithms">
+      <UniqueIdentifier>{d7aea8aa-134d-49a2-b16d-694c0cdf0e52}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
