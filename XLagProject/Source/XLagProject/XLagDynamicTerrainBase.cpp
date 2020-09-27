@@ -64,8 +64,7 @@ void AXLagDynamicTerrainBase::BeginPlay()
 	Super::BeginPlay();
 
 	auto swapManager = AXLagNPCSwapManagement::GetManagment();
-	auto mineralManager = AXLagMineralManager::GetMineralManager();
-	
+
 	if (swapManager != nullptr)
 	{
 		swapManager->SetMapAccessor(CurrentMap);
@@ -201,7 +200,27 @@ void AXLagDynamicTerrainBase::InitMap()
 	);
 	editor.FillByXY(&makeTransitionGrassToSandstone);
 
+	//// Формируем элементы ландшафта как ресурсы.
 
+	auto mineralManager = AXLagMineralManager::GetMineralManager();
+	if (mineralManager != nullptr && !mineralManager->Empty())
+	{
+		auto terrainMineralCollection = mineralManager->GetTerrainMineralDescCollection();
+		for (auto terrainMineral : terrainMineralCollection)
+		{
+			ResourcePlacementMapItemFilter filter(terrainMineral.MineralTerrainElement);
+			auto region = Map->GetFilteredItems(filter);
+			for (auto& cell : region)
+			{
+				auto topLayer = cell->GetForLayerKind(terrainMineral.MineralTerrainElement);
+				if (topLayer == nullptr)
+					continue;
+
+				topLayer->SetMineralId(terrainMineral.ID);
+			}
+		}
+	}
+		
 	//// Tree	
 	ResourcePlacementMapItemFilter rp_filter(TerrainElementEnum::GraundGrass);
 	auto possiblePlace = Map->GetFilteredItems(rp_filter);

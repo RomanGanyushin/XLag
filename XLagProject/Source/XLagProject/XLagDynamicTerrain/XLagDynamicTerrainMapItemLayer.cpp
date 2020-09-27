@@ -39,3 +39,8 @@ int XLagDynamicTerrainMapItemLayer::GetMineralId() const
 {
 	return _mineralId;
 }
+
+void XLagDynamicTerrainMapItemLayer::SetMineralId(const int mineralId)
+{
+	_mineralId = mineralId;
+}

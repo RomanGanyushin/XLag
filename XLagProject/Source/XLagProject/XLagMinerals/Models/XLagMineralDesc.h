@@ -33,6 +33,7 @@ struct FXLagMineralDesc
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float SearchComplexity;
 	
 	// Трудоемкость добычи.
+	// Дилитель объема добычи за единицу времени.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) float MiningComplexity;
 
 	// Параметры генерации.

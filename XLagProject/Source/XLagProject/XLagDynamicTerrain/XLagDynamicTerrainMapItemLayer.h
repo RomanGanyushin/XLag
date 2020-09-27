@@ -14,6 +14,7 @@ public:
 	int GetTerrainElement() const;
 	void ChangeTerrainElement(const TerrainElementEnum newElement);
 	int GetMineralId() const;
+	void SetMineralId(const int mineralId);
 
 private:
 	float _level;

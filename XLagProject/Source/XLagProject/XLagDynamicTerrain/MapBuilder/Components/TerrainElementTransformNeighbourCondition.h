@@ -21,25 +21,8 @@ public:
 		end_x = std::min(accessor->SizeX() -1, ix + 1);
 		end_y = std::min(accessor->SizeY() -1, iy + 1);
 		
-		/*	for (auto x = start_x; x <= end_x; x++)
-			{
-				for (auto y = start_y; y <= end_y; y++)
-				{
-					if (x == 0 && y == 0)
-						continue;
-
-					auto pointXY = accessor->PointConst(x, y).Get();
-					if (pointXY->GetTerrainElement() == _firstElement)
-					{
-						return true;
-					}
-				}
-			}
-			return false;*/
-
 		if (accessor->PointConst(start_x, iy).Get()->GetTerrainElement() == _firstElement)
 			return true;
-
 
 		if (accessor->PointConst(end_x, iy).Get()->GetTerrainElement() == _firstElement)
 			return true;

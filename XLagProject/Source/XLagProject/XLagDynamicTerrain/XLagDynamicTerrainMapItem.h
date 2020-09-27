@@ -50,7 +50,7 @@ public:
 		Stack.insert(upperItemLayer, item);
 	}
 
-	const XLagDynamicTerrainMapItemLayer* GetForLayerKind(TerrainElementEnum layerKind) const
+	XLagDynamicTerrainMapItemLayer* GetForLayerKind(TerrainElementEnum layerKind)
 	{
 		if (Stack.empty())
 			return nullptr;
@@ -242,7 +242,8 @@ public:
 		if (!CheckForMineral(mineral.ID)) // Если минерала нет, то ничего не делаем.
 			return 0.0f;
 
-		float extractedLayerHeight = force; // Пока так.
+		// Объем добычи обратнопропорционален трудоемкости.
+		float extractedLayerHeight = mineral.MiningComplexity != 0.0 ? force / mineral.MiningComplexity : force;
 			
 		auto currentLevel = Stack.back().GetLevel();
 		auto newLevel = currentLevel - extractedLayerHeight;

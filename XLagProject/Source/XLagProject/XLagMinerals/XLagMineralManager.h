@@ -18,7 +18,12 @@ public:
 	UFUNCTION(BlueprintCallable) void CompliteCreate();
 
 	// Получает коллецию изыскиваемых полезных ископаемых.
-	UFUNCTION(BlueprintCallable) const TArray<FXLagMineralDesc> GetSearchableMeneralDescCollection() const;
+	UFUNCTION(BlueprintCallable) const TArray<FXLagMineralDesc> GetSearchableMineralDescCollection() const;
+
+	// Получает коллецию полезных искомпаемых - элементов ландшафта.
+	UFUNCTION(BlueprintCallable) const TArray<FXLagMineralDesc> GetTerrainMineralDescCollection() const;
+
+	UFUNCTION(BlueprintCallable) const bool Empty() const;
 
 public:
 	static AXLagMineralManager* GetMineralManager()

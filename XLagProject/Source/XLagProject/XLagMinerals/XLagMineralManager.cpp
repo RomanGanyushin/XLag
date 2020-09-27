@@ -13,7 +13,17 @@ void AXLagMineralManager::CompliteCreate()
 	}
 }
 
-const TArray<FXLagMineralDesc> AXLagMineralManager::GetSearchableMeneralDescCollection() const 
+const bool AXLagMineralManager::Empty() const
+{
+	return MineralDescCollection.Num() == 0;
+}
+
+const TArray<FXLagMineralDesc> AXLagMineralManager::GetSearchableMineralDescCollection() const 
 {
 	return MineralDescCollection.FilterByPredicate([](auto& i) {return i.SearchRequire; });
+}
+
+const TArray<FXLagMineralDesc> AXLagMineralManager::GetTerrainMineralDescCollection() const
+{
+	return MineralDescCollection.FilterByPredicate([](auto& i) {return i.MineralTerrainElement != TerrainElementEnum::None; });
 }
