@@ -113,14 +113,13 @@ void AXLagNPCSwapManagement::DoSwapTreeStack()
 	SwapedTreeStacks.Add(stack);
 }
 
-void AXLagNPCSwapManagement::DoSwapMineralStack(const FXLagMineralDesc& mineral)
+AXLagMineralStack* AXLagNPCSwapManagement::DoSwapMineralStack(const FXLagMineralDesc& mineral)
 {
 	auto locator = RandomizeZeroPlacePosition(MapAccessor).Get();
 	auto stack = GetWorld()->SpawnActor<AXLagMineralStack>(MineralStackTemplate, locator, FRotator::ZeroRotator);
-
-	auto firstSearchable = AXLagMineralManager::GetMineralManager()->GetSearchableMeneralDescCollection()[0];
-	stack->Initialize(firstSearchable);
+	stack->Initialize(mineral, 2, 2);
 	SwapedMineralStacks.Add(stack);
+	return stack;
 }
 
 // Called every frame

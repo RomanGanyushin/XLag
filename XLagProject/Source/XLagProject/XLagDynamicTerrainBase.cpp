@@ -76,9 +76,6 @@ void AXLagDynamicTerrainBase::BeginPlay()
 		swapManager->DoSwapTreeStack();
 		UE_LOG(LogTemp, Log, TEXT("Do Swap Tree Stack"));
 
-		swapManager->DoSwapMineralStack(mineralManager->GetSearchableMeneralDescCollection()[0]);
-		UE_LOG(LogTemp, Log, TEXT("Do Swap Mineral Stack"));
-
 		swapManager->DoSwapPersons();
 		UE_LOG(LogTemp, Log, TEXT("Do Swap Persons"));
 	}

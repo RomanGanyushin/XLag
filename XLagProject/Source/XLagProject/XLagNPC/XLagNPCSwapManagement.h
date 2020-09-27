@@ -45,7 +45,7 @@ public:
 	void DoSwapPersons();
 	void DoSwapTrees();
 	void DoSwapTreeStack();
-	void DoSwapMineralStack(const FXLagMineralDesc& mineral);
+	AXLagMineralStack* DoSwapMineralStack(const FXLagMineralDesc& mineral);
 
 public:	
 	// Called every frame

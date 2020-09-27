@@ -25,9 +25,11 @@ void AXLagMineralStack::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void AXLagMineralStack::Initialize(const FXLagMineralDesc& mineral)
+void AXLagMineralStack::Initialize(const FXLagMineralDesc& mineral, const int sizeX, const int sizeY)
 {
 	ContentMineral = mineral;
+	SizeX = sizeX;
+	SizeY = sizeY;
 
 	if (mineral.MineralPresentMaterial != nullptr)
 	{
@@ -44,6 +46,6 @@ void AXLagMineralStack::AddMineral(float quantity)
 void AXLagMineralStack::CreateView()
 {
 	XLagMineralStackGeometryBuilder geometry;
-	geometry.CreateMineralStack(MineralQuantity, 2, 2);
+	geometry.CreateMineralStack(MineralQuantity, SizeX, SizeY);
 	MineralStack->CreateMeshSection_LinearColor(0, geometry.Vertices, geometry.Trinagles, geometry.Normals, geometry.UVs, geometry.Colors, TArray<FProcMeshTangent>(), true);
 }

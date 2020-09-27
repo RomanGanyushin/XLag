@@ -153,14 +153,17 @@ void AXLagTaskManager::CreateExtractMineralTask(AXLagSelectComponent *select, co
 	{
 		auto swapManagment = AXLagNPCSwapManagement::GetManagment();
 		auto pstack = swapManagment->SwapedMineralStacks
-			.FindByPredicate([mineral](auto& it) { return it->ContentMineral.ID == mineral.ID; });
+			.FindByPredicate([mineral](auto it) { return it->ContentMineral.ID == mineral.ID; });
 
-		if (pstack == nullptr) // Не найдено место для склада.
+		if(pstack != nullptr)
 		{
-			return;
+			stack = *pstack;
 		}
-
-		stack = *pstack;
+		else // Не найдено место для склада, то создаем.
+		{
+			auto manager = AXLagNPCSwapManagement::GetManagment();
+			stack = manager->DoSwapMineralStack(mineral);
+		}
 	}
 	
 	// Создает задачу.

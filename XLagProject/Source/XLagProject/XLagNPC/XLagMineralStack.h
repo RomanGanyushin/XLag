@@ -23,15 +23,23 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void Initialize(const FXLagMineralDesc& mineral);
+	void Initialize(const FXLagMineralDesc& mineral, const int sizeX, const int sizeY);
 	void AddMineral(float quantity);
 
 	UPROPERTY(VisibleAnywhere, Category = "Mineral Stack Properties")
-	FXLagMineralDesc ContentMineral;
+		FXLagMineralDesc ContentMineral;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Mineral Stack Properties")
+		int SizeX;
+
+	UPROPERTY(VisibleAnywhere, Category = "Mineral Stack Properties")
+		int SizeY;
 	
 	// Количество материала
 	UPROPERTY(VisibleAnywhere, Category = "Current State Properties")
-	float MineralQuantity = 0;
+		float MineralQuantity = 0;
+
+	
 
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* MineralStack;
