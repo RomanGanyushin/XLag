@@ -42,7 +42,7 @@ void AXLagBuilding::Build()
 	if (_processing == nullptr)
 	{
 		_processing = NewObject<UXLagBuildProcessing>();
-		_processing->SetGeneralPlain(&_plain);	
+		_processing->SetGeneralPlain(_plain);	
 	}
 
 	_processing->DoProcess(this, RootComponent);
@@ -50,7 +50,7 @@ void AXLagBuilding::Build()
 
 void AXLagBuilding::SetGeneralPlain(const FGeneralPlain* plain)
 {
-	_plain = *plain;
+	_plain = plain;
 }
 
 void AXLagBuilding::DoShowPreview(bool isShow)
@@ -62,7 +62,7 @@ void AXLagBuilding::DoShowPreview(bool isShow)
 		return;
 
 	_processing = NewObject<UXLagBuildProcessing>();
-	_processing->SetGeneralPlain(&_plain);
+	_processing->SetGeneralPlain(_plain);
 	_processing->CreatePreview(this, RootComponent);
 
 	this->SetActorEnableCollision(false);

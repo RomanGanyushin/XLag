@@ -41,6 +41,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	FGeneralPlain _plain;
+	const FGeneralPlain* _plain;
 	UPROPERTY() UXLagBuildProcessing *_processing = nullptr;
 };
