@@ -6,6 +6,7 @@
 
 // Sets default values
 AXLagBuilding::AXLagBuilding()
+	/*:_plain(nullptr)*/
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -36,14 +37,32 @@ void AXLagBuilding::Tick(float DeltaTime)
 	}*/
 }
 
-void AXLagBuilding::DoShowPreview(bool isShow)
+void AXLagBuilding::Build()
 {
-	_plain = UGeneralPlainSerialization::LoadFromFile(FString(TEXT("building.json")));
-	if (_plain == nullptr)
+	if (_processing == nullptr)
+	{
+		_processing = NewObject<UXLagBuildProcessing>();
+		_processing->SetGeneralPlain(&_plain);	
+	}
+
+	_processing->DoProcess(this, RootComponent);
+}
+
+void AXLagBuilding::SetGeneralPlain(const FGeneralPlain* plain)
+{
+	_plain = *plain;
+}
+
+void AXLagBuilding::DoShowPreview(bool isShow)
+{	
+	/*if (_plain == nullptr)
+		return;*/
+
+	if (_processing != nullptr)
 		return;
 
 	_processing = NewObject<UXLagBuildProcessing>();
-	_processing->SetGeneralPlain(_plain);
+	_processing->SetGeneralPlain(&_plain);
 	_processing->CreatePreview(this, RootComponent);
 
 	this->SetActorEnableCollision(false);

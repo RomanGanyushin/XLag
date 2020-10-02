@@ -74,6 +74,11 @@ const FVector XLagDynamicTerrainMap::GetWorldPosition(XLagDynamicTerrainMapItem*
 	return GetWorldPosition(coord.X, coord.Y, flag);
 }
 
+const FVector XLagDynamicTerrainMap::GetWorldPosition(const CoordinatePoint& coord, GetPositionEnum flag) const
+{
+	return GetWorldPosition(coord.X, coord.Y, flag);
+}
+
 // #inhereddoc
 std::vector<XLagDynamicTerrainMapItem*> XLagDynamicTerrainMap::GetFilteredItems(const IMapItemFilter& filter)
 {

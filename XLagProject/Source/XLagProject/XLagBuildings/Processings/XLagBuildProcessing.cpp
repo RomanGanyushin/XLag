@@ -8,13 +8,12 @@ UXLagBuildProcessing::UXLagBuildProcessing(const FObjectInitializer& ObjectIniti
 	: Super(ObjectInitializer)
 {
 	Evaluator = new FXLagBuildParameterEvaluator();
-	GeneralStepIterator = new FXLagGeneralStepIterator();
-	GeneralStepIterator->SetEvaluator(Evaluator);
+	GeneralStepIterator.SetEvaluator(Evaluator);
 }
 
 void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root)
 {
-	if (GeneralStepIterator->IsComplite())
+	if (GeneralStepIterator.IsComplite())
 		return;
 
 	if (_repeatCycle != nullptr)
@@ -23,19 +22,19 @@ void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root)
 		return;
 	}
 
-	if (GeneralStepIterator->IsNewGeneralStep())
+	if (GeneralStepIterator.IsNewGeneralStep())
 	{
 		// Initialize general step;
-		auto generalStep = GeneralStepIterator->GetCurrentGeneralStep();
+		auto generalStep = GeneralStepIterator.GetCurrentGeneralStep();
 		SetupPosition(generalStep);
-		GeneralStepIterator->Confirm();
+		GeneralStepIterator.Confirm();
 	}
 
-	if (GeneralStepIterator->IsNextGeneralCycleStep())
+	if (GeneralStepIterator.IsNextGeneralCycleStep())
 	{
-		auto generalStep = GeneralStepIterator->GetCurrentGeneralStep();
+		auto generalStep = GeneralStepIterator.GetCurrentGeneralStep();
 		SetupPosition(&generalStep->Repeat);
-		GeneralStepIterator->Confirm();
+		GeneralStepIterator.Confirm();
 	}
 
 	InitializeSubStep();
@@ -45,18 +44,18 @@ void UXLagBuildProcessing::CreatePreview(UObject* owner, USceneComponent*root)
 {
 	isPreviewMode = true;
 
-	while (!GeneralStepIterator->IsComplite())
+	while (!GeneralStepIterator.IsComplite())
 	{
 		DoProcess(owner, root);
 	}
 }
 
-void UXLagBuildProcessing::SetGeneralPlain(FGeneralPlain* generalPlain)
+void UXLagBuildProcessing::SetGeneralPlain(const FGeneralPlain* generalPlain)
 {
 	GeneralPlain = generalPlain;
 	Evaluator->SetParameters(generalPlain->Parameters);
 	GenerateParametersFrom(generalPlain->Elements);
-	GeneralStepIterator->SetGeneralPlain(generalPlain);
+	GeneralStepIterator.SetGeneralPlain(generalPlain);
 }
 
 void UXLagBuildProcessing::GenerateParametersFrom(TArray<FBuildingElement> elements)
@@ -71,7 +70,7 @@ void UXLagBuildProcessing::GenerateParametersFrom(TArray<FBuildingElement> eleme
 
 void UXLagBuildProcessing::InitializeSubStep()
 {
-	auto step = GeneralStepIterator->GetCurrentSubStep();
+	auto step = GeneralStepIterator.GetCurrentSubStep();
 
 	if (step == nullptr)
 		return;
@@ -128,13 +127,13 @@ void UXLagBuildProcessing::ExecuteRepeatCycle(UObject* owner, USceneComponent* r
 		delete _repeatCycle;
 		_repeatCycle = nullptr;
 
-		GeneralStepIterator->Next();
+		GeneralStepIterator.Next();
 	}
 }
 
 void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent* root)
 {
-	auto step = GeneralStepIterator->GetCurrentSubStep();
+	auto step = GeneralStepIterator.GetCurrentSubStep();
 	auto elementId = step->ElementId;
 	auto element = GeneralPlain->Elements.FindByPredicate([elementId](auto& it) { return it.Id.Equals(elementId, ESearchCase::IgnoreCase);});
 

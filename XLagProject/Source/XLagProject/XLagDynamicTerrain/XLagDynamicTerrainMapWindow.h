@@ -46,8 +46,11 @@ public:
 	// #inhereddoc
 	const FVector GetWorldPosition(int const &x, int const &y, GetPositionEnum flag) const override;
 
-	// Получает координату простраства по элементу.
+	// #inhereddoc
 	const FVector GetWorldPosition(XLagDynamicTerrainMapItem* item, GetPositionEnum flag) const override;
+
+	// #inhereddoc
+	const FVector GetWorldPosition(const CoordinatePoint& coord, GetPositionEnum flag) const override;
 
 	std::vector<XLagDynamicTerrainMapItem*> GetFilteredItems(const IMapItemFilter& filter) override;
 

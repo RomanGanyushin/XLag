@@ -4,10 +4,12 @@
 #include "InternalTasks/XLagMinerTaskFactory.h"
 #include "../XLagDynamicTerrain/Filters/SurfaceResourceMapItemFilter.h"
 #include "../XLagNpc/XLagNPCSwapManagement.h"
+#include "../XLagBuildings/XLagBuildingManager.h"
 #include "XLagTask_CreateGroundAlign.h"
 #include "XLagTask_CuttingTreeRegion.h"
 #include "XLagTask_SearchMineralRegion.h"
 #include "XLagTask_ExtractMineralRegion.h"
+#include "XLagTask_CreateBuilding.h"
 
 AXLagTaskManager::AXLagTaskManager()
 {
@@ -123,7 +125,8 @@ void AXLagTaskManager::CreateCuttingTreeTask(AXLagSelectComponent *select, AXLag
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.
-	Tasks.Add(newTask);
+	Tasks.Add(newTask);     
+
 
 	SearchAndChooseExecuters(newTask);
 }
@@ -181,6 +184,25 @@ void AXLagTaskManager::CreateExtractMineralTask(AXLagSelectComponent *select, co
 	Tasks.Add(newTask);
 
 	SearchAndChooseExecuters(newTask);	
+}
+
+void AXLagTaskManager::CreateBuildingTask(const FXLagBuildingDescription& buildingDescription, int RequiredWorkerNumber)
+{
+	auto managment = AXLagBuildingManager::GetManagment();
+	auto building = managment->BuildingSiteFound(buildingDescription);
+
+	// Создает задачу.
+	auto newTask = NewObject<UXLagTask_CreateBuilding>();
+
+	// Планируем выполнение.
+	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
+	task->SubTasks.push(XLagBuilderTaskFactory(std::shared_ptr<ITerrainMapAccessor>()).Build(building));
+	newTask->NpcTask = task;
+
+	// Добавляем в стек.
+	Tasks.Add(newTask);
+
+	SearchAndChooseExecuters(newTask);
 }
 
 void AXLagTaskManager::ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task)

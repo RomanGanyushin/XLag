@@ -3,6 +3,7 @@
 #include "XLagTaskBase.h"
 #include "../Common/GroundAlignTypeEnum.h"
 #include "../XLagMinerals/Models/XLagMineralDesc.h"
+#include "../XLagBuildings/XLagBuildingDescription.h"
 
 #include "XLagTaskManager.generated.h"
 
@@ -43,6 +44,9 @@ public:
 
 	// —оздает задачу добычи полезных ископаемых.
 	UFUNCTION(BlueprintCallable) void CreateExtractMineralTask(AXLagSelectComponent *select, const FXLagMineralDesc mineral, AXLagMineralStack* stack, int RequiredWorkerNumber);
+
+	// —оздает задачу строительства.
+	UFUNCTION(BlueprintCallable) void CreateBuildingTask(const FXLagBuildingDescription& buildingDescription, int RequiredWorkerNumber);
 	
 	// «апрос на исполнение задачи со стороны npc.
 	UFUNCTION(BlueprintCallable) void ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task);

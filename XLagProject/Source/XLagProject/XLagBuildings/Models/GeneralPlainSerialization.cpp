@@ -4,21 +4,15 @@
 FGeneralPlain* UGeneralPlainSerialization::LoadFromFile(FString filename)
 {
 	FGeneralPlain* result = nullptr;
-
-	FString AbsolutePathFile = FPaths::EngineUserDir();
 	FString Content;
-	
-	UE_LOG(LogTemp, Log, TEXT("AXLagBuilding Dir: %s"), *AbsolutePathFile);
 
 	auto& platformFileManager = FPlatformFileManager().Get().GetPlatformFile();
-	auto filepath = FPaths::Combine(AbsolutePathFile, filename);
-	//auto file = platformFileManager.OpenRead(*filename);
-	UE_LOG(LogTemp, Log, TEXT("AXLagBuilding Loading : %s"), *filepath);
+	UE_LOG(LogTemp, Log, TEXT("AXLagBuilding Loading : %s"), *filename);
 
-	if (platformFileManager.FileExists(*filepath))
+	if (platformFileManager.FileExists(*filename))
 	{
 		UE_LOG(LogTemp, Log, TEXT("AXLagBuilding file found"));
-		FFileHelper::LoadFileToString(Content, *filepath);
+		FFileHelper::LoadFileToString(Content, *filename);
 		UE_LOG(LogTemp, Log, TEXT("AXLagBuilding - %s "), *Content);
 
 		result = new FGeneralPlain();
@@ -37,8 +31,19 @@ FGeneralPlain* UGeneralPlainSerialization::LoadFromFile(FString filename)
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("AXLagBuilding File not found : %s"), *filepath);
+		UE_LOG(LogTemp, Error, TEXT("AXLagBuilding File not found : %s"), *filename);
 	}
 
+	return result;
+}
+
+TArray<FString> UGeneralPlainSerialization::ScanFiles()
+{
+	TArray<FString> result;
+	FString absolutePathFile = FPaths::EngineUserDir();
+	UE_LOG(LogTemp, Log, TEXT("AXLagBuilding Dir: %s"), *absolutePathFile);
+
+	auto& platformFileManager = FPlatformFileManager().Get().GetPlatformFile();
+	platformFileManager.FindFiles(result, *absolutePathFile, *FString(TEXT(".json")));
 	return result;
 }

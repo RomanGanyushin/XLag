@@ -4,6 +4,7 @@
 #include "XLagNPCTaskMoveTo.h"
 #include "XLagBlDigGraundTask.h"
 #include "XLagBlPourGraundTask.h"
+#include "XLagBlBuildTask.h"
 #include "../../XLagDynamicTerrain\Position/MinMaxLevelPlace.h"
 #include "../../Common/ITerrainMapAccessor.h"
 
@@ -179,6 +180,10 @@ public:
 		return result;
 	}
 
+	std::shared_ptr<XLagNPCTaskBase> Build(AXLagBuilding *building)
+	{
+		return std::shared_ptr<XLagNPCTaskBase>(new XLagBlBuildTask(building));
+	}
 
 	// ƒвигайс€ до указанной локации.
 	// Todo: вынести в базовый.

@@ -10,7 +10,7 @@ struct FXLagGeneralStepIterator
 
 public:
 	void SetEvaluator(FXLagBuildParameterEvaluator* evaluator);
-	void SetGeneralPlain(FGeneralPlain *generalPlain);
+	void SetGeneralPlain(const FGeneralPlain *generalPlain);
 
 	const FGeneralStep* GetCurrentGeneralStep() const;
 	const FSubStep* GetCurrentSubStep() const;
@@ -22,7 +22,7 @@ public:
 
 private:
 	FXLagBuildParameterEvaluator* _evaluator;
-	FGeneralPlain* GeneralPlain = nullptr;
+	const FGeneralPlain* GeneralPlain = nullptr;
 	int32 _generalStepIndex = -1;
 	int32 _subStepIndex = -1;
 	bool _isComplete = false;

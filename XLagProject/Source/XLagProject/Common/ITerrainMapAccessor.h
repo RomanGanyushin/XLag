@@ -1,7 +1,8 @@
 #pragma once
 #include <memory>
 //TODO: заинтерфейсить XLagDynamicTerrainMapItem
-#include "../../XLagProject/XLagDynamicTerrain/XLagDynamicTerrainMapItem.h"
+#include "../XLagDynamicTerrain/XLagDynamicTerrainMapItem.h"
+#include "../XLagGeometry/GeometryPrimitives.h"
 #include "GetPositionEnum.h"
 #include "IMapItemFilter.h"
 
@@ -33,6 +34,8 @@ struct ITerrainMapAccessor
 
 	// Получает координату простраства по индексу x,y.
 	virtual const FVector GetWorldPosition(int const &x, int const &y, GetPositionEnum flag) const  = 0;
+
+	virtual const FVector GetWorldPosition(const CoordinatePoint& coord, GetPositionEnum flag) const = 0;
 
 	// Получает координату простраства по элементу.
 	virtual const FVector GetWorldPosition(XLagDynamicTerrainMapItem* item, GetPositionEnum flag) const = 0;

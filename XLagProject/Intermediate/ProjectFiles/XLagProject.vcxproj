@@ -272,6 +272,7 @@
     <AdditionalOptions>/std:c++14</AdditionalOptions>
   </PropertyGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingDescription.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingManager.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagColorizeMapGeometryBuilder.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagDynamicTerrainLayerGeometry.cpp" />
@@ -283,6 +284,7 @@
     <ClCompile Include="..\..\Source\XLagProject\XLagGeometry\Builders\XLagSelectGeometryBuilder.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagMineralStack.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskRegionBase.cpp" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateBuilding.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CuttingTreeRegion.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskBase.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateGroundAlign.cpp" />
@@ -309,9 +311,11 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\Models\XLagMineralDesc.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagMinerals\XLagMineralManager.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagMineralStack.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagBlBuildTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiDischargeMineralTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiExtractMineralTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiSearchMineralTask.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateBuilding.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_ExtractMineralRegion.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_SearchMineralRegion.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTaskRegionBase.h" />

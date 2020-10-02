@@ -27,6 +27,11 @@ public:
 	UFUNCTION(BlueprintSetter)
 		void DoShowPreview(bool isShow);
 
+	UFUNCTION()
+		void Build();
+
+	void SetGeneralPlain(const FGeneralPlain* plain);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -36,6 +41,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	FGeneralPlain* _plain;
-	UXLagBuildProcessing *_processing = nullptr;
+	FGeneralPlain _plain;
+	UPROPERTY() UXLagBuildProcessing *_processing = nullptr;
 };

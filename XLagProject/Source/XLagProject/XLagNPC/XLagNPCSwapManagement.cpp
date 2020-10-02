@@ -73,10 +73,15 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 		selection->Init(MapAccessor);
 	}
 
-	if (BuildingTemplate != nullptr)
-	{
-		auto building = GetWorld()->SpawnActor<AXLagBuilding>(BuildingTemplate, FVector(5000 +  100, 5000 + 100, 0), FRotator::ZeroRotator);
-	}
+	///DoSwapBuilding();
+}
+
+AXLagBuilding* AXLagNPCSwapManagement::DoSwapBuilding()
+{
+	if (BuildingTemplate == nullptr)
+		return nullptr;
+
+	return GetWorld()->SpawnActor<AXLagBuilding>(BuildingTemplate, FVector(5000 + 100, 5000 + 100, 0), FRotator::ZeroRotator);
 }
 
 void AXLagNPCSwapManagement::DoSwapTrees()

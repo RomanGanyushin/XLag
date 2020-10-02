@@ -5,7 +5,7 @@ void FXLagGeneralStepIterator::SetEvaluator(FXLagBuildParameterEvaluator* evalua
 	_evaluator = evaluator;
 }
 
-void FXLagGeneralStepIterator::SetGeneralPlain(FGeneralPlain *generalPlain)
+void FXLagGeneralStepIterator::SetGeneralPlain(const FGeneralPlain *generalPlain)
 {
 	GeneralPlain = generalPlain;
 	BeginInitialize();

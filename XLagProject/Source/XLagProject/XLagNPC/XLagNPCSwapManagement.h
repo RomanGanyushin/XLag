@@ -46,6 +46,7 @@ public:
 	void DoSwapTrees();
 	void DoSwapTreeStack();
 	AXLagMineralStack* DoSwapMineralStack(const FXLagMineralDesc& mineral);
+	AXLagBuilding *DoSwapBuilding();
 
 public:	
 	// Called every frame
@@ -152,9 +153,4 @@ public:
 	
 private:
 	FVector CalculatePersonScale(int deviationHeightPercent, int deviationThicknessPercent);
-
-	// Временно для теста.
-private:
-	void Test_AttachTask_CutTrees(AXLagNPCWoodCutter *woodcutter, int index);
-	void Test_AttachTask_Dig(AXLagNPCBuilderman *builder, int index);
 };

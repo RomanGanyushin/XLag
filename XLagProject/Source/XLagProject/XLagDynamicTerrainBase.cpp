@@ -16,6 +16,7 @@
 #include "XLagDynamicTerrain\Filters\ResourcePlacementMapItemFilter.h"
 #include "XLagGeometry\Builders\XLagColorizeMapGeometryBuilder.h"
 #include "XLagGeometry\Builders\XLagDynamicTerrainLayerGeometry.h"
+#include "XLagBuildings\XLagBuildingManager.h"
 
 #include "Kismet/GameplayStatics.h"
 #include "XLagNPC/XLagNPCSwapManagement.h"
@@ -64,6 +65,7 @@ void AXLagDynamicTerrainBase::BeginPlay()
 	Super::BeginPlay();
 
 	auto swapManager = AXLagNPCSwapManagement::GetManagment();
+	auto buildingManager = AXLagBuildingManager::GetManagment();
 
 	if (swapManager != nullptr)
 	{
@@ -81,6 +83,11 @@ void AXLagDynamicTerrainBase::BeginPlay()
 	else
 	{
 		UE_LOG(LogTemp, Log, TEXT("Swap managment not found"));
+	}
+
+	if (buildingManager != nullptr)
+	{
+		buildingManager->SetMapAccessor(CurrentMap);
 	}
 
 	//APawn *avatar = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);

@@ -426,6 +426,12 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagGeometry\Algorithms\Perlin2DAlgorithm.hpp">
       <Filter>Source\XLagProject\XLagGeometry\Algorithms</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateBuilding.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagBlBuildTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -501,6 +507,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagGeometry\Builders\XLagMineralStackGeometryBuilder.cpp">
       <Filter>Source\XLagProject\XLagGeometry\Builders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingDescription.cpp">
+      <Filter>Source\XLagProject\XLagBuildings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateBuilding.cpp">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
