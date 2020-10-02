@@ -6,7 +6,7 @@
 
 // Sets default values
 AXLagBuilding::AXLagBuilding()
-	/*:_plain(nullptr)*/
+	:_plain(nullptr)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -27,14 +27,6 @@ void AXLagBuilding::BeginPlay()
 void AXLagBuilding::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	/*if (_processing == nullptr)
-		return;
-
-	for (size_t i = 0; i < 100; i++)
-	{
-		_processing->DoProcess(this, RootComponent);
-	}*/
 }
 
 void AXLagBuilding::Build()
@@ -55,8 +47,8 @@ void AXLagBuilding::SetGeneralPlain(const FGeneralPlain* plain)
 
 void AXLagBuilding::DoShowPreview(bool isShow)
 {	
-	/*if (_plain == nullptr)
-		return;*/
+	if (_plain == nullptr)
+		return;
 
 	if (_processing != nullptr)
 		return;
