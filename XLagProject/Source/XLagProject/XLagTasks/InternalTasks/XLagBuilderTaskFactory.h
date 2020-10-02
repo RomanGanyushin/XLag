@@ -182,7 +182,12 @@ public:
 
 	std::shared_ptr<XLagNPCTaskBase> Build(AXLagBuilding *building)
 	{
-		return std::shared_ptr<XLagNPCTaskBase>(new XLagBlBuildTask(building));
+		auto result = std::make_shared<XLagNPCTaskBase>();
+		auto pos = building->GetActorLocation();
+
+		result->SubTasks.push(MoveTo(pos));
+		result->SubTasks.push(std::shared_ptr<XLagNPCTaskBase>(new XLagBlBuildTask(building)));
+		return result;
 	}
 
 	// Двигайся до указанной локации.

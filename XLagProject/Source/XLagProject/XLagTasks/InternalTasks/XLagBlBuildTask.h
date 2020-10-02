@@ -17,7 +17,20 @@ public:
 		if (Completed)
 			return;
 
-		_building->Build();
+		auto builder = dynamic_cast<AXLagNPCBuilderman*>(npc);
+		if (builder == nullptr)
+		{
+			UE_LOG(LogTemp, Log, TEXT("XLagBlBuildTask::Execute npc not Builder"));
+			return;
+		}
+
+		builder->Build(_building);
+		Completed = _building->IsBuildComplited;
+
+		if (Completed)
+		{
+			builder->Cancel();
+		}		
 	}
 
 	virtual bool IsSuccess() override { return Completed; }

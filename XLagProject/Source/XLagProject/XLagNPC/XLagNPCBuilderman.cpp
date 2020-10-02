@@ -49,12 +49,19 @@ void AXLagNPCBuilderman::Pour(XLagDynamicTerrainMapItem& cell, float toLevel, Te
 	pourMemo = std::shared_ptr<PourMemo>(new PourMemo(&cell, toLevel, element));
 }
 
+void AXLagNPCBuilderman::Build(AXLagBuilding* building)
+{
+	IsBuilding = true;
+	building->Build();
+}
+
 void AXLagNPCBuilderman::Cancel()
 {
 	digMemo.reset();
 	pourMemo.reset();
 	IsDiging = false;
 	IsPouring = false;
+	IsBuilding = true;
 }
 
 void AXLagNPCBuilderman::OfferAccept(UXLagTaskBase* task)

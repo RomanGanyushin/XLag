@@ -24,7 +24,7 @@ public:
 	void SetGeneralPlain(const FGeneralPlain* generalPlain);
 	void DoProcess(UObject* owner, USceneComponent*root);
 	void CreatePreview(UObject* owner, USceneComponent*root);
-
+	bool IsComplite() const;
 public:	
 	UPROPERTY(BlueprintReadOnly) FString BuildingName;
 private:

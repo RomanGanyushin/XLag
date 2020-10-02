@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "XLagNPCBase.h"
 #include "../XLagDynamicTerrain/XLagDynamicTerrainMapItem.h"
+#include "../XLagBuildings/XLagBuilding.h"
 #include "XLagNPCBuilderman.generated.h"
 
 struct DigMemo
@@ -45,6 +46,9 @@ public:
 	// Насыпай на клетку.
 	virtual void Pour(XLagDynamicTerrainMapItem& cell, float toLevel, TerrainElementEnum element);
 
+	// Строй здание.
+	virtual void Build(AXLagBuilding* building);
+
 
 	// Отменяет выполняемую команду.
 	void Cancel();
@@ -55,6 +59,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Builderman Working")
 		bool  IsPouring = false;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Builderman Working")
+		bool  IsBuilding = false;
 
 	virtual void OfferAccept(UXLagTaskBase* task) override;
 

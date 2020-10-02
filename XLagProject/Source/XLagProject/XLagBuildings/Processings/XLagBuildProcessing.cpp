@@ -40,6 +40,11 @@ void UXLagBuildProcessing::DoProcess(UObject* owner, USceneComponent*root)
 	InitializeSubStep();
 }
 
+bool UXLagBuildProcessing::IsComplite() const
+{
+	return GeneralStepIterator.IsComplite();
+}
+
 void UXLagBuildProcessing::CreatePreview(UObject* owner, USceneComponent*root)
 {
 	isPreviewMode = true;

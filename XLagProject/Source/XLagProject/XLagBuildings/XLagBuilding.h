@@ -30,6 +30,9 @@ public:
 	UFUNCTION()
 		void Build();
 
+	UPROPERTY(VisibleAnywhere)
+		bool IsBuildComplited;
+
 	void SetGeneralPlain(const FGeneralPlain* plain);
 
 protected:
