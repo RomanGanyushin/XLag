@@ -23,7 +23,7 @@ public:
 			return;
 		}
 
-		_stack->AddMineral(miner->ExtractedMineralQuantity);
+		_stack->AddQuantity(miner->ExtractedMineralQuantity);
 		miner->ExtractedMineralQuantity = 0.0f;
 		Completed = true;
 	}

@@ -7,9 +7,11 @@
 #include "XLagNPCWoodCutter.h"
 #include "XLagNPCBuilderman.h"
 #include "XLagNPCMiner.h"
+#include "XLagNPCFarmer.h"
 #include "XLagCuttableTreeBase.h"
 #include "XLagTimberStack.h"
 #include "XLagMineralStack.h"
+#include "XLagCropStack.h"
 #include "../XLagSelect/XLagSelectComponent.h"
 #include "../XLagBuildings/XLagBuilding.h"
 #include "../Common/ITerrainMapAccessor.h"
@@ -46,6 +48,7 @@ public:
 	void DoSwapTrees();
 	void DoSwapTreeStack();
 	AXLagMineralStack* DoSwapMineralStack(const FXLagMineralDesc& mineral);
+	AXLagCropStack* DoSwapCropStack(const FXLagCropDesc& crop);
 	AXLagBuilding *DoSwapBuilding();
 
 public:	
@@ -106,6 +109,24 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Miner Params")
 		int MinerDeviationThicknessPercent = 10;
 
+// Свойства персонажа - фермер.
+public:
+	// Шаблон фермера.
+	UPROPERTY(EditAnywhere, Category = "Spawn Farmer Params")
+		TSubclassOf<AXLagNPCFarmer> FarmerTemplate;
+
+	// Количество фермеров на старте игры. 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Farmer Params")
+		int StartFarmerCount = 2;
+
+	// Амплитуда разброса роста (процент от норамльного роста).
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Farmer Params")
+		int FarmerDeviationHeightPercent = 30;
+
+	// Амплитуда разброма толщины (процент от норамльного роста).
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Farmer Params")
+		int FarmerDeviationThicknessPercent = 10;
+
 // Свойства высадки деревьев
 public:
 
@@ -128,12 +149,16 @@ public:
 public:
 
 	// Шаблон штабеля бревен.
-	UPROPERTY(EditAnywhere, Category = "Timber Stack Params")
+	UPROPERTY(EditAnywhere, Category = "Stack Params")
 		TSubclassOf<AXLagTimberStack> TimberStackTemplate;
 
-	// Шаблон штабеля бревен.
-	UPROPERTY(EditAnywhere, Category = "Mineral Stack Params")
+	// Шаблон кучи полезных ископаемых.
+	UPROPERTY(EditAnywhere, Category = "Stack Params")
 		TSubclassOf<AXLagMineralStack> MineralStackTemplate;
+
+	// Шаблон кучи сельхоз продукта.
+	UPROPERTY(EditAnywhere, Category = "Stack Params")
+		TSubclassOf<AXLagCropStack> CropStackTemplate;
 	
 	// Шаблон выделения области
 	UPROPERTY(EditAnywhere, Category = "Selection Params")
@@ -150,6 +175,7 @@ public:
 	TArray<AXLagCuttableTreeBase*> SwapedTrees;
 	TArray<AXLagTimberStack*> SwapedTreeStacks;
 	TArray<AXLagMineralStack*> SwapedMineralStacks;
+	TArray<AXLagCropStack*> SwapedCropStacks;
 	
 private:
 	FVector CalculatePersonScale(int deviationHeightPercent, int deviationThicknessPercent);

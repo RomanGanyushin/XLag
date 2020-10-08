@@ -2,6 +2,7 @@
 #include "InternalTasks/XLagBuilderTaskFactory.h"
 #include "InternalTasks/XLagWoodCutterTaskFactory.h"
 #include "InternalTasks/XLagMinerTaskFactory.h"
+#include "InternalTasks/XLagFarmerTaskFactory.h"
 #include "../XLagDynamicTerrain/Filters/SurfaceResourceMapItemFilter.h"
 #include "../XLagNpc/XLagNPCSwapManagement.h"
 #include "../XLagBuildings/XLagBuildingManager.h"
@@ -10,6 +11,7 @@
 #include "XLagTask_SearchMineralRegion.h"
 #include "XLagTask_ExtractMineralRegion.h"
 #include "XLagTask_CreateBuilding.h"
+#include "XLagTask_CreateCroplandRegion.h"
 
 AXLagTaskManager::AXLagTaskManager()
 {
@@ -184,6 +186,42 @@ void AXLagTaskManager::CreateExtractMineralTask(AXLagSelectComponent *select, co
 	Tasks.Add(newTask);
 
 	SearchAndChooseExecuters(newTask);	
+}
+
+void AXLagTaskManager::CreateCroplandTask(AXLagSelectComponent *select, const FXLagCropDesc crop, AXLagCropStack* stack, int RequiredWorkerNumber)
+{
+	if (stack == nullptr) // Если не указано куда нести, то первый.
+	{
+		auto swapManagment = AXLagNPCSwapManagement::GetManagment();
+		auto pstack = swapManagment->SwapedCropStacks
+			.FindByPredicate([crop](auto it) { return it->ContentCrop.ID == crop.ID; });
+
+		if (pstack != nullptr)
+		{
+			stack = *pstack;
+		}
+		else // Не найдено место для склада, то создаем.
+		{
+			auto manager = AXLagNPCSwapManagement::GetManagment();
+			stack = manager->DoSwapCropStack(crop);
+		}
+	}
+
+	// Создает задачу.
+	auto newTask = NewObject<UXLagTask_CreateCroplandRegion>();
+	newTask->SetRegion(select->Select);
+	newTask->State = TaskStateEnum::Recruitment;
+
+	//// Планируем выполнение.
+	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
+	auto place = select->Select;
+	task->SubTasks.push(XLagFarmerTaskFactory(place).Cultivate());
+	newTask->NpcTask = task;
+
+	// Добавляем в стек.
+	Tasks.Add(newTask);
+
+	SearchAndChooseExecuters(newTask);
 }
 
 void AXLagTaskManager::CreateBuildingTask(const FXLagBuildingDescription& buildingDescription, int RequiredWorkerNumber)

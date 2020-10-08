@@ -7,5 +7,6 @@ enum ProfessionTypeEnum
 	Unknow UMETA(DisplayName = "Unknow"),
 	Builder UMETA(DisplayName = "Builder"),
 	Miner UMETA(DisplayName = "Miner"),
-	Treecutter UMETA(DisplayName = "Treecutter")
+	Treecutter UMETA(DisplayName = "Treecutter"),
+	Farmer UMETA(DisplayName = "Farmer")
 };

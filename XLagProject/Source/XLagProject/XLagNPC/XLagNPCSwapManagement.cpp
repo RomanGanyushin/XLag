@@ -67,6 +67,21 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 		}
 	}
 
+	if (FarmerTemplate != nullptr)
+	{
+		for (int i = 0; i < StartFarmerCount; i++)
+		{
+			auto locator = RandomizeZeroPlacePosition(MapAccessor).Get() + FVector(0, 0, 200);
+			auto farmer = GetWorld()->SpawnActor<AXLagNPCFarmer>(FarmerTemplate, locator, FRotator::ZeroRotator);
+
+			if (farmer == nullptr)
+				continue;
+
+			auto scaleVector = CalculatePersonScale(FarmerDeviationHeightPercent, FarmerDeviationThicknessPercent);
+			farmer->SetActorScale3D(scaleVector);
+		}
+	}
+
 	if (OperationSelectionTemplate != nullptr)
 	{
 		auto selection = GetWorld()->SpawnActor<AXLagSelectComponent>(OperationSelectionTemplate, FVector::ZeroVector, FRotator::ZeroRotator);
@@ -119,11 +134,20 @@ void AXLagNPCSwapManagement::DoSwapTreeStack()
 }
 
 AXLagMineralStack* AXLagNPCSwapManagement::DoSwapMineralStack(const FXLagMineralDesc& mineral)
-{
+{   
 	auto locator = RandomizeZeroPlacePosition(MapAccessor).Get();
 	auto stack = GetWorld()->SpawnActor<AXLagMineralStack>(MineralStackTemplate, locator, FRotator::ZeroRotator);
 	stack->Initialize(mineral, 2, 2);
 	SwapedMineralStacks.Add(stack);
+	return stack;
+}
+
+AXLagCropStack* AXLagNPCSwapManagement::DoSwapCropStack(const FXLagCropDesc& crop)
+{
+	auto locator = RandomizeZeroPlacePosition(MapAccessor).Get();
+	auto stack = GetWorld()->SpawnActor<AXLagCropStack>(CropStackTemplate, locator, FRotator::ZeroRotator);
+	stack->Initialize(crop, 2, 2);
+	SwapedCropStacks.Add(stack);
 	return stack;
 }
 

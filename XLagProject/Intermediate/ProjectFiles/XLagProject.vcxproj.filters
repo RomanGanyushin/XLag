@@ -432,6 +432,27 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagBlBuildTask.h">
       <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagCrops\Models\XLagCropDesc.h">
+      <Filter>Source\XLagProject\XLagCrops\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagCropStack.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagLooseStackBase.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateCroplandRegion.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCFarmer.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmCultivateTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFarmerTaskFactory.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -457,6 +478,12 @@
     </Filter>
     <Filter Include="Source\XLagProject\XLagGeometry\Algorithms">
       <UniqueIdentifier>{d7aea8aa-134d-49a2-b16d-694c0cdf0e52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagCrops">
+      <UniqueIdentifier>{3f71ab42-3d9e-477a-bec1-6de229a51287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagCrops\Models">
+      <UniqueIdentifier>{7fa6680b-b2ce-4c96-9269-6b29532d0fa8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -513,6 +540,18 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateBuilding.cpp">
       <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagCropStack.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagLooseStackBase.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateCroplandRegion.cpp">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCFarmer.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

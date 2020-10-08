@@ -21,7 +21,9 @@ enum TerrainElementEnum
 	RockBasalt,	
 	
 	// Óãîëü.
-	Coal UMETA(DisplayName = "Coal")
+	Coal UMETA(DisplayName = "Coal"),
+
+	Cultivated UMETA(DisplayName = "Ñultivated")
 
 };
 

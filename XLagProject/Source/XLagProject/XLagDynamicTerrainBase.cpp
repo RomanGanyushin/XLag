@@ -136,6 +136,9 @@ void AXLagDynamicTerrainBase::InitializeLayers()
 	Coal = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("Coal"));
 	Coal->SetupAttachment(TerrainScene);
 
+	Cultivated = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("Cultivated"));
+	Cultivated->SetupAttachment(TerrainScene);
+
 	GroundGrassToRockSandstone = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GroundGrassToRockSandstone"));
 	GroundGrassToRockSandstone->SetupAttachment(TerrainScene);
 
@@ -274,6 +277,9 @@ void AXLagDynamicTerrainBase::InitGeometry()
 
 	_geometry.CreateFrom(Map, TerrainElementEnum::Coal);
 	GenerateLayerGeometry(Coal, &_geometry);
+
+	_geometry.CreateFrom(Map, TerrainElementEnum::Cultivated);
+	GenerateLayerGeometry(Cultivated, &_geometry);
 
 	_geometry.CreateTransFrom(Map, TerrainElementEnum::GroundGrassToRockSandstoneTrans, TerrainElementEnum::GraundGrass);
 	GenerateLayerGeometry(GroundGrassToRockSandstone, &_geometry);

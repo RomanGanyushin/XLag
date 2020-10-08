@@ -101,6 +101,10 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* RockSandstoneToRockBasalt;
 
+	/// Coil component
+	UPROPERTY(VisibleAnywhere)
+		UProceduralMeshComponent* Cultivated;
+
 	/// 
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* ColorizeMapper;
