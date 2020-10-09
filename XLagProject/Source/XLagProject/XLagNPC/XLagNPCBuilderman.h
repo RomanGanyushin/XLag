@@ -36,10 +36,10 @@ class XLAGPROJECT_API AXLagNPCBuilderman : public AXLagNPCBase
 {
 	GENERATED_BODY()
 
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-public:
 	// Копай клетку.
 	virtual void Dig(XLagDynamicTerrainMapItem& cell, float toLevel, bool keepTopLayer);
 

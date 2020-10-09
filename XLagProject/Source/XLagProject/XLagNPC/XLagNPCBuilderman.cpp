@@ -17,7 +17,7 @@ void AXLagNPCBuilderman::Tick(float DeltaTime)
 		if (targetSlice <= 0)
 			return;
 
-		targetSlice = std::min(targetSlice, 1.f);
+		targetSlice = std::min(targetSlice, 0.01f);
 
 		digMemo->targetCell->Dig(targetSlice, digMemo->KeepTopLayer);
 	}
@@ -31,7 +31,7 @@ void AXLagNPCBuilderman::Tick(float DeltaTime)
 		if (targetSlice <= 0)
 			return;
 
-		targetSlice = std::min(targetSlice, 1.f);
+		targetSlice = std::min(targetSlice, 0.01f);
 
 		pourMemo->targetCell->Pour(targetSlice, pourMemo->Element);
 	}
