@@ -37,7 +37,8 @@ void XLagDynamicTerrainLayerGeometry::CreateFrom(std::shared_ptr<ITerrainMapAcce
 		}
 }
 
-void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMapAccessor> map, int layerKind, int mainKind)
+
+void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMapAccessor> map, int layerKind, int fromKind, int toKind)
 {
 	Reset();
 
@@ -61,46 +62,91 @@ void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMa
 				continue;
 			}
 
-			auto fl = itemLevel00->GetLevel(); auto k = itemLevel00->GetTerrainElement();
+			auto k = itemLevel00->GetTerrainElement();
+			
 			if (k != layerKind)
 				continue;
 
-
-
-			AddQuadSMesh(
+			AddQuadMesh(
 				FVector(100 * xIndex, 100 * yIndex, itemLevel00->GetLevel()),
 				FVector(100 * xIndex, 100 * (yIndex + 1), itemLevel01->GetLevel()),
 				FVector(100 * (xIndex + 1), 100 * (yIndex + 1), itemLevel11->GetLevel()),
 				FVector(100 * (xIndex + 1), 100 * yIndex, itemLevel10->GetLevel()),
 				triIndex);
 
-			float a1 = 1;
-			float a2 = 1;
-			float a3 = 1;
-			float a4 = 1;
+			float a1 = 0;
+			float a2 = 0;
+			float a3 = 0;
+			float a4 = 0;
 
-			if (map->Point(xIndex - 1, yIndex).Get()->GetTerrainElement() == mainKind)
+			if (map->Point(xIndex - 1, yIndex - 1).Get()->GetTerrainElement() == fromKind
+				|| map->Point(xIndex - 1, yIndex).Get()->GetTerrainElement() == fromKind
+				|| map->Point(xIndex, yIndex - 1).Get()->GetTerrainElement() == fromKind)
 			{
-				a1 = a2 = 0;
+				a1 = 0;
+			}
+			else if(map->Point(xIndex - 1, yIndex - 1).Get()->GetTerrainElement() == toKind
+				|| map->Point(xIndex - 1, yIndex).Get()->GetTerrainElement() == toKind
+				|| map->Point(xIndex, yIndex - 1).Get()->GetTerrainElement() == toKind)
+			{
+				a1 = 1;
+			}
+			else
+			{
+				a1 = 0.5;
 			}
 
-
-			if (map->Point(xIndex, yIndex + 1).Get()->GetTerrainElement() == mainKind)
+			if (map->Point(xIndex - 1, yIndex).Get()->GetTerrainElement() == fromKind
+				|| map->Point(xIndex - 1, yIndex + 1).Get()->GetTerrainElement() == fromKind
+				|| map->Point(xIndex, yIndex + 1).Get()->GetTerrainElement() == fromKind)
 			{
-				a2 = a3 = 0;
+				a2 = 0;
+			}
+			else if (map->Point(xIndex - 1, yIndex).Get()->GetTerrainElement() == toKind
+				|| map->Point(xIndex - 1, yIndex + 1).Get()->GetTerrainElement() == toKind
+				|| map->Point(xIndex, yIndex + 1).Get()->GetTerrainElement() == toKind)
+			{
+				a2 = 1;
+			}
+			else
+			{
+				a2 = 0.5;
 			}
 
-			if (map->Point(xIndex + 1, yIndex).Get()->GetTerrainElement() == mainKind)
+			if (map->Point(xIndex, yIndex + 1).Get()->GetTerrainElement() == fromKind
+				|| map->Point(xIndex + 1, yIndex + 1).Get()->GetTerrainElement() == fromKind
+				|| map->Point(xIndex + 1, yIndex).Get()->GetTerrainElement() == fromKind)
 			{
-				a3 = a4 = 0;
+				a3 = 0;
+			}
+			else if (map->Point(xIndex, yIndex + 1).Get()->GetTerrainElement() == toKind
+				|| map->Point(xIndex + 1, yIndex + 1).Get()->GetTerrainElement() == toKind
+				|| map->Point(xIndex + 1, yIndex).Get()->GetTerrainElement() == toKind)
+			{
+				a3 = 1;
+			}
+			else
+			{
+				a3 = 0.5;
 			}
 
-			if (map->Point(xIndex, yIndex - 1).Get()->GetTerrainElement() == mainKind)
+			if (map->Point(xIndex + 1, yIndex).Get()->GetTerrainElement() == fromKind
+				|| map->Point(xIndex + 1, yIndex - 1).Get()->GetTerrainElement() == fromKind
+				|| map->Point(xIndex, yIndex - 1).Get()->GetTerrainElement() == fromKind)
 			{
-				a4 = a1 = 0;
+				a4 = 0;
+			}
+			else if (map->Point(xIndex + 1, yIndex).Get()->GetTerrainElement() == toKind
+				|| map->Point(xIndex + 1, yIndex - 1).Get()->GetTerrainElement() == toKind
+				|| map->Point(xIndex, yIndex - 1).Get()->GetTerrainElement() == toKind)
+			{
+				a4 = 1;
+			}
+			else
+			{
+				a4 = 0.5;
 			}
 
-			Colors.Add(FLinearColor(1, 1, 1, 1));		
 			Colors.Add(FLinearColor(a1, a1, a1, a1));
 			Colors.Add(FLinearColor(a2, a2, a2, a2));
 			Colors.Add(FLinearColor(a3, a3, a3, a3));

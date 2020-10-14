@@ -16,22 +16,22 @@ public:
 	const bool IsCondition(const ITerrainMapAccessor *const accessor, const int& ix, const int& iy) const
 	{
 		static int start_x, end_x, start_y, end_y;
-		start_x = std::max(0, ix - 1);
-		start_y = std::max(0, iy - 1);
-		end_x = std::min(accessor->SizeX() -1, ix + 1);
-		end_y = std::min(accessor->SizeY() -1, iy + 1);
-		
-		if (accessor->PointConst(start_x, iy).Get()->GetTerrainElement() == _firstElement)
-			return true;
+		start_x = std::max(0, ix - 2);
+		start_y = std::max(0, iy - 2);
+		end_x = std::min(accessor->SizeX() - 1, ix + 1);
+		end_y = std::min(accessor->SizeY() - 1, iy + 1);
 
-		if (accessor->PointConst(end_x, iy).Get()->GetTerrainElement() == _firstElement)
-			return true;
+		for (int i = start_x; i <= end_x; i++)
+			for (int j = start_y; j <= end_y; j++)
+			{
+				if (i == ix || j == iy)
+					continue;
 
-		if (accessor->PointConst(ix, start_y).Get()->GetTerrainElement() == _firstElement)
-			return true;
+				if (accessor->PointConst(i, j).Get()->GetTerrainElement() == _firstElement)
+					return true;
+			}
 
-		if (accessor->PointConst(ix, end_y).Get()->GetTerrainElement() == _firstElement)
-			return true;
+
 
 		return false;
 	}

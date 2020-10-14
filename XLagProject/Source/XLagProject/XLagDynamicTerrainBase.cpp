@@ -281,16 +281,16 @@ void AXLagDynamicTerrainBase::InitGeometry()
 	_geometry.CreateFrom(Map, TerrainElementEnum::Cultivated);
 	GenerateLayerGeometry(Cultivated, &_geometry);
 
-	_geometry.CreateTransFrom(Map, TerrainElementEnum::GroundGrassToRockSandstoneTrans, TerrainElementEnum::GraundGrass);
+	_geometry.CreateTransFrom(Map, TerrainElementEnum::GroundGrassToRockSandstoneTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::RockSandstone);
 	GenerateLayerGeometry(GroundGrassToRockSandstone, &_geometry);
 
-	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToRockBasaltTrans, TerrainElementEnum::GraundGrass);
+	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToRockBasaltTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::RockBasalt);
 	GenerateLayerGeometry(GroundGrassToRockBasalt, &_geometry);
 
-	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToCoalTrans, TerrainElementEnum::GraundGrass);
+	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToCoalTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::Coal);
 	GenerateLayerGeometry(GroundGrassToCoal, &_geometry);
 
-	_geometry.CreateTransFrom(Map, TerrainElementEnum::RockSandstoneToRockBasaltTrans, TerrainElementEnum::RockSandstone);
+	_geometry.CreateTransFrom(Map, TerrainElementEnum::RockSandstoneToRockBasaltTrans, TerrainElementEnum::RockSandstone, TerrainElementEnum::RockBasalt);
 	GenerateLayerGeometry(RockSandstoneToRockBasalt, &_geometry);
 
 	XLagColorizeMapGeometryBuilder _colorizeMapGeometry;
