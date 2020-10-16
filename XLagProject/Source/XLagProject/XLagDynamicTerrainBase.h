@@ -112,6 +112,11 @@ public:
 	virtual void PostActorCreated() override;
 	virtual void PostLoad() override;
 
+	UPROPERTY(VisibleAnywhere)
+		bool IsActivatedColorizedMap = false;
+
+	UFUNCTION(BlueprintCallable)
+		void ActivateColorizedMap(bool activate);
 
 protected:
 	// Called when the game starts or when spawned
@@ -122,6 +127,7 @@ protected:
 
 	void InitMap();
 	void InitGeometry();
+	void InitGeometryForColorizeMap();
 	void AddGreader();
 
 	UStaticMeshComponent *Grader = nullptr;

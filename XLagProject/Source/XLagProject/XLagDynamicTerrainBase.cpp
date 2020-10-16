@@ -120,6 +120,16 @@ void AXLagDynamicTerrainBase::Tick(float DeltaTime)
 
 }
 
+void AXLagDynamicTerrainBase::ActivateColorizedMap(bool activate)
+{
+	if (activate == IsActivatedColorizedMap)
+		return;
+
+	IsActivatedColorizedMap = activate;
+	InitGeometryForColorizeMap();
+}
+
+
 void AXLagDynamicTerrainBase::InitializeLayers()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Initialize layers"));
@@ -293,8 +303,18 @@ void AXLagDynamicTerrainBase::InitGeometry()
 	_geometry.CreateTransFrom(Map, TerrainElementEnum::RockSandstoneToRockBasaltTrans, TerrainElementEnum::RockSandstone, TerrainElementEnum::RockBasalt);
 	GenerateLayerGeometry(RockSandstoneToRockBasalt, &_geometry);
 
+	InitGeometryForColorizeMap();
+}
+
+void AXLagDynamicTerrainBase::InitGeometryForColorizeMap()
+{
 	XLagColorizeMapGeometryBuilder _colorizeMapGeometry;
-	_colorizeMapGeometry.CreateColorizeMap(Map);
+
+	if (IsActivatedColorizedMap)
+	{
+		_colorizeMapGeometry.CreateColorizeMap(Map);
+	}
+	
 	GenerateLayerGeometry(ColorizeMapper, &_colorizeMapGeometry);
 }
 
