@@ -444,9 +444,6 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCFarmer.h">
       <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmCultivateTask.h">
-      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFarmerTaskFactory.h">
       <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
     </ClInclude>
@@ -464,6 +461,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCWorker.h">
       <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmPloughTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CultivateRegion.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmSowTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -573,6 +579,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCWorker.cpp">
       <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CultivateRegion.cpp">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

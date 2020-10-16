@@ -50,7 +50,10 @@ public:
 	UFUNCTION(BlueprintCallable) void CreateBuildingTask(const FXLagBuildingDescription& buildingDescription, int RequiredWorkerNumber);
 
 	// Создает задачу возделывания земли.
-	UFUNCTION(BlueprintCallable) void CreateCroplandTask(AXLagSelectComponent *select, const FXLagCropDescription crop, AXLagCropStack* stack, int RequiredWorkerNumber);
+	UFUNCTION(BlueprintCallable) void CreateCroplandTask(AXLagSelectComponent *select, int RequiredWorkerNumber);
+
+	// Создает задачу выращивание с/x культур.
+	UFUNCTION(BlueprintCallable) void CreateCultivationTask(AXLagSelectComponent *select, const FXLagCropDescription crop, AXLagCropStack* stack, int RequiredWorkerNumber);
 	
 	// Запрос на исполнение задачи со стороны npc.
 	UFUNCTION(BlueprintCallable) void ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task);

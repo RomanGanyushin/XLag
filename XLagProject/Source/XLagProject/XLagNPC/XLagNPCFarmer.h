@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "XLagNPCBase.h"
 #include "../XLagDynamicTerrain/XLagDynamicTerrainMapItem.h"
-#include "../XLagMinerals/XLagMineralManager.h"
+#include "../XLagCrops/XLagCropManager.h"
 #include "XLagNPCFarmer.generated.h"
 
 /**
@@ -17,14 +17,17 @@ class XLAGPROJECT_API AXLagNPCFarmer : public AXLagNPCBase
 public:
 	virtual void OfferAccept(UXLagTaskBase* task) override;
 
-	// Ищи минерал в клетке.
-	virtual bool Cultivate(XLagDynamicTerrainMapItem& cell, float DeltaTime);
+	// Пазхать клетку.
+	virtual bool Plough(XLagDynamicTerrainMapItem& cell, float DeltaTime);
+
+	// Сеять клетку.
+	virtual bool Sow(XLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop, float DeltaTime);
 
 	//// Добудь минерал из клетки.
 	//virtual bool ExtractMineral(XLagDynamicTerrainMapItem& cell, const FXLagMineralDesc mineral, float DeltaTime);
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Farmer Working")
-		bool  IsCultivating = false;
+		bool  IsPloughing = false;
 
 	//UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Miner Working")
 	//	bool  IsExtracting = false;
