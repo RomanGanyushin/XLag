@@ -6,10 +6,10 @@ void AXLagNPCFarmer::OfferAccept(UXLagTaskBase* task)
 }
 
 
-bool AXLagNPCFarmer::Cultivate(XLagDynamicTerrainMapItem& cell, float DeltaTime)
+bool AXLagNPCFarmer::Plough(XLagDynamicTerrainMapItem& cell, float DeltaTime)
 {
 	auto force = DeltaTime;
-	auto cultivate = force;
+	auto plough = force;
 
 	auto isComplite = false;
 	auto currentTopKind = cell.GetTopKind();
@@ -19,22 +19,26 @@ bool AXLagNPCFarmer::Cultivate(XLagDynamicTerrainMapItem& cell, float DeltaTime)
 		if (currentTopKind != TerrainElementEnum::GraundGrass) //
 		{
 			isComplite = true;
-			IsCultivating = false;
+			IsPloughing = false;
 			return true;
 		}
 		else
 		{
-			cell.Pour(cultivate, TerrainElementEnum::Cultivated);
+			cell.Pour(plough, TerrainElementEnum::Cultivated);
 		}
 	}
 	else
 	{
-		cell.Pour(cultivate, TerrainElementEnum::Cultivated);
+		cell.Pour(plough, TerrainElementEnum::Cultivated);
 	}
 
 	isComplite = cell.GetHeghtTopLevel() > 10;
-	IsCultivating = !isComplite;
+	IsPloughing = !isComplite;
 
 	return isComplite;
 }
 
+bool AXLagNPCFarmer::Sow(XLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop, float DeltaTime)
+{
+	return true;
+}

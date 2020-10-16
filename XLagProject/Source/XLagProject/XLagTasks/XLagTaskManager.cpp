@@ -12,6 +12,7 @@
 #include "XLagTask_ExtractMineralRegion.h"
 #include "XLagTask_CreateBuilding.h"
 #include "XLagTask_CreateCroplandRegion.h"
+#include "XLagTask_CultivateRegion.h"
 
 AXLagTaskManager::AXLagTaskManager()
 {
@@ -188,7 +189,26 @@ void AXLagTaskManager::CreateExtractMineralTask(AXLagSelectComponent *select, co
 	SearchAndChooseExecuters(newTask);	
 }
 
-void AXLagTaskManager::CreateCroplandTask(AXLagSelectComponent *select, const FXLagCropDescription crop, AXLagCropStack* stack, int RequiredWorkerNumber)
+void AXLagTaskManager::CreateCroplandTask(AXLagSelectComponent *select, int RequiredWorkerNumber)
+{
+	// Создает задачу.
+	auto newTask = NewObject<UXLagTask_CreateCroplandRegion>();
+	newTask->SetRegion(select->Select);
+	newTask->State = TaskStateEnum::Recruitment;
+
+	//// Планируем выполнение.
+	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
+	auto place = select->Select;
+	task->SubTasks.push(XLagFarmerTaskFactory(place).Plough());
+	newTask->NpcTask = task;
+
+	// Добавляем в стек.
+	Tasks.Add(newTask);
+
+	SearchAndChooseExecuters(newTask);
+}
+
+void AXLagTaskManager::CreateCultivationTask(AXLagSelectComponent *select, const FXLagCropDescription crop, AXLagCropStack* stack, int RequiredWorkerNumber)
 {
 	if (stack == nullptr) // Если не указано куда нести, то первый.
 	{
@@ -208,14 +228,14 @@ void AXLagTaskManager::CreateCroplandTask(AXLagSelectComponent *select, const FX
 	}
 
 	// Создает задачу.
-	auto newTask = NewObject<UXLagTask_CreateCroplandRegion>();
+	auto newTask = NewObject<UXLagTask_CultivateRegion>();
 	newTask->SetRegion(select->Select);
 	newTask->State = TaskStateEnum::Recruitment;
 
 	//// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
-	task->SubTasks.push(XLagFarmerTaskFactory(place).Cultivate());
+	task->SubTasks.push(XLagFarmerTaskFactory(place).Sow(crop));
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.
