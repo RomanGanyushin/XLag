@@ -247,10 +247,11 @@ public:
 			
 		auto currentLevel = Stack.back().GetLevel();
 		auto newLevel = currentLevel - extractedLayerHeight;
-		Stack.back().ChangeLevel(newLevel);
+		//Stack.back().ChangeLevel(newLevel);
+		Dig(extractedLayerHeight, false);
 		Changed = true;
-		
-		return extractedLayerHeight;
+
+		return extractedLayerHeight / 2;
 	}
 
 	const inline bool HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum type) const
