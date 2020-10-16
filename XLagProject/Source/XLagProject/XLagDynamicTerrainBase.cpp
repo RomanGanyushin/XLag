@@ -243,6 +243,7 @@ void AXLagDynamicTerrainBase::InitMap()
 		
 	//// Tree	
 	ResourcePlacementMapItemFilter rp_filter(TerrainElementEnum::GraundGrass);
+	//auto window = Map->CreateWindow(400, 400, 200, 200);
 	auto possiblePlace = Map->GetFilteredItems(rp_filter);
 	int placeIndexCount = possiblePlace.size();
 	UE_LOG(LogTemp, Log, TEXT("Graund Grass square %d m2"), placeIndexCount);
