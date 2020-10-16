@@ -288,6 +288,7 @@
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagLooseStackBase.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagMineralStack.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCFarmer.cpp" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCWorker.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskRegionBase.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateBuilding.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateCroplandRegion.cpp" />
@@ -324,6 +325,7 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagLooseStackBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagMineralStack.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCFarmer.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCWorker.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagBlBuildTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFarmerTaskFactory.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmCultivateTask.h" />

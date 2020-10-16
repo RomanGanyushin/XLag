@@ -462,6 +462,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagCrops\Models\XLagCropStage.h">
       <Filter>Source\XLagProject\XLagCrops\Models</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCWorker.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -567,6 +570,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagCrops\XLagCrop.cpp">
       <Filter>Source\XLagProject\XLagCrops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCWorker.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

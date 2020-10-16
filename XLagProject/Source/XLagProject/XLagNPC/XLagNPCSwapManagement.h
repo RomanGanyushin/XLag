@@ -8,6 +8,7 @@
 #include "XLagNPCBuilderman.h"
 #include "XLagNPCMiner.h"
 #include "XLagNPCFarmer.h"
+#include "XLagNPCWorker.h"
 #include "XLagCuttableTreeBase.h"
 #include "XLagTimberStack.h"
 #include "XLagMineralStack.h"
@@ -108,6 +109,24 @@ public:
 	// Амплитуда разброма толщины (процент от норамльного роста).
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Miner Params")
 		int MinerDeviationThicknessPercent = 10;
+
+// Свойства персонажа - рабочего.
+public:
+	// Шаблон рабочего.
+	UPROPERTY(EditAnywhere, Category = "Spawn Worker Params")
+		TSubclassOf<AXLagNPCWorker> WorkerTemplate;
+
+	// Количество рабочих на старте игры. 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Worker Params")
+		int StartWorkerCount = 2;
+
+	// Амплитуда разброса роста (процент от норамльного роста).
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Worker Params")
+		int WorkerDeviationHeightPercent = 30;
+
+	// Амплитуда разброма толщины (процент от норамльного роста).
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Worker Params")
+		int WorkerDeviationThicknessPercent = 10;
 
 // Свойства персонажа - фермер.
 public:

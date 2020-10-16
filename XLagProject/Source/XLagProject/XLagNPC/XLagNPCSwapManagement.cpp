@@ -82,6 +82,21 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 		}
 	}
 
+	if (WorkerTemplate != nullptr)
+	{
+		for (int i = 0; i < StartWorkerCount; i++)
+		{
+			auto locator = RandomizeZeroPlacePosition(MapAccessor).Get() + FVector(0, 0, 200);
+			auto worker = GetWorld()->SpawnActor<AXLagNPCWorker>(WorkerTemplate, locator, FRotator::ZeroRotator);
+
+			if (worker == nullptr)
+				continue;
+
+			auto scaleVector = CalculatePersonScale(WorkerDeviationHeightPercent, WorkerDeviationThicknessPercent);
+			worker->SetActorScale3D(scaleVector);
+		}
+	}
+
 	if (OperationSelectionTemplate != nullptr)
 	{
 		auto selection = GetWorld()->SpawnActor<AXLagSelectComponent>(OperationSelectionTemplate, FVector::ZeroVector, FRotator::ZeroRotator);
