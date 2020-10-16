@@ -432,9 +432,6 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagBlBuildTask.h">
       <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagCrops\Models\XLagCropDesc.h">
-      <Filter>Source\XLagProject\XLagCrops\Models</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagCropStack.h">
       <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClInclude>
@@ -452,6 +449,18 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFarmerTaskFactory.h">
       <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagCrops\Models\XLagCropDescription.h">
+      <Filter>Source\XLagProject\XLagCrops\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagCrops\XLagCropManager.h">
+      <Filter>Source\XLagProject\XLagCrops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagCrops\XLagCrop.h">
+      <Filter>Source\XLagProject\XLagCrops</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagCrops\Models\XLagCropStage.h">
+      <Filter>Source\XLagProject\XLagCrops\Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -552,6 +561,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCFarmer.cpp">
       <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagCrops\XLagCropManager.cpp">
+      <Filter>Source\XLagProject\XLagCrops</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagCrops\XLagCrop.cpp">
+      <Filter>Source\XLagProject\XLagCrops</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

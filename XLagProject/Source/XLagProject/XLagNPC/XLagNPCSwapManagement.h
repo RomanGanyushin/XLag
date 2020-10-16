@@ -48,7 +48,7 @@ public:
 	void DoSwapTrees();
 	void DoSwapTreeStack();
 	AXLagMineralStack* DoSwapMineralStack(const FXLagMineralDesc& mineral);
-	AXLagCropStack* DoSwapCropStack(const FXLagCropDesc& crop);
+	AXLagCropStack* DoSwapCropStack(const FXLagCropDescription& crop);
 	AXLagBuilding *DoSwapBuilding();
 
 public:	

@@ -188,7 +188,7 @@ void AXLagTaskManager::CreateExtractMineralTask(AXLagSelectComponent *select, co
 	SearchAndChooseExecuters(newTask);	
 }
 
-void AXLagTaskManager::CreateCroplandTask(AXLagSelectComponent *select, const FXLagCropDesc crop, AXLagCropStack* stack, int RequiredWorkerNumber)
+void AXLagTaskManager::CreateCroplandTask(AXLagSelectComponent *select, const FXLagCropDescription crop, AXLagCropStack* stack, int RequiredWorkerNumber)
 {
 	if (stack == nullptr) // Если не указано куда нести, то первый.
 	{

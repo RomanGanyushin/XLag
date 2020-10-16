@@ -3,7 +3,7 @@
 #include "XLagTaskBase.h"
 #include "../Common/GroundAlignTypeEnum.h"
 #include "../XLagMinerals/Models/XLagMineralDesc.h"
-#include "../XLagCrops/Models/XLagCropDesc.h"
+#include "../XLagCrops/Models/XLagCropDescription.h"
 #include "../XLagBuildings/XLagBuildingDescription.h"
 
 #include "XLagTaskManager.generated.h"
@@ -50,7 +50,7 @@ public:
 	UFUNCTION(BlueprintCallable) void CreateBuildingTask(const FXLagBuildingDescription& buildingDescription, int RequiredWorkerNumber);
 
 	// Создает задачу возделывания земли.
-	UFUNCTION(BlueprintCallable) void CreateCroplandTask(AXLagSelectComponent *select, const FXLagCropDesc crop, AXLagCropStack* stack, int RequiredWorkerNumber);
+	UFUNCTION(BlueprintCallable) void CreateCroplandTask(AXLagSelectComponent *select, const FXLagCropDescription crop, AXLagCropStack* stack, int RequiredWorkerNumber);
 	
 	// Запрос на исполнение задачи со стороны npc.
 	UFUNCTION(BlueprintCallable) void ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task);

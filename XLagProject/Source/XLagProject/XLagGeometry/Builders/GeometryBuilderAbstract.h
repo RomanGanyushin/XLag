@@ -18,6 +18,8 @@ public:
 	// Массив описыващий цвета вершин.
 	TArray<FLinearColor> Colors;
 
+	float UVScale = 400.0;
+
 public:
 	// Виртуальный деструктор.
 	virtual ~GeometryBuilderAbstract() = default;

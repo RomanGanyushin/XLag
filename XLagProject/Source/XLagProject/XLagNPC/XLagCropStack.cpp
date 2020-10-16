@@ -1,6 +1,6 @@
 #include "XLagCropStack.h"
 
-void AXLagCropStack::Initialize(const FXLagCropDesc& crop, const int sizeX, const int sizeY)
+void AXLagCropStack::Initialize(const FXLagCropDescription& crop, const int sizeX, const int sizeY)
 {
 	ContentCrop = crop;
 	SizeX = sizeX;

@@ -142,7 +142,7 @@ AXLagMineralStack* AXLagNPCSwapManagement::DoSwapMineralStack(const FXLagMineral
 	return stack;
 }
 
-AXLagCropStack* AXLagNPCSwapManagement::DoSwapCropStack(const FXLagCropDesc& crop)
+AXLagCropStack* AXLagNPCSwapManagement::DoSwapCropStack(const FXLagCropDescription& crop)
 {
 	auto locator = RandomizeZeroPlacePosition(MapAccessor).Get();
 	auto stack = GetWorld()->SpawnActor<AXLagCropStack>(CropStackTemplate, locator, FRotator::ZeroRotator);
