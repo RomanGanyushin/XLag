@@ -1,5 +1,7 @@
 /// Fill out your copyright notice in the Description page of Project Settings.
 
+#include <random>
+#include <ctime>
 #include "XLagDynamicTerrainBase.h"
 #include "ProceduralMeshComponent.h"
 #include "XLagDynamicTerrain\XLagDynamicTerrainMapFiller.hpp"
@@ -261,7 +263,10 @@ void AXLagDynamicTerrainBase::InitMap()
 	if (totalTreeCount > 0)
 	{
 		std::vector<int> randomizeVector(totalTreeCount);
-		std::generate(randomizeVector.begin(), randomizeVector.end(), [placeIndexCount]() mutable {return rand() % placeIndexCount; });
+		std::mt19937 engine;
+		engine.seed(std::time(nullptr));
+
+		std::generate(randomizeVector.begin(), randomizeVector.end(), [engine, placeIndexCount]() mutable {return engine() % placeIndexCount; });
 
 		for(auto index : randomizeVector)
 		{
