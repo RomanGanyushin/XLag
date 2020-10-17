@@ -160,8 +160,12 @@ void AXLagDynamicTerrainBase::InitializeLayers()
 	GroundGrassToCoal = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GroundGrassToCoal"));
 	GroundGrassToCoal->SetupAttachment(TerrainScene);
 
+	GroundGrassToCultivated = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("GroundGrassToCultivated"));
+	GroundGrassToCultivated->SetupAttachment(TerrainScene);
+
 	RockSandstoneToRockBasalt = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("RockSandstoneToRockBasalt"));
 	RockSandstoneToRockBasalt->SetupAttachment(TerrainScene);
+
 
 	ColorizeMapper = CreateDefaultSubobject<UProceduralMeshComponent>(TEXT("ColorizeMapper"));
 	ColorizeMapper->SetupAttachment(TerrainScene);
@@ -304,6 +308,10 @@ void AXLagDynamicTerrainBase::InitGeometry()
 
 	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToCoalTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::Coal);
 	GenerateLayerGeometry(GroundGrassToCoal, &_geometry);
+
+	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToCultivatedTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::Cultivated);
+	GenerateLayerGeometry(GroundGrassToCultivated, &_geometry);
+
 
 	_geometry.CreateTransFrom(Map, TerrainElementEnum::RockSandstoneToRockBasaltTrans, TerrainElementEnum::RockSandstone, TerrainElementEnum::RockBasalt);
 	GenerateLayerGeometry(RockSandstoneToRockBasalt, &_geometry);

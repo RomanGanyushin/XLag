@@ -12,6 +12,7 @@ enum TerrainElementEnum
 	GroundGrassToRockSandstoneTrans,
 	GrondGrassToRockBasaltTrans,
 	GrondGrassToCoalTrans,
+	GrondGrassToCultivatedTrans,
 
 	// Песок.
 	RockSandstone UMETA(DisplayName = "Rock Sandstone"),
@@ -53,6 +54,12 @@ public:
 			|| (elem2 == TerrainElementEnum::GraundGrass && elem1 == TerrainElementEnum::Coal))
 		{
 			return TerrainElementEnum::GrondGrassToCoalTrans;
+		}
+
+		if ((elem1 == TerrainElementEnum::GraundGrass && elem2 == TerrainElementEnum::Cultivated)
+			|| (elem2 == TerrainElementEnum::GraundGrass && elem1 == TerrainElementEnum::Cultivated))
+		{
+			return TerrainElementEnum::GrondGrassToCultivatedTrans;
 		}
 
 		if ((elem1 == TerrainElementEnum::RockSandstone && elem2 == TerrainElementEnum::RockBasalt)
