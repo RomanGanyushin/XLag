@@ -251,7 +251,7 @@ public:
 		Dig(extractedLayerHeight, false);
 		Changed = true;
 
-		return extractedLayerHeight / 2;
+		return extractedLayerHeight / 2; // Заиспользовать настройки.
 	}
 
 	const inline bool HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum type) const
