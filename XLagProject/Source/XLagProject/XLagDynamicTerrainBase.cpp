@@ -305,7 +305,7 @@ void AXLagDynamicTerrainBase::InitGeometry()
 
 	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToRockBasaltTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::RockBasalt);
 	GenerateLayerGeometry(GroundGrassToRockBasalt, &_geometry);
-
+	
 	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToCoalTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::Coal);
 	GenerateLayerGeometry(GroundGrassToCoal, &_geometry);
 

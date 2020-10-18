@@ -23,23 +23,19 @@ public:
 	// Сеять клетку.
 	virtual bool Sow(XLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop, float DeltaTime);
 
-	//// Добудь минерал из клетки.
-	//virtual bool ExtractMineral(XLagDynamicTerrainMapItem& cell, const FXLagMineralDesc mineral, float DeltaTime);
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Farmer Working")
 		bool  IsPloughing = false;
 
-	//UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Miner Working")
-	//	bool  IsExtracting = false;
-
-	//// Объем добытого минерала.
-	//UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Miner Working")
-	//	float  ExtractedMineralQuantity = 0.0f;
-
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Farmer Working")
+		bool  IsSowing = false;
 
 private:
 	virtual ProfessionTypeEnum GetCurrentProfession() override { return ProfessionTypeEnum::Farmer; }
 	virtual bool CanConfirmTask(UXLagTaskBase* task) override { return true; }
+
+private:
+	bool ValidateCell(XLagDynamicTerrainMapItem& cell);
 
 //private:
 //	inline AXLagMineralManager* GetMineralManager()

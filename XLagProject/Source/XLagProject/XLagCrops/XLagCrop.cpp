@@ -7,23 +7,24 @@ AXLagCrop::AXLagCrop()
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 }
 
+void AXLagCrop::Initialize(FXLagCropDescription description)
+{
+	Description = description;
+}
+
+bool AXLagCrop::IsVaild() const
+{
+	return Description.CropStages.Num() > 0;
+}
+
 void AXLagCrop::BeginPlay()
 {
 	Super::BeginPlay();
-	 
-	auto currentStage = GetCurrentStage();
-	if (currentStage == nullptr)
-		return;
-
-	UpdateView();
 }
 
 void AXLagCrop::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (CurrentMeshComponent == nullptr)
-		return;
 
 	LocalTime += 0.0001;
 	UpdateView();
@@ -31,6 +32,9 @@ void AXLagCrop::Tick(float DeltaTime)
 
 void AXLagCrop::UpdateView()
 {
+	if (!IsVaild())
+		return;
+
 	if (CurrentMeshComponent == nullptr)
 	{
 		CreateStageView();
@@ -91,7 +95,7 @@ float AXLagCrop::GetLocalStageTime() const
 	auto result = LocalTime;
 	for (auto& it : Description.CropStages)
 	{
-		if (it.StageLifeTime > result)
+		if (it.StageLifeTime <= result)
 		{
 			result -= it.StageLifeTime;
 		}

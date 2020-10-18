@@ -24,6 +24,8 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 		float LocalTime = 0;
 
+	void Initialize(FXLagCropDescription description);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -32,6 +34,7 @@ protected:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	bool IsVaild() const;
 	const FXLagCropStage* GetCurrentStage() const;
 	void UpdateView();
 	void UpdateStageView();

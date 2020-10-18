@@ -166,6 +166,15 @@ AXLagCropStack* AXLagNPCSwapManagement::DoSwapCropStack(const FXLagCropDescripti
 	return stack;
 }
 
+AXLagCrop* AXLagNPCSwapManagement::DoSwapCrop(XLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop)
+{
+	auto locator = MapAccessor->GetWorldPosition(&cell, GetPositionEnum::CenterHeghtPosition);
+	auto newCrop = GetWorld()->SpawnActor<AXLagCrop>(CropTemplate, locator, FRotator::ZeroRotator);
+	newCrop->Initialize(crop);
+	//SwapedCrops.Add(newCrop);
+	return newCrop;
+}
+
 // Called every frame
 void AXLagNPCSwapManagement::Tick(float DeltaTime)
 {

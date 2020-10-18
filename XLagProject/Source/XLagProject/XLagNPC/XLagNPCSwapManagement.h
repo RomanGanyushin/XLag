@@ -16,6 +16,7 @@
 #include "../XLagSelect/XLagSelectComponent.h"
 #include "../XLagBuildings/XLagBuilding.h"
 #include "../Common/ITerrainMapAccessor.h"
+#include "../XLagCrops/XLagCrop.h"
 #include "XLagNPCSwapManagement.generated.h"
 
 UCLASS()
@@ -50,6 +51,7 @@ public:
 	void DoSwapTreeStack();
 	AXLagMineralStack* DoSwapMineralStack(const FXLagMineralDesc& mineral);
 	AXLagCropStack* DoSwapCropStack(const FXLagCropDescription& crop);
+	AXLagCrop* DoSwapCrop(XLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop);
 	AXLagBuilding *DoSwapBuilding();
 
 public:	
@@ -165,6 +167,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Trees Params")
 	int MaximalCount = 50;
 
+// Свойства высадки урожая
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Crops Params")
+		TSubclassOf<AXLagCrop> CropTemplate;
+	
 public:
 
 	// Шаблон штабеля бревен.

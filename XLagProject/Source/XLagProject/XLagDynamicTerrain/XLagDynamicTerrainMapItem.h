@@ -18,15 +18,15 @@ public:
 		_id = id_counter++;
 	}
 
+	// Время затраченнное на операцию над клеткой.
+	std::map<int, float> OperationTimeMap;
+
 private:
 	std::vector<XLagDynamicTerrainMapItemLayer>  Stack;
 
 	// Время затраченного на поиск ресурса.
 	std::map<int, float> _resurceSearchTimeMap;
 
-	// Время затраченнное на добычу ресурса.
-	std::map<int, float> _resurceExtractTimeMap;
-	
 	// Идентификатор клетки.	
 	long _id;
 public:
