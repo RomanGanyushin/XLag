@@ -36,8 +36,8 @@ public:
 				auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
 				
 
-				result->SubTasks.push(MoveTo(pos));
-				result->SubTasks.push(Search(i, j, mineral));				
+				result->SubTasks.push_back(MoveTo(pos));
+				result->SubTasks.push_back(Search(i, j, mineral));				
 			}
 
 		return result;
@@ -54,10 +54,10 @@ public:
 				auto thisPoint = Place->Point(i, j);
 				auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
 
-				result->SubTasks.push(MoveTo(pos));
-				result->SubTasks.push(Extract(i, j, mineral));
-				result->SubTasks.push(MoveTo(stack->GetActorLocation()));
-				result->SubTasks.push(Discharge(stack));
+				result->SubTasks.push_back(MoveTo(pos));
+				result->SubTasks.push_back(Extract(i, j, mineral));
+				result->SubTasks.push_back(MoveTo(stack->GetActorLocation()));
+				result->SubTasks.push_back(Discharge(stack));
 			}
 
 		return result;

@@ -1,33 +1,39 @@
 #pragma once
 #include <queue>
 #include "memory"
-
-//#define ENABLE_TASK_LOG
+#include "XLagNPCTaskContext.h"
 
 class XLagNPCTaskBase
 {
 public:
 	virtual ~XLagNPCTaskBase() = default;
 public:
-	virtual void Execute(ACharacter *npc, float DeltaTime)
+	virtual void Execute(ACharacter *npc, XLagNPCTaskContext* context, float DeltaTime, int subLevel = 0)
 	{
-		if (SubTasks.empty())
+		if (IsSuccess(context, subLevel))
 			return;
 
-		SubTasks.front()->Execute(npc, DeltaTime);
+		auto subTaskIndex = context->IndexForSubLevel(subLevel);
+		SubTasks[subTaskIndex]->Execute(npc, context, DeltaTime, subLevel + 1);
 
-		if (SubTasks.front()->IsSuccess())
+		if (SubTasks[subTaskIndex]->IsSuccess(context, subLevel + 1))
 		{
-			SubTasks.pop();
-
-#ifdef ENABLE_TASK_LOG
-			UE_LOG(LogTemp, Log, TEXT("XLagNPCTaskBase: SubTasks Complite"));
-#endif
-		}
+			context->IncrementForSubLevel(subLevel);
+		}  
 	}
-	virtual bool IsSuccess() { return SubTasks.empty(); }
+
+	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel)
+	{ 
+		auto subTaskIndex = context->IndexForSubLevel(subLevel);
+		return subTaskIndex >= SubTasks.size();
+	}
+
 	virtual bool IsFail() { return false; }
 
+	virtual bool IsNpcRequire() { return true; }
+
+	virtual bool IsAwait() { return false; }
+
 public:
-	std::queue<std::shared_ptr<XLagNPCTaskBase>> SubTasks;
+	std::vector<std::shared_ptr<XLagNPCTaskBase>> SubTasks;
 };

@@ -24,12 +24,12 @@ public:
 	std::shared_ptr<XLagNPCTaskBase> BringTreeTaskCreate(AXLagCuttableTreeBase* tree, AXLagTimberStack *stack)
 	{
 		auto result = std::make_shared<XLagNPCTaskBase>();
-		result->SubTasks.push(MoveTo(tree->GetActorLocation()));
-		result->SubTasks.push(CutTree(tree));
-		result->SubTasks.push(BroachTree(tree));
-		result->SubTasks.push(GetTree(tree));
-		result->SubTasks.push(MoveTo(FVector(5000, 5000, 0)));
-		result->SubTasks.push(PutTree(tree, stack));
+		result->SubTasks.push_back(MoveTo(tree->GetActorLocation()));
+		result->SubTasks.push_back(CutTree(tree));
+		result->SubTasks.push_back(BroachTree(tree));
+		result->SubTasks.push_back(GetTree(tree));
+		result->SubTasks.push_back(MoveTo(FVector(5000, 5000, 0)));
+		result->SubTasks.push_back(PutTree(tree, stack));
 		return result;
 	}
 

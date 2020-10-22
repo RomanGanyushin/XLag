@@ -1,12 +1,13 @@
 /// Fill out your copyright notice in the Description page of Project Settings.
 
+#include "XLagDynamicTerrainBase.h"
 #include <random>
 #include <ctime>
-#include "XLagDynamicTerrainBase.h"
 #include "ProceduralMeshComponent.h"
 #include "XLagDynamicTerrain\XLagDynamicTerrainMapFiller.hpp"
 
 #include "Common\TerrainElementEnum.h"
+#include "Common\CellOperationProcessing.h"
 #include "XLagDynamicTerrain\MapBuilder\TerrainMapEditEditor.h"
 #include "XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.h"
 #include "XLagDynamicTerrain\MapBuilder\Components\AligmentEditComponent.h"
@@ -103,6 +104,26 @@ void AXLagDynamicTerrainBase::BeginPlay()
 void AXLagDynamicTerrainBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	/// Рост
+	for (int x = 0; x < Map->SizeX(); x++)
+		for (int y = 0; y < Map->SizeX(); y++)
+		{
+			auto& cell = Map->Point(x, y);
+			if (cell.HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum::Crop))
+			{
+				CellOperationProcessing evolution(&cell, CellOperationEnum::Evolution);
+				evolution.Increase(DeltaTime);
+
+				if (evolution.IsCompleting())
+				{
+					CellOperationProcessing cropQuantity(&cell, CellOperationEnum::CropQuantity);
+					cropQuantity.Set(5);
+				}
+				
+			}
+		}
+	///
 
 	float static UpdateDelayConter = 0;
 

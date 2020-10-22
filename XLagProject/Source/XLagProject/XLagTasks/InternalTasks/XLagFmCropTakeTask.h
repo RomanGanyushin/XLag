@@ -1,14 +1,13 @@
 #pragma once
-
 #include "XLagNPCTaskBase.h"
-#include "../../XLagNPC/XLagNPCFarmer.h"
 #include "../../Common/ITerrainMapAccessor.h"
+#include "../../XLagNPC/XLagNPCFarmer.h"
 
-class XLagFmSowTask : public XLagNPCTaskBase
+class XLagFmCropTakeTask : public XLagNPCTaskBase
 {
 public:
-	XLagFmSowTask(std::shared_ptr<ITerrainMapAccessor> map, int x, int y, const FXLagCropDescription crop)
-		:Map(map), X(x), Y(y), Crop(crop)
+	XLagFmCropTakeTask(std::shared_ptr<ITerrainMapAccessor> map, int x, int y)
+		:Map(map), X(x), Y(y)
 	{
 	}
 
@@ -24,21 +23,23 @@ public:
 			return;
 		}
 
-		XLagDynamicTerrainMapItem& mapCell = Map->Point(X, Y);
+		auto& mapCell = Map->Point(X, Y);
+		auto isFinished = farmer->TakeCrop(mapCell, DeltaTime);
 
-		auto isFinished = farmer->Sow(mapCell, Crop, DeltaTime);
 		if (isFinished)
 		{
 			Completed = true;
 		}
 	}
 
-	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override { return Completed; }
-	bool Completed = false;
+	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override
+	{
+		return Completed;
+	}
 
 private:
+	bool Completed = false;
 	std::shared_ptr<ITerrainMapAccessor> Map;
 	int X;
 	int Y;
-	FXLagCropDescription Crop;
 };

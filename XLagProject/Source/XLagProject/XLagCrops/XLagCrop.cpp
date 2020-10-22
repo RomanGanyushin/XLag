@@ -1,4 +1,5 @@
 #include "XLagCrop.h"
+#include "../Common/CellOperationProcessing.h"
 
 AXLagCrop::AXLagCrop()
 {
@@ -7,9 +8,10 @@ AXLagCrop::AXLagCrop()
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 }
 
-void AXLagCrop::Initialize(FXLagCropDescription description)
+void AXLagCrop::Initialize(XLagDynamicTerrainMapItem* cell, FXLagCropDescription description)
 {
 	Description = description;
+	Cell = cell;
 }
 
 bool AXLagCrop::IsVaild() const
@@ -26,7 +28,8 @@ void AXLagCrop::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	LocalTime += 0.0001;
+	CellOperationProcessing operation(Cell, CellOperationEnum::Evolution);
+	LocalTime = operation.Get() / 100.0;
 	UpdateView();
 }
 

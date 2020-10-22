@@ -48,8 +48,8 @@ public:
 					if (pos.Z < current_lev)
 						continue;
 
-					result->SubTasks.push(MoveTo(pos));
-					result->SubTasks.push(Dig(i, j, current_lev, false));
+					result->SubTasks.push_back(MoveTo(pos));
+					result->SubTasks.push_back(Dig(i, j, current_lev, false));
 				}
 
 		return result;
@@ -85,8 +85,8 @@ public:
 						current_lev = maximalVector.Z;
 					}*/
 
-					result->SubTasks.push(MoveTo(pos));
-					result->SubTasks.push(Pour(i, j, current_lev, element));
+					result->SubTasks.push_back(MoveTo(pos));
+					result->SubTasks.push_back(Pour(i, j, current_lev, element));
 				}
 
 		return result;
@@ -109,8 +109,8 @@ public:
 					auto current_lev = minimalVector.Z - maxSlice * n;
 					auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
 
-					result->SubTasks.push(MoveTo(pos));
-					result->SubTasks.push(Dig(i, j, current_lev, false));
+					result->SubTasks.push_back(MoveTo(pos));
+					result->SubTasks.push_back(Dig(i, j, current_lev, false));
 				}
 
 		return result;
@@ -133,8 +133,8 @@ public:
 					auto current_lev = maximalVector.Z + maxSlice * n;
 					auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
 
-					result->SubTasks.push(MoveTo(pos));
-					result->SubTasks.push(Pour(i, j, current_lev, element));
+					result->SubTasks.push_back(MoveTo(pos));
+					result->SubTasks.push_back(Pour(i, j, current_lev, element));
 				}
 
 		return result;
@@ -170,8 +170,8 @@ public:
 					auto current_lev = thisPoint.GetTopLevel() - lh;
 					auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
 
-					result->SubTasks.push(MoveTo(pos));
-					result->SubTasks.push(Dig(i, j, current_lev, true));
+					result->SubTasks.push_back(MoveTo(pos));
+					result->SubTasks.push_back(Dig(i, j, current_lev, true));
 
 					repeat = true;
 				}
@@ -185,8 +185,8 @@ public:
 		auto result = std::make_shared<XLagNPCTaskBase>();
 		auto pos = building->GetActorLocation();
 
-		result->SubTasks.push(MoveTo(pos));
-		result->SubTasks.push(std::shared_ptr<XLagNPCTaskBase>(new XLagBlBuildTask(building)));
+		result->SubTasks.push_back(MoveTo(pos));
+		result->SubTasks.push_back(std::shared_ptr<XLagNPCTaskBase>(new XLagBlBuildTask(building)));
 		return result;
 	}
 

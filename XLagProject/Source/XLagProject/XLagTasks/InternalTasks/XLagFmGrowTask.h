@@ -1,14 +1,13 @@
 #pragma once
-
 #include "XLagNPCTaskBase.h"
 #include "../../XLagNPC/XLagNPCFarmer.h"
 #include "../../Common/ITerrainMapAccessor.h"
 
-class XLagFmSowTask : public XLagNPCTaskBase
+class XLagFmGrowTask : public XLagNPCTaskBase
 {
 public:
-	XLagFmSowTask(std::shared_ptr<ITerrainMapAccessor> map, int x, int y, const FXLagCropDescription crop)
-		:Map(map), X(x), Y(y), Crop(crop)
+	XLagFmGrowTask(std::shared_ptr<ITerrainMapAccessor> map, int x, int y)
+		:Map(map), X(x), Y(y)
 	{
 	}
 
@@ -20,13 +19,13 @@ public:
 		auto farmer = dynamic_cast<AXLagNPCFarmer*>(npc);
 		if (farmer == nullptr)
 		{
-			UE_LOG(LogTemp, Log, TEXT("XLagFmCropTask::Execute npc not Farmer"));
+			UE_LOG(LogTemp, Log, TEXT("XLagFmCultivateTask::Execute npc not Farmer"));
 			return;
 		}
 
 		XLagDynamicTerrainMapItem& mapCell = Map->Point(X, Y);
 
-		auto isFinished = farmer->Sow(mapCell, Crop, DeltaTime);
+		auto isFinished = farmer->Grow(mapCell, DeltaTime);
 		if (isFinished)
 		{
 			Completed = true;
@@ -40,5 +39,4 @@ private:
 	std::shared_ptr<ITerrainMapAccessor> Map;
 	int X;
 	int Y;
-	FXLagCropDescription Crop;
 };

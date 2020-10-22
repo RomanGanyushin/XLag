@@ -7,6 +7,7 @@
 #include "XLagDynamicTerrainMapItemLayer.h"
 #include "../Common/OnSurfaceResourceObjectsEnum.h"
 #include "../Common/TerrainElementEnum.h"
+#include "../Common/CellOperationEnum.h"
 #include "../XLagMinerals/Models/XLagMineralDesc.h"
 
 class XLagDynamicTerrainMapItem
@@ -19,7 +20,7 @@ public:
 	}
 
 	// Время затраченнное на операцию над клеткой.
-	std::map<int, float> OperationTimeMap;
+	std::map<CellOperationEnum, float> OperationTimeMap;
 
 private:
 	std::vector<XLagDynamicTerrainMapItemLayer>  Stack;

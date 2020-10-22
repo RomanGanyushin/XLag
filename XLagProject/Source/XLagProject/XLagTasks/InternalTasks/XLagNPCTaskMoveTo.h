@@ -6,13 +6,10 @@ class XLagNPCTaskMoveTo : public XLagNPCTaskBase
 public:
 	XLagNPCTaskMoveTo(const FVector& locator, float sufficientDistance, float deadlineTime = 1e10f)
 		:TargetLocation(locator), SufficientDistance(sufficientDistance), DeadlineTime(deadlineTime)
-	{
-		#ifdef ENABLE_TASK_LOG
-		UE_LOG(LogTemp, Log, TEXT("Create task: MoveTo (%f,%f,%f)"), locator.X, locator.Y, locator.Z);
-		#endif
+	{		
 	}
 
-	virtual void Execute(ACharacter *npc, float DeltaTime) override
+	virtual void Execute(ACharacter *npc, XLagNPCTaskContext* context, float DeltaTime, int subLevel) override
 	{
 		auto npcLocation = npc->GetActorLocation();
 		auto toMove = TargetLocation - npcLocation; toMove.Z = 0;
@@ -49,7 +46,7 @@ public:
 		#endif
 	}
 
-	virtual bool IsSuccess() override { return Completed; }
+	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override { return Completed; }
 
 	const FVector TargetLocation;
 	const float SufficientDistance;

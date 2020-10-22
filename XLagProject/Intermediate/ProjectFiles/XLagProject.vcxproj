@@ -298,6 +298,8 @@
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateGroundAlign.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_ExtractMineralRegion.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_SearchMineralRegion.cpp" />
+    <ClInclude Include="..\..\Source\XLagProject\Common\CellOperationEnum.h" />
+    <ClInclude Include="..\..\Source\XLagProject\Common\CellOperationProcessing.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingDescription.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingManager.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagCrops\Models\XLagCropDescription.h" />
@@ -329,11 +331,18 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCWorker.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagBlBuildTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFarmerTaskFactory.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmCropTakeTask.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmCropWaitTask.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmDischargeCropTask.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmGrowTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmSowTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmPloughTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiDischargeMineralTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiExtractMineralTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiSearchMineralTask.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCTaskContext.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCTaskDelay.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagTaskFactoryBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CultivateRegion.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateCroplandRegion.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateBuilding.h" />

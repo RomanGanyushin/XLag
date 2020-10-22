@@ -72,5 +72,6 @@ private:
 private:
 	void SearchAndChooseExecuters();
 	void SearchAndChooseExecuters(UXLagTaskBase* task);
+	void FreeTask(UXLagTaskBase* task);
 
 };

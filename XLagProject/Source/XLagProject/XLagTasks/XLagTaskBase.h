@@ -3,6 +3,7 @@
 #include "TaskStateEnum.h"
 #include "../XLagSelect/XLagSelectComponent.h"
 #include "InternalTasks/XLagNPCTaskBase.h"
+#include "InternalTasks/XLagNPCTaskContext.h"
 #include "../XLagNPC/XLagNPCBase.h"
 #include "../Common/ProfessionTypeEnum.h"
 #include "XLagTaskBase.generated.h"
@@ -23,4 +24,10 @@ public:
 
 public:
 	std::shared_ptr<XLagNPCTaskBase> NpcTask;
+	XLagNPCTaskContext TaskContext;
+public:
+	bool CheckForNpcRequire();
+	bool CheckForAwait();
+private:
+	std::shared_ptr<XLagNPCTaskBase> GetCurrentSubTask();
 };

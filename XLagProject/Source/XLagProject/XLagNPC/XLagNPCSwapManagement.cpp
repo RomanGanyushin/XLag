@@ -170,7 +170,7 @@ AXLagCrop* AXLagNPCSwapManagement::DoSwapCrop(XLagDynamicTerrainMapItem& cell, c
 {
 	auto locator = MapAccessor->GetWorldPosition(&cell, GetPositionEnum::CenterHeghtPosition);
 	auto newCrop = GetWorld()->SpawnActor<AXLagCrop>(CropTemplate, locator, FRotator::ZeroRotator);
-	newCrop->Initialize(crop);
+	newCrop->Initialize(&cell, crop);
 	//SwapedCrops.Add(newCrop);
 	return newCrop;
 }

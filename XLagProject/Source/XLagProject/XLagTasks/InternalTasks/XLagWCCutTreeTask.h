@@ -13,7 +13,7 @@ public:
 
 	}
 
-	virtual void Execute(ACharacter *npc, float DeltaTime) override
+	virtual void Execute(ACharacter *npc, XLagNPCTaskContext* context, float DeltaTime, int subLevel) override
 	{
 		if (Completed)
 			return;
@@ -38,7 +38,7 @@ public:
 		}	
 	}
 
-	virtual bool IsSuccess() override { return Completed; }
+	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override { return Completed; }
 
 	AXLagCuttableTreeBase* Tree;
 	bool Completed = false;

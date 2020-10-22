@@ -1,6 +1,7 @@
 #pragma once
 #include "GameFramework/Actor.h"
 #include "Models/XLagCropDescription.h"
+#include "../XLagDynamicTerrain/XLagDynamicTerrainMapItem.h"
 #include "XLagCrop.generated.h"
 
 UCLASS()
@@ -24,7 +25,7 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 		float LocalTime = 0;
 
-	void Initialize(FXLagCropDescription description);
+	void Initialize(XLagDynamicTerrainMapItem* cell, FXLagCropDescription description);
 
 protected:
 	// Called when the game starts or when spawned
@@ -36,6 +37,7 @@ protected:
 private:
 	bool IsVaild() const;
 	const FXLagCropStage* GetCurrentStage() const;
+	XLagDynamicTerrainMapItem* Cell;
 	void UpdateView();
 	void UpdateStageView();
 	void NextStage();

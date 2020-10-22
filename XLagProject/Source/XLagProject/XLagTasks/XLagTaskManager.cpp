@@ -23,33 +23,46 @@ void AXLagTaskManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	auto IsSomeNpcReleased = false;
-
+	
 	for (auto& it : Tasks)
 	{
-		if (it->State != TaskStateEnum::InProgess)
+		if (it->State != TaskStateEnum::InProgess && it->State != TaskStateEnum::Waiting)
 			continue;
 
-		for (auto &e : it->Executers)
+		auto isTaskAwait = it->CheckForAwait();
+		auto isNpcRequireTask = it->CheckForNpcRequire();
+
+
+		if (isTaskAwait && it->State != TaskStateEnum::Waiting)
 		{
-			it->NpcTask->Execute(e, DeltaTime);
+			FreeTask(it);
+			it->State = TaskStateEnum::Waiting;
+		}
+		else if(isNpcRequireTask && it->State == TaskStateEnum::Waiting)
+		{
+			it->State = TaskStateEnum::Recruitment;
 		}
 
-		if (it->NpcTask->IsSuccess())
+		if (isNpcRequireTask)
 		{
 			for (auto &e : it->Executers)
 			{
-				e->FreeOf(it);
-				it->State = TaskStateEnum::Done;
-				IsSomeNpcReleased = true;
+				it->NpcTask->Execute(e, &it->TaskContext, DeltaTime);
 			}
 		}
-	}
+		else
+		{
+			it->NpcTask->Execute(nullptr, &it->TaskContext, DeltaTime);
+		}
 
-	if (IsSomeNpcReleased)
-	{
-		SearchAndChooseExecuters();
+		if (it->NpcTask->IsSuccess(&it->TaskContext, 0))
+		{
+			FreeTask(it);
+			it->State = TaskStateEnum::Done;			
+		}
 	}
+	
+	SearchAndChooseExecuters();	
 }
 
 void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, GroundAlignTypeEnum type, TerrainElementEnum pourElement, float zParameter, int RequiredWorkerNumber)
@@ -67,22 +80,22 @@ void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, Groun
 	{
 		case Diging:
 		{
-			task->SubTasks.push(XLagBuilderTaskFactory(place).AlignDigPlace());
+			task->SubTasks.push_back(XLagBuilderTaskFactory(place).AlignDigPlace());
 
 			if (zParameter != 0.0f)
 			{
-				task->SubTasks.push(XLagBuilderTaskFactory(place).DigPlace(zParameter));
+				task->SubTasks.push_back(XLagBuilderTaskFactory(place).DigPlace(zParameter));
 			}			
 		}
 		break;
 
 		case Pouring:
 		{
-			task->SubTasks.push(XLagBuilderTaskFactory(place).AlignPourPlace(pourElement));
+			task->SubTasks.push_back(XLagBuilderTaskFactory(place).AlignPourPlace(pourElement));
 
 			if (zParameter != 0.0f)
 			{
-				task->SubTasks.push(XLagBuilderTaskFactory(place).PourPlace(zParameter, pourElement));
+				task->SubTasks.push_back(XLagBuilderTaskFactory(place).PourPlace(zParameter, pourElement));
 			}
 		}
 		break;
@@ -121,7 +134,7 @@ void AXLagTaskManager::CreateCuttingTreeTask(AXLagSelectComponent *select, AXLag
 		if (ppTree == nullptr)
 			continue;
 
-		task->SubTasks.push(XLagWoodCutterTaskFactory().BringTreeTaskCreate(*ppTree, timberStack));
+		task->SubTasks.push_back(XLagWoodCutterTaskFactory().BringTreeTaskCreate(*ppTree, timberStack));
 	}
 
 
@@ -144,7 +157,7 @@ void AXLagTaskManager::CreateSearchMineralTask(AXLagSelectComponent *select, con
 	// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
-	task->SubTasks.push(XLagMinerTaskFactory(place).Search(mineral));
+	task->SubTasks.push_back(XLagMinerTaskFactory(place).Search(mineral));
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.
@@ -180,7 +193,7 @@ void AXLagTaskManager::CreateExtractMineralTask(AXLagSelectComponent *select, co
 	// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
-	task->SubTasks.push(XLagMinerTaskFactory(place).Extract(mineral, stack));
+	task->SubTasks.push_back(XLagMinerTaskFactory(place).Extract(mineral, stack));
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.
@@ -199,7 +212,7 @@ void AXLagTaskManager::CreateCroplandTask(AXLagSelectComponent *select, int Requ
 	//// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
-	task->SubTasks.push(XLagFarmerTaskFactory(place).Plough());
+	task->SubTasks.push_back(XLagFarmerTaskFactory(place).Plough());
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.
@@ -235,7 +248,7 @@ void AXLagTaskManager::CreateCultivationTask(AXLagSelectComponent *select, const
 	//// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
-	task->SubTasks.push(XLagFarmerTaskFactory(place).Sow(crop));
+	task->SubTasks.push_back(XLagFarmerTaskFactory(place).Cultivate(crop, stack));
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.
@@ -254,7 +267,7 @@ void AXLagTaskManager::CreateBuildingTask(const FXLagBuildingDescription& buildi
 
 	// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
-	task->SubTasks.push(XLagBuilderTaskFactory(std::shared_ptr<ITerrainMapAccessor>()).Build(building));
+	task->SubTasks.push_back(XLagBuilderTaskFactory(std::shared_ptr<ITerrainMapAccessor>()).Build(building));
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.
@@ -309,4 +322,14 @@ void AXLagTaskManager::SearchAndChooseExecuters(UXLagTaskBase* task)
 	}
 
 	_requestForExecution.Reset();
+}
+
+void AXLagTaskManager::FreeTask(UXLagTaskBase* task)
+{
+	for (auto &e : task->Executers)
+	{
+		e->FreeOf(task);
+	}	
+
+	task->Executers.Reset();
 }
