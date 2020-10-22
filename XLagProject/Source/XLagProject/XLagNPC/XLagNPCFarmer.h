@@ -39,7 +39,7 @@ public:
 		bool  IsGrowing = false;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Farmer Working")
-		bool  IsCropTaking = false;
+		bool  IsHarvesting = false;
 	
 	// Объем собранного урожая.
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Farmer Working")

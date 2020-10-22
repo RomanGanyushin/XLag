@@ -134,7 +134,7 @@ bool AXLagNPCFarmer::TakeCrop(XLagDynamicTerrainMapItem& cell, float DeltaTime)
 	if (!ValidateForTakeCropCell(cell))
 	{
 		isComplite = true;
-		IsCropTaking = false;
+		IsHarvesting = false;
 		return true;
 	}
 
@@ -142,6 +142,7 @@ bool AXLagNPCFarmer::TakeCrop(XLagDynamicTerrainMapItem& cell, float DeltaTime)
 	auto takeQuantity = operation.Decrease(takeForce);
 	CollectedCropQuantity += takeQuantity;
 
+	IsHarvesting = !isComplite;
 	isComplite = operation.IsEmpty();
 
 	return isComplite;
