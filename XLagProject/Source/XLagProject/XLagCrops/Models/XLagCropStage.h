@@ -6,9 +6,10 @@ struct FXLagCropStage
 {
 	GENERATED_BODY()
 
-	// Время стадии (в игровых часах).
+	// Время стадии (в процентах).
+	// Суммарно по всем стадиям должно быть 100%.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float StageLifeTime = 1;
+	float PartOfTimeLife = 100;
 
 	// Масштаб в начале стадии.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

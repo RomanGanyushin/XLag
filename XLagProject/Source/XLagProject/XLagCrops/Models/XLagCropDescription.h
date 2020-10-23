@@ -17,5 +17,9 @@ struct FXLagCropDescription
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UMaterial* CropPresentMaterial;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TArray<FXLagCropStage> CropStages;	
+		TArray<FXLagCropStage> CropStages;
+
+	// Время роста растения.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int TimeLife = 30;
 };

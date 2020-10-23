@@ -29,7 +29,7 @@ void AXLagCrop::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	CellOperationProcessing operation(Cell, CellOperationEnum::Evolution);
-	LocalTime = operation.Get() / 100.0;
+	Progression = operation.Get();
 	UpdateView();
 }
 
@@ -45,9 +45,9 @@ void AXLagCrop::UpdateView()
 	else
 	{
 		auto currentStage = GetCurrentStage();
-		auto currentStageTime = GetLocalStageTime();
+		auto currentStageProgression = GetLocalStageProgression();
 
-		if (currentStage->StageLifeTime > currentStageTime)
+		if (currentStage->PartOfTimeLife > currentStageProgression)
 		{
 			UpdateStageView();
 		}
@@ -64,8 +64,8 @@ void AXLagCrop::UpdateView()
 void AXLagCrop::UpdateStageView()
 {
 	auto stage = GetCurrentStage();
-	auto localStageTime = GetLocalStageTime();
-	auto scaleOfTime = stage->StartScale + (1.0 - (stage->StageLifeTime - localStageTime) / (stage->StageLifeTime)) * (stage->FinalScale - stage->StartScale);
+	auto localStageProgression = GetLocalStageProgression();
+	auto scaleOfTime = stage->StartScale + (localStageProgression / 100.0) * (stage->FinalScale - stage->StartScale);
 	CurrentMeshComponent->SetRelativeScale3D(scaleOfTime * FVector(1.f, 1.f, 1.f));
 }
 
@@ -93,14 +93,14 @@ void AXLagCrop::DestroyStageView()
 	CurrentMeshComponent = nullptr;
 }
 
-float AXLagCrop::GetLocalStageTime() const
+float AXLagCrop::GetLocalStageProgression() const
 {
-	auto result = LocalTime;
+	auto result = Progression;
 	for (auto& it : Description.CropStages)
 	{
-		if (it.StageLifeTime <= result)
+		if (it.PartOfTimeLife <= result)
 		{
-			result -= it.StageLifeTime;
+			result -= it.PartOfTimeLife;
 		}
 		else
 		{

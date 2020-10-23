@@ -80,6 +80,9 @@ bool AXLagNPCFarmer::Sow(XLagDynamicTerrainMapItem& cell, const FXLagCropDescrip
 			cell.OnSurfaceResourceObjects = OnSurfaceResourceObjectsEnum::Crop;
 			auto swapManager = AXLagNPCSwapManagement::GetManagment(); // Переделать через менеджер
 			swapManager->DoSwapCrop(cell, crop);
+
+			CellOperationProcessing evolutionTime(&cell, CellOperationEnum::EvolutionTime);
+			evolutionTime.Set(crop.TimeLife);
 		}
 	}
 
@@ -142,9 +145,9 @@ bool AXLagNPCFarmer::TakeCrop(XLagDynamicTerrainMapItem& cell, float DeltaTime)
 	auto takeQuantity = operation.Decrease(takeForce);
 	CollectedCropQuantity += takeQuantity;
 
-	IsHarvesting = !isComplite;
 	isComplite = operation.IsEmpty();
-
+	IsHarvesting = !isComplite;
+	
 	return isComplite;
 }
 

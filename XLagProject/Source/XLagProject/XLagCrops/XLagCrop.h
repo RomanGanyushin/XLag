@@ -23,7 +23,7 @@ public:
 		UStaticMeshComponent *CurrentMeshComponent;
 
 	UPROPERTY(BlueprintReadOnly)
-		float LocalTime = 0;
+		float Progression = 0;
 
 	void Initialize(XLagDynamicTerrainMapItem* cell, FXLagCropDescription description);
 
@@ -43,5 +43,5 @@ private:
 	void NextStage();
 	void CreateStageView();
 	void DestroyStageView();
-	float GetLocalStageTime() const;
+	float GetLocalStageProgression() const;
 };

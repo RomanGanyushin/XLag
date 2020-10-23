@@ -111,16 +111,18 @@ void AXLagDynamicTerrainBase::Tick(float DeltaTime)
 		{
 			auto& cell = Map->Point(x, y);
 			if (cell.HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum::Crop))
-			{
-				CellOperationProcessing evolution(&cell, CellOperationEnum::Evolution);
-				evolution.Increase(DeltaTime);
+			{			
+				CellOperationProcessing evolution(&cell, CellOperationEnum::Evolution),
+					evolutionTime(&cell, CellOperationEnum::EvolutionTime);
+
+				auto addingTime = evolutionTime.Get() == 0.0f ? DeltaTime : 100.0f * DeltaTime / evolutionTime.Get();
+				evolution.Increase(addingTime);
 
 				if (evolution.IsCompleting())
 				{
 					CellOperationProcessing cropQuantity(&cell, CellOperationEnum::CropQuantity);
 					cropQuantity.Set(5);
-				}
-				
+				}				
 			}
 		}
 	///

@@ -49,8 +49,6 @@ public:
 				result->SubTasks.push_back(Sow(i, j, crop));
 			}
 
-		result->SubTasks.push_back(Delay(1));
-
 		for (int i = 0; i < Place->SizeX(); i++)
 			for (int j = 0; j < Place->SizeY(); j++)
 			{
