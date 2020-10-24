@@ -2,7 +2,7 @@
 #include "XLagNPCSwapManagement.h"
 #include "../Common/CellOperationProcessing.h"
 
-#define DEBUG_FORCE_MULTIPLIER 10
+#define DEBUG_FORCE_MULTIPLIER 1
 
 void AXLagNPCFarmer::OfferAccept(UXLagTaskBase* task)
 {
