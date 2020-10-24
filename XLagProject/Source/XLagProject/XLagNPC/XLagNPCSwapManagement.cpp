@@ -171,8 +171,23 @@ AXLagCrop* AXLagNPCSwapManagement::DoSwapCrop(XLagDynamicTerrainMapItem& cell, c
 	auto locator = MapAccessor->GetWorldPosition(&cell, GetPositionEnum::CenterHeghtPosition);
 	auto newCrop = GetWorld()->SpawnActor<AXLagCrop>(CropTemplate, locator, FRotator::ZeroRotator);
 	newCrop->Initialize(&cell, crop);
-	//SwapedCrops.Add(newCrop);
+
+	if (!SwapedCrops.Contains(cell.GetId()))
+	{
+		SwapedCrops.Add(cell.GetId());
+	}
+	
+	SwapedCrops[cell.GetId()] = newCrop;
 	return newCrop;
+}
+
+void AXLagNPCSwapManagement::DoUnswapCrop(XLagDynamicTerrainMapItem& cell)
+{
+	if (!SwapedCrops.Contains(cell.GetId()))
+		return;
+
+	GetWorld()->DestroyActor(SwapedCrops[cell.GetId()]);
+	SwapedCrops.Remove(cell.GetId());
 }
 
 // Called every frame

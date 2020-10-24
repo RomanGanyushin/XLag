@@ -35,7 +35,7 @@ public:
 			return 0.0f;
 
 		auto oldValue = Cell->OperationTimeMap[Operation];
-		Cell->OperationTimeMap[Operation] = std::max(Cell->OperationTimeMap[Operation] + value , 100.0f);
+		Cell->OperationTimeMap[Operation] = std::min(Cell->OperationTimeMap[Operation] + value , 100.0f);
 
 		_completing = Cell->OperationTimeMap[Operation] == 100.0f;
 		return Cell->OperationTimeMap[Operation] - oldValue;
@@ -44,7 +44,7 @@ public:
 	const float Decrease(float value)
 	{
 		auto oldValue = Cell->OperationTimeMap[Operation];
-		Cell->OperationTimeMap[Operation] = std::min(Cell->OperationTimeMap[Operation] - value, 0.0f);
+		Cell->OperationTimeMap[Operation] = std::max(Cell->OperationTimeMap[Operation] - value, 0.0f);
 		return oldValue - Cell->OperationTimeMap[Operation];
 	}
 
@@ -56,6 +56,11 @@ public:
 	float Get()
 	{
 		return Cell->OperationTimeMap[Operation];
+	}
+
+	void Reset()
+	{
+		Set(0.0f);
 	}
 
 private:

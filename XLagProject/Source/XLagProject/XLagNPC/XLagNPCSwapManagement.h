@@ -52,6 +52,7 @@ public:
 	AXLagMineralStack* DoSwapMineralStack(const FXLagMineralDesc& mineral);
 	AXLagCropStack* DoSwapCropStack(const FXLagCropDescription& crop);
 	AXLagCrop* DoSwapCrop(XLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop);
+	void DoUnswapCrop(XLagDynamicTerrainMapItem& cell);
 	AXLagBuilding *DoSwapBuilding();
 
 public:	
@@ -202,6 +203,7 @@ public:
 	TArray<AXLagTimberStack*> SwapedTreeStacks;
 	TArray<AXLagMineralStack*> SwapedMineralStacks;
 	TArray<AXLagCropStack*> SwapedCropStacks;
+	TMap<long, AXLagCrop*> SwapedCrops;
 	
 private:
 	FVector CalculatePersonScale(int deviationHeightPercent, int deviationThicknessPercent);

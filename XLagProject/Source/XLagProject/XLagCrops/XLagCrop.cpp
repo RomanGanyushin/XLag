@@ -98,7 +98,7 @@ float AXLagCrop::GetLocalStageProgression() const
 	auto result = Progression;
 	for (auto& it : Description.CropStages)
 	{
-		if (it.PartOfTimeLife <= result)
+		if (it.PartOfTimeLife < result)
 		{
 			result -= it.PartOfTimeLife;
 		}

@@ -2,6 +2,8 @@
 #include "XLagNPCSwapManagement.h"
 #include "../Common/CellOperationProcessing.h"
 
+#define DEBUG_FORCE_MULTIPLIER 10
+
 void AXLagNPCFarmer::OfferAccept(UXLagTaskBase* task)
 {
 	AXLagNPCBase::OfferAccept(task);
@@ -11,7 +13,7 @@ void AXLagNPCFarmer::OfferAccept(UXLagTaskBase* task)
 bool AXLagNPCFarmer::Plough(XLagDynamicTerrainMapItem& cell, float DeltaTime)
 {
 	auto force = DeltaTime;
-	auto plough = force;
+	auto plough = force * DEBUG_FORCE_MULTIPLIER;
 
 	auto isComplite = false;
 	auto currentTopKind = cell.GetTopKind();
@@ -44,7 +46,7 @@ bool AXLagNPCFarmer::Plough(XLagDynamicTerrainMapItem& cell, float DeltaTime)
 bool AXLagNPCFarmer::Sow(XLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop, float DeltaTime)
 {
 	auto force = DeltaTime;
-	auto sowForce = force;
+	auto sowForce = force * DEBUG_FORCE_MULTIPLIER;
 
 	auto isComplite = false;
 	
@@ -92,7 +94,7 @@ bool AXLagNPCFarmer::Sow(XLagDynamicTerrainMapItem& cell, const FXLagCropDescrip
 bool AXLagNPCFarmer::Grow(XLagDynamicTerrainMapItem& cell, float DeltaTime)
 {
 	auto force = DeltaTime;
-	auto sowForce = force;
+	auto sowForce = force * DEBUG_FORCE_MULTIPLIER;
 
 	auto isComplite = false;
 
@@ -147,6 +149,14 @@ bool AXLagNPCFarmer::TakeCrop(XLagDynamicTerrainMapItem& cell, float DeltaTime)
 
 	isComplite = operation.IsEmpty();
 	IsHarvesting = !isComplite;
+
+	if (isComplite)
+	{
+		auto swapManager = AXLagNPCSwapManagement::GetManagment(); // Переделать через менеджер
+		swapManager->DoUnswapCrop(cell);
+		CellOperationProcessing(&cell, CellOperationEnum::Grow).Reset(); 
+		CellOperationProcessing(&cell, CellOperationEnum::Sow).Reset();
+	}
 	
 	return isComplite;
 }
