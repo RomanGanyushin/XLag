@@ -2,7 +2,7 @@
 #include "XLagNPCSwapManagement.h"
 #include "../Common/CellOperationProcessing.h"
 
-#define DEBUG_FORCE_MULTIPLIER 1
+#define DEBUG_FORCE_MULTIPLIER 10
 
 void AXLagNPCFarmer::OfferAccept(UXLagTaskBase* task)
 {
@@ -156,6 +156,8 @@ bool AXLagNPCFarmer::TakeCrop(XLagDynamicTerrainMapItem& cell, float DeltaTime)
 		swapManager->DoUnswapCrop(cell);
 		CellOperationProcessing(&cell, CellOperationEnum::Grow).Reset(); 
 		CellOperationProcessing(&cell, CellOperationEnum::Sow).Reset();
+		CellOperationProcessing(&cell, CellOperationEnum::Evolution).Reset();
+		cell.OnSurfaceResourceObjects = OnSurfaceResourceObjectsEnum::Empty;
 	}
 	
 	return isComplite;

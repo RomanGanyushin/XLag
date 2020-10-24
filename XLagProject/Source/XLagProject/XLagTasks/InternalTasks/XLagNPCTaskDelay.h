@@ -23,6 +23,8 @@ public:
 	bool IsNpcRequire() override { return false; }
 
 	bool IsAwait() override { return true; }
+
+	void Reset() override { TimeCounter = 0.0f; }
 private:
 	float Delay = 0.0f;
 	float TimeCounter = 0.0f;

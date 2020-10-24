@@ -15,8 +15,19 @@ public:
 		ExecutingVector[subLevel] = ExecutingVector[subLevel] + 1;
 	}
 
-	const std::vector<int>& GetExecutingVector() const { return ExecutingVector; }
+	void Repeat()
+	{
+		RequestForRepeat = true;
+	}
 
+	void Reset()
+	{
+		ExecutingVector.clear();
+	}
+
+	const std::vector<int>& GetExecutingVector() const { return ExecutingVector; }
+	bool RequestForRepeat = false;
+	
 private:
 	std::vector<int> ExecutingVector;
 

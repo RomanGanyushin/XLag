@@ -342,6 +342,7 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiSearchMineralTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCTaskContext.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCTaskDelay.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCTaskRepeat.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagTaskFactoryBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CultivateRegion.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateCroplandRegion.h" />

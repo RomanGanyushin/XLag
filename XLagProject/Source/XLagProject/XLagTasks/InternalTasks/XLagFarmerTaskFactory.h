@@ -49,6 +49,8 @@ public:
 				result->SubTasks.push_back(Sow(i, j, crop));
 			}
 
+		result->SubTasks.push_back(Delay(crop.TimeLife / 2));
+
 		for (int i = 0; i < Place->SizeX(); i++)
 			for (int j = 0; j < Place->SizeY(); j++)
 			{
@@ -72,6 +74,8 @@ public:
 				result->SubTasks.push_back(MoveTo(stack->GetActorLocation()));
 				result->SubTasks.push_back(Discharge(stack));			
 			}
+
+		result->SubTasks.push_back(Repeat());
 
 		return result;
 	}

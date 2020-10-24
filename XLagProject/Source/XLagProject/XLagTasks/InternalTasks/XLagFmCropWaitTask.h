@@ -17,17 +17,17 @@ public:
 		auto& cell = Map->Point(X, Y);
 		if (!cell.HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum::Crop))
 		{
-			isSuccess = true;
+			Completed = true;
 			return;
 		}
 
 		CellOperationProcessing operation(&cell, CellOperationEnum::Evolution);
-		isSuccess = operation.IsComplete();
+		Completed = operation.IsComplete();
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override
 	{
-		return isSuccess;
+		return Completed;
 	}
 
 	bool IsNpcRequire() override { return false; }
@@ -35,7 +35,6 @@ public:
 	bool IsAwait() override { return true; }
 
 private:
-	bool isSuccess = false;
 	std::shared_ptr<ITerrainMapAccessor> Map;
 	int X;
 	int Y;

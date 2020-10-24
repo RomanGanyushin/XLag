@@ -28,6 +28,7 @@ public:
 public:
 	bool CheckForNpcRequire();
 	bool CheckForAwait();
+	bool CheckForRepeat();
 private:
 	std::shared_ptr<XLagNPCTaskBase> GetCurrentSubTask();
 };

@@ -38,7 +38,6 @@ public:
 	}
 
 private:
-	bool Completed = false;
 	std::shared_ptr<ITerrainMapAccessor> Map;
 	int X;
 	int Y;

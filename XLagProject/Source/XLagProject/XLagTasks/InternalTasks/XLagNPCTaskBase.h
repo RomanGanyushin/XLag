@@ -22,6 +22,13 @@ public:
 		}  
 	}
 
+	virtual void Reset() 
+	{ 
+		Completed = false;
+		for (auto& it : SubTasks)
+			it->Reset();
+	}
+
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel)
 	{ 
 		auto subTaskIndex = context->IndexForSubLevel(subLevel);
@@ -36,4 +43,5 @@ public:
 
 public:
 	std::vector<std::shared_ptr<XLagNPCTaskBase>> SubTasks;
+	bool Completed = false;
 };

@@ -31,7 +31,7 @@ void AXLagTaskManager::Tick(float DeltaTime)
 
 		auto isTaskAwait = it->CheckForAwait();
 		auto isNpcRequireTask = it->CheckForNpcRequire();
-
+		
 
 		if (isTaskAwait && it->State != TaskStateEnum::Waiting)
 		{
@@ -59,6 +59,14 @@ void AXLagTaskManager::Tick(float DeltaTime)
 		{
 			FreeTask(it);
 			it->State = TaskStateEnum::Done;			
+		}
+
+		auto isRepeat = it->CheckForRepeat();
+		if (isRepeat)
+		{
+			it->State = TaskStateEnum::Waiting;
+			it->NpcTask->Reset();
+			it->TaskContext.Reset();
 		}
 	}
 	

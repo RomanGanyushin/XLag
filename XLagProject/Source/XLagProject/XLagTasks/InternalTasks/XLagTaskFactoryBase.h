@@ -1,6 +1,7 @@
 #pragma once
 #include "XLagNPCTaskMoveTo.h"
 #include "XLagNPCTaskDelay.h"
+#include "XLagNPCTaskRepeat.h"
 
 class XLagTaskFactoryBase
 {
@@ -20,5 +21,10 @@ public:
 	std::shared_ptr<XLagNPCTaskBase> Delay(const float& delay)
 	{
 		return std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskDelay(delay));
+	}
+
+	std::shared_ptr<XLagNPCTaskBase> Repeat()
+	{
+		return std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskRepeat());
 	}
 };

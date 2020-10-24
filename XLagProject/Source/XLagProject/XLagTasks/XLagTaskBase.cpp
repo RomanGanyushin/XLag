@@ -12,10 +12,17 @@ bool UXLagTaskBase::CheckForAwait()
 	return currentSubTask->IsAwait();
 }
 
+bool UXLagTaskBase::CheckForRepeat()
+{
+	auto result = TaskContext.RequestForRepeat;
+	TaskContext.RequestForRepeat = false;
+	return result;
+}
+
 std::shared_ptr<XLagNPCTaskBase> UXLagTaskBase::GetCurrentSubTask()
 {
 	auto result = NpcTask;
-	for (auto it : TaskContext.GetExecutingVector())
+	for (auto it  : TaskContext.GetExecutingVector())
 	{
 		result = result->SubTasks[it];
 	}

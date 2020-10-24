@@ -52,5 +52,4 @@ public:
 	const float SufficientDistance;
 	float wayTime = 0.f;
 	const float DeadlineTime;
-	bool Completed = false;
 };
