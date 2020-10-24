@@ -1,7 +1,7 @@
 #pragma once
 
 #include "XLagNPCTaskBase.h"
-#include "XLagNPCTaskMoveTo.h"
+#include "XLagTaskFactoryBase.h"
 #include "XLagMiSearchMineralTask.h"
 #include "XLagMiExtractMineralTask.h"
 #include "XLagMiDischargeMineralTask.h"
@@ -12,7 +12,7 @@
 /*
  Фабрика задач для шахтера.
 */
-class XLagMinerTaskFactory
+class XLagMinerTaskFactory : XLagTaskFactoryBase
 {
 public:
 	float CompliteDistanceToTree = 1.0f;
@@ -60,14 +60,22 @@ public:
 				result->SubTasks.push_back(Discharge(stack));
 			}
 
-		return result;
-	}
+		auto mineralId = mineral.ID;
+		auto place = Place.get();
+		auto where_if = [mineralId, place]()
+		{
+			for (int i = 0; i < place->SizeX(); i++)
+				for (int j = 0; j < place->SizeY(); j++)
+				{
+					if (place->Point(i,j).CheckForMineral(mineralId))
+						return true;
+				}
+				
+			return false;
+		};
 
-	// Двигайся до указанной локации.
-	// Todo: вынести в базовый.
-	std::shared_ptr<XLagNPCTaskBase> MoveTo(const FVector& location)
-	{
-		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskMoveTo(location, CompliteDistanceToTree * SpaceScale, 10));
+		result->SubTasks.push_back(Repeat(where_if));
+
 		return result;
 	}
 

@@ -1,7 +1,10 @@
 #pragma once
+#include <functional>
 #include "XLagNPCTaskMoveTo.h"
 #include "XLagNPCTaskDelay.h"
 #include "XLagNPCTaskRepeat.h"
+
+bool always_true() { return true; }
 
 class XLagTaskFactoryBase
 {
@@ -23,8 +26,9 @@ public:
 		return std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskDelay(delay));
 	}
 
-	std::shared_ptr<XLagNPCTaskBase> Repeat()
+	std::shared_ptr<XLagNPCTaskBase> Repeat(std::function<bool()> where_if = always_true)
 	{
-		return std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskRepeat());
+		return std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskRepeat(where_if));
 	}
+
 };

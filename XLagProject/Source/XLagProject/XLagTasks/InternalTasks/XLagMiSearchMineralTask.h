@@ -36,7 +36,6 @@ public:
 	} 
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override { return Completed; }
-	bool Completed = false;
 
 private:
 	std::shared_ptr<ITerrainMapAccessor> Map;
