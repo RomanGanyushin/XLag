@@ -501,6 +501,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCTaskRepeat.h">
       <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateProduction.h">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -532,6 +535,9 @@
     </Filter>
     <Filter Include="Source\XLagProject\XLagCrops\Models">
       <UniqueIdentifier>{7fa6680b-b2ce-4c96-9269-6b29532d0fa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagProduction">
+      <UniqueIdentifier>{f1c3c5e2-4b84-48cb-a8be-9cabc4aa8821}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -611,6 +617,9 @@
       <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CultivateRegion.cpp">
+      <Filter>Source\XLagProject\XLagTasks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateProduction.cpp">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClCompile>
   </ItemGroup>

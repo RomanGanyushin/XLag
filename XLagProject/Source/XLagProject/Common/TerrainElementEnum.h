@@ -20,11 +20,13 @@ enum TerrainElementEnum
 	
 	// Ñêàëà.
 	RockBasalt,	
+
+	Watter,
 	
 	// Óãîëü.
 	Coal UMETA(DisplayName = "Coal"),
 
-	Cultivated UMETA(DisplayName = "Ñultivated")
+	Cultivated UMETA(DisplayName = "Cultivated")
 
 };
 

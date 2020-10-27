@@ -284,6 +284,19 @@ void AXLagTaskManager::CreateBuildingTask(const FXLagBuildingDescription& buildi
 	SearchAndChooseExecuters(newTask);
 }
 
+void AXLagTaskManager::CreateProductionTask(FString productName, AXLagSelectComponent *select, float Quanity, int RequiredWorkerNumber)
+{
+	// Создает задачу.
+	auto newTask = NewObject<UXLagTask_CultivateRegion>();
+	newTask->SetRegion(select->Select);
+	newTask->State = TaskStateEnum::Recruitment;
+
+	// Добавляем в стек.
+	Tasks.Add(newTask);
+
+	SearchAndChooseExecuters(newTask);
+}
+
 void AXLagTaskManager::ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task)
 {
 	if (!_requestForExecution.Contains(task))
