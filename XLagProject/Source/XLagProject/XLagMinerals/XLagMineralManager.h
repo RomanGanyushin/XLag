@@ -1,5 +1,6 @@
 #pragma once
 #include "Models/XLagMineralDesc.h"
+#include "../XLagNPC/XLagMineralStack.h"
 #include "XLagMineralManager.generated.h"
 
 UCLASS()
@@ -24,6 +25,17 @@ public:
 	UFUNCTION(BlueprintCallable) const TArray<FXLagMineralDesc> GetTerrainMineralDescCollection() const;
 
 	UFUNCTION(BlueprintCallable) const bool Empty() const;
+
+	// 
+	UFUNCTION(BlueprintCallable)
+		TArray<AXLagMineralStack*> FindMineralStackFor(const FString& name);
+
+	UFUNCTION(BlueprintCallable)
+		TArray<AXLagMineralStack*> FindReserveredMineralStackFor(const AXLagNPCBase* npc);
+
+	const bool IsNameOfMineral(const FString& name) const;
+
+	const FXLagMineralDesc* SearchByName(const FString& name) const;
 
 public:
 	static AXLagMineralManager* GetMineralManager()

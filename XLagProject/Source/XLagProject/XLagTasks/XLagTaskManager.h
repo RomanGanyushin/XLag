@@ -5,6 +5,7 @@
 #include "../XLagMinerals/Models/XLagMineralDesc.h"
 #include "../XLagCrops/Models/XLagCropDescription.h"
 #include "../XLagBuildings/XLagBuildingDescription.h"
+#include "../XLagProduction/Models/XLagProductionSchema.h"
 
 #include "XLagTaskManager.generated.h"
 
@@ -56,7 +57,7 @@ public:
 	UFUNCTION(BlueprintCallable) void CreateCultivationTask(AXLagSelectComponent *select, const FXLagCropDescription crop, AXLagCropStack* stack, int RequiredWorkerNumber);
 
 	// Создает задачу производства
-	UFUNCTION(BlueprintCallable) void CreateProductionTask(FString productName, AXLagSelectComponent *select, float Quanity, int RequiredWorkerNumber);
+	UFUNCTION(BlueprintCallable) void CreateProductionTask(const FXLagProductionSchema& productionSchema, AXLagSelectComponent *select, float Quanity, int RequiredWorkerNumber);
 	
 	// Запрос на исполнение задачи со стороны npc.
 	UFUNCTION(BlueprintCallable) void ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task);

@@ -510,6 +510,33 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagProduction\Models\XLagProductionSchema.h">
       <Filter>Source\XLagProject\XLagProduction\Models</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagProduction\Models\XLagProductionIngredient.h">
+      <Filter>Source\XLagProject\XLagProduction\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWorkerTaskFactory.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBag.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWrMineralWaitAndReserveTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWrTakeReservedMineralsTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCMovementTaskBase.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagProductStack.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWrTakeManualProductionTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWrPutProductionAtStackTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -633,6 +660,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagProduction\XLagProductionSchemasManager.cpp">
       <Filter>Source\XLagProject\XLagProduction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagProductStack.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

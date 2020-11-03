@@ -9,15 +9,17 @@ bool always_true() { return true; }
 class XLagTaskFactoryBase
 {
 public:
-	float CompliteDistanceToTree = 1.0f;
+	float CellCompliteDistance = 1.0f;
 	float SpaceScale = 100.f;
+	float WorldCompliteDistance = CellCompliteDistance * SpaceScale;
+	float MovingDeadline = 10.0;
 
 public:
 
 	// Двигайся до указанной локации.
 	std::shared_ptr<XLagNPCTaskBase> MoveTo(const FVector& location)
 	{
-		return std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskMoveTo(location, CompliteDistanceToTree * SpaceScale, 10));		
+		return std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskMoveTo(location, WorldCompliteDistance, MovingDeadline));
 	}
 
 	// Пауза.

@@ -1,8 +1,10 @@
 #pragma once
 
+#include <map>
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "ProceduralMeshComponent.h"
+#include "XLagNPCBase.h"
 #include "XLagLooseStackBase.generated.h"
 
 UCLASS()
@@ -22,7 +24,19 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void AddQuantity(float quantity);
+	virtual void AddQuantity(float quantity);
+
+	// Получает количество доступного минерала.
+	virtual float GetAvaibleQuantity();
+
+	// Резервирует за персонажем.
+	virtual void Reserve(AXLagNPCBase *reserver, float quantity);
+
+	// Получить минерал из кучи.
+	virtual float TakeQuantity(AXLagNPCBase *npc, float quantity);
+
+	// Проверить, зарезервировано ли за персонажем.
+	virtual bool IsReservedFor(const AXLagNPCBase *npc) const;
 
 	UPROPERTY(VisibleAnywhere, Category = "Stack Properties")
 		int SizeX;
@@ -34,10 +48,10 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Current State Properties")
 		float StackQuantity = 0;
 
-
 	UPROPERTY(VisibleAnywhere)
 		UProceduralMeshComponent* ThisStack;
 
 private:
 	void CreateView();
+	std::map<const AXLagNPCBase *, float > _reserves;
 };

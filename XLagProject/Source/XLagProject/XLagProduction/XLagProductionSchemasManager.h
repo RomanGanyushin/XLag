@@ -21,6 +21,10 @@ public:
 		return currentObject;
 	}
 
+	const bool IsNameOfProduct(const FString& name) const;
+
+	const FXLagProductionSchema* SearchByName(const FString& name) const;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collection")
 		TArray<FXLagProductionSchema> ProductionSchemaCollection;
 };

@@ -46,7 +46,7 @@ AXLagBuilding *AXLagBuildingManager::BuildingSiteFound(const FXLagBuildingDescri
 	auto newBuilding = swapManager->DoSwapBuilding();
 	auto position = MapAccessor->GetWorldPosition(building.PositionX, building.PositionY, GetPositionEnum::CenterHeghtPosition);
 	newBuilding->SetActorLocation(position);
-	newBuilding->SetGeneralPlain(&building.GetGeneralPlain());
+	newBuilding->SetGeneralPlain(building.GetGeneralPlain());
 
 	return newBuilding;
 }
@@ -97,7 +97,7 @@ void AXLagBuildingManager::CreatePreviewSelectBuilding()
 {
 	auto swapManager = AXLagNPCSwapManagement::GetManagment();
 	_previewBuilding = swapManager->DoSwapBuilding();
-	_previewBuilding->SetGeneralPlain(&_selectBuilding.GetGeneralPlain());
+	_previewBuilding->SetGeneralPlain(_selectBuilding.GetGeneralPlain());
 	_previewBuilding->DoShowPreview(true);    
 }
 

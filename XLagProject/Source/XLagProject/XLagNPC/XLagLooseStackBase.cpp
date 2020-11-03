@@ -31,6 +31,40 @@ void AXLagLooseStackBase::AddQuantity(float quantity)
 	CreateView();
 }
 
+float AXLagLooseStackBase::GetAvaibleQuantity()
+{
+	float result = StackQuantity;
+	for (auto& it : _reserves) result -= it.second;
+	return result;
+}
+
+void AXLagLooseStackBase::Reserve(AXLagNPCBase *reserver, float quantity)
+{
+	_reserves[reserver] = quantity;
+}
+
+float AXLagLooseStackBase::TakeQuantity(AXLagNPCBase *npc, float quantity)
+{
+	if (!IsReservedFor(npc))
+		return 0.0f;
+
+	auto takeQuanity = std::min(_reserves[npc], quantity);
+	_reserves[npc] = _reserves[npc] - takeQuanity;
+
+	if (_reserves[npc] <= 0)
+	{
+		_reserves.erase(_reserves.find(npc));
+	}
+
+	StackQuantity -= takeQuanity;
+	return takeQuanity;
+}
+
+bool AXLagLooseStackBase::IsReservedFor(const AXLagNPCBase *npc) const
+{
+	return _reserves.find(npc) != _reserves.end();
+}
+
 void AXLagLooseStackBase::CreateView()
 {
 	XLagMineralStackGeometryBuilder geometry;

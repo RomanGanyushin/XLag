@@ -21,14 +21,14 @@ class UXLagBuildProcessing : public UClass
 	GENERATED_UCLASS_BODY()
 
 public:	
-	void SetGeneralPlain(const FGeneralPlain* generalPlain);
+	void SetGeneralPlain(const FGeneralPlain& generalPlain);
 	void DoProcess(UObject* owner, USceneComponent*root);
 	void CreatePreview(UObject* owner, USceneComponent*root);
 	bool IsComplite() const;
 public:	
 	UPROPERTY(BlueprintReadOnly) FString BuildingName;
 private:
-	const FGeneralPlain* GeneralPlain;
+	FGeneralPlain GeneralPlain;
 	FXLagBuildParameterEvaluator* Evaluator;
 	FXLagGeneralStepIterator GeneralStepIterator;
 	FRepeatCycle* _repeatCycle;

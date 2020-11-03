@@ -3,6 +3,7 @@
 #include "InternalTasks/XLagWoodCutterTaskFactory.h"
 #include "InternalTasks/XLagMinerTaskFactory.h"
 #include "InternalTasks/XLagFarmerTaskFactory.h"
+#include "InternalTasks/XLagWorkerTaskFactory.h"
 #include "../XLagDynamicTerrain/Filters/SurfaceResourceMapItemFilter.h"
 #include "../XLagNpc/XLagNPCSwapManagement.h"
 #include "../XLagBuildings/XLagBuildingManager.h"
@@ -13,6 +14,7 @@
 #include "XLagTask_CreateBuilding.h"
 #include "XLagTask_CreateCroplandRegion.h"
 #include "XLagTask_CultivateRegion.h"
+#include "XLagTask_CreateProduction.h"
 
 AXLagTaskManager::AXLagTaskManager()
 {
@@ -284,12 +286,36 @@ void AXLagTaskManager::CreateBuildingTask(const FXLagBuildingDescription& buildi
 	SearchAndChooseExecuters(newTask);
 }
 
-void AXLagTaskManager::CreateProductionTask(FString productName, AXLagSelectComponent *select, float Quanity, int RequiredWorkerNumber)
+void AXLagTaskManager::CreateProductionTask(const FXLagProductionSchema& productionSchema, AXLagSelectComponent *select, float Quanity, int RequiredWorkerNumber)
 {
+	AXLagProductStack* stack = nullptr;
+	if (stack == nullptr) // Если не указано куда нести, то первый.
+	{
+		auto swapManagment = AXLagNPCSwapManagement::GetManagment();
+		auto pstack = swapManagment->SwapedProductStacks
+			.FindByPredicate([](auto it) { return true; });
+
+		if (pstack != nullptr)
+		{
+			stack = *pstack;
+		}
+		else // Не найдено место для склада, то создаем.
+		{
+			auto manager = AXLagNPCSwapManagement::GetManagment();
+			stack = manager->DoSwapProductStack(productionSchema);
+		}
+	}
+
 	// Создает задачу.
-	auto newTask = NewObject<UXLagTask_CultivateRegion>();
+	auto newTask = NewObject<UXLagTask_CreateProduction>();
 	newTask->SetRegion(select->Select);
 	newTask->State = TaskStateEnum::Recruitment;
+
+	//// Планируем выполнение.
+	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
+	auto place = select->Select;
+	task->SubTasks.push_back(XLagWorkerTaskFactory(place).Production(&productionSchema, stack));
+	newTask->NpcTask = task;
 
 	// Добавляем в стек.
 	Tasks.Add(newTask);

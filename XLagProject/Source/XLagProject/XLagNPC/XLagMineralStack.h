@@ -12,6 +12,8 @@ class XLAGPROJECT_API AXLagMineralStack : public AXLagLooseStackBase
 public:
 	void Initialize(const FXLagMineralDesc& mineral, const int sizeX, const int sizeY);
 	
+	float TakeQuantity(AXLagNPCBase *npc, float quantity) override;
+
 	UPROPERTY(VisibleAnywhere, Category = "Mineral Stack Properties")
 		FXLagMineralDesc ContentMineral;
 };

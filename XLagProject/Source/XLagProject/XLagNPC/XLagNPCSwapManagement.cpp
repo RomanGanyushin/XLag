@@ -166,6 +166,15 @@ AXLagCropStack* AXLagNPCSwapManagement::DoSwapCropStack(const FXLagCropDescripti
 	return stack;
 }
 
+AXLagProductStack* AXLagNPCSwapManagement::DoSwapProductStack(const FXLagProductionSchema& product)
+{
+	auto locator = RandomizeZeroPlacePosition(MapAccessor).Get();
+	auto stack = GetWorld()->SpawnActor<AXLagProductStack>(ProductStackTemplate, locator, FRotator::ZeroRotator);
+	stack->ProductPresentMesh = product.ProductPresentation;
+	SwapedProductStacks.Add(stack);
+	return stack;
+}
+
 AXLagCrop* AXLagNPCSwapManagement::DoSwapCrop(XLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop)
 {
 	auto locator = MapAccessor->GetWorldPosition(&cell, GetPositionEnum::CenterHeghtPosition);

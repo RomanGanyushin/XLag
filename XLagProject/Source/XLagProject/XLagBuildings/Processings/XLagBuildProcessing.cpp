@@ -55,12 +55,12 @@ void UXLagBuildProcessing::CreatePreview(UObject* owner, USceneComponent*root)
 	}
 }
 
-void UXLagBuildProcessing::SetGeneralPlain(const FGeneralPlain* generalPlain)
+void UXLagBuildProcessing::SetGeneralPlain(const FGeneralPlain& generalPlain)
 {
 	GeneralPlain = generalPlain;
-	Evaluator->SetParameters(generalPlain->Parameters);
-	GenerateParametersFrom(generalPlain->Elements);
-	GeneralStepIterator.SetGeneralPlain(generalPlain);
+	Evaluator->SetParameters(generalPlain.Parameters);
+	GenerateParametersFrom(generalPlain.Elements);
+	GeneralStepIterator.SetGeneralPlain(&generalPlain);
 }
 
 void UXLagBuildProcessing::GenerateParametersFrom(TArray<FBuildingElement> elements)
@@ -140,7 +140,7 @@ void UXLagBuildProcessing::SpawnBuildingElement(UObject* owner, USceneComponent*
 {
 	auto step = GeneralStepIterator.GetCurrentSubStep();
 	auto elementId = step->ElementId;
-	auto element = GeneralPlain->Elements.FindByPredicate([elementId](auto& it) { return it.Id.Equals(elementId, ESearchCase::IgnoreCase);});
+	auto element = GeneralPlain.Elements.FindByPredicate([elementId](auto& it) { return it.Id.Equals(elementId, ESearchCase::IgnoreCase);});
 
 	int argIndex = 1;
 	for (auto& it: step->ElementParams)

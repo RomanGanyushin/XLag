@@ -33,7 +33,7 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		bool IsBuildComplited;
 
-	void SetGeneralPlain(const FGeneralPlain* plain);
+	void SetGeneralPlain(const FGeneralPlain& plain);
 
 protected:
 	// Called when the game starts or when spawned
@@ -44,6 +44,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	const FGeneralPlain* _plain;
+	FGeneralPlain _plain;
 	UPROPERTY() UXLagBuildProcessing *_processing = nullptr;
 };

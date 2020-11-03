@@ -13,10 +13,12 @@
 #include "XLagTimberStack.h"
 #include "XLagMineralStack.h"
 #include "XLagCropStack.h"
+#include "XLagProductStack.h"
 #include "../XLagSelect/XLagSelectComponent.h"
 #include "../XLagBuildings/XLagBuilding.h"
 #include "../Common/ITerrainMapAccessor.h"
 #include "../XLagCrops/XLagCrop.h"
+#include "../XLagProduction/Models/XLagProductionSchema.h"
 #include "XLagNPCSwapManagement.generated.h"
 
 UCLASS()
@@ -51,6 +53,7 @@ public:
 	void DoSwapTreeStack();
 	AXLagMineralStack* DoSwapMineralStack(const FXLagMineralDesc& mineral);
 	AXLagCropStack* DoSwapCropStack(const FXLagCropDescription& crop);
+	AXLagProductStack* DoSwapProductStack(const FXLagProductionSchema& product);
 	AXLagCrop* DoSwapCrop(XLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop);
 	void DoUnswapCrop(XLagDynamicTerrainMapItem& cell);
 	AXLagBuilding *DoSwapBuilding();
@@ -186,6 +189,10 @@ public:
 	// Шаблон кучи сельхоз продукта.
 	UPROPERTY(EditAnywhere, Category = "Stack Params")
 		TSubclassOf<AXLagCropStack> CropStackTemplate;
+
+	// Шаблон кучи продукта производства.
+	UPROPERTY(EditAnywhere, Category = "Stack Params")
+		TSubclassOf<AXLagProductStack> ProductStackTemplate;
 	
 	// Шаблон выделения области
 	UPROPERTY(EditAnywhere, Category = "Selection Params")
@@ -202,6 +209,7 @@ public:
 	TArray<AXLagCuttableTreeBase*> SwapedTrees;
 	TArray<AXLagTimberStack*> SwapedTreeStacks;
 	TArray<AXLagMineralStack*> SwapedMineralStacks;
+	TArray<AXLagProductStack*> SwapedProductStacks;
 	TArray<AXLagCropStack*> SwapedCropStacks;
 	TMap<long, AXLagCrop*> SwapedCrops;
 	
