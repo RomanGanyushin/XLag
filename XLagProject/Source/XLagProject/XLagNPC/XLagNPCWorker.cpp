@@ -11,29 +11,51 @@ bool AXLagNPCWorker::TakeReservedMineral(AXLagMineralStack* stack, float deltaTi
 	stack->TakeQuantity(this, takeForce);
 
 	auto isReserved = stack->IsReservedFor(this);
-	return !isReserved;
+	IsMineralTaking = isReserved;
+
+	return !IsMineralTaking;
 }
 
 bool AXLagNPCWorker::ManualProduction(FString product, float quanity, float deltaTime)
 {
-	if (!Bag.Has(TCHAR_TO_UTF8(*product), quanity))
+	if (!Bag.Has(product, quanity))
 	{
-		Bag.Put(TCHAR_TO_UTF8(*product), deltaTime);
-		return false;
+		Bag.Put(product, deltaTime);
+		IsManualProduction = true;
 	}
 	else
 	{
 		Bag.Reset();
-		Bag.Put(TCHAR_TO_UTF8(*product), quanity);
-		return true;
+		Bag.Put(product, quanity);
+		IsManualProduction = false;
 	}	
+
+	return !IsManualProduction;
 }
 
-bool AXLagNPCWorker::PutProductAtStack(FString product, AXLagProductStack* stack, float quanity, float deltaTime)
+bool AXLagNPCWorker::PutProductAtStack(FString product, AXLagProductStack* stack, float deltaTime)
 {
-	Bag.Reset();
-	stack->AddQuantity(quanity);
-	return true;
+	static float timeAccamulator = 0;
+	timeAccamulator += deltaTime;
+
+	IsProductPutting = true;
+
+	if (timeAccamulator > 2.0)
+	{
+		timeAccamulator = 0.0f;
+
+		if (Bag.Take(product, 1) > 0.0f)
+		{
+			stack->AddQuantity(1.0);
+		}
+		else
+		{
+			IsProductPutting = false;
+			Bag.Reset();
+		}
+	}
+
+	return !IsProductPutting;
 }
 
 void AXLagNPCWorker::OfferAccept(UXLagTaskBase* task)

@@ -4,7 +4,7 @@
 class XLagNPCBag
 {
 public:
-	void Put(const std::string& name, float quanity)
+	void Put(const FString& name, float quanity)
 	{
 		if (!HasItem(name))
 		{
@@ -16,7 +16,7 @@ public:
 		}
 	}
 
-	float Take(const std::string& name, float quanity)
+	float Take(const FString& name, float quanity)
 	{
 		if (!HasItem(name))
 			return 0.0f;
@@ -27,10 +27,13 @@ public:
 		if (Items[name] <= 0.0f)
 		{
 			Items.erase(Items.find(name));
+			return 0.0f;
 		}
+
+		return result;
 	}
 
-	bool Has(const std::string& name, float quanity)
+	bool Has(const FString& name, float quanity)
 	{
 		if (!HasItem(name))
 			return false;
@@ -44,10 +47,10 @@ public:
 	}
 
 protected:
-	std::map<std::string, float> Items;
+	std::map<FString, float> Items;
 
 private:
-	bool HasItem(const std::string& name)
+	bool HasItem(const FString& name)
 	{
 		return Items.find(name) != Items.end();
 	}

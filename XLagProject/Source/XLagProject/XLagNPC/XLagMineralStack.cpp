@@ -20,7 +20,7 @@ float AXLagMineralStack::TakeQuantity(AXLagNPCBase *npc, float quantity)
 		return takeQuanity;
 
 	auto stackMineralName = ContentMineral.Name;
-	npc->Bag.Put(TCHAR_TO_UTF8(*stackMineralName), takeQuanity);
+	npc->Bag.Put(stackMineralName, takeQuanity);
 
 	return takeQuanity;
 }

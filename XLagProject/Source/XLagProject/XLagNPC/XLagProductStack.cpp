@@ -126,7 +126,7 @@ void AXLagProductStack::ResetView()
 	for (UStaticMeshComponent *it : _elements)
 	{
 		it->UnregisterComponent();
-		//delete it;
+		it->DestroyComponent();
 	}
 
 	_elements.Reset();

@@ -24,7 +24,7 @@ public:
 			return;
 		}
 
-		if (worker->Bag.Has(_mineralName, _quanity))
+		if (worker->Bag.Has(FString(_mineralName.c_str()), _quanity))
 		{
 			Completed = true;
 			return;

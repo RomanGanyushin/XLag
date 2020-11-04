@@ -56,7 +56,7 @@ public:
 		// Todo: переделать.
 		auto stackPosition = stack->GetActorLocation();
 		result->SubTasks.push_back(MoveTo(stackPosition));
-		result->SubTasks.push_back(PutAtStack(productionSchema->Name, 10.0f, stack));
+		result->SubTasks.push_back(PutAtStack(productionSchema->Name, stack));
 
 		result->SubTasks.push_back(Repeat(/*where_if*/));
 		return result;
@@ -81,9 +81,9 @@ public:
 		return result;
 	}
 
-	std::shared_ptr<XLagNPCTaskBase> PutAtStack(FString productName, float quanity, AXLagProductStack* stack)
+	std::shared_ptr<XLagNPCTaskBase> PutAtStack(FString productName, AXLagProductStack* stack)
 	{
-		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagWrPutProductionAtStackTask(TCHAR_TO_UTF8(*productName), stack, quanity));
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagWrPutProductionAtStackTask(TCHAR_TO_UTF8(*productName), stack));
 		return result;
 	}
 

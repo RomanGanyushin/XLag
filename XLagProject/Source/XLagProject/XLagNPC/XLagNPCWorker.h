@@ -18,9 +18,25 @@ class XLAGPROJECT_API AXLagNPCWorker : public AXLagNPCBase
 		virtual void Tick(float DeltaTime) override;
 
 public:	
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Worker Cutting")
+		bool  IsMineralTaking = false;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Worker Cutting")
+		bool  IsManualProduction = false;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Worker Cutting")
+		bool  IsProductPutting = false;
+
+	/// Получить зарезервированный материал из кучи.
 	bool TakeReservedMineral(AXLagMineralStack* stack, float deltaTime);
+
+	/// Ручное производство.
 	bool ManualProduction(FString product, float quanity, float deltaTime);
-	bool PutProductAtStack(FString product, AXLagProductStack* stack, float quanity, float deltaTime);
+
+	/// Положить произведенный продукт к стопку. 
+	bool PutProductAtStack(FString product, AXLagProductStack* stack, float deltaTime);
+
 	virtual void OfferAccept(UXLagTaskBase* task) override;
 	
 protected:

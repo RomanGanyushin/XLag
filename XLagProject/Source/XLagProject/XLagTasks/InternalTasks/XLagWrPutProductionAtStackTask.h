@@ -6,8 +6,8 @@
 class XLagWrPutProductionAtStackTask : public XLagNPCTaskBase
 {
 public:
-	XLagWrPutProductionAtStackTask(std::string productName, AXLagProductStack* stack, float quanity)
-		:_productName(productName), _stack(stack), _quanity(quanity)
+	XLagWrPutProductionAtStackTask(std::string productName, AXLagProductStack* stack)
+		:_productName(productName), _stack(stack)
 	{
 	
 	}
@@ -24,7 +24,7 @@ public:
 			return;
 		}
 
-		if (worker->PutProductAtStack(FString(_productName.c_str()), _stack, _quanity, DeltaTime))
+		if (worker->PutProductAtStack(FString(_productName.c_str()), _stack, DeltaTime))
 		{
 			Completed = true;
 			return;
@@ -39,5 +39,4 @@ public:
 private:
 	AXLagProductStack* _stack;
 	std::string _productName;
-	float _quanity;
 };

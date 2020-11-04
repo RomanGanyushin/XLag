@@ -39,6 +39,12 @@ public:
 		npc->AddActorLocalRotation(delta);
 	}
 
+	void Reset() override
+	{
+		XLagNPCTaskBase::Reset();
+		_wayTime = 0;
+	}
+
 protected:
 	const float _sufficientDistance;
 	const float _deadlineTime;
