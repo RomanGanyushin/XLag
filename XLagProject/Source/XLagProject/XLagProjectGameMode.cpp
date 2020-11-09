@@ -20,4 +20,10 @@ AXLagProjectGameMode::AXLagProjectGameMode()
 	{
 		PlayerControllerClass = ThirdPersonController.Class;
 	}
+
+	///
+	TerrainMap.Map.SetNum(100 * 100);
+	TerrainMap.Scale = 100.0f;
+	TerrainMap.SizeX = 100;
+	TerrainMap.SizeY = 100;
 }

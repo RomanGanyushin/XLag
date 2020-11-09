@@ -1,4 +1,5 @@
 #include "XLagColorizeMapGeometryBuilder.h"
+#include "../../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
 
 void XLagColorizeMapGeometryBuilder::CreateColorizeMap(std::shared_ptr<ITerrainMapAccessor> map)
 {
@@ -16,7 +17,7 @@ void XLagColorizeMapGeometryBuilder::CreateColorizeMap(std::shared_ptr<ITerrainM
 			quadVertext[3] = map->GetWorldPosition(xIndex, yIndex, GetPositionEnum::RightBottomPosition) + FVector(0, 0, SurfaceOffset);
 
 			auto& item = map->PointConst(xIndex, yIndex);
-			float alf = item.CheckForMineral(4) ? 1.0 : 0;
+			float alf = XLagDynamicTerrainMapItemOperation(item).CheckForMineral(4) ? 1.0 : 0;
 
 			Colors.Add(FLinearColor(1, 0, 0, alf));
 			Colors.Add(FLinearColor(1, 0, 0, alf));

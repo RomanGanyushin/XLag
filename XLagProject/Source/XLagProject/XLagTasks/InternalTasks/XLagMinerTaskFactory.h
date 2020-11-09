@@ -8,6 +8,7 @@
 #include "../../XLagMinerals/Models/XLagMineralDesc.h"
 #include "../../Common/ITerrainMapAccessor.h"
 #include "../../XLagNPC/XLagMineralStack.h"
+#include "../../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
 
 /*
  Фабрика задач для шахтера.
@@ -67,7 +68,7 @@ public:
 			for (int i = 0; i < place->SizeX(); i++)
 				for (int j = 0; j < place->SizeY(); j++)
 				{
-					if (place->Point(i,j).CheckForMineral(mineralId))
+					if (XLagDynamicTerrainMapItemOperation(place->Point(i,j)).CheckForMineral(mineralId))
 						return true;
 				}
 				

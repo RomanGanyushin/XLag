@@ -5,7 +5,8 @@
 #include "XLagBlDigGraundTask.h"
 #include "XLagBlPourGraundTask.h"
 #include "XLagBlBuildTask.h"
-#include "../../XLagDynamicTerrain\Position/MinMaxLevelPlace.h"
+#include "../../XLagDynamicTerrain/Position/MinMaxLevelPlace.h"
+#include "../../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
 #include "../../Common/ITerrainMapAccessor.h"
 
 /*
@@ -147,7 +148,7 @@ public:
 
 		auto maximalLocation = MinMaxLevelPlace(Place).FindMaximalLevel();
 		auto maximalVector = Place->GetWorldPosition(maximalLocation.first, maximalLocation.second, GetPositionEnum::CenterHeghtPosition);
-		auto cleaningLayerKind = Place->Point(maximalLocation.first, maximalLocation.second).GetTopKind();
+		auto cleaningLayerKind = XLagDynamicTerrainMapItemOperation(Place->Point(maximalLocation.first, maximalLocation.second)).GetTopKind();
 
 		auto maxSlice = 50;
 
@@ -163,11 +164,11 @@ public:
 					//if (thisPoint.GetTopKind() != cleaningLayerKind)
 					//	continue;
 
-					auto lh = thisPoint.GetHeghtTopLevel();
+					auto lh = XLagDynamicTerrainMapItemOperation(thisPoint).GetHeghtTopLevel();
 					/*if (lh < 0.1)
 						continue;*/
 
-					auto current_lev = thisPoint.GetTopLevel() - lh;
+					auto current_lev = XLagDynamicTerrainMapItemOperation(thisPoint).GetTopLevel() - lh;
 					auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
 
 					result->SubTasks.push_back(MoveTo(pos));

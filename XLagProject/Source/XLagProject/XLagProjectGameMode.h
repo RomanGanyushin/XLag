@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "XLagDynamicTerrain/XLagDynamicTerrainMap.h"
 #include "XLagProjectGameMode.generated.h"
 
 UCLASS(minimalapi)
@@ -13,6 +14,9 @@ class AXLagProjectGameMode : public AGameModeBase
 
 public:
 	AXLagProjectGameMode();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FXLagDynamicTerrainMap TerrainMap;
 };
 
 

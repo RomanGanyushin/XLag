@@ -4,5 +4,5 @@
 struct IMapItemFilter
 {
 	virtual ~IMapItemFilter() = default;
-	virtual const bool IsMatch(const XLagDynamicTerrainMapItem& item) const = 0;
+	virtual const bool IsMatch(const FXLagDynamicTerrainMapItem& item) const = 0;
 };

@@ -1,4 +1,5 @@
 #include "XLagDynamicTerrainLayerGeometry.h"
+#include "../../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
 
 void XLagDynamicTerrainLayerGeometry::CreateFrom(std::shared_ptr<ITerrainMapAccessor> map, int layerKind)
 {
@@ -14,25 +15,25 @@ void XLagDynamicTerrainLayerGeometry::CreateFrom(std::shared_ptr<ITerrainMapAcce
 			auto& item11 = map->Point(xIndex + 1, yIndex + 1);
 			auto& item01 = map->Point(xIndex, yIndex + 1);
 
-			auto itemLevel00 = item00.Get();
-			auto itemLevel10 = item10.Get();
-			auto itemLevel11 = item11.Get();
-			auto itemLevel01 = item01.Get();
+			auto itemLevel00 = XLagDynamicTerrainMapItemOperation(item00).Get();
+			auto itemLevel10 = XLagDynamicTerrainMapItemOperation(item10).Get();
+			auto itemLevel11 = XLagDynamicTerrainMapItemOperation(item11).Get();
+			auto itemLevel01 = XLagDynamicTerrainMapItemOperation(item01).Get();
 
 			if (itemLevel00 == nullptr || itemLevel10 == nullptr || itemLevel11 == nullptr || itemLevel01 == nullptr)
 			{
 				continue;
 			}
 
-			auto fl = itemLevel00->GetLevel(); auto k = itemLevel00->GetTerrainElement();
+			auto fl = itemLevel00->Level; auto k = itemLevel00->Element;
 			if (k != layerKind)
 				continue;
 
 			AddQuadMesh(
-				FVector(100 * xIndex, 100 * yIndex, itemLevel00->GetLevel()),
-				FVector(100 * xIndex, 100 * (yIndex + 1), itemLevel01->GetLevel()),
-				FVector(100 * (xIndex + 1), 100 * (yIndex + 1), itemLevel11->GetLevel()),
-				FVector(100 * (xIndex + 1), 100 * yIndex, itemLevel10->GetLevel()),
+				FVector(100 * xIndex, 100 * yIndex, itemLevel00->Level),
+				FVector(100 * xIndex, 100 * (yIndex + 1), itemLevel01->Level),
+				FVector(100 * (xIndex + 1), 100 * (yIndex + 1), itemLevel11->Level),
+				FVector(100 * (xIndex + 1), 100 * yIndex, itemLevel10->Level),
 				triIndex);
 		}
 }
@@ -52,26 +53,26 @@ void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMa
 			auto& item11 = map->Point(xIndex + 1, yIndex + 1);
 			auto& item01 = map->Point(xIndex, yIndex + 1);
 
-			auto itemLevel00 = item00.Get();
-			auto itemLevel10 = item10.Get();
-			auto itemLevel11 = item11.Get();
-			auto itemLevel01 = item01.Get();
+			auto itemLevel00 = XLagDynamicTerrainMapItemOperation(item00).Get();
+			auto itemLevel10 = XLagDynamicTerrainMapItemOperation(item10).Get();
+			auto itemLevel11 = XLagDynamicTerrainMapItemOperation(item11).Get();
+			auto itemLevel01 = XLagDynamicTerrainMapItemOperation(item01).Get();
 
 			if (itemLevel00 == nullptr || itemLevel10 == nullptr || itemLevel11 == nullptr || itemLevel01 == nullptr)
 			{
 				continue;
 			}
 
-			auto k = itemLevel00->GetTerrainElement();
+			auto k = itemLevel00->Element;
 			
 			if (k != layerKind)
 				continue;
 
 			AddQuadMesh(
-				FVector(100 * xIndex, 100 * yIndex, itemLevel00->GetLevel()),
-				FVector(100 * xIndex, 100 * (yIndex + 1), itemLevel01->GetLevel()),
-				FVector(100 * (xIndex + 1), 100 * (yIndex + 1), itemLevel11->GetLevel()),
-				FVector(100 * (xIndex + 1), 100 * yIndex, itemLevel10->GetLevel()),
+				FVector(100 * xIndex, 100 * yIndex, itemLevel00->Level),
+				FVector(100 * xIndex, 100 * (yIndex + 1), itemLevel01->Level),
+				FVector(100 * (xIndex + 1), 100 * (yIndex + 1), itemLevel11->Level),
+				FVector(100 * (xIndex + 1), 100 * yIndex, itemLevel10->Level),
 				triIndex);
 
 			float a1 = 0;
@@ -79,15 +80,15 @@ void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMa
 			float a3 = 0;
 			float a4 = 0;
 
-			if (map->Point(xIndex - 1, yIndex - 1).Get()->GetTerrainElement() == fromKind
-				|| map->Point(xIndex - 1, yIndex).Get()->GetTerrainElement() == fromKind
-				|| map->Point(xIndex, yIndex - 1).Get()->GetTerrainElement() == fromKind)
+			if (XLagDynamicTerrainMapItemOperation(map->Point(xIndex - 1, yIndex - 1)).Get()->Element == fromKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex - 1, yIndex)).Get()->Element == fromKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex, yIndex - 1)).Get()->Element == fromKind)
 			{
 				a1 = 0;
 			}
-			else if(map->Point(xIndex - 1, yIndex - 1).Get()->GetTerrainElement() == toKind
-				|| map->Point(xIndex - 1, yIndex).Get()->GetTerrainElement() == toKind
-				|| map->Point(xIndex, yIndex - 1).Get()->GetTerrainElement() == toKind)
+			else if(XLagDynamicTerrainMapItemOperation(map->Point(xIndex - 1, yIndex - 1)).Get()->Element == toKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex - 1, yIndex)).Get()->Element == toKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex, yIndex - 1)).Get()->Element == toKind)
 			{
 				a1 = 1;
 			}
@@ -96,15 +97,15 @@ void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMa
 				a1 = 0.5;
 			}
 
-			if (map->Point(xIndex - 1, yIndex).Get()->GetTerrainElement() == fromKind
-				|| map->Point(xIndex - 1, yIndex + 1).Get()->GetTerrainElement() == fromKind
-				|| map->Point(xIndex, yIndex + 1).Get()->GetTerrainElement() == fromKind)
+			if (XLagDynamicTerrainMapItemOperation(map->Point(xIndex - 1, yIndex)).Get()->Element == fromKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex - 1, yIndex + 1)).Get()->Element == fromKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex, yIndex + 1)).Get()->Element == fromKind)
 			{
 				a2 = 0;
 			}
-			else if (map->Point(xIndex - 1, yIndex).Get()->GetTerrainElement() == toKind
-				|| map->Point(xIndex - 1, yIndex + 1).Get()->GetTerrainElement() == toKind
-				|| map->Point(xIndex, yIndex + 1).Get()->GetTerrainElement() == toKind)
+			else if (XLagDynamicTerrainMapItemOperation(map->Point(xIndex - 1, yIndex)).Get()->Element == toKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex - 1, yIndex + 1)).Get()->Element == toKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex, yIndex + 1)).Get()->Element == toKind)
 			{
 				a2 = 1;
 			}
@@ -113,15 +114,15 @@ void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMa
 				a2 = 0.5;
 			}
 
-			if (map->Point(xIndex, yIndex + 1).Get()->GetTerrainElement() == fromKind
-				|| map->Point(xIndex + 1, yIndex + 1).Get()->GetTerrainElement() == fromKind
-				|| map->Point(xIndex + 1, yIndex).Get()->GetTerrainElement() == fromKind)
+			if (XLagDynamicTerrainMapItemOperation(map->Point(xIndex, yIndex + 1)).Get()->Element == fromKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex + 1, yIndex + 1)).Get()->Element == fromKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex + 1, yIndex)).Get()->Element == fromKind)
 			{
 				a3 = 0;
 			}
-			else if (map->Point(xIndex, yIndex + 1).Get()->GetTerrainElement() == toKind
-				|| map->Point(xIndex + 1, yIndex + 1).Get()->GetTerrainElement() == toKind
-				|| map->Point(xIndex + 1, yIndex).Get()->GetTerrainElement() == toKind)
+			else if (XLagDynamicTerrainMapItemOperation(map->Point(xIndex, yIndex + 1)).Get()->Element == toKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex + 1, yIndex + 1)).Get()->Element == toKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex + 1, yIndex)).Get()->Element == toKind)
 			{
 				a3 = 1;
 			}
@@ -130,15 +131,15 @@ void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMa
 				a3 = 0.5;
 			}
 
-			if (map->Point(xIndex + 1, yIndex).Get()->GetTerrainElement() == fromKind
-				|| map->Point(xIndex + 1, yIndex - 1).Get()->GetTerrainElement() == fromKind
-				|| map->Point(xIndex, yIndex - 1).Get()->GetTerrainElement() == fromKind)
+			if (XLagDynamicTerrainMapItemOperation(map->Point(xIndex + 1, yIndex)).Get()->Element == fromKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex + 1, yIndex - 1)).Get()->Element == fromKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex, yIndex - 1)).Get()->Element == fromKind)
 			{
 				a4 = 0;
 			}
-			else if (map->Point(xIndex + 1, yIndex).Get()->GetTerrainElement() == toKind
-				|| map->Point(xIndex + 1, yIndex - 1).Get()->GetTerrainElement() == toKind
-				|| map->Point(xIndex, yIndex - 1).Get()->GetTerrainElement() == toKind)
+			else if (XLagDynamicTerrainMapItemOperation(map->Point(xIndex + 1, yIndex)).Get()->Element == toKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex + 1, yIndex - 1)).Get()->Element == toKind
+				|| XLagDynamicTerrainMapItemOperation(map->Point(xIndex, yIndex - 1)).Get()->Element == toKind)
 			{
 				a4 = 1;
 			}

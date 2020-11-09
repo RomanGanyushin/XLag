@@ -25,7 +25,7 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 		float Progression = 0;
 
-	void Initialize(XLagDynamicTerrainMapItem* cell, FXLagCropDescription description);
+	void Initialize(FXLagDynamicTerrainMapItem* cell, FXLagCropDescription description);
 
 protected:
 	// Called when the game starts or when spawned
@@ -37,7 +37,7 @@ protected:
 private:
 	bool IsVaild() const;
 	const FXLagCropStage* GetCurrentStage() const;
-	XLagDynamicTerrainMapItem* Cell;
+	FXLagDynamicTerrainMapItem* Cell;
 	void UpdateView();
 	void UpdateStageView();
 	void NextStage();

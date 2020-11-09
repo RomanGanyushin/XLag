@@ -136,21 +136,9 @@
     <Filter Include="Source\XLagProject\XLagDynamicTerrain">
       <UniqueIdentifier>{540D35DC-885A-4C38-877B-9839E7AE845A}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMap.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMap.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClInclude>
     <None Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapFiller.hpp">
       <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
     </None>
-    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItem.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItem.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClInclude>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapWindow.cpp">
       <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
     </ClCompile>
@@ -381,9 +369,6 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagDynamicTerrainLayerGeometry.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain\GeometryBuilder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItemLayer.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_ExtractMineralRegion.h">
       <Filter>Source\XLagProject\XLagTasks</Filter>
     </ClInclude>
@@ -537,6 +522,24 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWrPutProductionAtStackTask.h">
       <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItemLayer.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItemOperation.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItem.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapAccessor.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapInitializer.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMap.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -600,9 +603,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagDynamicTerrainLayerGeometry.cpp">
       <Filter>Source\XLagProject\XLagDynamicTerrain\GeometryBuilder</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapItemLayer.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_ExtractMineralRegion.cpp">
       <Filter>Source\XLagProject\XLagTasks</Filter>

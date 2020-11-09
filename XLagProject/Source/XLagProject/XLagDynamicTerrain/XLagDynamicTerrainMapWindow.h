@@ -37,22 +37,22 @@ public:
 	std::shared_ptr<ITerrainMapAccessor> CreateWindow(int const &x, int const &y, int const &sx, int const &sy) override;
 
 	// #inhereddoc
-	XLagDynamicTerrainMapItem& Point(int const &x, int const &y) override;
-	const XLagDynamicTerrainMapItem& PointConst(int const &x, int const &y) const override;
+	FXLagDynamicTerrainMapItem& Point(int const &x, int const &y) override;
+	const FXLagDynamicTerrainMapItem& PointConst(int const &x, int const &y) const override;
 
 	// #inhereddoc
-	XLagDynamicTerrainMapItem& Point(int const &index) override;
+	FXLagDynamicTerrainMapItem& Point(int const &index) override;
 
 	// #inhereddoc
 	const FVector GetWorldPosition(int const &x, int const &y, GetPositionEnum flag) const override;
 
 	// #inhereddoc
-	const FVector GetWorldPosition(XLagDynamicTerrainMapItem* item, GetPositionEnum flag) const override;
+	const FVector GetWorldPosition(FXLagDynamicTerrainMapItem* item, GetPositionEnum flag) const override;
 
 	// #inhereddoc
 	const FVector GetWorldPosition(const CoordinatePoint& coord, GetPositionEnum flag) const override;
 
-	std::vector<XLagDynamicTerrainMapItem*> GetFilteredItems(const IMapItemFilter& filter) override;
+	std::vector<FXLagDynamicTerrainMapItem*> GetFilteredItems(const IMapItemFilter& filter) override;
 
 	bool IsChanged() override;
 };

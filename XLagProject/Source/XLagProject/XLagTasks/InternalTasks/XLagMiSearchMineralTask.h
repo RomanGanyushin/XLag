@@ -26,7 +26,7 @@ public:
 			return;
 		}
 
-		XLagDynamicTerrainMapItem& mapCell = Map->Point(X, Y);
+		auto& mapCell = Map->Point(X, Y);
 		auto isFinished = miner->SearchMineral(mapCell, Mineral, DeltaTime);
 
 		if (isFinished)

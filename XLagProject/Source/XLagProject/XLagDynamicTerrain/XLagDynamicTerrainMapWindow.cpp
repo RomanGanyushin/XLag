@@ -26,19 +26,19 @@ std::shared_ptr<ITerrainMapAccessor> XLagDynamicTerrainMapWindow::CreateWindow(i
 }
 
 // #inhereddoc
-XLagDynamicTerrainMapItem& XLagDynamicTerrainMapWindow::Point(int const &x, int const &y)
+FXLagDynamicTerrainMapItem& XLagDynamicTerrainMapWindow::Point(int const &x, int const &y)
 { 
 	return _fullMap->Point(x + _offsetX, y + _offsetY);
 }
 
 // #inhereddoc
-XLagDynamicTerrainMapItem& XLagDynamicTerrainMapWindow::Point(int const &index)
+FXLagDynamicTerrainMapItem& XLagDynamicTerrainMapWindow::Point(int const &index)
 {
 	// TODO: Сделать вычисления.
 	throw std::exception();
 }
 
-const XLagDynamicTerrainMapItem& XLagDynamicTerrainMapWindow::PointConst(int const &x, int const &y) const
+const FXLagDynamicTerrainMapItem& XLagDynamicTerrainMapWindow::PointConst(int const &x, int const &y) const
 {
 	return _fullMap->Point(x + _offsetX, y + _offsetY);
 }
@@ -48,7 +48,7 @@ const FVector XLagDynamicTerrainMapWindow::GetWorldPosition(int const &x, int co
 	return _fullMap->GetWorldPosition(x + _offsetX, y + _offsetY, flag);
 }
 
-const FVector XLagDynamicTerrainMapWindow::GetWorldPosition(XLagDynamicTerrainMapItem* item, GetPositionEnum flag) const
+const FVector XLagDynamicTerrainMapWindow::GetWorldPosition(FXLagDynamicTerrainMapItem* item, GetPositionEnum flag) const
 {
 	return _fullMap->GetWorldPosition(item, flag);
 }
@@ -58,9 +58,9 @@ const FVector XLagDynamicTerrainMapWindow::GetWorldPosition(const CoordinatePoin
 	return GetWorldPosition(coord.X, coord.Y, flag);
 }
 
-std::vector<XLagDynamicTerrainMapItem*> XLagDynamicTerrainMapWindow::GetFilteredItems(const IMapItemFilter& filter)
+std::vector<FXLagDynamicTerrainMapItem*> XLagDynamicTerrainMapWindow::GetFilteredItems(const IMapItemFilter& filter)
 {
-	std::vector<XLagDynamicTerrainMapItem*> result;
+	std::vector<FXLagDynamicTerrainMapItem*> result;
 
 	for (int ix = 0; ix < SizeX(); ix++)
 		for (int iy = 0; iy < SizeX(); iy++)

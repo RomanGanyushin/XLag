@@ -1,5 +1,6 @@
 #include "XLagNPCFarmer.h"
 #include "XLagNPCSwapManagement.h"
+#include "../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
 #include "../Common/CellOperationProcessing.h"
 
 #define DEBUG_FORCE_MULTIPLIER 1
@@ -10,13 +11,13 @@ void AXLagNPCFarmer::OfferAccept(UXLagTaskBase* task)
 }
 
 
-bool AXLagNPCFarmer::Plough(XLagDynamicTerrainMapItem& cell, float DeltaTime)
+bool AXLagNPCFarmer::Plough(FXLagDynamicTerrainMapItem& cell, float DeltaTime)
 {
 	auto force = DeltaTime;
 	auto plough = force * DEBUG_FORCE_MULTIPLIER;
 
 	auto isComplite = false;
-	auto currentTopKind = cell.GetTopKind();
+	auto currentTopKind = XLagDynamicTerrainMapItemOperation(cell).GetTopKind();
 
 	if (currentTopKind != TerrainElementEnum::Cultivated)
 	{
@@ -29,21 +30,21 @@ bool AXLagNPCFarmer::Plough(XLagDynamicTerrainMapItem& cell, float DeltaTime)
 		}
 		else
 		{
-			cell.Pour(plough, TerrainElementEnum::Cultivated);
+			XLagDynamicTerrainMapItemOperation(cell).Pour(plough, TerrainElementEnum::Cultivated);
 		}
 	}
 	else
 	{
-		cell.Pour(plough, TerrainElementEnum::Cultivated);
+		XLagDynamicTerrainMapItemOperation(cell).Pour(plough, TerrainElementEnum::Cultivated);
 	}
 
-	isComplite = cell.GetHeghtTopLevel() > 10;
+	isComplite = XLagDynamicTerrainMapItemOperation(cell).GetHeghtTopLevel() > 10;
 	IsPloughing = !isComplite;
 
 	return isComplite;
 }
 
-bool AXLagNPCFarmer::Sow(XLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop, float DeltaTime)
+bool AXLagNPCFarmer::Sow(FXLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop, float DeltaTime)
 {
 	auto force = DeltaTime;
 	auto sowForce = force * DEBUG_FORCE_MULTIPLIER;
@@ -59,16 +60,10 @@ bool AXLagNPCFarmer::Sow(XLagDynamicTerrainMapItem& cell, const FXLagCropDescrip
 
 	if (cell.OnSurfaceResourceObjects == OnSurfaceResourceObjectsEnum::Empty)
 	{
-		if (cell.OperationTimeMap.find(CellOperationEnum::Sow) == cell.OperationTimeMap.end())
-		{
-			cell.OperationTimeMap[CellOperationEnum::Sow] = 0.0f;
-		}
-		else
-		{
-			cell.OperationTimeMap[CellOperationEnum::Sow] += sowForce;
-		}
-
-		if (cell.OperationTimeMap[CellOperationEnum::Sow] < 5.0)
+		CellOperationProcessing operation(&cell, CellOperationEnum::Sow, 5);
+		operation.Increase(sowForce);
+		
+		if (!operation.IsComplete())
 		{
 			isComplite = false;
 			IsSowing = true;
@@ -77,7 +72,7 @@ bool AXLagNPCFarmer::Sow(XLagDynamicTerrainMapItem& cell, const FXLagCropDescrip
 		{
 			isComplite = true;
 			IsSowing = false;
-			cell.OperationTimeMap.erase(CellOperationEnum::Sow);
+			cell.OperationTimeMap.Remove(CellOperationEnum::Sow);
 
 			cell.OnSurfaceResourceObjects = OnSurfaceResourceObjectsEnum::Crop;
 			auto swapManager = AXLagNPCSwapManagement::GetManagment(); // Переделать через менеджер
@@ -91,10 +86,10 @@ bool AXLagNPCFarmer::Sow(XLagDynamicTerrainMapItem& cell, const FXLagCropDescrip
 	return isComplite;
 }
 
-bool AXLagNPCFarmer::Grow(XLagDynamicTerrainMapItem& cell, float DeltaTime)
+bool AXLagNPCFarmer::Grow(FXLagDynamicTerrainMapItem& cell, float DeltaTime)
 {
 	auto force = DeltaTime;
-	auto sowForce = force * DEBUG_FORCE_MULTIPLIER;
+	auto growForce = force * DEBUG_FORCE_MULTIPLIER;
 
 	auto isComplite = false;
 
@@ -105,16 +100,10 @@ bool AXLagNPCFarmer::Grow(XLagDynamicTerrainMapItem& cell, float DeltaTime)
 		return true;
 	}
 
-	if (cell.OperationTimeMap.find(CellOperationEnum::Grow) == cell.OperationTimeMap.end())
-	{
-		cell.OperationTimeMap[CellOperationEnum::Grow] = 0.0f;
-	}
-	else
-	{
-		cell.OperationTimeMap[CellOperationEnum::Grow] += sowForce;
-	}
+	CellOperationProcessing operation(&cell, CellOperationEnum::Grow, 5);
+	operation.Increase(growForce);
 
-	if (cell.OperationTimeMap[CellOperationEnum::Grow] < 5.0)
+	if (!operation.IsComplete())
 	{
 		isComplite = false;
 		IsGrowing = true;
@@ -123,13 +112,13 @@ bool AXLagNPCFarmer::Grow(XLagDynamicTerrainMapItem& cell, float DeltaTime)
 	{
 		isComplite = true;
 		IsGrowing = false;
-		cell.OperationTimeMap.erase(CellOperationEnum::Grow);
+		cell.OperationTimeMap.Remove(CellOperationEnum::Grow);
 	}
 
 	return isComplite;
 }
 
-bool AXLagNPCFarmer::TakeCrop(XLagDynamicTerrainMapItem& cell, float DeltaTime)
+bool AXLagNPCFarmer::TakeCrop(FXLagDynamicTerrainMapItem& cell, float DeltaTime)
 {
 	auto force = DeltaTime;
 	auto takeForce = force;
@@ -163,9 +152,9 @@ bool AXLagNPCFarmer::TakeCrop(XLagDynamicTerrainMapItem& cell, float DeltaTime)
 	return isComplite;
 }
 
-bool AXLagNPCFarmer::ValidateForSowCell(XLagDynamicTerrainMapItem& cell)
+bool AXLagNPCFarmer::ValidateForSowCell(FXLagDynamicTerrainMapItem& cell)
 {
-	auto currentTopKind = cell.GetTopKind();
+	auto currentTopKind = XLagDynamicTerrainMapItemOperation(cell).GetTopKind();
 
 	if (currentTopKind != TerrainElementEnum::Cultivated)
 		return false;
@@ -177,9 +166,9 @@ bool AXLagNPCFarmer::ValidateForSowCell(XLagDynamicTerrainMapItem& cell)
 	return true;
 }
 
-bool AXLagNPCFarmer::ValidateForGrowCell(XLagDynamicTerrainMapItem& cell)
+bool AXLagNPCFarmer::ValidateForGrowCell(FXLagDynamicTerrainMapItem& cell)
 {
-	auto currentTopKind = cell.GetTopKind();
+	auto currentTopKind = XLagDynamicTerrainMapItemOperation(cell).GetTopKind();
 
 	if (currentTopKind != TerrainElementEnum::Cultivated)
 		return false;
@@ -190,7 +179,7 @@ bool AXLagNPCFarmer::ValidateForGrowCell(XLagDynamicTerrainMapItem& cell)
 	return true;
 }
 
-bool AXLagNPCFarmer::ValidateForTakeCropCell(XLagDynamicTerrainMapItem& cell)
+bool AXLagNPCFarmer::ValidateForTakeCropCell(FXLagDynamicTerrainMapItem& cell)
 {
 	if (!ValidateForGrowCell(cell))
 		return false;

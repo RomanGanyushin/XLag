@@ -1,6 +1,7 @@
 #pragma once
 #include "../../Common/IMapItemFilter.h"
 #include "../../Common/TerrainElementEnum.h"
+#include "../XLagDynamicTerrainMapItemOperation.h"
 
 class ResourcePlacementMapItemFilter : public IMapItemFilter
 {
@@ -10,9 +11,9 @@ public:
 	{
 	}
 
-	const bool IsMatch(const XLagDynamicTerrainMapItem& item) const override
+	const bool IsMatch(const FXLagDynamicTerrainMapItem& item) const override
 	{
-		return item.GetTopKind() == _element 
+		return XLagDynamicTerrainMapItemOperation(item).GetTopKind() == _element
 			   && !item.IsZeroLocation
 			   && item.OnSurfaceResourceObjects == OnSurfaceResourceObjectsEnum::Empty;
 	}

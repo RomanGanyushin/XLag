@@ -1,8 +1,10 @@
 #pragma once
+#include "OnSurfaceResourceObjectsEnum.generated.h"
 
 /*
 	Перечислитель ресурсов на поверхности.
 */
+UENUM(BlueprintType)
 enum OnSurfaceResourceObjectsEnum
 {
 	// Пусто.

@@ -18,16 +18,16 @@ public:
 	virtual void OfferAccept(UXLagTaskBase* task) override;
 
 	// Пазхать клетку.
-	virtual bool Plough(XLagDynamicTerrainMapItem& cell, float DeltaTime);
+	virtual bool Plough(FXLagDynamicTerrainMapItem& cell, float DeltaTime);
 
 	// Сеять клетку.
-	virtual bool Sow(XLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop, float DeltaTime);
+	virtual bool Sow(FXLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop, float DeltaTime);
 
 	// Выращивать (ухаживать, поливать)
-	virtual bool Grow(XLagDynamicTerrainMapItem& cell, float DeltaTime);
+	virtual bool Grow(FXLagDynamicTerrainMapItem& cell, float DeltaTime);
 
 	// Собирать урожай.
-	virtual bool TakeCrop(XLagDynamicTerrainMapItem& cell, float DeltaTime);
+	virtual bool TakeCrop(FXLagDynamicTerrainMapItem& cell, float DeltaTime);
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Farmer Working")
 		bool  IsPloughing = false;
@@ -50,9 +50,9 @@ private:
 	virtual bool CanConfirmTask(UXLagTaskBase* task) override { return true; }
 
 private:
-	bool ValidateForSowCell(XLagDynamicTerrainMapItem& cell);
-	bool ValidateForGrowCell(XLagDynamicTerrainMapItem& cell);
-	bool ValidateForTakeCropCell(XLagDynamicTerrainMapItem& cell);
+	bool ValidateForSowCell(FXLagDynamicTerrainMapItem& cell);
+	bool ValidateForGrowCell(FXLagDynamicTerrainMapItem& cell);
+	bool ValidateForTakeCropCell(FXLagDynamicTerrainMapItem& cell);
 
 //private:
 //	inline AXLagMineralManager* GetMineralManager()

@@ -5,18 +5,18 @@
 class CellOperationProcessing
 {
 public:
-	CellOperationProcessing(XLagDynamicTerrainMapItem* cell, CellOperationEnum operation)
-		:Cell(cell), Operation(operation)
+	CellOperationProcessing(FXLagDynamicTerrainMapItem* cell, CellOperationEnum operation, float completeValue = 100.0f)
+		:Cell(cell), Operation(operation), _completeValue(completeValue)
 	{
-		if (cell->OperationTimeMap.find(operation) == cell->OperationTimeMap.end())
+		if (!cell->OperationTimeMap.Contains(operation))
 		{
-			cell->OperationTimeMap[operation] = 0.0f;
+			cell->OperationTimeMap.Add(operation, 0.0f);
 		}
 	}
 
 	const bool IsComplete()
 	{
-		return Cell->OperationTimeMap[Operation] >= 100.0f;
+		return Cell->OperationTimeMap[Operation] >= _completeValue;
 	}
 
 	const bool IsCompleting()
@@ -35,9 +35,9 @@ public:
 			return 0.0f;
 
 		auto oldValue = Cell->OperationTimeMap[Operation];
-		Cell->OperationTimeMap[Operation] = std::min(Cell->OperationTimeMap[Operation] + value , 100.0f);
+		Cell->OperationTimeMap[Operation] = std::min(Cell->OperationTimeMap[Operation] + value , _completeValue);
 
-		_completing = Cell->OperationTimeMap[Operation] == 100.0f;
+		_completing = Cell->OperationTimeMap[Operation] == _completeValue;
 		return Cell->OperationTimeMap[Operation] - oldValue;
 	}
 
@@ -64,7 +64,8 @@ public:
 	}
 
 private:
-	XLagDynamicTerrainMapItem* Cell;
+	FXLagDynamicTerrainMapItem* Cell;
 	CellOperationEnum Operation;
 	bool _completing = false;
+	float _completeValue;
 };

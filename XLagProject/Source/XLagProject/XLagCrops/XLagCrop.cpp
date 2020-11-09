@@ -8,7 +8,7 @@ AXLagCrop::AXLagCrop()
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 }
 
-void AXLagCrop::Initialize(XLagDynamicTerrainMapItem* cell, FXLagCropDescription description)
+void AXLagCrop::Initialize(FXLagDynamicTerrainMapItem* cell, FXLagCropDescription description)
 {
 	Description = description;
 	Cell = cell;

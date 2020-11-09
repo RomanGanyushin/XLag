@@ -24,7 +24,7 @@ public:
 			return;
 		}
 
-		XLagDynamicTerrainMapItem& mapCell = Map->Point(X, Y);
+		auto& mapCell = Map->Point(X, Y);
 
 		auto isFinished = farmer->Sow(mapCell, Crop, DeltaTime);
 		if (isFinished)

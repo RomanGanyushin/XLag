@@ -54,8 +54,8 @@ public:
 	AXLagMineralStack* DoSwapMineralStack(const FXLagMineralDesc& mineral);
 	AXLagCropStack* DoSwapCropStack(const FXLagCropDescription& crop);
 	AXLagProductStack* DoSwapProductStack(const FXLagProductionSchema& product);
-	AXLagCrop* DoSwapCrop(XLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop);
-	void DoUnswapCrop(XLagDynamicTerrainMapItem& cell);
+	AXLagCrop* DoSwapCrop(FXLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop);
+	void DoUnswapCrop(FXLagDynamicTerrainMapItem& cell);
 	AXLagBuilding *DoSwapBuilding();
 
 public:	

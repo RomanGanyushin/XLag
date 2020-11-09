@@ -135,7 +135,7 @@ void AXLagNPCSwapManagement::DoSwapTrees()
 
 		auto tree = GetWorld()->SpawnActor<AXLagCuttableTreeBase>(treeTemplate, loction, rotator);
 		tree->UpdateAge(MinimalAge + rand() % int(MaximalAge - MinimalAge));
-		tree->SetPlaceId(mapItem->GetId());
+		tree->SetPlaceId(mapItem->Id);
 
 		SwapedTrees.Add(tree);
 	}	
@@ -175,28 +175,28 @@ AXLagProductStack* AXLagNPCSwapManagement::DoSwapProductStack(const FXLagProduct
 	return stack;
 }
 
-AXLagCrop* AXLagNPCSwapManagement::DoSwapCrop(XLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop)
+AXLagCrop* AXLagNPCSwapManagement::DoSwapCrop(FXLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop)
 {
 	auto locator = MapAccessor->GetWorldPosition(&cell, GetPositionEnum::CenterHeghtPosition);
 	auto newCrop = GetWorld()->SpawnActor<AXLagCrop>(CropTemplate, locator, FRotator::ZeroRotator);
 	newCrop->Initialize(&cell, crop);
 
-	if (!SwapedCrops.Contains(cell.GetId()))
+	if (!SwapedCrops.Contains(cell.Id))
 	{
-		SwapedCrops.Add(cell.GetId());
+		SwapedCrops.Add(cell.Id);
 	}
 	
-	SwapedCrops[cell.GetId()] = newCrop;
+	SwapedCrops[cell.Id] = newCrop;
 	return newCrop;
 }
 
-void AXLagNPCSwapManagement::DoUnswapCrop(XLagDynamicTerrainMapItem& cell)
+void AXLagNPCSwapManagement::DoUnswapCrop(FXLagDynamicTerrainMapItem& cell)
 {
-	if (!SwapedCrops.Contains(cell.GetId()))
+	if (!SwapedCrops.Contains(cell.Id))
 		return;
 
-	GetWorld()->DestroyActor(SwapedCrops[cell.GetId()]);
-	SwapedCrops.Remove(cell.GetId());
+	GetWorld()->DestroyActor(SwapedCrops[cell.Id]);
+	SwapedCrops.Remove(cell.Id);
 }
 
 // Called every frame

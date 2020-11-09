@@ -3,6 +3,7 @@
 #include "XLagNPCTaskBase.h"
 #include "../../XLagNPC/XLagNPCBuilderman.h"
 #include "../../Common/ITerrainMapAccessor.h"
+#include "../../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
 
 class XLagBlPourGraundTask : public XLagNPCTaskBase
 {
@@ -27,10 +28,10 @@ public:
 			return;
 		}
 
-		XLagDynamicTerrainMapItem& mapCell = Map->Point(X, Y);
+		auto& mapCell = Map->Point(X, Y);
 		builder->Pour(mapCell, Level, Element);
 
-		if (mapCell.GetTopLevel() - Level >= -1)
+		if (XLagDynamicTerrainMapItemOperation(mapCell).GetTopLevel() - Level >= -1)
 		{
 			Completed = true;
 			builder->Cancel();

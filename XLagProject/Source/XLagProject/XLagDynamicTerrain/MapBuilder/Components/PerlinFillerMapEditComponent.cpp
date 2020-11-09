@@ -1,4 +1,5 @@
 #include "PerlinFillerMapEditComponent.h"
+#include "../../XLagDynamicTerrainMapItemOperation.h"
 #include <time.h>
 
 
@@ -25,5 +26,5 @@ void PerlinFillerMapEditComponent::DoEdit(ITerrainMapAccessor *const accessor, c
 		static_cast<float>(ix) / _settings.XDevider, 
 		static_cast<float>(iy) / _settings.YDevider, _settings.Octaves) * _settings.Amplitude;
 
-	accessor->Point(ix, iy).AddLayer(XLagDynamicTerrainMapItemLayer(level, _element));
+	XLagDynamicTerrainMapItemOperation(accessor->Point(ix, iy)).AddLayer(FXLagDynamicTerrainMapItemLayer(level, _element));
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "ITerrainElementTransofmCondition.h"
 #include "../../../Common/TerrainElementEnum.h"
+#include "../../XLagDynamicTerrainMapItemOperation.h"
 #include <algorithm>
 
 class TerrainElementTransformNeighbourCondition : public ITerrainElementTransofmCondition
@@ -27,7 +28,7 @@ public:
 				if (i == ix || j == iy)
 					continue;
 
-				if (accessor->PointConst(i, j).Get()->GetTerrainElement() == _firstElement)
+				if (XLagDynamicTerrainMapItemOperation(accessor->PointConst(i, j)).Get()->Element == _firstElement)
 					return true;
 			}
 

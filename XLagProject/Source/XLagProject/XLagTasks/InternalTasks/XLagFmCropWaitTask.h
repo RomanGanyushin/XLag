@@ -3,6 +3,7 @@
 #include "XLagNPCTaskBase.h"
 #include "../../Common/ITerrainMapAccessor.h"
 #include "../../Common/CellOperationProcessing.h"
+#include "../../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
 
 class XLagFmCropWaitTask : public XLagNPCTaskBase
 {
@@ -15,7 +16,7 @@ public:
 	virtual void Execute(ACharacter *npc, XLagNPCTaskContext* context, float DeltaTime, int subLevel) override
 	{
 		auto& cell = Map->Point(X, Y);
-		if (!cell.HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum::Crop))
+		if (!XLagDynamicTerrainMapItemOperation(cell).HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum::Crop))
 		{
 			Completed = true;
 			return;

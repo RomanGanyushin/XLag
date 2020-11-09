@@ -8,6 +8,9 @@
 
 #include "Common\TerrainElementEnum.h"
 #include "Common\CellOperationProcessing.h"
+
+#include "XLagDynamicTerrain\XLagDynamicTerrainMapInitializer.h"
+#include "XLagDynamicTerrain\XLagDynamicTerrainMapAccessor.h"
 #include "XLagDynamicTerrain\MapBuilder\TerrainMapEditEditor.h"
 #include "XLagDynamicTerrain\MapBuilder\Components\PerlinFillerMapEditComponent.h"
 #include "XLagDynamicTerrain\MapBuilder\Components\AligmentEditComponent.h"
@@ -22,6 +25,7 @@
 #include "XLagBuildings\XLagBuildingManager.h"
 
 #include "Kismet/GameplayStatics.h"
+#include "XLagProjectGameMode.h"
 #include "XLagNPC/XLagNPCSwapManagement.h"
 
 
@@ -36,8 +40,8 @@ AXLagDynamicTerrainBase::AXLagDynamicTerrainBase()
 	RootComponent = TerrainScene;
 	InitializeLayers();
 
-	InitMap();
-	InitGeometry();
+	//InitMap();
+	//InitGeometry();
 	//AddGreader();
 
 	UE_LOG(LogTemp, Warning, TEXT("AXLagDynamicTerrainBase construct 056"));
@@ -48,9 +52,9 @@ void AXLagDynamicTerrainBase::PostActorCreated()
 {
 	Super::PostActorCreated();
 
-	InitMap();
-	InitGeometry();
-	AddGreader();
+	//InitMap();
+	//InitGeometry();
+	//AddGreader();
 }
 
 void AXLagDynamicTerrainBase::PostLoad()
@@ -59,7 +63,8 @@ void AXLagDynamicTerrainBase::PostLoad()
 
 	InitMap();
 	InitGeometry();
-	AddGreader();
+	
+	//AddGreader();
 }
 
 // Called when the game starts or when spawned
@@ -67,12 +72,18 @@ void AXLagDynamicTerrainBase::BeginPlay()
 {
 	Super::BeginPlay();
 
+	/*if (GetWorld() == nullptr || GetWorld()->GetAuthGameMode() == nullptr)
+		return;*/
+
+	/*InitMap();
+	InitGeometry();*/
+
 	auto swapManager = AXLagNPCSwapManagement::GetManagment();
 	auto buildingManager = AXLagBuildingManager::GetManagment();
 
 	if (swapManager != nullptr)
 	{
-		swapManager->SetMapAccessor(CurrentMap);
+		swapManager->SetMapAccessor(Map);
 
 		swapManager->DoSwapTrees();
 		UE_LOG(LogTemp, Log, TEXT("Do Swap Trees"));
@@ -110,7 +121,7 @@ void AXLagDynamicTerrainBase::Tick(float DeltaTime)
 		for (int y = 0; y < Map->SizeX(); y++)
 		{
 			auto& cell = Map->Point(x, y);
-			if (cell.HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum::Crop))
+			if (XLagDynamicTerrainMapItemOperation(cell).HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum::Crop))
 			{			
 				CellOperationProcessing evolution(&cell, CellOperationEnum::Evolution),
 					evolutionTime(&cell, CellOperationEnum::EvolutionTime);
@@ -197,10 +208,25 @@ void AXLagDynamicTerrainBase::InitializeLayers()
 
 void AXLagDynamicTerrainBase::InitMap()
 {
-	auto map = new XLagDynamicTerrainMap(FullMapSizeX, FullMapSizeY, Scale);
-	Map = std::shared_ptr<ITerrainMapAccessor>(map);
-	map->Initialize();
+	TerrainMap.Map.SetNum(100 * 100);
+	TerrainMap.Scale = 100.0f;
+	TerrainMap.SizeX = 100;
+	TerrainMap.SizeY = 100;
 
+	/*auto gm = GetWorld()->GetAuthGameMode();
+	auto terrainMap = ((AXLagProjectGameMode*)gm)->TerrainMap;*/
+
+	XLagDynamicTerrainMapInitializer initializer(TerrainMap);
+
+	initializer.SetCreateMineralLayerEventHandler(std::bind(
+		&AXLagDynamicTerrainBase::CreateMineralLayerEventHandler,
+		this,
+		std::placeholders::_1,
+		std::placeholders::_2));
+
+	initializer.DoInitialize();
+
+	Map = std::shared_ptr<ITerrainMapAccessor>(new XLagDynamicTerrainMapAccessor(TerrainMap));
 	CurrentMap = Map->CreateWindow(0,0, WindowMapSizeX, WindowMapSizeY);
 
 	TerrainMapEditEditor editor(Map);
@@ -261,11 +287,11 @@ void AXLagDynamicTerrainBase::InitMap()
 			auto region = Map->GetFilteredItems(filter);
 			for (auto& cell : region)
 			{
-				auto topLayer = cell->GetForLayerKind(terrainMineral.MineralTerrainElement);
+				auto topLayer = XLagDynamicTerrainMapItemOperation(*cell).GetForLayerKind(terrainMineral.MineralTerrainElement);
 				if (topLayer == nullptr)
 					continue;
 
-				topLayer->SetMineralId(terrainMineral.ID);
+				topLayer->MineralId = terrainMineral.ID;
 			}
 		}
 	}
@@ -301,6 +327,59 @@ void AXLagDynamicTerrainBase::InitMap()
 			place->OnSurfaceResourceObjects = OnSurfaceResourceObjectsEnum::Tree;
 		}
 	}
+}
+
+void AXLagDynamicTerrainBase::CreateMineralLayerEventHandler(FXLagDynamicTerrainMapItem* sender, const FXLagMineralDesc& mineral)
+{
+	//auto terrainMap = ((AXLagProjectGameMode*)GetWorld()->GetAuthGameMode())->TerrainMap;
+
+	auto size_x = Map->SizeX();
+	auto size_y = Map->SizeY();
+
+	auto SafeX = [&size_x](const int& x) { return x < 0 ? 0 : x >= size_x ? size_x - 1 : x; };
+	auto SafeY = [&size_y](const int& y) { return y < 0 ? 0 : y >= size_y ? size_y - 1 : y; };
+
+	auto mineralGenDesc = mineral.OccurrenceMineralGenDesc;
+
+	if (mineralGenDesc.UnderTerrainElement != XLagDynamicTerrainMapItemOperation(*sender).GetTopKind()) // Проверяем условие залегания.
+		return;
+
+	XLagDynamicTerrainMapAccessor accesor(TerrainMap);
+
+	auto coord = accesor.GetCoordinate(sender);
+	auto analystSize = 10;
+	auto analystRect = CoordinateRect(SafeX(coord.X - analystSize), SafeY(coord.Y - analystSize),
+		SafeX(coord.X + analystSize), SafeY(coord.Y + analystSize));
+
+	float aroundMineralQuantity = 0.0f;
+
+	for (int x = analystRect.Point1.X; x <= analystRect.Point2.X; x++)
+		for (int y = analystRect.Point1.Y; y <= analystRect.Point2.Y; y++)
+			aroundMineralQuantity += XLagDynamicTerrainMapItemOperation(accesor.PointConst(x, y)).MeasureResourceQuantity(mineral.MineralTerrainElement);
+
+	float currentMineralAvvarage = aroundMineralQuantity / analystRect.Square();
+
+	if (currentMineralAvvarage != 0.0f/*> mineralGenDesc.AverageQuantity*/) // Если плотность минералов выше, то игнорируем генерацию.
+		return;
+
+
+	auto resurceRect = CoordinateRect(SafeX(coord.X - 3), SafeY(coord.Y - 3),
+		SafeX(coord.X + 3), SafeY(coord.Y + 3));
+
+	for (int x = resurceRect.Point1.X; x <= resurceRect.Point2.X; x++) // Делаем костыльное месторождение.
+		for (int y = resurceRect.Point1.Y; y <= resurceRect.Point2.Y; y++)
+		{
+			auto item = XLagDynamicTerrainMapItemOperation(Map->Point(x, y));
+
+			if (mineralGenDesc.UnderTerrainElement != TerrainElementEnum::None
+				&& item.GetTopKind() != mineralGenDesc.UnderTerrainElement) // Проверяем условие верхнего элемента.
+				continue;
+
+			auto level = item.GetTopLevel();
+			item.AddLayer(FXLagDynamicTerrainMapItemLayer(level - 10, mineral.MineralTerrainElement, mineral.ID));
+			item.AddLayer(FXLagDynamicTerrainMapItemLayer(level - 200, TerrainElementEnum::RockBasalt));
+			accesor.Point(x, y).Changed = true;
+		}
 }
 
 void AXLagDynamicTerrainBase::InitGeometry()
@@ -364,7 +443,7 @@ void AXLagDynamicTerrainBase::AddGreader()
 {
 	return;
 	float x = 5000; float y = 5000;
-	float z = Map->Point(50, 50).Get()->GetLevel() + 10.f;
+	float z = XLagDynamicTerrainMapItemOperation(Map->Point(50, 50)).Get()->Level + 10.f;
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereVisualAsset(TEXT("/Game/excavator/greider"));
 	

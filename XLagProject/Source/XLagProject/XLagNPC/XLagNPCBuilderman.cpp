@@ -2,7 +2,7 @@
 
 
 #include "XLagNPCBuilderman.h"
-
+#include "../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
 
 void AXLagNPCBuilderman::Tick(float DeltaTime)
 {
@@ -10,7 +10,7 @@ void AXLagNPCBuilderman::Tick(float DeltaTime)
 
 	if (IsDiging && digMemo.get() != nullptr)
 	{
-		auto targetSlice = digMemo->targetCell->GetTopLevel() - digMemo->ToLevel;
+		auto targetSlice = XLagDynamicTerrainMapItemOperation(*digMemo->targetCell).GetTopLevel() - digMemo->ToLevel;
 
 		UE_LOG(LogTemp, Log, TEXT("Dig target slice %f"), targetSlice);
 
@@ -19,12 +19,12 @@ void AXLagNPCBuilderman::Tick(float DeltaTime)
 
 		targetSlice = std::min(targetSlice, 0.01f);
 
-		digMemo->targetCell->Dig(targetSlice, digMemo->KeepTopLayer);
+		XLagDynamicTerrainMapItemOperation(*digMemo->targetCell).Dig(targetSlice, digMemo->KeepTopLayer);
 	}
 
 	if (IsPouring && pourMemo.get() != nullptr)
 	{
-		auto targetSlice = pourMemo->ToLevel - pourMemo->targetCell->GetTopLevel();
+		auto targetSlice = pourMemo->ToLevel - XLagDynamicTerrainMapItemOperation(*pourMemo->targetCell).GetTopLevel();
 
 		UE_LOG(LogTemp, Log, TEXT("Dig target slice %f"), targetSlice);
 
@@ -33,17 +33,17 @@ void AXLagNPCBuilderman::Tick(float DeltaTime)
 
 		targetSlice = std::min(targetSlice, 0.01f);
 
-		pourMemo->targetCell->Pour(targetSlice, pourMemo->Element);
+		XLagDynamicTerrainMapItemOperation(*pourMemo->targetCell).Pour(targetSlice, pourMemo->Element);
 	}
 }
 
-void AXLagNPCBuilderman::Dig(XLagDynamicTerrainMapItem& cell, float toLevel, bool keepTopLayer)
+void AXLagNPCBuilderman::Dig(FXLagDynamicTerrainMapItem& cell, float toLevel, bool keepTopLayer)
 {
 	IsDiging = true;
 	digMemo = std::shared_ptr<DigMemo>(new DigMemo(&cell, toLevel, keepTopLayer));
 }
 
-void AXLagNPCBuilderman::Pour(XLagDynamicTerrainMapItem& cell, float toLevel, TerrainElementEnum element)
+void AXLagNPCBuilderman::Pour(FXLagDynamicTerrainMapItem& cell, float toLevel, TerrainElementEnum element)
 {
 	IsPouring = true;
 	pourMemo = std::shared_ptr<PourMemo>(new PourMemo(&cell, toLevel, element));

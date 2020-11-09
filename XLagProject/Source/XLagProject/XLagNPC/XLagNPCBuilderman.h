@@ -10,20 +10,20 @@
 
 struct DigMemo
 {
-	DigMemo(XLagDynamicTerrainMapItem* cell, float toLevel, bool keepToLevel)
+	DigMemo(FXLagDynamicTerrainMapItem* cell, float toLevel, bool keepToLevel)
 		:targetCell(cell), ToLevel(toLevel), KeepTopLayer(keepToLevel) {}
 
-	XLagDynamicTerrainMapItem* targetCell;
+	FXLagDynamicTerrainMapItem* targetCell;
 	float ToLevel;
 	bool KeepTopLayer;
 };
 
 struct PourMemo
 {
-	PourMemo(XLagDynamicTerrainMapItem* cell, float toLevel, TerrainElementEnum element)
+	PourMemo(FXLagDynamicTerrainMapItem* cell, float toLevel, TerrainElementEnum element)
 		:targetCell(cell), ToLevel(toLevel), Element(element) {}
 
-	XLagDynamicTerrainMapItem* targetCell;
+	FXLagDynamicTerrainMapItem* targetCell;
 	float ToLevel;
 	TerrainElementEnum Element;
 };
@@ -41,10 +41,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// Копай клетку.
-	virtual void Dig(XLagDynamicTerrainMapItem& cell, float toLevel, bool keepTopLayer);
+	virtual void Dig(FXLagDynamicTerrainMapItem& cell, float toLevel, bool keepTopLayer);
 
 	// Насыпай на клетку.
-	virtual void Pour(XLagDynamicTerrainMapItem& cell, float toLevel, TerrainElementEnum element);
+	virtual void Pour(FXLagDynamicTerrainMapItem& cell, float toLevel, TerrainElementEnum element);
 
 	// Строй здание.
 	virtual void Build(AXLagBuilding* building);

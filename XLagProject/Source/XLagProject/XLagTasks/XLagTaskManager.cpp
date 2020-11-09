@@ -47,7 +47,7 @@ void AXLagTaskManager::Tick(float DeltaTime)
 
 		if (isNpcRequireTask)
 		{
-			for (auto &e : it->Executers)
+			for (auto &e : it->Executers) // TODO: Тут может быть нулевой перс. Надо проверить и удалить из исполнителей.
 			{
 				it->NpcTask->Execute(e, &it->TaskContext, DeltaTime);
 			}
@@ -139,7 +139,7 @@ void AXLagTaskManager::CreateCuttingTreeTask(AXLagSelectComponent *select, AXLag
 
 	for (auto mapItemPtr : mapRequireTrees)
 	{
-		long placeId = mapItemPtr->GetId();
+		long placeId = mapItemPtr->Id;
 		auto ppTree = swapper->SwapedTrees.FindByPredicate([placeId](auto& pt) {return pt->PlaceId == placeId; });
 		if (ppTree == nullptr)
 			continue;

@@ -20,10 +20,10 @@ public:
 	virtual void OfferAccept(UXLagTaskBase* task) override;
 
 	// Ищи минерал в клетке.
-	virtual bool SearchMineral(XLagDynamicTerrainMapItem& cell, const FXLagMineralDesc mineral, float DeltaTime);
+	virtual bool SearchMineral(FXLagDynamicTerrainMapItem& cell, const FXLagMineralDesc mineral, float DeltaTime);
 
 	// Добудь минерал из клетки.
-	virtual bool ExtractMineral(XLagDynamicTerrainMapItem& cell, const FXLagMineralDesc mineral, float DeltaTime);
+	virtual bool ExtractMineral(FXLagDynamicTerrainMapItem& cell, const FXLagMineralDesc mineral, float DeltaTime);
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Miner Working")
 		bool  IsSearching = false;

@@ -11,7 +11,7 @@ public:
 	{
 	}
 
-	const bool IsMatch(const XLagDynamicTerrainMapItem& item) const override
+	const bool IsMatch(const FXLagDynamicTerrainMapItem& item) const override
 	{
 		return item.OnSurfaceResourceObjects == OnSurfaceResourceObjectsEnum::Tree;
 	}

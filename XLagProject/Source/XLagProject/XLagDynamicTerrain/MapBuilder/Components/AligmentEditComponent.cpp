@@ -1,4 +1,5 @@
 #include "AligmentEditComponent.h"
+#include "../../XLagDynamicTerrainMapItemOperation.h"
 
 AligmentEditComponent::AligmentEditComponent(const AligmentEditComponentSettings& settings)
 	: _settings(settings)
@@ -12,7 +13,7 @@ void AligmentEditComponent::PrepareForEdit(ITerrainMapAccessor *const accessor)
 		return;
 	}
 
-	_level = accessor->Point(_settings.RefXIndex, _settings.RefYIndex).GetTopLevel();
+	_level = XLagDynamicTerrainMapItemOperation(accessor->Point(_settings.RefXIndex, _settings.RefYIndex)).GetTopLevel();
 }
 
 void AligmentEditComponent::DoEdit(ITerrainMapAccessor *const accessor, const int& ix, const int& iy)
@@ -23,13 +24,13 @@ void AligmentEditComponent::DoEdit(ITerrainMapAccessor *const accessor, const in
 	}
 
 	auto dist = sqrt(std::pow(ix - _settings.RefXIndex, 2) + std::pow(iy - _settings.RefYIndex, 2));
-	auto& point = accessor->Point(ix, iy);
+	auto point = XLagDynamicTerrainMapItemOperation(accessor->Point(ix, iy));
 	const auto level = point.GetTopLevel();
 
 	if (dist <= _settings.ZeroPlaceRadius)
 	{
 		point.MoveTopLevelTo(_settings.ZeroLevel);
-		point.IsZeroLocation = true;
+		accessor->Point(ix, iy).IsZeroLocation = true;
 		return;
 	}
 	

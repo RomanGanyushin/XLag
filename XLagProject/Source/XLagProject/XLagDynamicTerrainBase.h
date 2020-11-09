@@ -4,8 +4,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "ProceduralMeshComponent.h"
+#include "XLagDynamicTerrain/XLagDynamicTerrainMap.h"
 #include "XLagDynamicTerrain/XLagDynamicTerrainMapWindow.h"
-
 #include "XLagNPC/XLagCuttableTreeBase.h"
 #include "XLagGeometry/Builders/GeometryBuilderAbstract.h"
 #include "XLagDynamicTerrainBase.generated.h"
@@ -122,6 +122,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void ActivateColorizedMap(bool activate);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FXLagDynamicTerrainMap TerrainMap;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -136,6 +139,9 @@ protected:
 
 	UStaticMeshComponent *Grader = nullptr;
 	TArray<AXLagCuttableTreeBase*> Trees;
+
+	///
+	void CreateMineralLayerEventHandler(FXLagDynamicTerrainMapItem* sender, const FXLagMineralDesc& mineral);
 
 protected:
 	void InitializeLayers();

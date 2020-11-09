@@ -19,13 +19,13 @@ class XLAGPROJECT_API AXLagNPCWorker : public AXLagNPCBase
 
 public:	
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Worker Cutting")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Worker Working")
 		bool  IsMineralTaking = false;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Worker Cutting")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Worker Working")
 		bool  IsManualProduction = false;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Worker Cutting")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Worker Working")
 		bool  IsProductPutting = false;
 
 	/// ѕолучить зарезервированный материал из кучи.

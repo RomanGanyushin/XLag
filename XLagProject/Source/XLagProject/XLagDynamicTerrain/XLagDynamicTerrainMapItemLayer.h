@@ -1,23 +1,25 @@
 #pragma once
 #include "../Common/TerrainElementEnum.h"
+#include "XLagDynamicTerrainMapItemLayer.generated.h"
 
-class XLagDynamicTerrainMapItemLayer
+USTRUCT(BlueprintType)
+struct FXLagDynamicTerrainMapItemLayer
 {
-public:
-	XLagDynamicTerrainMapItemLayer(float level, TerrainElementEnum element);
+	GENERATED_BODY()
 
-	XLagDynamicTerrainMapItemLayer(float level, TerrainElementEnum element, int mineralId);
+	FXLagDynamicTerrainMapItemLayer() {};
 
-	bool IsTerrainElement(const TerrainElementEnum element) const;
-	float GetLevel() const;
-	void ChangeLevel(const float& newLevel);
-	int GetTerrainElement() const;
-	void ChangeTerrainElement(const TerrainElementEnum newElement);
-	int GetMineralId() const;
-	void SetMineralId(const int mineralId);
+	FXLagDynamicTerrainMapItemLayer(const float& level, const TerrainElementEnum& element)
+		:Level(level), Element(element), MineralId(0)
+	{
+	}
 
-private:
-	float _level;
-	TerrainElementEnum _element;
-	int _mineralId;
+	FXLagDynamicTerrainMapItemLayer(const float& level, const TerrainElementEnum& element, const int& mineralId)
+		:Level(level), Element(element), MineralId(mineralId)
+	{
+	}
+
+	UPROPERTY() float Level;
+	UPROPERTY() TEnumAsByte <TerrainElementEnum> Element;
+	UPROPERTY() int MineralId;
 };

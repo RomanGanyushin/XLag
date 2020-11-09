@@ -25,12 +25,12 @@ struct ITerrainMapAccessor
 	virtual std::shared_ptr<ITerrainMapAccessor> CreateWindow(int const &x, int const &y, int const &sx, int const &sy) = 0;
 
 	// Получает точку по координате (x,y).
-	virtual XLagDynamicTerrainMapItem& Point(int const &x, int const &y) = 0;
+	virtual FXLagDynamicTerrainMapItem& Point(int const &x, int const &y) = 0;
 
-	virtual const XLagDynamicTerrainMapItem& PointConst(int const &x, int const &y) const = 0;
+	virtual const FXLagDynamicTerrainMapItem& PointConst(int const &x, int const &y) const = 0;
 
 	// Получает точку по индексу.
-	virtual XLagDynamicTerrainMapItem& Point(int const &index) = 0;
+	virtual FXLagDynamicTerrainMapItem& Point(int const &index) = 0;
 
 	// Получает координату простраства по индексу x,y.
 	virtual const FVector GetWorldPosition(int const &x, int const &y, GetPositionEnum flag) const  = 0;
@@ -38,9 +38,9 @@ struct ITerrainMapAccessor
 	virtual const FVector GetWorldPosition(const CoordinatePoint& coord, GetPositionEnum flag) const = 0;
 
 	// Получает координату простраства по элементу.
-	virtual const FVector GetWorldPosition(XLagDynamicTerrainMapItem* item, GetPositionEnum flag) const = 0;
+	virtual const FVector GetWorldPosition(FXLagDynamicTerrainMapItem* item, GetPositionEnum flag) const = 0;
 
-	virtual std::vector<XLagDynamicTerrainMapItem*> GetFilteredItems(const IMapItemFilter& filter) = 0;
+	virtual std::vector<FXLagDynamicTerrainMapItem*> GetFilteredItems(const IMapItemFilter& filter) = 0;
 
 	virtual bool IsChanged() = 0;
 };
