@@ -7,6 +7,7 @@
 #include "XLagDynamicTerrain/XLagDynamicTerrainMap.h"
 #include "XLagProjectGameMode.generated.h"
 
+
 UCLASS(minimalapi)
 class AXLagProjectGameMode : public AGameModeBase
 {
@@ -17,6 +18,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FXLagDynamicTerrainMap TerrainMap;
+
+	UFUNCTION(BlueprintCallable)
+		void SetTerrainMap(const FXLagDynamicTerrainMap& map);
+
 };
 
 

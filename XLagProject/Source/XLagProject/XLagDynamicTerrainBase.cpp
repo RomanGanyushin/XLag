@@ -61,22 +61,24 @@ void AXLagDynamicTerrainBase::PostLoad()
 {
 	Super::PostLoad();
 
-	InitMap();
-	InitGeometry();
+	/*InitMap();
+	InitGeometry();*/
 	
 	//AddGreader();
 }
 
-// Called when the game starts or when spawned
 void AXLagDynamicTerrainBase::BeginPlay()
 {
 	Super::BeginPlay();
+}
 
-	/*if (GetWorld() == nullptr || GetWorld()->GetAuthGameMode() == nullptr)
-		return;*/
+// Called when the game starts or when spawned
+void AXLagDynamicTerrainBase::OnInitialze(AGameModeBase* gameMode)
+{
+	Initialized = true;
 
-	/*InitMap();
-	InitGeometry();*/
+	InitMap(gameMode);
+	InitGeometry();
 
 	auto swapManager = AXLagNPCSwapManagement::GetManagment();
 	auto buildingManager = AXLagBuildingManager::GetManagment();
@@ -115,6 +117,9 @@ void AXLagDynamicTerrainBase::BeginPlay()
 void AXLagDynamicTerrainBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (!Initialized)
+		return;
 
 	/// Рост
 	for (int x = 0; x < Map->SizeX(); x++)
@@ -206,17 +211,11 @@ void AXLagDynamicTerrainBase::InitializeLayers()
 	ColorizeMapper->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
-void AXLagDynamicTerrainBase::InitMap()
+void AXLagDynamicTerrainBase::InitMap(AGameModeBase* gameMode)
 {
-	TerrainMap.Map.SetNum(100 * 100);
-	TerrainMap.Scale = 100.0f;
-	TerrainMap.SizeX = 100;
-	TerrainMap.SizeY = 100;
+	auto& terrainMap = ((AXLagProjectGameMode*)gameMode)->TerrainMap;
 
-	/*auto gm = GetWorld()->GetAuthGameMode();
-	auto terrainMap = ((AXLagProjectGameMode*)gm)->TerrainMap;*/
-
-	XLagDynamicTerrainMapInitializer initializer(TerrainMap);
+	XLagDynamicTerrainMapInitializer initializer(terrainMap);
 
 	initializer.SetCreateMineralLayerEventHandler(std::bind(
 		&AXLagDynamicTerrainBase::CreateMineralLayerEventHandler,
@@ -226,8 +225,11 @@ void AXLagDynamicTerrainBase::InitMap()
 
 	initializer.DoInitialize();
 
-	Map = std::shared_ptr<ITerrainMapAccessor>(new XLagDynamicTerrainMapAccessor(TerrainMap));
+	Map = std::shared_ptr<ITerrainMapAccessor>(new XLagDynamicTerrainMapAccessor(terrainMap));
 	CurrentMap = Map->CreateWindow(0,0, WindowMapSizeX, WindowMapSizeY);
+
+	if (terrainMap.IsCreated)
+		return;
 
 	TerrainMapEditEditor editor(Map);
 
@@ -327,12 +329,12 @@ void AXLagDynamicTerrainBase::InitMap()
 			place->OnSurfaceResourceObjects = OnSurfaceResourceObjectsEnum::Tree;
 		}
 	}
+
+	terrainMap.IsCreated = true;
 }
 
 void AXLagDynamicTerrainBase::CreateMineralLayerEventHandler(FXLagDynamicTerrainMapItem* sender, const FXLagMineralDesc& mineral)
 {
-	//auto terrainMap = ((AXLagProjectGameMode*)GetWorld()->GetAuthGameMode())->TerrainMap;
-
 	auto size_x = Map->SizeX();
 	auto size_y = Map->SizeY();
 
@@ -344,9 +346,7 @@ void AXLagDynamicTerrainBase::CreateMineralLayerEventHandler(FXLagDynamicTerrain
 	if (mineralGenDesc.UnderTerrainElement != XLagDynamicTerrainMapItemOperation(*sender).GetTopKind()) // Проверяем условие залегания.
 		return;
 
-	XLagDynamicTerrainMapAccessor accesor(TerrainMap);
-
-	auto coord = accesor.GetCoordinate(sender);
+	auto coord = Map->GetCoordinate(sender);
 	auto analystSize = 10;
 	auto analystRect = CoordinateRect(SafeX(coord.X - analystSize), SafeY(coord.Y - analystSize),
 		SafeX(coord.X + analystSize), SafeY(coord.Y + analystSize));
@@ -355,7 +355,7 @@ void AXLagDynamicTerrainBase::CreateMineralLayerEventHandler(FXLagDynamicTerrain
 
 	for (int x = analystRect.Point1.X; x <= analystRect.Point2.X; x++)
 		for (int y = analystRect.Point1.Y; y <= analystRect.Point2.Y; y++)
-			aroundMineralQuantity += XLagDynamicTerrainMapItemOperation(accesor.PointConst(x, y)).MeasureResourceQuantity(mineral.MineralTerrainElement);
+			aroundMineralQuantity += XLagDynamicTerrainMapItemOperation(Map->PointConst(x, y)).MeasureResourceQuantity(mineral.MineralTerrainElement);
 
 	float currentMineralAvvarage = aroundMineralQuantity / analystRect.Square();
 
@@ -378,7 +378,7 @@ void AXLagDynamicTerrainBase::CreateMineralLayerEventHandler(FXLagDynamicTerrain
 			auto level = item.GetTopLevel();
 			item.AddLayer(FXLagDynamicTerrainMapItemLayer(level - 10, mineral.MineralTerrainElement, mineral.ID));
 			item.AddLayer(FXLagDynamicTerrainMapItemLayer(level - 200, TerrainElementEnum::RockBasalt));
-			accesor.Point(x, y).Changed = true;
+			Map->Point(x, y).Changed = true;
 		}
 }
 

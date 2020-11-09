@@ -122,9 +122,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void ActivateColorizedMap(bool activate);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		FXLagDynamicTerrainMap TerrainMap;
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -132,7 +129,7 @@ protected:
 	std::shared_ptr<ITerrainMapAccessor> Map;
 	std::shared_ptr<ITerrainMapAccessor> CurrentMap;
 
-	void InitMap();
+	void InitMap(AGameModeBase* gameMode);
 	void InitGeometry();
 	void InitGeometryForColorizeMap();
 	void AddGreader();
@@ -147,7 +144,22 @@ protected:
 	void InitializeLayers();
 	void GenerateLayerGeometry(UProceduralMeshComponent* Component, GeometryBuilderAbstract* geometry);
 
+	bool Initialized = false;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	virtual void OnInitialze(AGameModeBase* gameMode);
+
+	inline static AXLagDynamicTerrainBase* GetDynamicTerrainBase()
+	{
+		AXLagDynamicTerrainBase *currentObject = nullptr;
+
+		for (TObjectIterator<AXLagDynamicTerrainBase> It; It; ++It)
+		{
+			currentObject = *It;
+		}
+
+		return currentObject;
+	}
 };

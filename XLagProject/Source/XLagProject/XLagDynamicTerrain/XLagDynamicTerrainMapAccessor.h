@@ -108,7 +108,7 @@ public:
 		return result;
 	}
 
-	inline const CoordinatePoint GetCoordinate(FXLagDynamicTerrainMapItem* item) const
+	const CoordinatePoint GetCoordinate(FXLagDynamicTerrainMapItem* item) const 
 	{
 		if (item == nullptr)
 			throw std::exception("Argument null exception");

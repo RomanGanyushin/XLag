@@ -3,6 +3,7 @@
 #include "XLagProjectGameMode.h"
 #include "XLagProjectCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "XLagDynamicTerrainBase.h"
 
 AXLagProjectGameMode::AXLagProjectGameMode()
 {
@@ -20,10 +21,16 @@ AXLagProjectGameMode::AXLagProjectGameMode()
 	{
 		PlayerControllerClass = ThirdPersonController.Class;
 	}
+}
 
-	///
-	TerrainMap.Map.SetNum(100 * 100);
-	TerrainMap.Scale = 100.0f;
-	TerrainMap.SizeX = 100;
-	TerrainMap.SizeY = 100;
+void AXLagProjectGameMode::SetTerrainMap(const FXLagDynamicTerrainMap& map)
+{
+	TerrainMap = map;
+
+	if (!TerrainMap.IsCreated)
+	{
+		TerrainMap.Map.SetNum(TerrainMap.SizeX * TerrainMap.SizeY);
+	}
+
+	AXLagDynamicTerrainBase::GetDynamicTerrainBase()->OnInitialze(this);
 }

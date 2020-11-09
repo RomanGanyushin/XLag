@@ -55,4 +55,6 @@ public:
 	std::vector<FXLagDynamicTerrainMapItem*> GetFilteredItems(const IMapItemFilter& filter) override;
 
 	bool IsChanged() override;
+
+	const CoordinatePoint GetCoordinate(FXLagDynamicTerrainMapItem* item) const override;
 };

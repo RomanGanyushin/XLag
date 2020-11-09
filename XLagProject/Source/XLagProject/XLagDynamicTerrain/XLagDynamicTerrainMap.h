@@ -7,15 +7,18 @@ struct FXLagDynamicTerrainMap
 {
 	GENERATED_BODY()
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, SaveGame)
 	TArray<FXLagDynamicTerrainMapItem> Map;
 
-	UPROPERTY() 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, SaveGame)
 	int SizeX;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, SaveGame)
 	int SizeY;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, SaveGame)
 	float Scale;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, SaveGame)
+	bool IsCreated = false;
 };

@@ -42,5 +42,7 @@ struct ITerrainMapAccessor
 
 	virtual std::vector<FXLagDynamicTerrainMapItem*> GetFilteredItems(const IMapItemFilter& filter) = 0;
 
+	virtual const CoordinatePoint GetCoordinate(FXLagDynamicTerrainMapItem* item) const = 0;
+
 	virtual bool IsChanged() = 0;
 };

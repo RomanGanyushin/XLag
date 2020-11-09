@@ -91,3 +91,9 @@ bool XLagDynamicTerrainMapWindow::IsChanged()
 
 	return result;
 }
+
+const CoordinatePoint XLagDynamicTerrainMapWindow::GetCoordinate(FXLagDynamicTerrainMapItem* item) const
+{
+	throw std::exception(); //TODO: Впринуипе нужно только учесть смещение.
+	return _fullMap->GetCoordinate(item);
+}
