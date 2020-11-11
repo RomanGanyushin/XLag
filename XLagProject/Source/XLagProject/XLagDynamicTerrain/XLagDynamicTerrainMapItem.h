@@ -29,10 +29,6 @@ struct FXLagDynamicTerrainMapItem
 	UPROPERTY()
 	TMap<TEnumAsByte<CellOperationEnum>, float> OperationTimeMap;
 
-	// Время затраченного на поиск ресурса.
-	UPROPERTY()
-	TMap<int, float> ResurceSearchTimeMap;
-
 	UPROPERTY()
 	TEnumAsByte<OnSurfaceResourceObjectsEnum> OnSurfaceResourceObjects;
 

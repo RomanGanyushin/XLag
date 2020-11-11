@@ -11,8 +11,6 @@ enum OnSurfaceResourceObjectsEnum
 	Empty = 0,
 	// Дерево.
 	Tree  = 1,
-	// Камень.
-	Stone = 2,
-	// Урожай
+	//// Урожай
 	Crop = 3
 };

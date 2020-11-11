@@ -10,5 +10,8 @@ enum CellOperationEnum
 	Evolution,
 	// Показвает время необъодимое для выполнение операции.
 	EvolutionTime,
-	CropQuantity
+	CropQuantity,
+
+	// Показывает статус поиск минерала
+	SearchMineral,
 };

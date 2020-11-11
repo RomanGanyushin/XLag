@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "XLagNPCMiner.h"
 #include "../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
+#include "../Common/CellOperationProcessing.h"
+
 #define DEBUG_FORCE_MULTIPLIER 1
 
 void AXLagNPCMiner::OfferAccept(UXLagTaskBase* task)
@@ -10,8 +12,22 @@ void AXLagNPCMiner::OfferAccept(UXLagTaskBase* task)
 
 bool AXLagNPCMiner::SearchMineral(FXLagDynamicTerrainMapItem& cell, const FXLagMineralDesc mineral, float DeltaTime)
 {
-	auto force = DeltaTime;
-	auto isComplite = XLagDynamicTerrainMapItemOperation(cell).SearchResource(mineral, force);
+	auto searchForce = DeltaTime;
+	auto searchComplexity = mineral.SearchComplexity;
+
+	auto isComplite = XLagDynamicTerrainMapItemOperation(cell).CheckForMineral(mineral.ID);
+	if (!isComplite)
+	{
+		CellOperationProcessing operation(&cell, CellOperationEnum::SearchMineral, searchComplexity);
+		operation.Increase(searchForce);
+		
+		if (operation.IsComplete())
+		{
+			isComplite = true;
+			cell.CreateMineralLayerEventRaise(&cell, mineral);
+		}	
+	}
+
 	IsSearching = !isComplite;
 
 	return isComplite;

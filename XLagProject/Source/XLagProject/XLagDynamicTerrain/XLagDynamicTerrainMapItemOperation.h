@@ -205,27 +205,6 @@ public:
 		MapItem.Changed = true;
 	}
 
-	bool SearchResource(const FXLagMineralDesc& mineral, float force)
-	{
-		if (!MapItem.ResurceSearchTimeMap.Contains(mineral.ID))
-		{
-			MapItem.ResurceSearchTimeMap.Add(mineral.ID, force);
-		}
-		else
-		{
-			MapItem.ResurceSearchTimeMap[mineral.ID] += force;
-		}
-
-		if (MapItem.ResurceSearchTimeMap[mineral.ID] < mineral.SearchComplexity)
-			return false;
-
-		if (CheckForMineral(mineral.ID)) // ≈сли минерал уже есть, то ничего не делаем.
-			return true;
-
-		MapItem.CreateMineralLayerEventRaise(&MapItem, mineral);
-		return true;
-	}
-
 	float ExtractResource(const FXLagMineralDesc& mineral, float force)
 	{
 		if (!CheckForMineral(mineral.ID)) // ≈сли минерала нет, то ничего не делаем.

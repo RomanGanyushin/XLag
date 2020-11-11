@@ -89,6 +89,8 @@ bool XLagDynamicTerrainMapWindow::IsChanged()
 			}
 		}
 
+
+
 	return result;
 }
 
