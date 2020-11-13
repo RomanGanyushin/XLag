@@ -21,8 +21,11 @@ struct FXLagDynamicTerrainMapItem
 	}
 
 	UPROPERTY()
-	int64 Id;
+	int32 Id;
 
+	UPROPERTY()
+	int32 Index;
+	
 	UPROPERTY()
 	TArray<FXLagDynamicTerrainMapItemLayer> Stack;
 

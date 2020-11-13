@@ -24,6 +24,8 @@
 #include "XLagGeometry\Builders\XLagDynamicTerrainLayerGeometry.h"
 #include "XLagBuildings\XLagBuildingManager.h"
 
+#include "XLagDynamicObject/ObjectModels/TerrainTreeObject.h"
+
 #include "Kismet/GameplayStatics.h"
 #include "XLagProjectGameMode.h"
 #include "XLagNPC/XLagNPCSwapManagement.h"
@@ -87,8 +89,8 @@ void AXLagDynamicTerrainBase::OnInitialze(AGameModeBase* gameMode)
 	{
 		swapManager->SetMapAccessor(Map);
 
-		swapManager->DoSwapTrees();
-		UE_LOG(LogTemp, Log, TEXT("Do Swap Trees"));
+		//swapManager->DoSwapTrees();
+		//UE_LOG(LogTemp, Log, TEXT("Do Swap Trees"));
 
 		swapManager->DoSwapTreeStack();
 		UE_LOG(LogTemp, Log, TEXT("Do Swap Tree Stack"));
@@ -214,6 +216,7 @@ void AXLagDynamicTerrainBase::InitializeLayers()
 void AXLagDynamicTerrainBase::InitMap(AGameModeBase* gameMode)
 {
 	auto& terrainMap = ((AXLagProjectGameMode*)gameMode)->TerrainMap;
+	auto& terrainObjects = ((AXLagProjectGameMode*)gameMode)->TerrainObjects;
 
 	XLagDynamicTerrainMapInitializer initializer(terrainMap);
 
@@ -325,8 +328,15 @@ void AXLagDynamicTerrainBase::InitMap(AGameModeBase* gameMode)
 
 		for(auto index : randomizeVector)
 		{
-			auto* place = possiblePlace[index];
-			place->OnSurfaceResourceObjects = OnSurfaceResourceObjectsEnum::Tree;
+			auto* place = possiblePlace[index];			
+			auto loction = Map->GetWorldPosition(place, GetPositionEnum::CenterLowPosition);
+			auto rotator = FRotator(0, rand() % 360, 0);
+
+			FTerrainTreeObject tree;
+			tree.SetLoction(loction);
+			tree.SetRotaion(rotator);
+
+			terrainObjects.AddObject(LagDynamicObjectType::Tree_, place->Index, tree.Properties);
 		}
 	}
 

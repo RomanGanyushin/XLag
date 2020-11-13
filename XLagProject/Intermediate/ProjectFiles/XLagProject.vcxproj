@@ -272,10 +272,14 @@
     <AdditionalOptions>/std:c++14</AdditionalOptions>
   </PropertyGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\XLagProject\Common\XLagObjectProperties.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingDescription.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingManager.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagCrops\XLagCrop.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagCrops\XLagCropManager.cpp" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainTreeObject.h" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjectsManager.cpp" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjects.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagColorizeMapGeometryBuilder.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagDynamicTerrainLayerGeometry.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagGeometry\Builders\GeometryBuilderAbstract.cpp" />
@@ -302,12 +306,17 @@
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_SearchMineralRegion.cpp" />
     <ClInclude Include="..\..\Source\XLagProject\Common\CellOperationEnum.h" />
     <ClInclude Include="..\..\Source\XLagProject\Common\CellOperationProcessing.h" />
+    <ClInclude Include="..\..\Source\XLagProject\Common\XLagObjectProperties.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingDescription.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagBuildings\XLagBuildingManager.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagCrops\Models\XLagCropDescription.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagCrops\Models\XLagCropStage.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagCrops\XLagCrop.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagCrops\XLagCropManager.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainObjectBase.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjectsManager.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObject.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjects.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapInitializer.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagColorizeMapGeometryBuilder.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagDynamicTerrainLayerGeometry.h" />

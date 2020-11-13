@@ -540,6 +540,21 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMap.h">
       <Filter>Source\XLagProject\XLagDynamicTerrain</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\Common\XLagObjectProperties.h">
+      <Filter>Source\XLagProject\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObject.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrainObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjects.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrainObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainObjectBase.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrainObject\ObjectModels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjectsManager.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrainObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -577,6 +592,12 @@
     </Filter>
     <Filter Include="Source\XLagProject\XLagProduction\Models">
       <UniqueIdentifier>{969e19cc-1308-4b45-95f5-d87406ac72f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagDynamicTerrainObject">
+      <UniqueIdentifier>{1dd1c6d5-540a-4d2b-bdd6-63c2a150d439}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\XLagProject\XLagDynamicTerrainObject\ObjectModels">
+      <UniqueIdentifier>{676ab4e7-fdbf-44d5-902b-9feebf4da1ce}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -663,6 +684,18 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagProductStack.cpp">
       <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\Common\XLagObjectProperties.cpp">
+      <Filter>Source\XLagProject\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainTreeObject.h">
+      <Filter>Source\XLagProject\XLagDynamicTerrainObject\ObjectModels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjects.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrainObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjectsManager.cpp">
+      <Filter>Source\XLagProject\XLagDynamicTerrainObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

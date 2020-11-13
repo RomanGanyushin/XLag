@@ -28,6 +28,11 @@ public:
 
 				accesor.Point(x, y).CreateMineralLayerEventRaise = _bindingCreateMineralLayerEvent;
 			}
+
+		for (int index = 0; index < _dynamicTerrainMap.SizeX * _dynamicTerrainMap.SizeY; index++)
+		{
+			_dynamicTerrainMap.Map[index].Index = index;
+		}
 	}
 
 	void SetCreateMineralLayerEventHandler(std::function<void(FXLagDynamicTerrainMapItem*, const FXLagMineralDesc& mineral)> bindingCreateMineralLayerEvent)

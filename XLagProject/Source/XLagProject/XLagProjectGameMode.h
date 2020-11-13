@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "XLagDynamicTerrain/XLagDynamicTerrainMap.h"
+#include "XLagDynamicObject/XLagDynamicObjects.h"
 #include "XLagProjectGameMode.generated.h"
 
 
@@ -19,9 +20,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FXLagDynamicTerrainMap TerrainMap;
 
-	UFUNCTION(BlueprintCallable)
-		void SetTerrainMap(const FXLagDynamicTerrainMap& map);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FXLagDynamicObjects TerrainObjects;
 
+	UFUNCTION(BlueprintCallable)
+		void SetTerrainMap(const FXLagDynamicTerrainMap& map, const FXLagDynamicObjects& objects);	
 };
 
 
