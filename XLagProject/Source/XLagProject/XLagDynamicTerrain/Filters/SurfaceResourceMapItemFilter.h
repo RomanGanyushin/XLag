@@ -1,21 +1,20 @@
 #pragma once
 #include "../../Common/IMapItemFilter.h"
-#include "../../Common/OnSurfaceResourceObjectsEnum.h"
-#include "../../Common/TerrainElementEnum.h"
+#include "../XLagDynamicTerrainMapItemOperation.h"
 
 class SurfaceResourceMapItemFilter : public IMapItemFilter
 {
 public:
-	SurfaceResourceMapItemFilter(const OnSurfaceResourceObjectsEnum resource)
-		:_resource(resource)
+	SurfaceResourceMapItemFilter(const XLagDynamicObjectType type)
+		:_type(type)
 	{
 	}
 
 	const bool IsMatch(const FXLagDynamicTerrainMapItem& item) const override
 	{
-		return item.OnSurfaceResourceObjects == OnSurfaceResourceObjectsEnum::Tree;
+		return XLagDynamicTerrainMapItemOperation::HasObjectType(item, _type);
 	}
 
 private:
-	const OnSurfaceResourceObjectsEnum _resource;
+	const XLagDynamicObjectType _type;
 };

@@ -14,8 +14,8 @@ public:
 	const bool IsMatch(const FXLagDynamicTerrainMapItem& item) const override
 	{
 		return XLagDynamicTerrainMapItemOperation(item).GetTopKind() == _element
-			   && !item.IsZeroLocation
-			   && item.OnSurfaceResourceObjects == OnSurfaceResourceObjectsEnum::Empty;
+			&& !item.IsZeroLocation
+			&& XLagDynamicTerrainMapItemOperation::IsNoObjects(item);
 	}
 
 private:

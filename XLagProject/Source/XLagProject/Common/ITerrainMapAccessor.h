@@ -32,10 +32,13 @@ struct ITerrainMapAccessor
 	// Получает точку по индексу.
 	virtual FXLagDynamicTerrainMapItem& Point(int const &index) = 0;
 
-	// Получает координату простраства по индексу x,y.
+	// Получает координату простраства по x,y.
 	virtual const FVector GetWorldPosition(int const &x, int const &y, GetPositionEnum flag) const  = 0;
 
 	virtual const FVector GetWorldPosition(const CoordinatePoint& coord, GetPositionEnum flag) const = 0;
+
+	// Получает координату простраства по индексу.
+	virtual const FVector GetWorldPosition(const int32 index, GetPositionEnum flag) const = 0;
 
 	// Получает координату простраства по элементу.
 	virtual const FVector GetWorldPosition(FXLagDynamicTerrainMapItem* item, GetPositionEnum flag) const = 0;

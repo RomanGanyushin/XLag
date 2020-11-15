@@ -123,28 +123,6 @@ void AXLagDynamicTerrainBase::Tick(float DeltaTime)
 	if (!Initialized)
 		return;
 
-	/// Рост
-	for (int x = 0; x < Map->SizeX(); x++)
-		for (int y = 0; y < Map->SizeX(); y++)
-		{
-			auto& cell = Map->Point(x, y);
-			if (XLagDynamicTerrainMapItemOperation(cell).HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum::Crop))
-			{			
-				CellOperationProcessing evolution(&cell, CellOperationEnum::Evolution),
-					evolutionTime(&cell, CellOperationEnum::EvolutionTime);
-
-				auto addingTime = evolutionTime.Get() == 0.0f ? DeltaTime : 100.0f * DeltaTime / evolutionTime.Get();
-				evolution.Increase(addingTime);
-
-				if (evolution.IsCompleting())
-				{
-					CellOperationProcessing cropQuantity(&cell, CellOperationEnum::CropQuantity);
-					cropQuantity.Set(5);
-				}				
-			}
-		}
-	///
-
 	float static UpdateDelayConter = 0;
 
 	UpdateDelayConter += DeltaTime;
@@ -220,7 +198,7 @@ void AXLagDynamicTerrainBase::InitMap(AGameModeBase* gameMode)
 
 	XLagDynamicTerrainMapInitializer initializer(terrainMap);
 
-	initializer.SetCreateMineralLayerEventHandler(std::bind(
+	initializer.BindCreateMineralLayerEventHandler(std::bind(
 		&AXLagDynamicTerrainBase::CreateMineralLayerEventHandler,
 		this,
 		std::placeholders::_1,
@@ -232,7 +210,10 @@ void AXLagDynamicTerrainBase::InitMap(AGameModeBase* gameMode)
 	CurrentMap = Map->CreateWindow(0,0, WindowMapSizeX, WindowMapSizeY);
 
 	if (terrainMap.IsCreated)
+	{
+		terrainObjects.RaiseAddNewObjectsEvent();
 		return;
+	}
 
 	TerrainMapEditEditor editor(Map);
 
@@ -332,11 +313,14 @@ void AXLagDynamicTerrainBase::InitMap(AGameModeBase* gameMode)
 			auto loction = Map->GetWorldPosition(place, GetPositionEnum::CenterLowPosition);
 			auto rotator = FRotator(0, rand() % 360, 0);
 
-			FTerrainTreeObject tree;
-			tree.SetLoction(loction);
-			tree.SetRotaion(rotator);
+			FXLagObjectProperties properties;
+			TerrainTreeObject tree(properties);
+			tree.SetLocation(loction);
+			tree.SetRotation(rotator);
+			tree.SetKind(rand());
+			tree.SetAge(20 + rand() % 80);
 
-			terrainObjects.AddObject(LagDynamicObjectType::Tree_, place->Index, tree.Properties);
+			terrainObjects.AddObject(XLagDynamicObjectType::Tree_, place->Index, properties);
 		}
 	}
 

@@ -75,6 +75,12 @@ public:
 		return GetWorldPosition(coord.X, coord.Y, flag);
 	}
 
+	const FVector GetWorldPosition(const int32 index, GetPositionEnum flag) const
+	{
+		const auto coord = GetCoordinate(index);
+		return GetWorldPosition(coord.X, coord.Y, flag);
+	}
+
 	// #inhereddoc
 	std::vector<FXLagDynamicTerrainMapItem*> GetFilteredItems(const IMapItemFilter& filter)
 	{
@@ -114,7 +120,11 @@ public:
 			throw std::exception("Argument null exception");
 
 		auto index = item - &_dynamicTerrainMap.Map[0]; //TODO возможно не сраьотает
+		return GetCoordinate(index);
+	}
 
+	const CoordinatePoint GetCoordinate(const int32 index) const
+	{
 		if (index < 0 || index >= MapLenght())
 			throw std::exception("Index out of array");
 

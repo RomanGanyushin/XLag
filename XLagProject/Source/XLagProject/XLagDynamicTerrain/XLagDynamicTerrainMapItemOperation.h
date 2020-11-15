@@ -1,6 +1,7 @@
 #pragma once
 #include "XLagDynamicTerrainMapItem.h"
 #include "XLagDynamicTerrainMapItemLayer.h"
+#include "../XLagDynamicObject/XLagDynamicObjectsManager.h"
 #include "../XLagMinerals/Models/XLagMineralDesc.h"
 
 class XLagDynamicTerrainMapItemOperation
@@ -222,9 +223,55 @@ public:
 		return extractedLayerHeight / 2; // Заиспользовать настройки.
 	}
 
-	const inline bool HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum type) const
+	bool HasObjectType(const XLagDynamicObjectType type) const
 	{
-		return  MapItem.OnSurfaceResourceObjects == type;
+		return HasObjectType(MapItem, type);
+	}
+
+	bool IsNoObjects() const
+	{
+		return IsNoObjects(MapItem);
+	}
+
+	void AddObject(const FXLagDynamicObject& object)
+	{
+		auto& objects = AXLagDynamicObjectsManager::GetManagment()->GetObjects();
+		objects.AddObject(object);
+	}
+
+	FXLagDynamicObject* GetObjectByType(const XLagDynamicObjectType type)
+	{
+		return GetObjectByType(MapItem, type);
+	}
+
+	void DeleteObject(FXLagDynamicObject* object)
+	{
+		DeleteObject(MapItem, object);
+	}
+
+
+	static inline bool IsNoObjects(const FXLagDynamicTerrainMapItem& mapItem)
+	{
+		return mapItem.RefItemObjects.Num() == 0;
+	}
+
+	static inline bool HasObjectType(const FXLagDynamicTerrainMapItem& mapItem, const XLagDynamicObjectType type)
+	{
+		return mapItem.RefItemObjects.ContainsByPredicate([type](auto&it) {return it.ObjectType == type; });
+	}
+
+	static inline FXLagDynamicObject* GetObjectByType(FXLagDynamicTerrainMapItem& mapItem, const XLagDynamicObjectType type)
+	{
+		auto resultObjectRef = mapItem.RefItemObjects.FindByPredicate([type](auto&it) {return it.ObjectType == type; });
+
+		auto& objects = AXLagDynamicObjectsManager::GetManagment()->GetObjects();
+		return objects.FindById(resultObjectRef->ObjectId);
+	}
+
+	static inline void DeleteObject(FXLagDynamicTerrainMapItem& mapItem, FXLagDynamicObject* object)
+	{
+		auto& objects = AXLagDynamicObjectsManager::GetManagment()->GetObjects();
+		objects.RemoveObject(object);
 	}
 
 private:

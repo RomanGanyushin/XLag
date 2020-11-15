@@ -4,6 +4,7 @@
 #include "../../Common/ITerrainMapAccessor.h"
 #include "../../Common/CellOperationProcessing.h"
 #include "../../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
+#include "../../XLagDynamicObject/ObjectModels/TerrainCropObject.h"
 
 class XLagFmCropWaitTask : public XLagNPCTaskBase
 {
@@ -15,15 +16,19 @@ public:
 
 	virtual void Execute(ACharacter *npc, XLagNPCTaskContext* context, float DeltaTime, int subLevel) override
 	{
+		
 		auto& cell = Map->Point(X, Y);
-		if (!XLagDynamicTerrainMapItemOperation(cell).HasOnSurfaceResourceObjects(OnSurfaceResourceObjectsEnum::Crop))
+		XLagDynamicTerrainMapItemOperation operation(cell);
+
+		if (!operation.HasObjectType(XLagDynamicObjectType::Crop_))
 		{
 			Completed = true;
 			return;
 		}
 
-		CellOperationProcessing operation(&cell, CellOperationEnum::Evolution);
-		Completed = operation.IsComplete();
+		auto cropObject = operation.GetObjectByType(XLagDynamicObjectType::Crop_);
+		TerrainCropObject cropProperties(*cropObject);
+		Completed = cropProperties.GetEvalution() == 100.0f;
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override

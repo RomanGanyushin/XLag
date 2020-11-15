@@ -16,6 +16,11 @@ const bool FXLagObjectPropertyPackage::operator==(const FVariant& value)
 	return value.GetBytes() == Data;
 }
 
+bool FXLagObjectProperties::HasValue(uint8 id) const
+{
+	return Properties.Contains(id);
+}
+
 void FXLagObjectProperties::SetValue(uint8 id, const FVariant& value)
 {
 	if (!Properties.Contains(id))

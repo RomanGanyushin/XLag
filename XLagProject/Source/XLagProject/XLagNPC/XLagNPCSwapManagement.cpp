@@ -4,6 +4,8 @@
 #include "XLagNPCSwapManagement.h"
 #include "../XLagDynamicTerrain/Position/RandomizeZeroPlacePosition.h"
 #include "../XLagDynamicTerrain/Filters/SurfaceResourceMapItemFilter.h"
+#include "../XLagDynamicObject/ObjectModels/TerrainTreeObject.h"
+#include "../XLagDynamicObject/ObjectModels/TerrainCropObject.h"
 
 // Sets default values
 AXLagNPCSwapManagement::AXLagNPCSwapManagement()
@@ -114,31 +116,55 @@ AXLagBuilding* AXLagNPCSwapManagement::DoSwapBuilding()
 	return GetWorld()->SpawnActor<AXLagBuilding>(BuildingTemplate, FVector(5000 + 100, 5000 + 100, 0), FRotator::ZeroRotator);
 }
 
-void AXLagNPCSwapManagement::DoSwapTrees()
+void AXLagNPCSwapManagement::DoSwapTree(const FXLagDynamicObject& object)
 {
-	if (TreeTemplates.Num() == 0)
-		return;
+	auto treeObject = TerrainTreeObject(const_cast<FXLagDynamicObject&>(object));
 
-	auto mapRequireTrees = MapAccessor->GetFilteredItems(SurfaceResourceMapItemFilter(OnSurfaceResourceObjectsEnum::Tree));
-	if (mapRequireTrees.empty())
-		return;
+	auto loction = treeObject.GetLocation();
+	auto rotator = treeObject.GetRotation();
+	auto kind = treeObject.GetKind() % TreeTemplates.Num();
+	auto age = treeObject.GetAge();
 
-	for (int i = 0; i < std::min((int)mapRequireTrees.size(), MaximalCount); i++)
+	auto treeTemplate = TreeTemplates[kind];
+
+	auto tree = GetWorld()->SpawnActor<AXLagCuttableTreeBase>(treeTemplate, loction, rotator);
+	tree->UpdateAge(age);
+	tree->SetObject(const_cast<FXLagDynamicObject*>(&object));
+
+	SwapedTrees.Add(tree);
+}
+
+void AXLagNPCSwapManagement::DoSwapCrop(const FXLagDynamicObject& object)
+{
+	auto cropObject = TerrainCropObject(const_cast<FXLagDynamicObject&>(object));
+
+	if (!cropObject.HasLocation())
 	{
-		auto treeTemplate = TreeTemplates[i % TreeTemplates.Num()];
-		if (treeTemplate == nullptr)
-			continue;
+		cropObject.SetLocation(MapAccessor->GetWorldPosition(object.BindedMapItemIndexes[0], GetPositionEnum::CenterHeghtPosition));
+	}
 
-		auto mapItem = mapRequireTrees[i];
-		auto loction = MapAccessor->GetWorldPosition(mapItem, GetPositionEnum::CenterLowPosition);
-		auto rotator = FRotator(0, rand() % 360 , 0);
+	if (!cropObject.HasRotation())
+	{
+		cropObject.SetRotation(FRotator::ZeroRotator);
+	}
 
-		auto tree = GetWorld()->SpawnActor<AXLagCuttableTreeBase>(treeTemplate, loction, rotator);
-		tree->UpdateAge(MinimalAge + rand() % int(MaximalAge - MinimalAge));
-		tree->SetPlaceId(mapItem->Id);
+	auto loction = cropObject.GetLocation();
+	auto rotator = cropObject.GetRotation();
+	auto cropId = cropObject.GetKind();
 
-		SwapedTrees.Add(tree);
-	}	
+	auto cropManager = AXLagCropManager::GetCropsManager();
+	auto cropDescription = cropManager->FindById(cropId);
+
+	auto newCrop = GetWorld()->SpawnActor<AXLagCrop>(CropTemplate, loction, rotator);
+	newCrop->Initialize(const_cast<FXLagDynamicObject*>(&object), cropDescription);
+	SwapedCrops.Add(newCrop);
+}
+
+void AXLagNPCSwapManagement::DoUnswapCrop(const int32 objectId) //TODO: Сделать общую функцию для всех.
+{
+	auto unswapingIndex = SwapedCrops.IndexOfByPredicate([objectId](auto& it) {return it->GetAssingedObject()->Id == objectId; });
+	GetWorld()->DestroyActor(SwapedCrops[unswapingIndex]);
+	SwapedCrops.RemoveAt(unswapingIndex);
 }
 
 void AXLagNPCSwapManagement::DoSwapTreeStack()
@@ -173,30 +199,6 @@ AXLagProductStack* AXLagNPCSwapManagement::DoSwapProductStack(const FXLagProduct
 	stack->ProductPresentMesh = product.ProductPresentation;
 	SwapedProductStacks.Add(stack);
 	return stack;
-}
-
-AXLagCrop* AXLagNPCSwapManagement::DoSwapCrop(FXLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop)
-{
-	auto locator = MapAccessor->GetWorldPosition(&cell, GetPositionEnum::CenterHeghtPosition);
-	auto newCrop = GetWorld()->SpawnActor<AXLagCrop>(CropTemplate, locator, FRotator::ZeroRotator);
-	newCrop->Initialize(&cell, crop);
-
-	if (!SwapedCrops.Contains(cell.Id))
-	{
-		SwapedCrops.Add(cell.Id);
-	}
-	
-	SwapedCrops[cell.Id] = newCrop;
-	return newCrop;
-}
-
-void AXLagNPCSwapManagement::DoUnswapCrop(FXLagDynamicTerrainMapItem& cell)
-{
-	if (!SwapedCrops.Contains(cell.Id))
-		return;
-
-	GetWorld()->DestroyActor(SwapedCrops[cell.Id]);
-	SwapedCrops.Remove(cell.Id);
 }
 
 // Called every frame

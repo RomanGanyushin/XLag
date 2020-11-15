@@ -19,7 +19,7 @@ struct FXLagObjectPropertyPackage
 	const bool operator==(const FVariant& value);
 
 	template <typename T>
-	const FVariant UnPack()
+	const FVariant UnPack() const
 	{
 		T Result;
 		FMemoryReader Reader(Data, true);
@@ -42,12 +42,12 @@ struct FXLagObjectProperties
 	UPROPERTY(BlueprintAssignable)
 		FPropertyChangedDelegate PropertyChangedEvent;
 
-
+	bool HasValue(uint8 id) const;
 	void SetValue(uint8 id, const FVariant& value);
 
-	template <typename T> T GetValue(const uint8 id)
+	template <typename T> T GetValue(const uint8 id) const 
 	{
-		if (!Properties.Contains(id))
+		if (!HasValue(id))
 		{
 			return T();
 		}

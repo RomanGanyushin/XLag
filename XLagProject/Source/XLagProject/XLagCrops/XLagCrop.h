@@ -2,6 +2,7 @@
 #include "GameFramework/Actor.h"
 #include "Models/XLagCropDescription.h"
 #include "../XLagDynamicTerrain/XLagDynamicTerrainMapItem.h"
+#include "../XLagDynamicObject/XLagDynamicObject.h"
 #include "XLagCrop.generated.h"
 
 UCLASS()
@@ -25,7 +26,9 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 		float Progression = 0;
 
-	void Initialize(FXLagDynamicTerrainMapItem* cell, FXLagCropDescription description);
+	void Initialize(FXLagDynamicObject* object, FXLagCropDescription description);
+	
+	FXLagDynamicObject* GetAssingedObject() { return _object; }
 
 protected:
 	// Called when the game starts or when spawned
@@ -37,7 +40,7 @@ protected:
 private:
 	bool IsVaild() const;
 	const FXLagCropStage* GetCurrentStage() const;
-	FXLagDynamicTerrainMapItem* Cell;
+	FXLagDynamicObject* _object;
 	void UpdateView();
 	void UpdateStageView();
 	void NextStage();

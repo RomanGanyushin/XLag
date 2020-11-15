@@ -63,6 +63,11 @@ public:
 		Set(0.0f);
 	}
 
+	void Delete()
+	{
+		Cell->OperationTimeMap.Remove(Operation);
+	}
+
 private:
 	FXLagDynamicTerrainMapItem* Cell;
 	CellOperationEnum Operation;

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Engine/StaticMeshActor.h"
+#include "../XLagDynamicObject/XLagDynamicObject.h"
 #include "XLagCuttableTreeBase.generated.h"
 
 enum AXLagCuttableTreeState
@@ -25,10 +26,7 @@ public:
 	// Sets default values for this pawn's properties
 	AXLagCuttableTreeBase();
 
-	void SetPlaceId(long placeId)
-	{
-		PlaceId = placeId;
-	}
+	void SetObject(FXLagDynamicObject* object);
 
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Static Mesh")
@@ -46,8 +44,8 @@ public:
 
 	// Состояние дерева.
 	AXLagCuttableTreeState State = AXLagCuttableTreeState::Growing;
-
-	long PlaceId;
+	
+	//long PlaceId;
 
 	ConstructorHelpers::FObjectFinder<UStaticMesh>*fv;
 
@@ -97,6 +95,11 @@ protected:
 
 	UStaticMeshComponent *AliveTree;
 	UStaticMesh *TimberObject;
+
+	FXLagDynamicObject* _object = nullptr;
+
+	UFUNCTION()
+	void OnPropertyChanged(uint8 id);
 };
 
 UCLASS()

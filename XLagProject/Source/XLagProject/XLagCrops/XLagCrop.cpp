@@ -1,5 +1,6 @@
 #include "XLagCrop.h"
-#include "../Common/CellOperationProcessing.h"
+//#include "../Common/CellOperationProcessing.h"
+#include "../XLagDynamicObject/ObjectModels/TerrainCropObject.h"
 
 AXLagCrop::AXLagCrop()
 {
@@ -8,10 +9,10 @@ AXLagCrop::AXLagCrop()
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 }
 
-void AXLagCrop::Initialize(FXLagDynamicTerrainMapItem* cell, FXLagCropDescription description)
+void AXLagCrop::Initialize(FXLagDynamicObject* object, FXLagCropDescription description)
 {
 	Description = description;
-	Cell = cell;
+	_object = object;
 }
 
 bool AXLagCrop::IsVaild() const
@@ -28,8 +29,8 @@ void AXLagCrop::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	CellOperationProcessing operation(Cell, CellOperationEnum::Evolution);
-	Progression = operation.Get();
+	TerrainCropObject cropObject(*_object);
+	Progression = cropObject.GetEvalution();
 	UpdateView();
 }
 

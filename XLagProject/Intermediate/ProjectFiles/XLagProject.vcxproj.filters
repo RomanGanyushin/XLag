@@ -73,9 +73,6 @@
     <ClInclude Include="..\..\Source\XLagProject\Common\ITerrainMapAccessor.h">
       <Filter>Source\XLagProject\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\Common\OnSurfaceResourceObjectsEnum.h">
-      <Filter>Source\XLagProject\Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\Common\ProfessionTypeEnum.h">
       <Filter>Source\XLagProject\Common</Filter>
     </ClInclude>
@@ -544,16 +541,25 @@
       <Filter>Source\XLagProject\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObject.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrainObject</Filter>
+      <Filter>Source\XLagProject\XLagDynamicObject</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjects.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrainObject</Filter>
+      <Filter>Source\XLagProject\XLagDynamicObject</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainObjectBase.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrainObject\ObjectModels</Filter>
+      <Filter>Source\XLagProject\XLagDynamicObject\ObjectModels</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjectsManager.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrainObject</Filter>
+      <Filter>Source\XLagProject\XLagDynamicObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainCropObject.h">
+      <Filter>Source\XLagProject\XLagDynamicObject\ObjectModels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainObjectBehaviorBase.h">
+      <Filter>Source\XLagProject\XLagDynamicObject\ObjectModels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainCropObjectBehavior.h">
+      <Filter>Source\XLagProject\XLagDynamicObject\ObjectModels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -593,10 +599,10 @@
     <Filter Include="Source\XLagProject\XLagProduction\Models">
       <UniqueIdentifier>{969e19cc-1308-4b45-95f5-d87406ac72f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\XLagProject\XLagDynamicTerrainObject">
+    <Filter Include="Source\XLagProject\XLagDynamicObject">
       <UniqueIdentifier>{1dd1c6d5-540a-4d2b-bdd6-63c2a150d439}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\XLagProject\XLagDynamicTerrainObject\ObjectModels">
+    <Filter Include="Source\XLagProject\XLagDynamicObject\ObjectModels">
       <UniqueIdentifier>{676ab4e7-fdbf-44d5-902b-9feebf4da1ce}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -689,13 +695,13 @@
       <Filter>Source\XLagProject\Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainTreeObject.h">
-      <Filter>Source\XLagProject\XLagDynamicTerrainObject\ObjectModels</Filter>
+      <Filter>Source\XLagProject\XLagDynamicObject\ObjectModels</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjects.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrainObject</Filter>
+      <Filter>Source\XLagProject\XLagDynamicObject</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjectsManager.cpp">
-      <Filter>Source\XLagProject\XLagDynamicTerrainObject</Filter>
+      <Filter>Source\XLagProject\XLagDynamicObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

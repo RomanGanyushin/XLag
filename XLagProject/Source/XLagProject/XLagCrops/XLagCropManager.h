@@ -18,6 +18,8 @@ public:
 	UFUNCTION(BlueprintCallable) void CompliteCreate();
 	UFUNCTION(BlueprintCallable) const bool Empty() const;
 
+	UFUNCTION(BlueprintCallable) const FXLagCropDescription FindById(const int id) const;
+
 public:
 	static AXLagCropManager* GetCropsManager()
 	{

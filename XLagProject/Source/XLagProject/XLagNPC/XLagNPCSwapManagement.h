@@ -19,6 +19,7 @@
 #include "../Common/ITerrainMapAccessor.h"
 #include "../XLagCrops/XLagCrop.h"
 #include "../XLagProduction/Models/XLagProductionSchema.h"
+#include "../XLagDynamicObject/XLagDynamicObject.h"
 #include "XLagNPCSwapManagement.generated.h"
 
 UCLASS()
@@ -49,15 +50,17 @@ protected:
 public:
 	void SetMapAccessor(std::shared_ptr<ITerrainMapAccessor> accessor) { MapAccessor = accessor; }
 	void DoSwapPersons();
-	void DoSwapTrees();
+	//void DoSwapTrees();
 	void DoSwapTreeStack();
 	AXLagMineralStack* DoSwapMineralStack(const FXLagMineralDesc& mineral);
 	AXLagCropStack* DoSwapCropStack(const FXLagCropDescription& crop);
 	AXLagProductStack* DoSwapProductStack(const FXLagProductionSchema& product);
-	AXLagCrop* DoSwapCrop(FXLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop);
-	void DoUnswapCrop(FXLagDynamicTerrainMapItem& cell);
+
 	AXLagBuilding *DoSwapBuilding();
 
+	void DoSwapTree(const FXLagDynamicObject& object);
+	void DoSwapCrop(const FXLagDynamicObject& object);
+	void DoUnswapCrop(const int32 objectId);
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -159,18 +162,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Trees Params")
 		TArray<TSubclassOf<AXLagCuttableTreeBase>> TreeTemplates;
 
-	// Минимальный возраст.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Trees Params")
-	float MinimalAge = 20;
-
-	// Максимальный возраст.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Trees Params")
-	float MaximalAge = 100;
-
-	// Максимальное количество деревьев для локации.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Trees Params")
-	int MaximalCount = 50;
-
 // Свойства высадки урожая
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Crops Params")
@@ -211,7 +202,7 @@ public:
 	TArray<AXLagMineralStack*> SwapedMineralStacks;
 	TArray<AXLagProductStack*> SwapedProductStacks;
 	TArray<AXLagCropStack*> SwapedCropStacks;
-	TMap<long, AXLagCrop*> SwapedCrops;
+	TArray<AXLagCrop*> SwapedCrops;
 	
 private:
 	FVector CalculatePersonScale(int deviationHeightPercent, int deviationThicknessPercent);

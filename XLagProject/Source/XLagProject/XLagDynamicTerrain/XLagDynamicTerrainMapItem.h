@@ -2,10 +2,22 @@
 #include <functional>
 #include "XLagDynamicTerrainMapItemLayer.h"
 #include "../Common/CellOperationEnum.h"
-#include "../Common/OnSurfaceResourceObjectsEnum.h"
 #include "../XLagMinerals/Models/XLagMineralDesc.h"
+#include "../XLagDynamicObject/XLagDynamicObject.h"
 #include "XLagDynamicTerrainMapItem.generated.h"
-   
+
+USTRUCT(BlueprintType)
+struct FXLagDynamicObjectRef
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+	int32 ObjectId;
+
+	UPROPERTY()
+	TEnumAsByte <XLagDynamicObjectType> ObjectType;
+};
+
 USTRUCT(BlueprintType)
 struct FXLagDynamicTerrainMapItem
 {
@@ -15,7 +27,6 @@ struct FXLagDynamicTerrainMapItem
 	{
 		static int64 id_counter = 0;
 		Id = id_counter++;
-		OnSurfaceResourceObjects = OnSurfaceResourceObjectsEnum::Empty;
 		IsZeroLocation = false;
 		Changed = false;
 	}
@@ -33,13 +44,12 @@ struct FXLagDynamicTerrainMapItem
 	TMap<TEnumAsByte<CellOperationEnum>, float> OperationTimeMap;
 
 	UPROPERTY()
-	TEnumAsByte<OnSurfaceResourceObjectsEnum> OnSurfaceResourceObjects;
-
-	UPROPERTY()
 	bool IsZeroLocation;
 
 	UPROPERTY()
 	bool Changed;
+
+	TArray<FXLagDynamicObjectRef> RefItemObjects;
 
 	FXLagDynamicTerrainMapItem* B[8];
 	std::function<void(FXLagDynamicTerrainMapItem*, const FXLagMineralDesc& mineral)> CreateMineralLayerEventRaise;

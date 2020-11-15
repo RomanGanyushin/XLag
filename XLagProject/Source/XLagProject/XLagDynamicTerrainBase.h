@@ -139,6 +139,7 @@ protected:
 
 	///
 	void CreateMineralLayerEventHandler(FXLagDynamicTerrainMapItem* sender, const FXLagMineralDesc& mineral);
+	TArray<FXLagDynamicObject*> GetObjectsMethodImpl(const int mapItemIndex);
 
 protected:
 	void InitializeLayers();

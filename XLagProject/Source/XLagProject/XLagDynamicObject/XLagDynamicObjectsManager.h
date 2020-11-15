@@ -1,5 +1,6 @@
 #pragma once
 #include "../XLagProjectGameMode.h"
+#include "ObjectModels/TerrainObjectBehaviorBase.h"
 #include "XLagDynamicObjectsManager.generated.h"
 
 UCLASS()
@@ -27,6 +28,21 @@ public:
 	UFUNCTION()
 	void OnInitialze(AGameModeBase* gameMode);
 	
+	UFUNCTION()
+	FXLagDynamicObjects& GetObjects() { return *_terrainObjects; }
+
+protected:
 	UFUNCTION() 
-	void OnAddNewObject(const FXLagDynamicObject& object);
+	void OnAddNewObject(const int32 newIndex);
+
+	UFUNCTION()
+	void OnRemovingObject(const int32 removingIndex);
+
+	// Called when the game starts or when spawned
+	virtual void Tick(float DeltaTime) override;
+
+private:
+	FXLagDynamicObjects* _terrainObjects = nullptr;
+	FXLagDynamicTerrainMap* _terrainMap = nullptr;
+	TMap<XLagDynamicObjectType, std::shared_ptr<TerrainObjectBehaviorBase>> _behaviors;
 };

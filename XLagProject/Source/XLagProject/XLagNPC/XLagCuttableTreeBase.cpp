@@ -47,6 +47,17 @@ void AXLagCuttableTreeBase::Initialize()
 	}
 }
 
+void AXLagCuttableTreeBase::SetObject(FXLagDynamicObject* object)
+{
+	_object = object;
+	_object->PropertyChangedEvent.AddDynamic(this, &AXLagCuttableTreeBase::OnPropertyChanged);
+}
+
+void AXLagCuttableTreeBase::OnPropertyChanged(uint8 id)
+{
+	int t = 234;
+}
+
 // Called when the game starts or when spawned
 void AXLagCuttableTreeBase::BeginPlay()
 {
