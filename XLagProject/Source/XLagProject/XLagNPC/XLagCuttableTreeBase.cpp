@@ -58,7 +58,7 @@ void AXLagCuttableTreeBase::OnPropertyChanged(uint8 id, const FXLagObjectPropert
 	{	
 		auto treeState = treeProperties.GetTreeState();
 
-		if (treeState == TreeState::Timber_)
+		if (treeState == TreeState::Timber)
 		{
 			AliveTree->SetStaticMesh(TimberObject);
 			AliveTree->SetRelativeScale3D(FVector(TimberDiameter, TimberDiameter, TimberLength));

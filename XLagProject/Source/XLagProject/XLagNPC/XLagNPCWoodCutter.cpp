@@ -13,13 +13,13 @@ bool AXLagNPCWoodCutter::CutTree(FXLagDynamicTerrainMapItem& cell, float DeltaTi
 	auto cutTreeForce = DeltaTime;
 	XLagDynamicTerrainMapItemOperation cellOperation(cell);
 
-	if (!cellOperation.HasObjectType(XLagDynamicObjectType::Tree_))
+	if (!cellOperation.HasObjectType(XLagDynamicObjectType::Tree))
 	{
 		IsCutting = false;
 		return true;
 	}
 
-	auto treeObject = cellOperation.GetObjectByType(XLagDynamicObjectType::Tree_);
+	auto treeObject = cellOperation.GetObjectByType(XLagDynamicObjectType::Tree);
 	TerrainTreeObject treeProperties(*treeObject);
 
 	auto currentSustainability = treeProperties.GetTreeSustainability();
@@ -38,20 +38,20 @@ bool AXLagNPCWoodCutter::BroachTree(FXLagDynamicTerrainMapItem& cell, float Delt
 	auto broachTreeForce = DeltaTime;
 	XLagDynamicTerrainMapItemOperation cellOperation(cell);
 
-	if (!cellOperation.HasObjectType(XLagDynamicObjectType::Tree_))
+	if (!cellOperation.HasObjectType(XLagDynamicObjectType::Tree))
 	{
 		IsBroaching = false;
 		return true;
 	}
 
-	auto treeObject = cellOperation.GetObjectByType(XLagDynamicObjectType::Tree_);
+	auto treeObject = cellOperation.GetObjectByType(XLagDynamicObjectType::Tree);
 	TerrainTreeObject treeProperties(*treeObject);
 
 	auto currentBroach = treeProperties.GetTreeBroach();
 	auto newBroach = std::min(100.0f, currentBroach + broachTreeForce);
 	treeProperties.SetTreeBroach(newBroach);
 
-	isComplite = treeProperties.GetTreeState() == TreeState::Timber_;
+	isComplite = treeProperties.GetTreeState() == TreeState::Timber;
 
 	IsBroaching = !isComplite;
 
@@ -62,12 +62,12 @@ bool AXLagNPCWoodCutter::GetTree(FXLagDynamicTerrainMapItem& cell, float DeltaTi
 {
 	XLagDynamicTerrainMapItemOperation cellOperation(cell);
 
-	if (!cellOperation.HasObjectType(XLagDynamicObjectType::Tree_))
+	if (!cellOperation.HasObjectType(XLagDynamicObjectType::Tree))
 	{
 		return true;
 	}
 
-	auto treeObject = cellOperation.GetObjectByType(XLagDynamicObjectType::Tree_);
+	auto treeObject = cellOperation.GetObjectByType(XLagDynamicObjectType::Tree);
 	cellOperation.DeleteObject(treeObject);
 
 	return true;

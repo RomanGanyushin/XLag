@@ -20,13 +20,13 @@ public:
 		auto& cell = Map->Point(X, Y);
 		XLagDynamicTerrainMapItemOperation operation(cell);
 
-		if (!operation.HasObjectType(XLagDynamicObjectType::Crop_))
+		if (!operation.HasObjectType(XLagDynamicObjectType::Crop))
 		{
 			Completed = true;
 			return;
 		}
 
-		auto cropObject = operation.GetObjectByType(XLagDynamicObjectType::Crop_);
+		auto cropObject = operation.GetObjectByType(XLagDynamicObjectType::Crop);
 		TerrainCropObject cropProperties(*cropObject);
 		Completed = cropProperties.GetEvalution() == 100.0f;
 	}

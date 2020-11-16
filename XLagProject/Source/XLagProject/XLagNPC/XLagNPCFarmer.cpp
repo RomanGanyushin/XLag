@@ -78,7 +78,7 @@ bool AXLagNPCFarmer::Sow(FXLagDynamicTerrainMapItem& cell, const FXLagCropDescri
 			operation.Delete();
 
 			FXLagDynamicObject cropObject;
-			cropObject.ObjectType = XLagDynamicObjectType::Crop_;
+			cropObject.ObjectType = XLagDynamicObjectType::Crop;
 			cropObject.BindedMapItemIndexes.Add(cell.Index);
 			
 			TerrainCropObject cropProperties(cropObject);
@@ -139,7 +139,7 @@ bool AXLagNPCFarmer::TakeCrop(FXLagDynamicTerrainMapItem& cell, float DeltaTime)
 	}
 
 	XLagDynamicTerrainMapItemOperation operationCell(cell);
-	auto cropObject = operationCell.GetObjectByType(XLagDynamicObjectType::Crop_);
+	auto cropObject = operationCell.GetObjectByType(XLagDynamicObjectType::Crop);
 	if (cropObject == nullptr)
 		return false;
 
@@ -173,7 +173,7 @@ bool AXLagNPCFarmer::ValidateForSowCell(FXLagDynamicTerrainMapItem& cell)
 	if (currentTopKind != TerrainElementEnum::Cultivated)
 		return false;
 
-	return operationCell.IsNoObjects() || operationCell.HasObjectType(XLagDynamicObjectType::Crop_);
+	return operationCell.IsNoObjects() || operationCell.HasObjectType(XLagDynamicObjectType::Crop);
 }
 
 bool AXLagNPCFarmer::ValidateForGrowCell(FXLagDynamicTerrainMapItem& cell)
@@ -184,7 +184,7 @@ bool AXLagNPCFarmer::ValidateForGrowCell(FXLagDynamicTerrainMapItem& cell)
 	if (currentTopKind != TerrainElementEnum::Cultivated)
 		return false;
 
-	return operationCell.HasObjectType(XLagDynamicObjectType::Crop_);
+	return operationCell.HasObjectType(XLagDynamicObjectType::Crop);
 }
 
 bool AXLagNPCFarmer::ValidateForTakeCropCell(FXLagDynamicTerrainMapItem& cell)
@@ -193,7 +193,7 @@ bool AXLagNPCFarmer::ValidateForTakeCropCell(FXLagDynamicTerrainMapItem& cell)
 		return false;
 
 	XLagDynamicTerrainMapItemOperation operationCell(cell);
-	auto cropObject = operationCell.GetObjectByType(XLagDynamicObjectType::Crop_);
+	auto cropObject = operationCell.GetObjectByType(XLagDynamicObjectType::Crop);
 	if (cropObject == nullptr)
 		return false;
 	 

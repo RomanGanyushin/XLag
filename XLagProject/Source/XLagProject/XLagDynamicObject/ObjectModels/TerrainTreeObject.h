@@ -13,10 +13,10 @@ enum TreeParameterId
 
 enum TreeState
 {
-	Growing_,
-	Falling_,
-	Fallen_,
-	Timber_
+	Growing,
+	Falling,
+	Fallen,
+	Timber
 };
 
 struct TerrainTreeObject : public TerrainObjectBase
@@ -74,5 +74,4 @@ struct TerrainTreeObject : public TerrainObjectBase
 	{
 		return Properties.GetValue<float>(ParId_Broach);
 	}
-
 };

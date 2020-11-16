@@ -5,8 +5,8 @@
 UENUM(BlueprintType)
 enum XLagDynamicObjectType
 {
-	Tree_,
-	Crop_
+	Tree,
+	Crop
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPropertyChangedDelegate, uint8, id, const FXLagObjectProperties&, properties);

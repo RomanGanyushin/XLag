@@ -13,12 +13,12 @@ public:
 		auto sustainability = treeObject.GetTreeSustainability();
 		auto broach = treeObject.GetTreeBroach();
 
-		if (state == TreeState::Growing_ && sustainability == 0.0f)
+		if (state == TreeState::Growing && sustainability == 0.0f)
 		{
-			treeObject.SetTreeState(TreeState::Falling_);
+			treeObject.SetTreeState(TreeState::Falling);
 			treeObject.SetLocation(treeObject.GetLocation() + FVector(0, 0, 25));
 		}
-		else if (state == TreeState::Falling_)
+		else if (state == TreeState::Falling)
 		{
 			auto rotator = treeObject.GetRotation();
 			rotator += FRotator(0.25f, 0, 0);
@@ -26,14 +26,14 @@ public:
 
 			if (rotator.Pitch > 85)
 			{
-				treeObject.SetTreeState(TreeState::Fallen_);
+				treeObject.SetTreeState(TreeState::Fallen);
 			}
 		}
-		else if (state == TreeState::Fallen_)
+		else if (state == TreeState::Fallen)
 		{
 			if (broach >= 5)
 			{
-				treeObject.SetTreeState(TreeState::Timber_);
+				treeObject.SetTreeState(TreeState::Timber);
 			}		
 		}
 	}
