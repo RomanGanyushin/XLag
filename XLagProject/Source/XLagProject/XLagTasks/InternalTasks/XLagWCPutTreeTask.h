@@ -1,19 +1,17 @@
 #pragma once
 
 #include "XLagNPCTaskBase.h"
-#include "XLagNPCTaskMoveTo.h"
-#include "../../XLagNPC/XLagCuttableTreeBase.h"
 #include "../../XLagNPC/XLagNPCWoodCutter.h"
 #include "../../XLagNPC/XLagTimberStack.h"
 
 /*
-Задача для дровосека - взять дерево (бревно).
+Задача для дровосека - положтиь дерево (бревно).
 */
 class XLagWCPutTreeTask : public XLagNPCTaskBase
 {
 public:
-	XLagWCPutTreeTask(AXLagCuttableTreeBase* tree, AXLagTimberStack* stack)
-		:Tree(tree), Stack(stack)
+	XLagWCPutTreeTask(AXLagTimberStack* stack)
+		: Stack(stack)
 	{
 
 	}
@@ -23,14 +21,11 @@ public:
 		if (Completed)
 			return;
 
-		Stack->AddTimber(Tree);
+		Stack->AddTimber();
 		Completed = true;
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override { return Completed; }
 
-	AXLagCuttableTreeBase* Tree;
 	AXLagTimberStack *Stack;
-
-	bool Completed = false;
 };

@@ -5,19 +5,17 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Engine/StaticMeshActor.h"
-#include "../XLagDynamicObject/XLagDynamicObject.h"
+#include "XLagSwapableObject.h"
 #include "XLagCuttableTreeBase.generated.h"
 
 UCLASS()
-class XLAGPROJECT_API AXLagCuttableTreeBase : public AActor
+class XLAGPROJECT_API AXLagCuttableTreeBase : public AXLagSwapableObject
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this pawn's properties
 	AXLagCuttableTreeBase();
-
-	void SetObject(FXLagDynamicObject* object);
 
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Static Mesh")
@@ -32,6 +30,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Current State Properties")
 	float TimberLength = 4;
+
+	void AssignObject(const FXLagDynamicObject& object) override;
+
 
 	ConstructorHelpers::FObjectFinder<UStaticMesh>*fv;
 

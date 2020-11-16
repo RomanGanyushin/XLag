@@ -564,6 +564,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainTreeObjectBehavior.h">
       <Filter>Source\XLagProject\XLagDynamicObject\ObjectModels</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagSwapableObject.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">
@@ -705,6 +708,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjectsManager.cpp">
       <Filter>Source\XLagProject\XLagDynamicObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagSwapableObject.cpp">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

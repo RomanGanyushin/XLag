@@ -26,6 +26,9 @@ public:
 	// Обтесывай дерево.
 	bool BroachTree(FXLagDynamicTerrainMapItem& cell, float DeltaTime);
 
+	// Возьми дерево.
+	bool GetTree(FXLagDynamicTerrainMapItem& cell, float DeltaTime);
+
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Woodcutter Cutting")
 	bool  IsCutting = false;
 

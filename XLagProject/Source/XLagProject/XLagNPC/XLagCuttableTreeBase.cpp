@@ -44,9 +44,10 @@ void AXLagCuttableTreeBase::Initialize()
 	}
 }
 
-void AXLagCuttableTreeBase::SetObject(FXLagDynamicObject* object)
+void AXLagCuttableTreeBase::AssignObject(const FXLagDynamicObject& object)
 {
-	object->PropertyChangedEvent.AddDynamic(this, &AXLagCuttableTreeBase::OnPropertyChanged);
+	AXLagSwapableObject::AssignObject(object);
+	const_cast<FXLagDynamicObject*>(&object)->PropertyChangedEvent.AddDynamic(this, &AXLagCuttableTreeBase::OnPropertyChanged);
 }
 
 void AXLagCuttableTreeBase::OnPropertyChanged(uint8 id, const FXLagObjectProperties& properties)

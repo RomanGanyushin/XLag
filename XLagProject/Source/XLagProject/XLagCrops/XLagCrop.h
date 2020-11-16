@@ -3,10 +3,11 @@
 #include "Models/XLagCropDescription.h"
 #include "../XLagDynamicTerrain/XLagDynamicTerrainMapItem.h"
 #include "../XLagDynamicObject/XLagDynamicObject.h"
+#include "../XLagNPC/XLagSwapableObject.h"
 #include "XLagCrop.generated.h"
 
 UCLASS()
-class XLAGPROJECT_API AXLagCrop : public AActor
+class XLAGPROJECT_API AXLagCrop : public AXLagSwapableObject
 {
 	GENERATED_BODY()
 
@@ -26,21 +27,17 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 		float Progression = 0;
 
-	void Initialize(FXLagDynamicObject* object, FXLagCropDescription description);
-	
-	FXLagDynamicObject* GetAssingedObject() { return _object; }
+	void Initialize(FXLagCropDescription description);
+
+	void AssignObject(const FXLagDynamicObject& object) override;
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UFUNCTION()
+	void OnPropertyChanged(uint8 id, const FXLagObjectProperties& properties);
 
 private:
 	bool IsVaild() const;
 	const FXLagCropStage* GetCurrentStage() const;
-	FXLagDynamicObject* _object;
 	void UpdateView();
 	void UpdateStageView();
 	void NextStage();

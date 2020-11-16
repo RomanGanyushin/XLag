@@ -22,13 +22,21 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	virtual void AddTimber(AXLagCuttableTreeBase* tree);
+	virtual void AddTimber();
 
 	UPROPERTY(VisibleAnywhere, Category = "Current State Properties")
 	// Количество деревьев в стопке.
 	int Count = 0;
 
+	UStaticMesh* Tepmplate;
+
 private:
 	FVector CalculatePosition(int num, float diameter);
 	inline float DeltaHeigth(float diameter) { return sqrt(pow(diameter, 2) - pow(diameter / 2.f, 2)); }
+
+	ConstructorHelpers::FObjectFinder<UStaticMesh>* GetTimberAsset()
+	{
+		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("/Game/KiteDemo/Environments/Trees/HillTree_02/HillTree_02_Timber"));
+		return &Asset;
+	}
 };

@@ -5,19 +5,6 @@
 void AXLagNPCWoodCutter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	/*if (TargetTree == nullptr)
-		return;
-
-	if (IsCutting)
-	{
-		TargetTree->Cut(1);
-	}
-
-	if (IsBroaching)
-	{
-		TargetTree->Broach(1);
-	}*/
 }
 
 bool AXLagNPCWoodCutter::CutTree(FXLagDynamicTerrainMapItem& cell, float DeltaTime)
@@ -63,11 +50,27 @@ bool AXLagNPCWoodCutter::BroachTree(FXLagDynamicTerrainMapItem& cell, float Delt
 	auto currentBroach = treeProperties.GetTreeBroach();
 	auto newBroach = std::min(100.0f, currentBroach + broachTreeForce);
 	treeProperties.SetTreeBroach(newBroach);
-	isComplite = newBroach == 100.0f;
+
+	isComplite = treeProperties.GetTreeState() == TreeState::Timber_;
 
 	IsBroaching = !isComplite;
 
 	return isComplite;
+}
+
+bool AXLagNPCWoodCutter::GetTree(FXLagDynamicTerrainMapItem& cell, float DeltaTime)
+{
+	XLagDynamicTerrainMapItemOperation cellOperation(cell);
+
+	if (!cellOperation.HasObjectType(XLagDynamicObjectType::Tree_))
+	{
+		return true;
+	}
+
+	auto treeObject = cellOperation.GetObjectByType(XLagDynamicObjectType::Tree_);
+	cellOperation.DeleteObject(treeObject);
+
+	return true;
 }
 
 void AXLagNPCWoodCutter::OfferAccept(UXLagTaskBase* task)

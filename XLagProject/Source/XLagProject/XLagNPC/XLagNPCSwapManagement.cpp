@@ -128,10 +128,10 @@ void AXLagNPCSwapManagement::DoSwapTree(const FXLagDynamicObject& object)
 	auto treeTemplate = TreeTemplates[kind];
 
 	auto tree = GetWorld()->SpawnActor<AXLagCuttableTreeBase>(treeTemplate, loction, rotator);
+	tree->AssignObject(object);
 	tree->UpdateAge(age);
-	tree->SetObject(const_cast<FXLagDynamicObject*>(&object));
-	   
-	SwapedTrees.Add(tree);
+	 
+	SwapedObjects.Add(tree);
 }
 
 void AXLagNPCSwapManagement::DoSwapCrop(const FXLagDynamicObject& object)
@@ -156,15 +156,17 @@ void AXLagNPCSwapManagement::DoSwapCrop(const FXLagDynamicObject& object)
 	auto cropDescription = cropManager->FindById(cropId);
 
 	auto newCrop = GetWorld()->SpawnActor<AXLagCrop>(CropTemplate, loction, rotator);
-	newCrop->Initialize(const_cast<FXLagDynamicObject*>(&object), cropDescription);
-	SwapedCrops.Add(newCrop);
+	newCrop->AssignObject(object);
+	newCrop->Initialize(cropDescription);
+
+	SwapedObjects.Add(newCrop);
 }
 
-void AXLagNPCSwapManagement::DoUnswapCrop(const int32 objectId) //TODO: Сделать общую функцию для всех.
+void AXLagNPCSwapManagement::DoUnswapObject(const int32 objectId)
 {
-	auto unswapingIndex = SwapedCrops.IndexOfByPredicate([objectId](auto& it) {return it->GetAssingedObject()->Id == objectId; });
-	GetWorld()->DestroyActor(SwapedCrops[unswapingIndex]);
-	SwapedCrops.RemoveAt(unswapingIndex);
+	auto unswapingIndex = SwapedObjects.IndexOfByPredicate([objectId](auto& it) {return it->ObjectId == objectId; });
+	GetWorld()->DestroyActor(SwapedObjects[unswapingIndex]);
+	SwapedObjects.RemoveAt(unswapingIndex);
 }
 
 void AXLagNPCSwapManagement::DoSwapTreeStack()

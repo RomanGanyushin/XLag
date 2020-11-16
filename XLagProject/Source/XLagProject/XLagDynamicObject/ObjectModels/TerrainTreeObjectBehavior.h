@@ -29,9 +29,12 @@ public:
 				treeObject.SetTreeState(TreeState::Fallen_);
 			}
 		}
-		else if (state == TreeState::Fallen_ && broach == 5)
+		else if (state == TreeState::Fallen_)
 		{
-			treeObject.SetTreeState(TreeState::Timber_);
+			if (broach >= 5)
+			{
+				treeObject.SetTreeState(TreeState::Timber_);
+			}		
 		}
 	}
 };

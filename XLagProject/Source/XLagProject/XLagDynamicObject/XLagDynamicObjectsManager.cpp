@@ -66,11 +66,8 @@ void AXLagDynamicObjectsManager::OnRemovingObject(const int32 removingIndex)
 	switch (removingObject.ObjectType)
 	{
 		case XLagDynamicObjectType::Tree_:
-			//AXLagNPCSwapManagement::GetManagment()->DoUnswapTree(newObject);
-			break;
-
 		case XLagDynamicObjectType::Crop_:
-			AXLagNPCSwapManagement::GetManagment()->DoUnswapCrop(removingObjectId);
+			AXLagNPCSwapManagement::GetManagment()->DoUnswapObject(removingObjectId);
 			break;
 	}
 }

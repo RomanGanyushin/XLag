@@ -60,7 +60,8 @@ public:
 
 	void DoSwapTree(const FXLagDynamicObject& object);
 	void DoSwapCrop(const FXLagDynamicObject& object);
-	void DoUnswapCrop(const int32 objectId);
+
+	void DoUnswapObject(const int32 objectId);
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -197,12 +198,13 @@ private:
 	std::shared_ptr<ITerrainMapAccessor> MapAccessor;
 
 public:
-	TArray<AXLagCuttableTreeBase*> SwapedTrees;
 	TArray<AXLagTimberStack*> SwapedTreeStacks;
 	TArray<AXLagMineralStack*> SwapedMineralStacks;
 	TArray<AXLagProductStack*> SwapedProductStacks;
 	TArray<AXLagCropStack*> SwapedCropStacks;
-	TArray<AXLagCrop*> SwapedCrops;
+
+	UPROPERTY()
+	TArray <AXLagSwapableObject*> SwapedObjects;
 	
 private:
 	FVector CalculatePersonScale(int deviationHeightPercent, int deviationThicknessPercent);

@@ -1,37 +1,37 @@
 #include "XLagCrop.h"
-//#include "../Common/CellOperationProcessing.h"
 #include "../XLagDynamicObject/ObjectModels/TerrainCropObject.h"
 
 AXLagCrop::AXLagCrop()
 {
-	PrimaryActorTick.bCanEverTick = true;
-
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 }
 
-void AXLagCrop::Initialize(FXLagDynamicObject* object, FXLagCropDescription description)
+void AXLagCrop::Initialize(FXLagCropDescription description)
 {
 	Description = description;
-	_object = object;
 }
+
+void AXLagCrop::AssignObject(const FXLagDynamicObject& object)
+{
+	AXLagSwapableObject::AssignObject(object);
+	const_cast<FXLagDynamicObject*>(&object)->PropertyChangedEvent.AddDynamic(this, &AXLagCrop::OnPropertyChanged);
+}
+
 
 bool AXLagCrop::IsVaild() const
 {
 	return Description.CropStages.Num() > 0;
 }
 
-void AXLagCrop::BeginPlay()
+void AXLagCrop::OnPropertyChanged(uint8 id, const FXLagObjectProperties& properties)
 {
-	Super::BeginPlay();
-}
+	TerrainCropObject cropProperties(*(const_cast<FXLagObjectProperties*>(&properties)));
 
-void AXLagCrop::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-	TerrainCropObject cropObject(*_object);
-	Progression = cropObject.GetEvalution();
-	UpdateView();
+	if (id == CropParameterId::ParId_CropEvalution)
+	{
+		Progression = cropProperties.GetEvalution();
+		UpdateView();
+	}
 }
 
 void AXLagCrop::UpdateView()

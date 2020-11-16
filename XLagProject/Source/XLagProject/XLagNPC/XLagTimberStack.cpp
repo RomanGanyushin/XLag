@@ -9,6 +9,7 @@ AXLagTimberStack::AXLagTimberStack()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	Tepmplate = GetTimberAsset()->Object;
 }
 
 // Called when the game starts or when spawned
@@ -23,15 +24,21 @@ void AXLagTimberStack::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void AXLagTimberStack::AddTimber(AXLagCuttableTreeBase* tree)
+void AXLagTimberStack::AddTimber()
 {
-	tree->AttachToActor(this, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, false));	
+	float TimberDiameter = 0.4;
+	float TimberLength = 4;
 
-	auto diameter = tree->TimberDiameter * 100;
+	auto log = NewObject<UStaticMeshComponent>(this);
+	log->SetupAttachment(RootComponent);
+	log->SetStaticMesh(Tepmplate);
+	auto diameter = TimberDiameter * 100;
 	auto position = CalculatePosition(Count + 1, diameter) + FVector(0, 0, diameter / 2.f);
-	tree->SetActorRelativeLocation(position);
-	tree->SetActorRelativeRotation(FRotator(0, 0, 90));
-	tree->SetActorEnableCollision(true);
+	log->SetRelativeLocation(position);
+	log->SetRelativeRotation(FRotator(0, 0, 90));
+	log->SetRelativeScale3D(FVector(TimberDiameter, TimberDiameter, TimberLength));
+	log->RegisterComponent();
+	//log->SetEnableCollision(true);
 	Count++;
 }
 

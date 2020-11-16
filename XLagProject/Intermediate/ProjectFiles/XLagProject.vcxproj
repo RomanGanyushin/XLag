@@ -293,6 +293,7 @@
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCFarmer.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagNPCWorker.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagProductStack.cpp" />
+    <ClCompile Include="..\..\Source\XLagProject\XLagNPC\XLagSwapableObject.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagProduction\XLagProductionSchemasManager.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTaskRegionBase.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateBuilding.cpp" />
@@ -351,6 +352,7 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCFarmer.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCWorker.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagProductStack.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagSwapableObject.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagProduction\Models\XLagProductionIngredient.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagProduction\Models\XLagProductionSchema.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagProduction\XLagProductionSchemasManager.h" />
