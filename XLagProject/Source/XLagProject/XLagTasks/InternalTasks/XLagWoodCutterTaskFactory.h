@@ -1,7 +1,7 @@
 #pragma once
 
+#include "XLagTaskFactoryBase.h"
 #include "XLagNPCTaskBase.h"
-#include "XLagNPCTaskMoveTo.h"
 #include "XLagWCCutTreeTask.h"
 #include "XLagWCBroachTreeTask.h"
 #include "XLagWCGetTreeTask.h"
@@ -13,44 +13,56 @@
 /*
  Фабрика задач для лесоруба.
 */
-class XLagWoodCutterTaskFactory
+class XLagWoodCutterTaskFactory : XLagTaskFactoryBase
 {
 public:
-	float CompliteDistanceToTree = 1.0f;
-	float SpaceScale = 100.f;
+	XLagWoodCutterTaskFactory(std::shared_ptr<ITerrainMapAccessor> place)
+		: Place(place)
+	{
+	}
 
-public:
 	// Принеси указанное дерево.
-	std::shared_ptr<XLagNPCTaskBase> BringTreeTaskCreate(AXLagCuttableTreeBase* tree, AXLagTimberStack *stack)
+	std::shared_ptr<XLagNPCTaskBase> BringTreeTaskCreate(AXLagTimberStack *stack)
 	{
 		auto result = std::make_shared<XLagNPCTaskBase>();
+
+		for (int i = 0; i < Place->SizeX(); i++)
+			for (int j = 0; j < Place->SizeY(); j++)
+			{
+				auto& cell = Place->Point(i, j);
+				XLagDynamicTerrainMapItemOperation cellOperation(cell);
+
+				if (!cellOperation.HasObjectType(XLagDynamicObjectType::Tree_))
+					continue;
+
+				auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
+				result->SubTasks.push_back(MoveTo(pos));
+				result->SubTasks.push_back(CutTree(cell));
+				result->SubTasks.push_back(Delay(5));
+				result->SubTasks.push_back(BroachTree(cell));
+			}
+
+		/*auto result = std::make_shared<XLagNPCTaskBase>();
 		result->SubTasks.push_back(MoveTo(tree->GetActorLocation()));
 		result->SubTasks.push_back(CutTree(tree));
 		result->SubTasks.push_back(BroachTree(tree));
 		result->SubTasks.push_back(GetTree(tree));
 		result->SubTasks.push_back(MoveTo(FVector(5000, 5000, 0)));
-		result->SubTasks.push_back(PutTree(tree, stack));
-		return result;
-	}
-
-	// Двигайся до указанной локации.
-	std::shared_ptr<XLagNPCTaskBase> MoveTo(const FVector& location)
-	{
-		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskMoveTo(location, CompliteDistanceToTree * SpaceScale));
+		result->SubTasks.push_back(PutTree(tree, stack));*/
 		return result;
 	}
 
 	// Сруби дерево.
-	std::shared_ptr<XLagNPCTaskBase> CutTree(AXLagCuttableTreeBase* tree)
+	std::shared_ptr<XLagNPCTaskBase> CutTree(FXLagDynamicTerrainMapItem& cell)
 	{
-		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagWCCutTreeTask(tree));
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagWCCutTreeTask(cell));
 		return result;
 	}
 
 	// Обработай дерево до бревна.
-	std::shared_ptr<XLagNPCTaskBase> BroachTree(AXLagCuttableTreeBase* tree)
+	std::shared_ptr<XLagNPCTaskBase> BroachTree(FXLagDynamicTerrainMapItem& cell)
 	{
-		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagWCBroachTreeTask(tree));
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagWCBroachTreeTask(cell));
 		return result;
 	}
 
@@ -67,4 +79,7 @@ public:
 		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagWCPutTreeTask(tree, stack));
 		return result;
 	}
+
+private:
+	std::shared_ptr<ITerrainMapAccessor> Place;
 };

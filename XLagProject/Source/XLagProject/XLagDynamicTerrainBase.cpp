@@ -319,6 +319,8 @@ void AXLagDynamicTerrainBase::InitMap(AGameModeBase* gameMode)
 			tree.SetRotation(rotator);
 			tree.SetKind(rand());
 			tree.SetAge(20 + rand() % 80);
+			tree.SetTreeState(TreeState::Growing_);
+			tree.SetTreeSustainability(5);
 
 			terrainObjects.AddObject(XLagDynamicObjectType::Tree_, place->Index, properties);
 		}

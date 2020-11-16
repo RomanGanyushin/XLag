@@ -561,6 +561,9 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainCropObjectBehavior.h">
       <Filter>Source\XLagProject\XLagDynamicObject\ObjectModels</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainTreeObjectBehavior.h">
+      <Filter>Source\XLagProject\XLagDynamicObject\ObjectModels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\XLagProject\XLagTasks\InternalTasks">

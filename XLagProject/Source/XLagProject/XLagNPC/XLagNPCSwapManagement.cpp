@@ -130,7 +130,7 @@ void AXLagNPCSwapManagement::DoSwapTree(const FXLagDynamicObject& object)
 	auto tree = GetWorld()->SpawnActor<AXLagCuttableTreeBase>(treeTemplate, loction, rotator);
 	tree->UpdateAge(age);
 	tree->SetObject(const_cast<FXLagDynamicObject*>(&object));
-
+	   
 	SwapedTrees.Add(tree);
 }
 

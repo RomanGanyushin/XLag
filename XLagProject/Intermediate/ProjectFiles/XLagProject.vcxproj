@@ -317,6 +317,7 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainCropObjectBehavior.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainObjectBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainObjectBehaviorBase.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainTreeObjectBehavior.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjectsManager.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObject.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjects.h" />

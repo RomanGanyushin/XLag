@@ -1,10 +1,11 @@
-#include <algorithm>
 #include "XLagDynamicObjects.h"
+#include <algorithm>
 
 FXLagDynamicObject* FXLagDynamicObjects::FindById(int32 id)
 {
 	return Objects.FindByPredicate([id](auto& it) {return it.Id == id; });
 }
+
 
 void FXLagDynamicObjects::AddObject(TEnumAsByte<XLagDynamicObjectType> objectType, const uint32 mapItemIndex, const FXLagObjectProperties properties)
 {

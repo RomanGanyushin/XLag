@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "XLagNPCBase.h"
 #include "XLagCuttableTreeBase.h"
+#include "../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
 #include "XLagNPCWoodCutter.generated.h"
 
 /**
@@ -20,14 +21,10 @@ class XLAGPROJECT_API AXLagNPCWoodCutter : public AXLagNPCBase
 
 public:
 	// Руби дерево.
-	void BeginCutTree(AXLagCuttableTreeBase *targetTree);
+	bool CutTree(FXLagDynamicTerrainMapItem& cell, float DeltaTime);
 
 	// Обтесывай дерево.
-	void BeginBroachTree(AXLagCuttableTreeBase *targetTree);
-
-	// Отменяет выполняемую команду.
-	void Cancel();
-
+	bool BroachTree(FXLagDynamicTerrainMapItem& cell, float DeltaTime);
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Woodcutter Cutting")
 	bool  IsCutting = false;

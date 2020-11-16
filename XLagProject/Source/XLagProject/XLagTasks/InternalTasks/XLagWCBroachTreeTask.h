@@ -1,8 +1,8 @@
 #pragma once
 
 #include "XLagNPCTaskBase.h"
-#include "XLagNPCTaskMoveTo.h"
-#include "../../XLagNPC/XLagCuttableTreeBase.h"
+//#include "XLagNPCTaskMoveTo.h"
+//#include "../../XLagNPC/XLagCuttableTreeBase.h"
 #include "../../XLagNPC/XLagNPCWoodCutter.h"
 
 /*
@@ -11,8 +11,8 @@
 class XLagWCBroachTreeTask : public XLagNPCTaskBase
 {
 public:
-	XLagWCBroachTreeTask(AXLagCuttableTreeBase* tree)
-		:Tree(tree)
+	XLagWCBroachTreeTask(FXLagDynamicTerrainMapItem& cell)
+		:Cell(cell)
 	{
 
 	}
@@ -28,29 +28,15 @@ public:
 			UE_LOG(LogTemp, Error, TEXT("XLagWCBroachTreeTask::Execute "));
 		}
 
-		if (Tree->IsTimber())
+		auto isFinished = woodcutter->BroachTree(Cell, DeltaTime);
+
+		if (isFinished)
 		{
-			woodcutter->Cancel();
 			Completed = true;
-			return;
-		}
-
-		if (!Tree->CanBroach())
-		{
-			return;
-		}
-
-		if (!Tree->IsTimber())
-		{
-			if (!woodcutter->IsBroaching)
-			{
-				woodcutter->BeginBroachTree(Tree);
-			}		
 		}
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override { return Completed; }
 
-	AXLagCuttableTreeBase* Tree;
-	bool Completed = false;
+	FXLagDynamicTerrainMapItem& Cell;
 };

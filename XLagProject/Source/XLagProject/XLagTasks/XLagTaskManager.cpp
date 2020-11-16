@@ -130,6 +130,7 @@ void AXLagTaskManager::CreateCuttingTreeTask(AXLagSelectComponent *select, AXLag
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
 
+	task->SubTasks.push_back(XLagWoodCutterTaskFactory(place).BringTreeTaskCreate(timberStack));
 	/*
 	// ѕолучаем клетки из региона где есть деревь€.
 	auto mapRequireTrees = place->GetFilteredItems(SurfaceResourceMapItemFilter(OnSurfaceResourceObjectsEnum::Tree));

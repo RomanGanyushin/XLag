@@ -19,7 +19,7 @@ public:
 
 	virtual void Execute(ACharacter *npc, XLagNPCTaskContext* context, float DeltaTime, int subLevel) override
 	{
-		if (Completed)
+		/*if (Completed)
 			return;
 
 		auto woodcutter = dynamic_cast<AXLagNPCWoodCutter*>(npc);
@@ -40,7 +40,7 @@ public:
 
 		Tree->SetActorEnableCollision(false);
 		Tree->AttachToActor(woodcutter, FAttachmentTransformRules(EAttachmentRule::KeepWorld, false));	
-		Completed = true;
+		Completed = true;*/
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override { return Completed; }

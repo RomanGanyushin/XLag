@@ -8,15 +8,6 @@
 #include "../XLagDynamicObject/XLagDynamicObject.h"
 #include "XLagCuttableTreeBase.generated.h"
 
-enum AXLagCuttableTreeState
-{
-	Growing,
-	Falling,
-	Fallen,
-	Timber
-};
-
-
 UCLASS()
 class XLAGPROJECT_API AXLagCuttableTreeBase : public AActor
 {
@@ -42,11 +33,6 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Current State Properties")
 	float TimberLength = 4;
 
-	// Состояние дерева.
-	AXLagCuttableTreeState State = AXLagCuttableTreeState::Growing;
-	
-	//long PlaceId;
-
 	ConstructorHelpers::FObjectFinder<UStaticMesh>*fv;
 
 protected:
@@ -65,41 +51,18 @@ protected:
 
 	virtual void Initialize();
 
-public:		
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 public:
-	// Рубить.
-	void Cut(int force);
-	
-	// Проверяет, что дерево срублено.
-	bool IsCutted();
-
-	// Проверяет, что дерево можно обтесывать.
-	bool CanBroach();
-
-	// Обтесать дерево до бревна.
-	void Broach(int force);
-
-	// Проверяет что дерево обтесано до бревна.
-	bool IsTimber();
 
 	// Обновить возраст до указанного.
 	void UpdateAge(float age);
 
-
-
 protected:
-	int Sustainability = 1000;
 
 	UStaticMeshComponent *AliveTree;
 	UStaticMesh *TimberObject;
 
-	FXLagDynamicObject* _object = nullptr;
-
 	UFUNCTION()
-	void OnPropertyChanged(uint8 id);
+	void OnPropertyChanged(uint8 id, const FXLagObjectProperties& properties);
 };
 
 UCLASS()

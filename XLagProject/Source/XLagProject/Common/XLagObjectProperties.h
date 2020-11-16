@@ -28,22 +28,17 @@ struct FXLagObjectPropertyPackage
 	}
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FPropertyChangedDelegate, uint8, id);
-
 USTRUCT(BlueprintType)
 struct FXLagObjectProperties
 {
 	GENERATED_BODY();
+	virtual ~FXLagObjectProperties() = default;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, SaveGame)
 	TMap<uint8, FXLagObjectPropertyPackage> Properties;
 
-	// —обытие возникающее при изменение свойства.
-	UPROPERTY(BlueprintAssignable)
-		FPropertyChangedDelegate PropertyChangedEvent;
-
 	bool HasValue(uint8 id) const;
-	void SetValue(uint8 id, const FVariant& value);
+	virtual void SetValue(uint8 id, const FVariant& value);
 
 	template <typename T> T GetValue(const uint8 id) const 
 	{

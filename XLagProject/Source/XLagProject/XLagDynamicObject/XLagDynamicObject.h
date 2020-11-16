@@ -9,6 +9,8 @@ enum XLagDynamicObjectType
 	Crop_
 };
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPropertyChangedDelegate, uint8, id, const FXLagObjectProperties&, properties);
+
 USTRUCT(BlueprintType)
 struct FXLagDynamicObject : public  FXLagObjectProperties
 {
@@ -24,4 +26,14 @@ struct FXLagDynamicObject : public  FXLagObjectProperties
 	/// Связанные клетки.
 	UPROPERTY(SaveGame)
 		TArray<uint32> BindedMapItemIndexes;
+
+	// Событие возникающее при изменение свойства.
+	UPROPERTY(BlueprintAssignable)
+		FPropertyChangedDelegate PropertyChangedEvent;
+
+	void SetValue(uint8 id, const FVariant& value) override
+	{
+		FXLagObjectProperties::SetValue(id, value);
+		PropertyChangedEvent.Broadcast(id, *this);
+	}
 };

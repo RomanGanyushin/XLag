@@ -18,6 +18,9 @@ const bool FXLagObjectPropertyPackage::operator==(const FVariant& value)
 
 bool FXLagObjectProperties::HasValue(uint8 id) const
 {
+	if (Properties.Num() <= 0)
+		return false;
+
 	return Properties.Contains(id);
 }
 
@@ -35,8 +38,6 @@ void FXLagObjectProperties::SetValue(uint8 id, const FVariant& value)
 			Properties[id].Pack(value);
 		}		
 	}
-
-	PropertyChangedEvent.Broadcast(id);
 }
 
 void FXLagObjectProperties::SetProperties(const FXLagObjectProperties& source)

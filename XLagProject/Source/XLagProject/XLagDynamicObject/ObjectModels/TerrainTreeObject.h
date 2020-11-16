@@ -7,7 +7,8 @@ enum TreeParameterId
 	ParId_TreeKind = CommonParameterId::ParId_UserDefined + 0,
 	ParId_TreeAge = CommonParameterId::ParId_UserDefined + 2,
 	ParId_TreeState = CommonParameterId::ParId_UserDefined + 3,
-	ParId_TreeSustainability = CommonParameterId::ParId_UserDefined + 4
+	ParId_TreeSustainability = CommonParameterId::ParId_UserDefined + 4,
+	ParId_Broach = CommonParameterId::ParId_UserDefined + 5,
 };
 
 enum TreeState
@@ -52,6 +53,26 @@ struct TerrainTreeObject : public TerrainObjectBase
 	const TreeState GetTreeState()
 	{
 		return (TreeState)Properties.GetValue<int8>(ParId_TreeState);
+	}
+
+	void SetTreeSustainability(const float sustainability)
+	{
+		Properties.SetValue(ParId_TreeSustainability, (float)sustainability);
+	}
+
+	const float GetTreeSustainability()
+	{
+		return Properties.GetValue<float>(ParId_TreeSustainability);
+	}
+
+	void SetTreeBroach(const float broach)
+	{
+		Properties.SetValue(ParId_Broach, (float)broach);
+	}
+
+	const float GetTreeBroach()
+	{
+		return Properties.GetValue<float>(ParId_Broach);
 	}
 
 };

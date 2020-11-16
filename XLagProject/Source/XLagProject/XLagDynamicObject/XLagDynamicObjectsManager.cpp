@@ -1,5 +1,6 @@
 #include "XLagDynamicObjectsManager.h"
 #include "ObjectModels/TerrainCropObjectBehavior.h"
+#include "ObjectModels/TerrainTreeObjectBehavior.h"
 #include "../XLagNPC/XLagNPCSwapManagement.h"
 
 AXLagDynamicObjectsManager::AXLagDynamicObjectsManager()
@@ -7,6 +8,7 @@ AXLagDynamicObjectsManager::AXLagDynamicObjectsManager()
 	PrimaryActorTick.bCanEverTick = true;
 
 	_behaviors.Add(XLagDynamicObjectType::Crop_, std::shared_ptr<TerrainObjectBehaviorBase>(new TerrainCropObjectBehavior()));
+	_behaviors.Add(XLagDynamicObjectType::Tree_, std::shared_ptr<TerrainObjectBehaviorBase>(new TerrainTreeObjectBehavior()));
 }
 
 void AXLagDynamicObjectsManager::OnInitialze(AGameModeBase* gameMode)

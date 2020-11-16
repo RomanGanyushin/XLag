@@ -1,14 +1,12 @@
 #pragma once
 #include "XLagNPCTaskBase.h"
-#include "XLagNPCTaskMoveTo.h"
-#include "../../XLagNPC/XLagCuttableTreeBase.h"
 #include "../../XLagNPC/XLagNPCWoodCutter.h"
 
 class XLagWCCutTreeTask : public XLagNPCTaskBase
 {
 public:
-	XLagWCCutTreeTask(AXLagCuttableTreeBase* tree)
-		:Tree(tree)
+	XLagWCCutTreeTask(FXLagDynamicTerrainMapItem& cell)
+		:Cell(cell)
 	{
 
 	}
@@ -24,22 +22,15 @@ public:
 			UE_LOG(LogTemp, Error, TEXT("XLagWCCutTreeTask::Execute "));
 		}
 
-		if (Tree->IsCutted())
+		auto isFinished = woodcutter->CutTree(Cell, DeltaTime);
+
+		if (isFinished)
 		{
 			Completed = true;
-			woodcutter->Cancel();
 		}
-		else
-		{
-			if (!woodcutter->IsCutting)
-			{
-				woodcutter->BeginCutTree(Tree);
-			}	
-		}	
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override { return Completed; }
 
-	AXLagCuttableTreeBase* Tree;
-	bool Completed = false;
+	FXLagDynamicTerrainMapItem& Cell;
 };
