@@ -4,7 +4,7 @@
 XLagDynamicTerrainMapWindow::XLagDynamicTerrainMapWindow(ITerrainMapAccessor *map, int off_x, int off_y, int width, int height)
 	:_fullMap(map), _width(width), _height(height), _offsetX(off_x), _offsetY(off_y)
 {
-	if (_fullMap == nullptr)
+	/*if (_fullMap == nullptr)
 	{
 		throw std::exception();
 	}
@@ -17,7 +17,7 @@ XLagDynamicTerrainMapWindow::XLagDynamicTerrainMapWindow(ITerrainMapAccessor *ma
 	if (_height <= 0 && _height >= _fullMap->SizeY())
 	{
 		throw std::exception();
-	}
+	}*/
 }
 
 std::shared_ptr<ITerrainMapAccessor> XLagDynamicTerrainMapWindow::CreateWindow(int const &x, int const &y, int const &sx, int const &sy)
@@ -35,7 +35,7 @@ FXLagDynamicTerrainMapItem& XLagDynamicTerrainMapWindow::Point(int const &x, int
 FXLagDynamicTerrainMapItem& XLagDynamicTerrainMapWindow::Point(int const &index)
 {
 	// TODO: Сделать вычисления.
-	throw std::exception();
+	return _fullMap->Point(index);
 }
 
 const FXLagDynamicTerrainMapItem& XLagDynamicTerrainMapWindow::PointConst(int const &x, int const &y) const
@@ -101,6 +101,6 @@ bool XLagDynamicTerrainMapWindow::IsChanged()
 
 const CoordinatePoint XLagDynamicTerrainMapWindow::GetCoordinate(FXLagDynamicTerrainMapItem* item) const
 {
-	throw std::exception(); //TODO: Впринуипе нужно только учесть смещение.
+	//throw std::exception(); //TODO: Впринуипе нужно только учесть смещение.
 	return _fullMap->GetCoordinate(item);
 }

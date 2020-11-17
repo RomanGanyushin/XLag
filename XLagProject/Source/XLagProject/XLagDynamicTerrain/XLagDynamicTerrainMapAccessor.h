@@ -116,8 +116,8 @@ public:
 
 	const CoordinatePoint GetCoordinate(FXLagDynamicTerrainMapItem* item) const 
 	{
-		if (item == nullptr)
-			throw std::exception("Argument null exception");
+		/*if (item == nullptr)
+			throw std::exception();*/
 
 		auto index = item - &_dynamicTerrainMap.Map[0]; //TODO возможно не сраьотает
 		return GetCoordinate(index);
@@ -125,8 +125,8 @@ public:
 
 	const CoordinatePoint GetCoordinate(const int32 index) const
 	{
-		if (index < 0 || index >= MapLenght())
-			throw std::exception("Index out of array");
+		/*if (index < 0 || index >= MapLenght())
+			throw std::exception();*/
 
 		return CoordinatePoint(index - (index / SizeX()) * SizeX(), index / SizeX());
 	}

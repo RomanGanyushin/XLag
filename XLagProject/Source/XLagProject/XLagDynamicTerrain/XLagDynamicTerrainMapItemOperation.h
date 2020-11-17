@@ -36,7 +36,7 @@ public:
 			return nullptr;
 
 		auto& top = MapItem.Stack.Last();
-		if (!top.Element == layerKind)
+		if (!(top.Element == layerKind))
 			return nullptr;
 
 		return &top;

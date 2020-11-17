@@ -48,7 +48,10 @@ struct FXLagObjectProperties
 		}
 		else
 		{
-			return Properties[id].UnPack<T>().GetValue<T>();
+			T Result;
+			FMemoryReader Reader(Properties[id].Data, true);
+			Reader << Result;
+			return Result;
 		}
 	}
 
