@@ -498,9 +498,6 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWorkerTaskFactory.h">
       <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBag.h">
-      <Filter>Source\XLagProject\XLagNPC</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWrMineralWaitAndReserveTask.h">
       <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
     </ClInclude>
@@ -566,6 +563,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagSwapableObject.h">
       <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBaggage.h">
+      <Filter>Source\XLagProject\XLagNPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjectType.h">
+      <Filter>Source\XLagProject\XLagDynamicObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

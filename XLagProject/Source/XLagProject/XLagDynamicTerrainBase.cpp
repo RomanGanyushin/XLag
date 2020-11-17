@@ -43,7 +43,7 @@ AXLagDynamicTerrainBase::AXLagDynamicTerrainBase()
 	InitializeLayers();
 
 	//InitMap();
-	//InitGeometry();
+	//InitGeometry();6
 	//AddGreader();
 
 	UE_LOG(LogTemp, Warning, TEXT("AXLagDynamicTerrainBase construct 056"));

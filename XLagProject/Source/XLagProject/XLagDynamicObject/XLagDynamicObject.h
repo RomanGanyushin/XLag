@@ -1,13 +1,7 @@
 #pragma once
 #include "../Common/XLagObjectProperties.h"
+#include "XLagDynamicObjectType.h"
 #include "XLagDynamicObject.generated.h"
-
-UENUM(BlueprintType)
-enum XLagDynamicObjectType
-{
-	Tree,
-	Crop
-};
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPropertyChangedDelegate, uint8, id, const FXLagObjectProperties&, properties);
 

@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "../Common/ProfessionTypeEnum.h"
-#include "XLagNPCBag.h"
+#include "XLagNPCBaggage.h"
 #include "XLagNPCBase.generated.h"
 
 UCLASS()
@@ -38,7 +38,8 @@ public:
 	// Освободить от работы.
 	UFUNCTION() virtual void FreeOf(UXLagTaskBase* task);
 
-	XLagNPCBag Bag;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FXLagNPCBaggage Baggage;
 
 protected:
 

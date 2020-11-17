@@ -322,6 +322,7 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjectsManager.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObject.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjects.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjectType.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\XLagDynamicTerrainMapInitializer.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagColorizeMapGeometryBuilder.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicTerrain\GeometryBuilder\XLagDynamicTerrainLayerGeometry.h" />
@@ -348,7 +349,7 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagCropStack.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagLooseStackBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagMineralStack.h" />
-    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBag.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCBaggage.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCFarmer.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagNPCWorker.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagNPC\XLagProductStack.h" />
