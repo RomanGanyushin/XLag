@@ -24,7 +24,7 @@ public:
 			return;
 		}
 
-		if (worker->Baggage.Has(XLagDynamicObjectType::Mineral, FString(_mineralName.c_str()), _quanity))
+		if (worker->Baggage->HasQuanity(XLagDynamicObjectType::Mineral, FString(_mineralName.c_str()), _quanity))
 		{
 			Completed = true;
 			return;

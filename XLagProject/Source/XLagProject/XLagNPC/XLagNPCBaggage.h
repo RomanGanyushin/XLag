@@ -3,7 +3,7 @@
 #include "XLagNPCBaggage.generated.h"
 
 USTRUCT(BlueprintType)
-struct FXLagNPCBaggageItem
+struct FXLagBaggageItem
 {
 	GENERATED_BODY()
 
@@ -18,19 +18,31 @@ struct FXLagNPCBaggageItem
 };
 
 USTRUCT(BlueprintType)
-struct FXLagNPCBaggage
+struct FXLagBaggage
 {
 	GENERATED_BODY()
 
-	void Put(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name, float quanity)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, SaveGame)
+		TArray<FXLagBaggageItem> Items;
+};
+
+UCLASS() 
+class UXLagNPCBaggage : public UObject
+{
+	GENERATED_BODY()
+
+public:
+
+	UFUNCTION(BlueprintCallable)
+		void Put(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name, float quanity)
 	{
 		if (!HasItem(type, name))
 		{
-			FXLagNPCBaggageItem newItem;
+			FXLagBaggageItem newItem;
 			newItem.ObjectType = type;
 			newItem.Name = name;
 			newItem.Quanity = quanity;
-			Items.Add(newItem);
+			Baggage.Items.Add(newItem);
 		}
 		else
 		{
@@ -38,7 +50,8 @@ struct FXLagNPCBaggage
 		}
 	}
 
-	float Take(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name, float quanity)
+	UFUNCTION(BlueprintCallable)
+		float Take(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name, float quanity)
 	{
 		if (!HasItem(type, name))
 			return 0.0f;
@@ -47,17 +60,18 @@ struct FXLagNPCBaggage
 
 		auto result = std::min(quanity, item.Quanity);
 		item.Quanity -= result;
-		
+
 		if (item.Quanity <= 0.0f)
 		{
-			auto removeIndex = Items.IndexOfByPredicate([&item](auto&it) {return &it == &item; });
-			Items.RemoveAt(removeIndex);
+			auto removeIndex = Baggage.Items.IndexOfByPredicate([&item](auto&it) {return &it == &item; });
+			Baggage.Items.RemoveAt(removeIndex);
 		}
 
 		return result;
 	}
 
-	bool Has(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name, float quanity)
+	UFUNCTION(BlueprintCallable)
+		bool HasQuanity(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name, float quanity)
 	{
 		if (!HasItem(type, name))
 			return false;
@@ -65,22 +79,31 @@ struct FXLagNPCBaggage
 		return FindItem(type, name).Quanity >= quanity;
 	}
 
-	void Reset(const TEnumAsByte<XLagDynamicObjectType> type)
+	UFUNCTION(BlueprintCallable)
+		bool HasObject(const TEnumAsByte<XLagDynamicObjectType> type)
 	{
-		auto removeIndex = Items.IndexOfByPredicate([type](auto&it) {return it.ObjectType == type; });
-		Items.RemoveAt(removeIndex);
+		return Baggage.Items.ContainsByPredicate([type](auto& it) {return it.ObjectType == type; });
 	}
 
-	bool HasItem(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name) const
+	UFUNCTION(BlueprintCallable)
+		void Reset(const TEnumAsByte<XLagDynamicObjectType> type)
 	{
-		return Items.ContainsByPredicate([type, name](auto& it) {return it.ObjectType == type && it.Name == name; });
+		auto removeIndex = Baggage.Items.IndexOfByPredicate([type](auto&it) {return it.ObjectType == type; });
+		Baggage.Items.RemoveAt(removeIndex);
 	}
 
-	FXLagNPCBaggageItem& FindItem(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name)
+	UFUNCTION(BlueprintCallable)
+		bool HasItem(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name) const
 	{
-		return *Items.FindByPredicate([type, name](auto& it) {return it.ObjectType == type && it.Name == name; });
+		return Baggage.Items.ContainsByPredicate([type, name](auto& it) {return it.ObjectType == type && it.Name == name; });
 	}
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, SaveGame)
-		TArray<FXLagNPCBaggageItem> Items;
+	UFUNCTION(BlueprintCallable)
+		FXLagBaggageItem& FindItem(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name)
+	{
+		return *Baggage.Items.FindByPredicate([type, name](auto& it) {return it.ObjectType == type && it.Name == name; });
+	}
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FXLagBaggage Baggage;
 };

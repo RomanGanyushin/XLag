@@ -20,7 +20,7 @@ float AXLagMineralStack::TakeQuantity(AXLagNPCBase *npc, float quantity)
 		return takeQuanity;
 
 	auto stackMineralName = ContentMineral.Name;
-	npc->Baggage.Put(XLagDynamicObjectType::Mineral, stackMineralName, takeQuanity);
+	npc->Baggage->Put(XLagDynamicObjectType::Mineral, stackMineralName, takeQuanity);
 
 	return takeQuanity;
 }

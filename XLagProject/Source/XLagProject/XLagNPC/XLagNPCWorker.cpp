@@ -18,15 +18,15 @@ bool AXLagNPCWorker::TakeReservedMineral(AXLagMineralStack* stack, float deltaTi
 
 bool AXLagNPCWorker::ManualProduction(FString product, float quanity, float deltaTime)
 {
-	if (!Baggage.Has(XLagDynamicObjectType::Product, product, quanity))
+	if (!Baggage->HasQuanity(XLagDynamicObjectType::Product, product, quanity))
 	{
-		Baggage.Put(XLagDynamicObjectType::Product, product, deltaTime);
+		Baggage->Put(XLagDynamicObjectType::Product, product, deltaTime);
 		IsManualProduction = true;
 	}
 	else
 	{
-		Baggage.Reset(XLagDynamicObjectType::Product);
-		Baggage.Put(XLagDynamicObjectType::Product, product, quanity);
+		Baggage->Reset(XLagDynamicObjectType::Product);
+		Baggage->Put(XLagDynamicObjectType::Product, product, quanity);
 		IsManualProduction = false;
 	}	
 
@@ -44,14 +44,14 @@ bool AXLagNPCWorker::PutProductAtStack(FString product, AXLagProductStack* stack
 	{
 		timeAccamulator = 0.0f;
 
-		if (Baggage.Take(XLagDynamicObjectType::Product, product, 1) > 0.0f)
+		if (Baggage->Take(XLagDynamicObjectType::Product, product, 1) > 0.0f)
 		{
 			stack->AddQuantity(1.0);
 		}
 		else
 		{
 			IsProductPutting = false;
-			Baggage.Reset(XLagDynamicObjectType::Product);
+			Baggage->Reset(XLagDynamicObjectType::Product);
 		}
 	}
 

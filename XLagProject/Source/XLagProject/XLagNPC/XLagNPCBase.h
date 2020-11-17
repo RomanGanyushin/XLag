@@ -39,7 +39,7 @@ public:
 	UFUNCTION() virtual void FreeOf(UXLagTaskBase* task);
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FXLagNPCBaggage Baggage;
+	UXLagNPCBaggage *Baggage;
 
 protected:
 

@@ -21,6 +21,19 @@ public:
 		if (Completed)
 			return;
 
+		auto woodcutter = dynamic_cast<AXLagNPCWoodCutter*>(npc);
+		if (woodcutter == nullptr)
+		{
+			UE_LOG(LogTemp, Error, TEXT("XLagWCPutTreeTask::Execute "));
+		}
+
+		if (!woodcutter->Baggage->HasObject(XLagDynamicObjectType::Tree))
+		{
+			Completed = true;
+			return;
+		}
+
+		woodcutter->Baggage->Reset(XLagDynamicObjectType::Tree);
 		Stack->AddTimber();
 		Completed = true;
 	}

@@ -70,6 +70,8 @@ bool AXLagNPCWoodCutter::GetTree(FXLagDynamicTerrainMapItem& cell, float DeltaTi
 	auto treeObject = cellOperation.GetObjectByType(XLagDynamicObjectType::Tree);
 	cellOperation.DeleteObject(treeObject);
 
+	Baggage->Put(XLagDynamicObjectType::Tree, "Tree", 1);
+
 	return true;
 }
 
