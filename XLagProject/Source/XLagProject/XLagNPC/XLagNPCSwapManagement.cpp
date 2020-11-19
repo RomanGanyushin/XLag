@@ -6,6 +6,7 @@
 #include "../XLagDynamicTerrain/Filters/SurfaceResourceMapItemFilter.h"
 #include "../XLagDynamicObject/ObjectModels/TerrainTreeObject.h"
 #include "../XLagDynamicObject/ObjectModels/TerrainCropObject.h"
+#include "../XLagDynamicObject/ObjectModels/TerrainTimberStackObject.h"
 
 // Sets default values
 AXLagNPCSwapManagement::AXLagNPCSwapManagement()
@@ -28,6 +29,7 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 		{
 			auto locator = RandomizeZeroPlacePosition(MapAccessor).Get() + FVector(0, 0, 200);
 			auto woodcutter = GetWorld()->SpawnActor<AXLagNPCWoodCutter>(WoodcutterTemplate, locator, FRotator::ZeroRotator);
+			woodcutter->DefaultInitialize();
 
 			if (woodcutter == nullptr)
 				continue;
@@ -162,18 +164,34 @@ void AXLagNPCSwapManagement::DoSwapCrop(const FXLagDynamicObject& object)
 	SwapedObjects.Add(newCrop);
 }
 
+void AXLagNPCSwapManagement::DoSwapTreeStack(const FXLagDynamicObject& object)
+{
+	auto treeStackObject = TerrainTimberStackObject(const_cast<FXLagDynamicObject&>(object));
+
+	if (!treeStackObject.HasLocation())
+	{
+		treeStackObject.SetLocation(MapAccessor->GetWorldPosition(object.BindedMapItemIndexes[0], GetPositionEnum::CenterHeghtPosition));
+	}
+
+	if (!treeStackObject.HasRotation())
+	{
+		treeStackObject.SetRotation(FRotator::ZeroRotator);
+	}
+
+	auto loction = treeStackObject.GetLocation();
+	auto rotator = treeStackObject.GetRotation();
+
+	auto stack = GetWorld()->SpawnActor<AXLagTimberStack>(TimberStackTemplate, loction, rotator);
+	stack->AssignObject(object);
+
+	SwapedObjects.Add(stack);
+}
+
 void AXLagNPCSwapManagement::DoUnswapObject(const int32 objectId)
 {
 	auto unswapingIndex = SwapedObjects.IndexOfByPredicate([objectId](auto& it) {return it->ObjectId == objectId; });
 	GetWorld()->DestroyActor(SwapedObjects[unswapingIndex]);
 	SwapedObjects.RemoveAt(unswapingIndex);
-}
-
-void AXLagNPCSwapManagement::DoSwapTreeStack()
-{
-	auto locator = RandomizeZeroPlacePosition(MapAccessor).Get();
-	auto stack = GetWorld()->SpawnActor<AXLagTimberStack>(TimberStackTemplate, locator, FRotator::ZeroRotator);
-	SwapedTreeStacks.Add(stack);
 }
 
 AXLagMineralStack* AXLagNPCSwapManagement::DoSwapMineralStack(const FXLagMineralDesc& mineral)

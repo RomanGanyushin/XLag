@@ -2,7 +2,6 @@
 
 #include "XLagNPCTaskBase.h"
 #include "../../XLagNPC/XLagNPCWoodCutter.h"
-#include "../../XLagNPC/XLagTimberStack.h"
 
 /*
 Задача для дровосека - положтиь дерево (бревно).
@@ -10,10 +9,8 @@
 class XLagWCPutTreeTask : public XLagNPCTaskBase
 {
 public:
-	XLagWCPutTreeTask(AXLagTimberStack* stack)
-		: Stack(stack)
+	XLagWCPutTreeTask()
 	{
-
 	}
 
 	virtual void Execute(ACharacter *npc, XLagNPCTaskContext* context, float DeltaTime, int subLevel) override
@@ -33,12 +30,14 @@ public:
 			return;
 		}
 
-		woodcutter->Baggage->Reset(XLagDynamicObjectType::Tree);
-		Stack->AddTimber();
-		Completed = true;
+		if (woodcutter->FindCellIndex == -1)
+		{
+			Completed = true;
+			return;
+		}
+
+		Completed = woodcutter->PutTreeToStack(DeltaTime);
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override { return Completed; }
-
-	AXLagTimberStack *Stack;
 };

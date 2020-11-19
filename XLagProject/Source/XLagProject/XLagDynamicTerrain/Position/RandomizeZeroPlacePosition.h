@@ -12,10 +12,16 @@ struct RandomizeZeroPlacePosition
 
 	const FVector Get() 
 	{
-		auto zeroPlace = _accessor->GetFilteredItems(ZeroPlaceMapItemFilter());
-		auto randomPlace = zeroPlace[rand() % zeroPlace.size()];
+		auto randomPlace = GetCell();
 		auto locator = _accessor->GetWorldPosition(randomPlace, GetPositionEnum::CenterHeghtPosition);
 		return locator;
+	}
+
+	FXLagDynamicTerrainMapItem* GetCell()
+	{
+		auto zeroPlace = _accessor->GetFilteredItems(ZeroPlaceMapItemFilter());
+		auto randomPlace = zeroPlace[rand() % zeroPlace.size()];
+		return randomPlace;
 	}
 
 	std::shared_ptr<ITerrainMapAccessor> _accessor;

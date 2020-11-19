@@ -19,8 +19,10 @@ struct FXLagDynamicObjects
 	FAddObjectDelegate AddObjectEvent;
 	FRemovingObjectDelegate RemovingObjectEvent;
 
-	FXLagDynamicObject* FindById(int32 id);
 	void AddObject(TEnumAsByte<XLagDynamicObjectType> objectType, const uint32 mapItemIndex, const FXLagObjectProperties properties);
 	void AddObject(const FXLagDynamicObject& object);
 	void RemoveObject(FXLagDynamicObject* object);
+
+	FXLagDynamicObject* FindById(int32 id);
+	TArray<FXLagDynamicObject*> GetFilteredByType(TEnumAsByte<XLagDynamicObjectType> objectType);
 };

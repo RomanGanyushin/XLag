@@ -122,12 +122,13 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void ActivateColorizedMap(bool activate);
 
+	std::shared_ptr<ITerrainMapAccessor> Map;
+	std::shared_ptr<ITerrainMapAccessor> CurrentMap;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	std::shared_ptr<ITerrainMapAccessor> Map;
-	std::shared_ptr<ITerrainMapAccessor> CurrentMap;
+	
 
 	void InitMap(AGameModeBase* gameMode);
 	void InitGeometry();

@@ -50,8 +50,7 @@ protected:
 public:
 	void SetMapAccessor(std::shared_ptr<ITerrainMapAccessor> accessor) { MapAccessor = accessor; }
 	void DoSwapPersons();
-	//void DoSwapTrees();
-	void DoSwapTreeStack();
+
 	AXLagMineralStack* DoSwapMineralStack(const FXLagMineralDesc& mineral);
 	AXLagCropStack* DoSwapCropStack(const FXLagCropDescription& crop);
 	AXLagProductStack* DoSwapProductStack(const FXLagProductionSchema& product);
@@ -60,6 +59,7 @@ public:
 
 	void DoSwapTree(const FXLagDynamicObject& object);
 	void DoSwapCrop(const FXLagDynamicObject& object);
+	void DoSwapTreeStack(const FXLagDynamicObject& object);
 
 	void DoUnswapObject(const int32 objectId);
 public:	
@@ -198,7 +198,6 @@ private:
 	std::shared_ptr<ITerrainMapAccessor> MapAccessor;
 
 public:
-	TArray<AXLagTimberStack*> SwapedTreeStacks;
 	TArray<AXLagMineralStack*> SwapedMineralStacks;
 	TArray<AXLagProductStack*> SwapedProductStacks;
 	TArray<AXLagCropStack*> SwapedCropStacks;

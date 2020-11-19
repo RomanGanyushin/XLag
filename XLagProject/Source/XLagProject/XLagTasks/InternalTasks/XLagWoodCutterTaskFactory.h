@@ -6,7 +6,7 @@
 #include "XLagWCBroachTreeTask.h"
 #include "XLagWCGetTreeTask.h"
 #include "XLagWCPutTreeTask.h"
-#include "../../XLagNPC/XLagTimberStack.h"
+#include "XLagWCSearchStackTreeTask.h"
 
 /*
  Фабрика задач для лесоруба.
@@ -20,7 +20,7 @@ public:
 	}
 
 	// Принеси указанное дерево.
-	std::shared_ptr<XLagNPCTaskBase> BringTreeTaskCreate(AXLagTimberStack *stack)
+	std::shared_ptr<XLagNPCTaskBase> BringTreeTaskCreate()
 	{
 		auto result = std::make_shared<XLagNPCTaskBase>();
 
@@ -40,8 +40,9 @@ public:
 				result->SubTasks.push_back(BroachTree(cell));
 				result->SubTasks.push_back(Delay(5));
 				result->SubTasks.push_back(GetTree(cell));
-				result->SubTasks.push_back(MoveTo(stack->GetActorLocation())); // Переделать.
-				result->SubTasks.push_back(PutTree(stack)); // Переделать.
+				result->SubTasks.push_back(SearchStack());
+				result->SubTasks.push_back(MoveToFind());
+				result->SubTasks.push_back(PutTree());
 				result->SubTasks.push_back(Delay(5));
 			}
 
@@ -69,10 +70,17 @@ public:
 		return result;
 	}
 
-	// Положи в стопку.
-	std::shared_ptr<XLagNPCTaskBase> PutTree(AXLagTimberStack* stack)
+	// Искать стопку.
+	std::shared_ptr<XLagNPCTaskBase> SearchStack()
 	{
-		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagWCPutTreeTask(stack));
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagWCSearchStackTreeTask());
+		return result;
+	}
+
+	// Положи в стопку.
+	std::shared_ptr<XLagNPCTaskBase> PutTree()
+	{
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagWCPutTreeTask());
 		return result;
 	}
 

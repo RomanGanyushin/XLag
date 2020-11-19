@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "XLagTimberStack.h"
+#include "../XLagDynamicObject/ObjectModels/TerrainTimberStackObject.h"
 
 // Sets default values
 AXLagTimberStack::AXLagTimberStack()
@@ -12,36 +11,52 @@ AXLagTimberStack::AXLagTimberStack()
 	Tepmplate = GetTimberAsset()->Object;
 }
 
-// Called when the game starts or when spawned
-void AXLagTimberStack::BeginPlay()
+void AXLagTimberStack::AssignObject(const FXLagDynamicObject& object)
 {
-	Super::BeginPlay();
+	AXLagSwapableObject::AssignObject(object);
+	const_cast<FXLagDynamicObject*>(&object)->PropertyChangedEvent.AddDynamic(this, &AXLagTimberStack::OnPropertyChanged);
 }
 
-// Called every frame
-void AXLagTimberStack::Tick(float DeltaTime)
+void AXLagTimberStack::OnPropertyChanged(uint8 id, const FXLagObjectProperties& properties)
 {
-	Super::Tick(DeltaTime);
+	switch (id)
+	{
+		case TimberStackParameterId::ParId_TimberStackQuantity:
+		{
+			TerrainTimberStackObject stack(*const_cast<FXLagObjectProperties*>(&properties));
+			int timberCount = stack.GetTreeQuantity();
+			UpdateView(timberCount);
+		}
+		break;
+	}
 }
 
-void AXLagTimberStack::AddTimber()
+void AXLagTimberStack::UpdateView(int newTimberCount)
 {
 	float TimberDiameter = 0.4;
 	float TimberLength = 4;
 
-	auto log = NewObject<UStaticMeshComponent>(this);
-	log->SetupAttachment(RootComponent);
-	log->SetStaticMesh(Tepmplate);
-	auto diameter = TimberDiameter * 100;
-	auto position = CalculatePosition(Count + 1, diameter) + FVector(0, 0, diameter / 2.f);
-	log->SetRelativeLocation(position);
-	log->SetRelativeRotation(FRotator(0, 0, 90));
-	log->SetRelativeScale3D(FVector(TimberDiameter, TimberDiameter, TimberLength));
-	log->RegisterComponent();
-	//log->SetEnableCollision(true);
-	Count++;
-}
+	if (Count == newTimberCount)
+		return;
 
+	if (newTimberCount > Count)
+	{
+		for (auto num = Count + 1; num <= newTimberCount; num++)
+		{
+			auto log = NewObject<UStaticMeshComponent>(this);
+			log->SetupAttachment(RootComponent);
+			log->SetStaticMesh(Tepmplate);
+			auto diameter = TimberDiameter * 100;
+			auto position = CalculatePosition(num, diameter) + FVector(0, 0, diameter / 2.f);
+			log->SetRelativeLocation(position);
+			log->SetRelativeRotation(FRotator(0, 0, 90));
+			log->SetRelativeScale3D(FVector(TimberDiameter, TimberDiameter, TimberLength));
+			log->RegisterComponent();
+			//log->SetEnableCollision(true);
+			Count++;
+		}
+	}
+}
 
 FVector AXLagTimberStack::CalculatePosition(int num, float diameter)
 {

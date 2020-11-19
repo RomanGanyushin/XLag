@@ -119,7 +119,7 @@ void AXLagTaskManager::CreateGroundAlignTask(AXLagSelectComponent *select, Groun
 	SearchAndChooseExecuters(newTask);	
 }
 
-void AXLagTaskManager::CreateCuttingTreeTask(AXLagSelectComponent *select, AXLagTimberStack *timberStack, int RequiredWorkerNumber)
+void AXLagTaskManager::CreateCuttingTreeTask(AXLagSelectComponent *select, int RequiredWorkerNumber)
 {
 	// Создает задачу.
 	auto newTask = NewObject<UXLagTask_CuttingTreeRegion>();
@@ -130,7 +130,7 @@ void AXLagTaskManager::CreateCuttingTreeTask(AXLagSelectComponent *select, AXLag
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
 
-	task->SubTasks.push_back(XLagWoodCutterTaskFactory(place).BringTreeTaskCreate(timberStack));
+	task->SubTasks.push_back(XLagWoodCutterTaskFactory(place).BringTreeTaskCreate());
 	/*
 	// Получаем клетки из региона где есть деревья.
 	auto mapRequireTrees = place->GetFilteredItems(SurfaceResourceMapItemFilter(OnSurfaceResourceObjectsEnum::Tree));

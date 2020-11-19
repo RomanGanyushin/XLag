@@ -16,43 +16,8 @@ struct TerrainCropObject : public TerrainObjectBase
 	{
 	}
 
-	void SetKind(const int8 type)
-	{
-		Properties.SetValue(ParId_CropKind, type);
-	}
-
-	const int8 GetKind()
-	{
-		return Properties.GetValue<int8>(ParId_CropKind);
-	}
-
-	void SetLifetime(const float type)
-	{
-		Properties.SetValue(ParId_CropLifeTime, type);
-	}
-
-	const float GetLifetime()
-	{
-		return Properties.GetValue<float>(ParId_CropLifeTime);
-	}
-
-	void SetEvalution(const float type)
-	{
-		Properties.SetValue(ParId_CropEvalution, type);
-	}
-
-	const float GetEvalution()
-	{
-		return Properties.GetValue<float>(ParId_CropEvalution);
-	}
-
-	void SetCropQuantity(const float type)
-	{
-		Properties.SetValue(ParId_CropQuantity, type);
-	}
-
-	const float GetCropQuantity()
-	{
-		return Properties.GetValue<float>(ParId_CropQuantity);
-	}
+	XLagProperty(Kind, int8, ParId_CropKind);
+	XLagProperty(Lifetime, float, ParId_CropLifeTime);
+	XLagProperty(Evalution, float, ParId_CropEvalution);
+	XLagProperty(CropQuantity, float, ParId_CropEvalution);
 };

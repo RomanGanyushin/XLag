@@ -1,6 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "XLagNPCWoodCutter.h"
 #include "../XLagDynamicObject/ObjectModels/TerrainTreeObject.h"
+#include "../XLagDynamicObject/ObjectModels/TerrainTimberStackObject.h"
+#include "../XLagDynamicTerrainBase.h"
+#include "../XLagDynamicTerrain\Position\RandomizeZeroPlacePosition.h"
 
 void AXLagNPCWoodCutter::Tick(float DeltaTime)
 {
@@ -71,6 +74,51 @@ bool AXLagNPCWoodCutter::GetTree(FXLagDynamicTerrainMapItem& cell, float DeltaTi
 	cellOperation.DeleteObject(treeObject);
 
 	Baggage->Put(XLagDynamicObjectType::Tree, "Tree", 1);
+
+	return true;
+}
+
+bool AXLagNPCWoodCutter::SearchStack()
+{
+	auto& objects = AXLagDynamicObjectsManager::GetManagment()->GetObjects();
+	auto timberStacks = objects.GetFilteredByType(XLagDynamicObjectType::TimberStack);
+
+	if (timberStacks.Num() == 0) // Если стопки нет, то создаем.
+	{
+		auto terrain = AXLagDynamicTerrainBase::GetDynamicTerrainBase();
+		auto cell = RandomizeZeroPlacePosition(terrain->Map).GetCell();
+
+		FXLagDynamicObject stackObject;
+		stackObject.ObjectType = XLagDynamicObjectType::TimberStack;
+		stackObject.BindedMapItemIndexes.Add(cell->Index);
+
+		TerrainTimberStackObject stackProperties(stackObject);
+		objects.AddObject(stackObject);
+
+		FindCellIndex = cell->Index;
+	}
+	else
+	{
+		auto stack = timberStacks[0];
+		FindCellIndex = stack->BindedMapItemIndexes[0];
+	}
+
+	return true;
+}
+
+bool AXLagNPCWoodCutter::PutTreeToStack(float DeltaTime)
+{
+	auto terrain = AXLagDynamicTerrainBase::GetDynamicTerrainBase();
+	auto& cell = terrain->Map->Point(FindCellIndex);
+
+	XLagDynamicTerrainMapItemOperation cellOperation(cell);
+	if (!cellOperation.HasObjectType(XLagDynamicObjectType::TimberStack))
+		return true;
+
+	auto object = cellOperation.GetObjectByType(XLagDynamicObjectType::TimberStack);
+	TerrainTimberStackObject timberStackObjectProperty(*object);
+	timberStackObjectProperty.SetTreeQuantity(timberStackObjectProperty.GetTreeQuantity() + 1);
+	Baggage->Reset(XLagDynamicObjectType::Tree);
 
 	return true;
 }

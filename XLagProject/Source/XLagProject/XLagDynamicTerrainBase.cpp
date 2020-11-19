@@ -92,8 +92,8 @@ void AXLagDynamicTerrainBase::OnInitialze(AGameModeBase* gameMode)
 		//swapManager->DoSwapTrees();
 		//UE_LOG(LogTemp, Log, TEXT("Do Swap Trees"));
 
-		swapManager->DoSwapTreeStack();
-		UE_LOG(LogTemp, Log, TEXT("Do Swap Tree Stack"));
+		/*swapManager->DoSwapTreeStack();
+		UE_LOG(LogTemp, Log, TEXT("Do Swap Tree Stack"));*/
 
 		swapManager->DoSwapPersons();
 		UE_LOG(LogTemp, Log, TEXT("Do Swap Persons"));
@@ -317,7 +317,7 @@ void AXLagDynamicTerrainBase::InitMap(AGameModeBase* gameMode)
 			TerrainTreeObject tree(properties);
 			tree.SetLocation(loction);
 			tree.SetRotation(rotator);
-			tree.SetKind(rand());
+			tree.SetKind(rand()%100);
 			tree.SetAge(20 + rand() % 80);
 			tree.SetTreeState(TreeState::Growing);
 			tree.SetTreeSustainability(5);

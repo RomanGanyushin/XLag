@@ -18,8 +18,7 @@ public:
 	AXLagNPCBase();
 protected:
 	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
+	void BeginPlay() override;
 protected:
 
 public:	
@@ -28,6 +27,9 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	// Инициализация по умолчанию.
+	UFUNCTION() virtual void DefaultInitialize();
 
 	// Текущая задача, выполняемая песонажем.
 	UPROPERTY()  UXLagTaskBase* CurrentTask;
@@ -38,8 +40,11 @@ public:
 	// Освободить от работы.
 	UFUNCTION() virtual void FreeOf(UXLagTaskBase* task);
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UXLagNPCBaggage *Baggage;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "NPC Searching")
+	int32  FindCellIndex = -1;
 
 protected:
 

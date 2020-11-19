@@ -316,8 +316,12 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagCrops\XLagCropManager.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainCropObject.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainCropObjectBehavior.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainCropStackObject.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainMineralStackObject.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainObjectBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainObjectBehaviorBase.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainProductStackObject.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainTimberStackObject.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainTreeObjectBehavior.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjectsManager.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObject.h" />
@@ -371,8 +375,10 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCMovementTaskBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCTaskContext.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCTaskDelay.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCTaskMoveToFind.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCTaskRepeat.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagTaskFactoryBase.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWCSearchStackTreeTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWorkerTaskFactory.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWrMineralWaitAndReserveTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWrPutProductionAtStackTask.h" />

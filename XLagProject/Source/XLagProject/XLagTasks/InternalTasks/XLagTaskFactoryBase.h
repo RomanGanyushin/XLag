@@ -1,6 +1,7 @@
 #pragma once
 #include <functional>
 #include "XLagNPCTaskMoveTo.h"
+#include "XLagNPCTaskMoveToFind.h"
 #include "XLagNPCTaskDelay.h"
 #include "XLagNPCTaskRepeat.h"
 
@@ -22,6 +23,12 @@ public:
 		return std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskMoveTo(location, WorldCompliteDistance, MovingDeadline));
 	}
 
+	// Двигайся до указанной локации.
+	std::shared_ptr<XLagNPCTaskBase> MoveToFind()
+	{
+		return std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskMoveToFind(WorldCompliteDistance, MovingDeadline));
+	}
+	
 	// Пауза.
 	std::shared_ptr<XLagNPCTaskBase> Delay(const float& delay)
 	{
