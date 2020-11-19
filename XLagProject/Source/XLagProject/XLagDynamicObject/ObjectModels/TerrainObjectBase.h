@@ -2,8 +2,8 @@
 #include "../../Common/XLagObjectProperties.h"
 
 #define XLagProperty(PropertyName, Type, ParId) \
-void Set##PropertyName##(const Type value) { Properties.SetValue(ParId, value); } \
-const Type Get##PropertyName##(){return Properties.GetValue<Type>(ParId);}
+void Set##PropertyName(const Type value) { Properties.SetValue(ParId, value); } \
+const Type Get##PropertyName(){return Properties.GetValue<Type>(ParId);}
 
 UENUM()
 enum CommonParameterId
