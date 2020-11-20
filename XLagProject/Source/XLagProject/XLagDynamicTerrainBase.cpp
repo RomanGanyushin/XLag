@@ -322,7 +322,7 @@ void AXLagDynamicTerrainBase::InitMap(AGameModeBase* gameMode)
 			tree.SetTreeState(TreeState::Growing);
 			tree.SetTreeSustainability(5);
 
-			terrainObjects.AddObject(XLagDynamicObjectType::Tree, place->Index, properties);
+			terrainObjects.AddObject(XLagDynamicObjectType::Timber, place->Index, properties);
 		}
 	}
 

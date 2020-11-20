@@ -13,5 +13,5 @@ struct TerrainTimberStackObject : public TerrainObjectBase
 	{
 	}
 
-	XLagProperty(TreeQuantity, float, ParId_TimberStackQuantity);
+	XLagProperty(TimberQuantity, float, ParId_TimberStackQuantity);
 };

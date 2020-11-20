@@ -19,5 +19,5 @@ struct TerrainCropObject : public TerrainObjectBase
 	XLagProperty(Kind, int8, ParId_CropKind);
 	XLagProperty(Lifetime, float, ParId_CropLifeTime);
 	XLagProperty(Evalution, float, ParId_CropEvalution);
-	XLagProperty(CropQuantity, float, ParId_CropEvalution);
+	XLagProperty(CropQuantity, float, ParId_CropQuantity);
 };

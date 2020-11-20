@@ -8,7 +8,7 @@ AXLagDynamicObjectsManager::AXLagDynamicObjectsManager()
 	PrimaryActorTick.bCanEverTick = true;
 
 	_behaviors.Add(XLagDynamicObjectType::Crop, std::shared_ptr<TerrainObjectBehaviorBase>(new TerrainCropObjectBehavior()));
-	_behaviors.Add(XLagDynamicObjectType::Tree, std::shared_ptr<TerrainObjectBehaviorBase>(new TerrainTreeObjectBehavior()));
+	_behaviors.Add(XLagDynamicObjectType::Timber, std::shared_ptr<TerrainObjectBehaviorBase>(new TerrainTreeObjectBehavior()));
 }
 
 void AXLagDynamicObjectsManager::OnInitialze(AGameModeBase* gameMode)
@@ -41,7 +41,7 @@ void AXLagDynamicObjectsManager::OnAddNewObject(const int32 newIndex)
 
 	switch (newObject.ObjectType)
 	{
-		case XLagDynamicObjectType::Tree:
+		case XLagDynamicObjectType::Timber:
 			AXLagNPCSwapManagement::GetManagment()->DoSwapTree(newObject);
 			break;
 
@@ -69,7 +69,7 @@ void AXLagDynamicObjectsManager::OnRemovingObject(const int32 removingIndex)
 
 	switch (removingObject.ObjectType)
 	{
-		case XLagDynamicObjectType::Tree:
+		case XLagDynamicObjectType::Timber:
 		case XLagDynamicObjectType::Crop:
 			AXLagNPCSwapManagement::GetManagment()->DoUnswapObject(removingObjectId);
 			break;

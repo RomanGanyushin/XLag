@@ -33,7 +33,7 @@ public:
 		{
 			if (broach >= 5)
 			{
-				treeObject.SetTreeState(TreeState::Timber);
+				treeObject.SetTreeState(TreeState::IsTimber);
 			}		
 		}
 	}

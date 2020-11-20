@@ -3,7 +3,7 @@
 UENUM(BlueprintType)
 enum XLagDynamicObjectType
 {
-	Tree,
+	Timber,
 	Crop,
 	Product,
 	Mineral,

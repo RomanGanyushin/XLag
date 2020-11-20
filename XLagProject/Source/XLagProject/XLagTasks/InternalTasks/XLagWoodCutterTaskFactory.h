@@ -30,7 +30,7 @@ public:
 				auto& cell = Place->Point(i, j);
 				XLagDynamicTerrainMapItemOperation cellOperation(cell);
 
-				if (!cellOperation.HasObjectType(XLagDynamicObjectType::Tree))
+				if (!cellOperation.HasObjectType(XLagDynamicObjectType::Timber))
 					continue;
 
 				auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);

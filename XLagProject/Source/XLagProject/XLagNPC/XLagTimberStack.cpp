@@ -14,6 +14,13 @@ AXLagTimberStack::AXLagTimberStack()
 void AXLagTimberStack::AssignObject(const FXLagDynamicObject& object)
 {
 	AXLagSwapableObject::AssignObject(object);
+
+	TerrainTimberStackObject stack(*const_cast<FXLagDynamicObject*>(&object));
+	
+	int timberCount = stack.GetTimberQuantity();
+	if (timberCount != 0)
+		UpdateView(timberCount);
+
 	const_cast<FXLagDynamicObject*>(&object)->PropertyChangedEvent.AddDynamic(this, &AXLagTimberStack::OnPropertyChanged);
 }
 
@@ -24,7 +31,7 @@ void AXLagTimberStack::OnPropertyChanged(uint8 id, const FXLagObjectProperties& 
 		case TimberStackParameterId::ParId_TimberStackQuantity:
 		{
 			TerrainTimberStackObject stack(*const_cast<FXLagObjectProperties*>(&properties));
-			int timberCount = stack.GetTreeQuantity();
+			int timberCount = stack.GetTimberQuantity();
 			UpdateView(timberCount);
 		}
 		break;

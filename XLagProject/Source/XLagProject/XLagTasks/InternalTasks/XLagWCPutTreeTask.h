@@ -24,7 +24,7 @@ public:
 			UE_LOG(LogTemp, Error, TEXT("XLagWCPutTreeTask::Execute "));
 		}
 
-		if (!woodcutter->Baggage->HasObject(XLagDynamicObjectType::Tree))
+		if (!woodcutter->Baggage->HasObject(XLagDynamicObjectType::Timber))
 		{
 			Completed = true;
 			return;

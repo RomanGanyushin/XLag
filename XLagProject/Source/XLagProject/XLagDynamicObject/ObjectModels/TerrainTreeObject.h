@@ -16,7 +16,7 @@ enum TreeState
 	Growing,
 	Falling,
 	Fallen,
-	Timber
+	IsTimber
 };
 
 struct TerrainTreeObject : public TerrainObjectBase

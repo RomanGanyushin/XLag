@@ -16,13 +16,13 @@ bool AXLagNPCWoodCutter::CutTree(FXLagDynamicTerrainMapItem& cell, float DeltaTi
 	auto cutTreeForce = DeltaTime;
 	XLagDynamicTerrainMapItemOperation cellOperation(cell);
 
-	if (!cellOperation.HasObjectType(XLagDynamicObjectType::Tree))
+	if (!cellOperation.HasObjectType(XLagDynamicObjectType::Timber))
 	{
 		IsCutting = false;
 		return true;
 	}
 
-	auto treeObject = cellOperation.GetObjectByType(XLagDynamicObjectType::Tree);
+	auto treeObject = cellOperation.GetObjectByType(XLagDynamicObjectType::Timber);
 	TerrainTreeObject treeProperties(*treeObject);
 
 	auto currentSustainability = treeProperties.GetTreeSustainability();
@@ -41,20 +41,20 @@ bool AXLagNPCWoodCutter::BroachTree(FXLagDynamicTerrainMapItem& cell, float Delt
 	auto broachTreeForce = DeltaTime;
 	XLagDynamicTerrainMapItemOperation cellOperation(cell);
 
-	if (!cellOperation.HasObjectType(XLagDynamicObjectType::Tree))
+	if (!cellOperation.HasObjectType(XLagDynamicObjectType::Timber))
 	{
 		IsBroaching = false;
 		return true;
 	}
 
-	auto treeObject = cellOperation.GetObjectByType(XLagDynamicObjectType::Tree);
+	auto treeObject = cellOperation.GetObjectByType(XLagDynamicObjectType::Timber);
 	TerrainTreeObject treeProperties(*treeObject);
 
 	auto currentBroach = treeProperties.GetTreeBroach();
 	auto newBroach = std::min(100.0f, currentBroach + broachTreeForce);
 	treeProperties.SetTreeBroach(newBroach);
 
-	isComplite = treeProperties.GetTreeState() == TreeState::Timber;
+	isComplite = treeProperties.GetTreeState() == TreeState::IsTimber;
 
 	IsBroaching = !isComplite;
 
@@ -65,15 +65,15 @@ bool AXLagNPCWoodCutter::GetTree(FXLagDynamicTerrainMapItem& cell, float DeltaTi
 {
 	XLagDynamicTerrainMapItemOperation cellOperation(cell);
 
-	if (!cellOperation.HasObjectType(XLagDynamicObjectType::Tree))
+	if (!cellOperation.HasObjectType(XLagDynamicObjectType::Timber))
 	{
 		return true;
 	}
 
-	auto treeObject = cellOperation.GetObjectByType(XLagDynamicObjectType::Tree);
+	auto treeObject = cellOperation.GetObjectByType(XLagDynamicObjectType::Timber);
 	cellOperation.DeleteObject(treeObject);
 
-	Baggage->Put(XLagDynamicObjectType::Tree, "Tree", 1);
+	Baggage->Put(XLagDynamicObjectType::Timber, "Tree", 1);
 
 	return true;
 }
@@ -117,8 +117,8 @@ bool AXLagNPCWoodCutter::PutTreeToStack(float DeltaTime)
 
 	auto object = cellOperation.GetObjectByType(XLagDynamicObjectType::TimberStack);
 	TerrainTimberStackObject timberStackObjectProperty(*object);
-	timberStackObjectProperty.SetTreeQuantity(timberStackObjectProperty.GetTreeQuantity() + 1);
-	Baggage->Reset(XLagDynamicObjectType::Tree);
+	timberStackObjectProperty.SetTimberQuantity(timberStackObjectProperty.GetTimberQuantity() + 1);
+	Baggage->Reset(XLagDynamicObjectType::Timber);
 
 	return true;
 }
