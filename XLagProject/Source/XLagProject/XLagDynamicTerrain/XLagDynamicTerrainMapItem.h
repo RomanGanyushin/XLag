@@ -23,16 +23,11 @@ struct FXLagDynamicTerrainMapItem
 {
 	GENERATED_BODY()
 
-		FXLagDynamicTerrainMapItem()
+	FXLagDynamicTerrainMapItem()
 	{
-		static int64 id_counter = 0;
-		Id = id_counter++;
 		IsZeroLocation = false;
 		Changed = false;
 	}
-
-	UPROPERTY()
-	int32 Id;
 
 	UPROPERTY()
 	int32 Index;

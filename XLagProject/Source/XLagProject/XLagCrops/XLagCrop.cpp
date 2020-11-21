@@ -9,11 +9,16 @@ AXLagCrop::AXLagCrop()
 void AXLagCrop::Initialize(FXLagCropDescription description)
 {
 	Description = description;
+	UpdateView();
 }
 
 void AXLagCrop::AssignObject(const FXLagDynamicObject& object)
 {
 	AXLagSwapableObject::AssignObject(object);
+	
+	TerrainCropObject cropProperties(*(const_cast<FXLagDynamicObject*>(&object)));
+	Progression = cropProperties.GetEvalution();
+
 	const_cast<FXLagDynamicObject*>(&object)->PropertyChangedEvent.AddDynamic(this, &AXLagCrop::OnPropertyChanged);
 }
 
@@ -42,6 +47,7 @@ void AXLagCrop::UpdateView()
 	if (CurrentMeshComponent == nullptr)
 	{
 		CreateStageView();
+		UpdateStageView();
 	}
 	else
 	{
@@ -59,7 +65,7 @@ void AXLagCrop::UpdateView()
 				NextStage();
 			}
 		}
-	}
+	}	
 }
 
 void AXLagCrop::UpdateStageView()

@@ -316,8 +316,7 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagCrops\XLagCropManager.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainCropObject.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainCropObjectBehavior.h" />
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainCropStackObject.h" />
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainMineralStackObject.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainLooseStackObject.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainObjectBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainObjectBehaviorBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainProductStackObject.h" />
@@ -367,6 +366,7 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmCropWaitTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmDischargeCropTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmGrowTask.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmSearchCropStackTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmSowTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmPloughTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiDischargeMineralTask.h" />

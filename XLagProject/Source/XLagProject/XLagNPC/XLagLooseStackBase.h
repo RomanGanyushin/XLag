@@ -1,14 +1,15 @@
 #pragma once
 
 #include <map>
-#include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+//#include "CoreMinimal.h"
+//#include "GameFramework/Actor.h"
 #include "ProceduralMeshComponent.h"
 #include "XLagNPCBase.h"
+#include "XLagSwapableObject.h"
 #include "XLagLooseStackBase.generated.h"
 
 UCLASS()
-class XLAGPROJECT_API AXLagLooseStackBase : public AActor
+class XLAGPROJECT_API AXLagLooseStackBase : public AXLagSwapableObject
 {
 	GENERATED_BODY()
 
@@ -49,9 +50,14 @@ public:
 		float StackQuantity = 0;
 
 	UPROPERTY(VisibleAnywhere)
-		UProceduralMeshComponent* ThisStack;
+	UProceduralMeshComponent* ThisStack;
 
-private:
+	void AssignObject(const FXLagDynamicObject& object) override;
+
+protected:
+	UFUNCTION()
+	void OnPropertyChanged(uint8 id, const FXLagObjectProperties& properties);
+
 	void CreateView();
 	std::map<const AXLagNPCBase *, float > _reserves;
 };

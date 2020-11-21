@@ -1,4 +1,5 @@
 #include "XLagLooseStackBase.h"
+#include "../XLagDynamicObject/ObjectModels/TerrainLooseStackObject.h"
 #include "XLagProject/XLagGeometry/Builders/XLagMineralStackGeometryBuilder.h"
 
 AXLagLooseStackBase::AXLagLooseStackBase()
@@ -9,7 +10,6 @@ AXLagLooseStackBase::AXLagLooseStackBase()
 
 	ThisStack = CreateDefaultSubobject<UProceduralMeshComponent>("Stack");
 	ThisStack->SetupAttachment(RootComponent);
-	CreateView();
 }
 
 // Called when the game starts or when spawned
@@ -22,6 +22,27 @@ void AXLagLooseStackBase::BeginPlay()
 void AXLagLooseStackBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void AXLagLooseStackBase::AssignObject(const FXLagDynamicObject& object)
+{
+	AXLagSwapableObject::AssignObject(object);
+	TerrainLooseStackObject stackProperties(*(const_cast<FXLagDynamicObject*>(&object)));
+	StackQuantity = stackProperties.GetStackQuantity();
+	
+	const_cast<FXLagDynamicObject*>(&object)->PropertyChangedEvent.AddDynamic(this, &AXLagLooseStackBase::OnPropertyChanged);
+}
+
+void AXLagLooseStackBase::OnPropertyChanged(uint8 id, const FXLagObjectProperties& properties)
+{
+	TerrainLooseStackObject stackProperties(*(const_cast<FXLagObjectProperties*>(&properties)));
+
+	if (id == LooseStackParameterId::ParId_StackQuantity)
+	{
+		auto quantity = stackProperties.GetStackQuantity();
+		StackQuantity = quantity;
+		CreateView();
+	}
 }
 
 

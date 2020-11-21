@@ -24,8 +24,8 @@ void XLagMineralStackGeometryBuilder::CreateMineralStack(float height, int size_
 		return height * (1 + alg.Noise(ax, ay, octaves, 1)) * zeroEdgeFunction(ax, ay);
 	};
 	
-	for (float ax = 0; ax < octaves; ax+= delta)
-		for (float ay = 0; ay < octaves; ay+= delta)
+	for (float ax = 0; ax < size_x; ax+= delta)
+		for (float ay = 0; ay < size_y; ay+= delta)
 		{
 			float h00 = heightFunction(ax,ay);
 			float h01 = heightFunction(ax, ay + delta);

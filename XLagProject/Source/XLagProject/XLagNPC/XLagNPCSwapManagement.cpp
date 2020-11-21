@@ -1,12 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "XLagNPCSwapManagement.h"
 #include "../XLagDynamicTerrain/Position/RandomizeZeroPlacePosition.h"
 #include "../XLagDynamicTerrain/Filters/SurfaceResourceMapItemFilter.h"
 #include "../XLagDynamicObject/ObjectModels/TerrainTreeObject.h"
 #include "../XLagDynamicObject/ObjectModels/TerrainCropObject.h"
 #include "../XLagDynamicObject/ObjectModels/TerrainTimberStackObject.h"
+#include "../XLagDynamicObject/ObjectModels/TerrainLooseStackObject.h"
 
 // Sets default values
 AXLagNPCSwapManagement::AXLagNPCSwapManagement()
@@ -47,6 +46,7 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 		{
 			auto locator = RandomizeZeroPlacePosition(MapAccessor).Get() + FVector(0, 0, 200);
 			auto builder = GetWorld()->SpawnActor<AXLagNPCBuilderman>(BuilderTemplate, locator, FRotator::ZeroRotator);
+			builder->DefaultInitialize();
 
 			if (builder == nullptr)
 				continue;
@@ -62,6 +62,7 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 		{
 			auto locator = RandomizeZeroPlacePosition(MapAccessor).Get() + FVector(0, 0, 200);
 			auto miner = GetWorld()->SpawnActor<AXLagNPCMiner>(MinerTemplate, locator, FRotator::ZeroRotator);
+			miner->DefaultInitialize();
 
 			if (miner == nullptr)
 				continue;
@@ -77,6 +78,7 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 		{
 			auto locator = RandomizeZeroPlacePosition(MapAccessor).Get() + FVector(0, 0, 200);
 			auto farmer = GetWorld()->SpawnActor<AXLagNPCFarmer>(FarmerTemplate, locator, FRotator::ZeroRotator);
+			farmer->DefaultInitialize();
 
 			if (farmer == nullptr)
 				continue;
@@ -92,6 +94,7 @@ void AXLagNPCSwapManagement::DoSwapPersons()
 		{
 			auto locator = RandomizeZeroPlacePosition(MapAccessor).Get() + FVector(0, 0, 200);
 			auto worker = GetWorld()->SpawnActor<AXLagNPCWorker>(WorkerTemplate, locator, FRotator::ZeroRotator);
+			worker->DefaultInitialize();
 
 			if (worker == nullptr)
 				continue;
@@ -187,6 +190,33 @@ void AXLagNPCSwapManagement::DoSwapTreeStack(const FXLagDynamicObject& object)
 	SwapedObjects.Add(stack);
 }
 
+void AXLagNPCSwapManagement::DoSwapCropStack(const FXLagDynamicObject& object)
+{
+	auto cropStackObject = TerrainCropStackObject(const_cast<FXLagDynamicObject&>(object));
+
+	if (!cropStackObject.HasLocation())
+	{
+		cropStackObject.SetLocation(MapAccessor->GetWorldPosition(object.BindedMapItemIndexes[0], GetPositionEnum::CenterHeghtPosition));
+	}
+
+	if (!cropStackObject.HasRotation())
+	{
+		cropStackObject.SetRotation(FRotator::ZeroRotator);
+	}
+
+	auto loction = cropStackObject.GetLocation();
+	auto rotator = cropStackObject.GetRotation();
+	auto cropId = cropStackObject.GetKind();
+
+	auto cropManager = AXLagCropManager::GetCropsManager();
+	auto cropDescription = cropManager->FindById(cropId);
+
+	auto stack = GetWorld()->SpawnActor<AXLagCropStack>(CropStackTemplate, loction, rotator);
+	stack->AssignObject(object);
+	stack->Initialize(cropDescription, 2, 2);
+	SwapedObjects.Add(stack);
+}
+
 void AXLagNPCSwapManagement::DoUnswapObject(const int32 objectId)
 {
 	auto unswapingIndex = SwapedObjects.IndexOfByPredicate([objectId](auto& it) {return it->ObjectId == objectId; });
@@ -200,15 +230,6 @@ AXLagMineralStack* AXLagNPCSwapManagement::DoSwapMineralStack(const FXLagMineral
 	auto stack = GetWorld()->SpawnActor<AXLagMineralStack>(MineralStackTemplate, locator, FRotator::ZeroRotator);
 	stack->Initialize(mineral, 2, 2);
 	SwapedMineralStacks.Add(stack);
-	return stack;
-}
-
-AXLagCropStack* AXLagNPCSwapManagement::DoSwapCropStack(const FXLagCropDescription& crop)
-{
-	auto locator = RandomizeZeroPlacePosition(MapAccessor).Get();
-	auto stack = GetWorld()->SpawnActor<AXLagCropStack>(CropStackTemplate, locator, FRotator::ZeroRotator);
-	stack->Initialize(crop, 2, 2);
-	SwapedCropStacks.Add(stack);
 	return stack;
 }
 

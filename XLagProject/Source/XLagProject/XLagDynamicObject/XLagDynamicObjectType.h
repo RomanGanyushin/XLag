@@ -7,5 +7,6 @@ enum XLagDynamicObjectType
 	Crop,
 	Product,
 	Mineral,
-	TimberStack
+	TimberStack,
+	CropStack
 };

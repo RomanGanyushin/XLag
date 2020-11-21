@@ -2,7 +2,10 @@
 #include "XLagNPCSwapManagement.h"
 #include "../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
 #include "../XLagDynamicObject/ObjectModels/TerrainCropObject.h"
+#include "../XLagDynamicObject/ObjectModels/TerrainLooseStackObject.h"
 #include "../Common/CellOperationProcessing.h"
+#include "../XLagDynamicTerrainBase.h"
+#include "../XLagDynamicTerrain\Position\RandomizeZeroPlacePosition.h"
 
 #define DEBUG_FORCE_MULTIPLIER 1
 
@@ -10,7 +13,6 @@ void AXLagNPCFarmer::OfferAccept(UXLagTaskBase* task)
 {
 	AXLagNPCBase::OfferAccept(task);
 }
-
 
 bool AXLagNPCFarmer::Plough(FXLagDynamicTerrainMapItem& cell, float DeltaTime)
 {
@@ -148,7 +150,7 @@ bool AXLagNPCFarmer::TakeCrop(FXLagDynamicTerrainMapItem& cell, float DeltaTime)
 	auto takeQuantity = std::min(quanity, takeForce);
 	cropProperties.SetCropQuantity(quanity - takeQuantity);
 	
-	CollectedCropQuantity += takeQuantity;
+	Baggage->Put(XLagDynamicObjectType::Crop, "Crop", takeQuantity); //TODO_ONE Подставить название 
 
 	isComplite = cropProperties.GetCropQuantity() == 0.0f;
 
@@ -162,6 +164,72 @@ bool AXLagNPCFarmer::TakeCrop(FXLagDynamicTerrainMapItem& cell, float DeltaTime)
 	}
 	
 	return isComplite;
+}
+
+bool AXLagNPCFarmer::SearchStack(int32 cropId)
+{
+	auto& objects = AXLagDynamicObjectsManager::GetManagment()->GetObjects();
+	auto cropStacks = objects.GetFilteredByType(XLagDynamicObjectType::CropStack);
+
+	auto searchCondition = [cropId](auto it) 
+	{
+		TerrainCropStackObject stackProperties(*it);
+		return stackProperties.GetKind() == cropId;
+	};
+
+	auto searchingStack = cropStacks.FindByPredicate(searchCondition);
+
+	if (searchingStack == nullptr) // Если стопки нет, то создаем.
+	{
+		auto terrain = AXLagDynamicTerrainBase::GetDynamicTerrainBase();
+		auto cell = RandomizeZeroPlacePosition(terrain->Map).GetCell();
+
+		FXLagDynamicObject stackObject;
+		stackObject.ObjectType = XLagDynamicObjectType::CropStack;
+		stackObject.BindedMapItemIndexes.Add(cell->Index);
+
+		TerrainCropStackObject stackProperties(stackObject);
+		stackProperties.SetKind(cropId);
+		objects.AddObject(stackObject);
+
+		FindCellIndex = cell->Index;
+	}
+	else
+	{
+		FindCellIndex = (*searchingStack)->BindedMapItemIndexes[0];
+	}
+
+	return true;
+}
+
+bool AXLagNPCFarmer::PutCropToStack(float DeltaTime)
+{
+	auto quantity = DeltaTime;
+
+	auto terrain = AXLagDynamicTerrainBase::GetDynamicTerrainBase();
+	auto& cell = terrain->Map->Point(FindCellIndex);
+
+	XLagDynamicTerrainMapItemOperation cellOperation(cell);
+	if (!cellOperation.HasObjectType(XLagDynamicObjectType::CropStack))
+	{
+		IsDischarging = false;
+		return true;
+	}
+
+	auto getFromBaggageCropQuantity = Baggage->Take(XLagDynamicObjectType::Crop, "Crop", quantity); //TODO_ONE Подставить название 
+
+	if (getFromBaggageCropQuantity == 0.0f)
+	{
+		IsDischarging = false;
+		return true;
+	}
+		
+	auto object = cellOperation.GetObjectByType(XLagDynamicObjectType::CropStack);
+	TerrainCropStackObject cropStackObjectProperty(*object);
+	cropStackObjectProperty.SetStackQuantity(cropStackObjectProperty.GetStackQuantity() + getFromBaggageCropQuantity);
+
+	IsDischarging = true;
+	return false;
 }
 
 bool AXLagNPCFarmer::ValidateForSowCell(FXLagDynamicTerrainMapItem& cell)

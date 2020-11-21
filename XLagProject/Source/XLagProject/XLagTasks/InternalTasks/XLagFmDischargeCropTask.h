@@ -6,8 +6,7 @@
 class XLagFmDischargeCropTask : public XLagNPCTaskBase
 {
 public:
-	XLagFmDischargeCropTask(AXLagCropStack* stack)
-		:_stack(stack)
+	XLagFmDischargeCropTask()
 	{
 	}
 
@@ -23,13 +22,20 @@ public:
 			return;
 		}
 
-		_stack->AddQuantity(farmer->CollectedCropQuantity);
-		farmer->CollectedCropQuantity = 0.0f;
-		Completed = true;
+		if (!farmer->Baggage->HasObject(XLagDynamicObjectType::Crop))
+		{
+			Completed = true;
+			return;
+		}
+
+		if (farmer->FindCellIndex == -1)
+		{
+			Completed = true;
+			return;
+		}
+
+		Completed = farmer->PutCropToStack(DeltaTime);
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override { return Completed; }
-
-private:
-	AXLagCropStack* _stack;
 };

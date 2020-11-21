@@ -573,12 +573,6 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainTimberStackObject.h">
       <Filter>Source\XLagProject\XLagDynamicObject\ObjectModels</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainMineralStackObject.h">
-      <Filter>Source\XLagProject\XLagDynamicObject\ObjectModels</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainCropStackObject.h">
-      <Filter>Source\XLagProject\XLagDynamicObject\ObjectModels</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainProductStackObject.h">
       <Filter>Source\XLagProject\XLagDynamicObject\ObjectModels</Filter>
     </ClInclude>
@@ -587,6 +581,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCTaskMoveToFind.h">
       <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmSearchCropStackTask.h">
+      <Filter>Source\XLagProject\XLagTasks\InternalTasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainLooseStackObject.h">
+      <Filter>Source\XLagProject\XLagDynamicObject\ObjectModels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

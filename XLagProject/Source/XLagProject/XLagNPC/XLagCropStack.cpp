@@ -10,4 +10,6 @@ void AXLagCropStack::Initialize(const FXLagCropDescription& crop, const int size
 	{
 		ThisStack->SetMaterial(0, crop.CropPresentMaterial);
 	}
+
+	CreateView();
 }

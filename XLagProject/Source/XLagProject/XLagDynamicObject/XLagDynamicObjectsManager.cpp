@@ -52,6 +52,10 @@ void AXLagDynamicObjectsManager::OnAddNewObject(const int32 newIndex)
 		case XLagDynamicObjectType::TimberStack:
 			AXLagNPCSwapManagement::GetManagment()->DoSwapTreeStack(newObject);
 			break;
+
+		case XLagDynamicObjectType::CropStack:
+			AXLagNPCSwapManagement::GetManagment()->DoSwapCropStack(newObject);
+			break;
 	}
 }
 

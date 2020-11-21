@@ -1,5 +1,4 @@
 #pragma once
-
 #include "XLagNPCTaskBase.h"
 #include "../../XLagNPC/XLagNPCWoodCutter.h"
 
@@ -33,5 +32,4 @@ public:
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override { return Completed; }
-
 };

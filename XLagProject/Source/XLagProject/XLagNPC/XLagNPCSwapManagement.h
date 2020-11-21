@@ -52,7 +52,6 @@ public:
 	void DoSwapPersons();
 
 	AXLagMineralStack* DoSwapMineralStack(const FXLagMineralDesc& mineral);
-	AXLagCropStack* DoSwapCropStack(const FXLagCropDescription& crop);
 	AXLagProductStack* DoSwapProductStack(const FXLagProductionSchema& product);
 
 	AXLagBuilding *DoSwapBuilding();
@@ -60,6 +59,7 @@ public:
 	void DoSwapTree(const FXLagDynamicObject& object);
 	void DoSwapCrop(const FXLagDynamicObject& object);
 	void DoSwapTreeStack(const FXLagDynamicObject& object);
+	void DoSwapCropStack(const FXLagDynamicObject& object);
 
 	void DoUnswapObject(const int32 objectId);
 public:	

@@ -54,7 +54,7 @@ public:
 	UFUNCTION(BlueprintCallable) void CreateCroplandTask(AXLagSelectComponent *select, int RequiredWorkerNumber);
 
 	// Создает задачу выращивание с/x культур.
-	UFUNCTION(BlueprintCallable) void CreateCultivationTask(AXLagSelectComponent *select, const FXLagCropDescription crop, AXLagCropStack* stack, int RequiredWorkerNumber);
+	UFUNCTION(BlueprintCallable) void CreateCultivationTask(AXLagSelectComponent *select, const FXLagCropDescription crop, int RequiredWorkerNumber);
 
 	// Создает задачу производства
 	UFUNCTION(BlueprintCallable) void CreateProductionTask(const FXLagProductionSchema& productionSchema, AXLagSelectComponent *select, float Quanity, int RequiredWorkerNumber);

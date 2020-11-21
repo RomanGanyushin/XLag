@@ -8,9 +8,8 @@
 #include "XLagFmCropWaitTask.h"
 #include "XLagFmCropTakeTask.h"
 #include "XLagFmDischargeCropTask.h"
-
+#include "XLagFmSearchCropStackTask.h"
 #include "../../Common/ITerrainMapAccessor.h"
-#include "../../XLagNPC/XLagCropStack.h"
 /*
  Фабрика задач для строителя.
 */
@@ -38,7 +37,7 @@ public:
 	}
 
 	// Сеяние.
-	std::shared_ptr<XLagNPCTaskBase> Cultivate(const FXLagCropDescription crop, AXLagCropStack* stack)
+	std::shared_ptr<XLagNPCTaskBase> Cultivate(const FXLagCropDescription crop)
 	{
 		auto result = std::make_shared<XLagNPCTaskBase>();
 		for (int i = 0; i < Place->SizeX(); i++)
@@ -71,8 +70,9 @@ public:
 				auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
 				result->SubTasks.push_back(MoveTo(pos));
 				result->SubTasks.push_back(CropTake(i, j));
-				result->SubTasks.push_back(MoveTo(stack->GetActorLocation()));
-				result->SubTasks.push_back(Discharge(stack));			
+				result->SubTasks.push_back(SearchCropStack(crop.ID));
+				result->SubTasks.push_back(MoveToFind());
+				result->SubTasks.push_back(Discharge());			
 			}
 
 		result->SubTasks.push_back(Repeat());
@@ -105,9 +105,14 @@ public:
 		return std::shared_ptr<XLagNPCTaskBase>(new XLagFmCropTakeTask(Place, x, y));
 	}
 
-	std::shared_ptr<XLagNPCTaskBase> Discharge(AXLagCropStack* stack)
+	std::shared_ptr<XLagNPCTaskBase> SearchCropStack(const int32 cropId)
 	{
-		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagFmDischargeCropTask(stack));
+		return std::shared_ptr<XLagNPCTaskBase>(new XLagFmSearchCropStackTask(cropId));
+	}
+
+	std::shared_ptr<XLagNPCTaskBase> Discharge()
+	{
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagFmDischargeCropTask());
 		return result;
 	}
 	

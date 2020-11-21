@@ -85,23 +85,7 @@ void AXLagDynamicTerrainBase::OnInitialze(AGameModeBase* gameMode)
 	auto swapManager = AXLagNPCSwapManagement::GetManagment();
 	auto buildingManager = AXLagBuildingManager::GetManagment();
 
-	if (swapManager != nullptr)
-	{
-		swapManager->SetMapAccessor(Map);
-
-		//swapManager->DoSwapTrees();
-		//UE_LOG(LogTemp, Log, TEXT("Do Swap Trees"));
-
-		/*swapManager->DoSwapTreeStack();
-		UE_LOG(LogTemp, Log, TEXT("Do Swap Tree Stack"));*/
-
-		swapManager->DoSwapPersons();
-		UE_LOG(LogTemp, Log, TEXT("Do Swap Persons"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Log, TEXT("Swap managment not found"));
-	}
+	swapManager->DoSwapPersons();
 
 	if (buildingManager != nullptr)
 	{
@@ -195,6 +179,7 @@ void AXLagDynamicTerrainBase::InitMap(AGameModeBase* gameMode)
 {
 	auto& terrainMap = ((AXLagProjectGameMode*)gameMode)->TerrainMap;
 	auto& terrainObjects = ((AXLagProjectGameMode*)gameMode)->TerrainObjects;
+	auto swapManager = AXLagNPCSwapManagement::GetManagment();
 
 	XLagDynamicTerrainMapInitializer initializer(terrainMap);
 
@@ -208,6 +193,8 @@ void AXLagDynamicTerrainBase::InitMap(AGameModeBase* gameMode)
 
 	Map = std::shared_ptr<ITerrainMapAccessor>(new XLagDynamicTerrainMapAccessor(terrainMap));
 	CurrentMap = Map->CreateWindow(0,0, WindowMapSizeX, WindowMapSizeY);
+	
+	swapManager->SetMapAccessor(Map);
 
 	if (terrainMap.IsCreated)
 	{

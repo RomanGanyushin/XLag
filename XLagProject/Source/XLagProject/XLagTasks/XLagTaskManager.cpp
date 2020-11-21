@@ -131,25 +131,6 @@ void AXLagTaskManager::CreateCuttingTreeTask(AXLagSelectComponent *select, int R
 	auto place = select->Select;
 
 	task->SubTasks.push_back(XLagWoodCutterTaskFactory(place).BringTreeTaskCreate());
-	/*
-	// Получаем клетки из региона где есть деревья.
-	auto mapRequireTrees = place->GetFilteredItems(SurfaceResourceMapItemFilter(OnSurfaceResourceObjectsEnum::Tree));
-	if (mapRequireTrees.empty())
-		return;
-
-	auto swapper = AXLagNPCSwapManagement::GetManagment();
-
-	for (auto mapItemPtr : mapRequireTrees)
-	{
-		long placeId = mapItemPtr->Id;
-		auto ppTree = swapper->SwapedTrees.FindByPredicate([placeId](auto& pt) {return pt->PlaceId == placeId; });
-		if (ppTree == nullptr)
-			continue;
-
-		task->SubTasks.push_back(XLagWoodCutterTaskFactory().BringTreeTaskCreate(*ppTree, timberStack));
-	}*/
-
-
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.
@@ -233,25 +214,8 @@ void AXLagTaskManager::CreateCroplandTask(AXLagSelectComponent *select, int Requ
 	SearchAndChooseExecuters(newTask);
 }
 
-void AXLagTaskManager::CreateCultivationTask(AXLagSelectComponent *select, const FXLagCropDescription crop, AXLagCropStack* stack, int RequiredWorkerNumber)
+void AXLagTaskManager::CreateCultivationTask(AXLagSelectComponent *select, const FXLagCropDescription crop, int RequiredWorkerNumber)
 {
-	if (stack == nullptr) // Если не указано куда нести, то первый.
-	{
-		auto swapManagment = AXLagNPCSwapManagement::GetManagment();
-		auto pstack = swapManagment->SwapedCropStacks
-			.FindByPredicate([crop](auto it) { return it->ContentCrop.ID == crop.ID; });
-
-		if (pstack != nullptr)
-		{
-			stack = *pstack;
-		}
-		else // Не найдено место для склада, то создаем.
-		{
-			auto manager = AXLagNPCSwapManagement::GetManagment();
-			stack = manager->DoSwapCropStack(crop);
-		}
-	}
-
 	// Создает задачу.
 	auto newTask = NewObject<UXLagTask_CultivateRegion>();
 	newTask->SetRegion(select->Select);
@@ -260,7 +224,7 @@ void AXLagTaskManager::CreateCultivationTask(AXLagSelectComponent *select, const
 	//// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
-	task->SubTasks.push_back(XLagFarmerTaskFactory(place).Cultivate(crop, stack));
+	task->SubTasks.push_back(XLagFarmerTaskFactory(place).Cultivate(crop));
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.

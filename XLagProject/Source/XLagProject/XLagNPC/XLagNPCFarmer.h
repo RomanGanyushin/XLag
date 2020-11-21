@@ -29,6 +29,12 @@ public:
 	// Собирать урожай.
 	virtual bool TakeCrop(FXLagDynamicTerrainMapItem& cell, float DeltaTime);
 
+	// Найди стопку.
+	virtual bool SearchStack(int32 cropId);
+
+	// Положить урожай в стопку.
+	virtual bool PutCropToStack(float DeltaTime);
+
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Farmer Working")
 		bool  IsPloughing = false;
 
@@ -40,10 +46,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Farmer Working")
 		bool  IsHarvesting = false;
-	
-	// Объем собранного урожая.
+
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Farmer Working")
-		float  CollectedCropQuantity = 0.0f;
+		bool  IsDischarging = false;
 
 private:
 	virtual ProfessionTypeEnum GetCurrentProfession() override { return ProfessionTypeEnum::Farmer; }
@@ -53,16 +58,4 @@ private:
 	bool ValidateForSowCell(FXLagDynamicTerrainMapItem& cell);
 	bool ValidateForGrowCell(FXLagDynamicTerrainMapItem& cell);
 	bool ValidateForTakeCropCell(FXLagDynamicTerrainMapItem& cell);
-
-//private:
-//	inline AXLagMineralManager* GetMineralManager()
-//	{
-//		static AXLagMineralManager* mineralManager = nullptr;
-//		if (mineralManager == nullptr)
-//		{
-//			mineralManager = AXLagMineralManager::GetMineralManager();
-//		}
-//
-//		return mineralManager;
-//	}
 };
