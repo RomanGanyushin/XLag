@@ -29,9 +29,9 @@ public:
 			Completed = true;
 			return;
 		}
-
+		   
 		// TODO: Перенести в рабочего
-		auto mineralManager = AXLagMineralManager::GetMineralManager();
+		/*auto mineralManager = AXLagMineralManager::GetMineralManager();
 		auto stacks = mineralManager->FindMineralStackFor(FString(_mineralName.c_str()));
 
 		for (auto& it : stacks)
@@ -43,7 +43,7 @@ public:
 				Completed = true;
 				break;
 			}
-		}	
+		}	*/
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override

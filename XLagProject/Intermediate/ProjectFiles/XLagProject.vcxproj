@@ -371,6 +371,7 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagFmPloughTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiDischargeMineralTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiExtractMineralTask.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiSearchMineralStackTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagMiSearchMineralTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCMovementTaskBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagNPCTaskContext.h" />

@@ -42,10 +42,10 @@ public:
 	UFUNCTION(BlueprintCallable) void CreateCuttingTreeTask(AXLagSelectComponent *select, int RequiredWorkerNumber);
 
 	// Создает задачу поиска полезных ископаемых.
-	UFUNCTION(BlueprintCallable) void CreateSearchMineralTask(AXLagSelectComponent *select, const FXLagMineralDesc mineral, int RequiredWorkerNumber);
+	UFUNCTION(BlueprintCallable) void CreateSearchMineralTask(AXLagSelectComponent *select, const int32 mineralId, int RequiredWorkerNumber);
 
 	// Создает задачу добычи полезных ископаемых.
-	UFUNCTION(BlueprintCallable) void CreateExtractMineralTask(AXLagSelectComponent *select, const FXLagMineralDesc mineral, AXLagMineralStack* stack, int RequiredWorkerNumber);
+	UFUNCTION(BlueprintCallable) void CreateExtractMineralTask(AXLagSelectComponent *select, const int32 mineralId, int RequiredWorkerNumber);
 
 	// Создает задачу строительства.
 	UFUNCTION(BlueprintCallable) void CreateBuildingTask(const FXLagBuildingDescription& buildingDescription, int RequiredWorkerNumber);
@@ -54,7 +54,7 @@ public:
 	UFUNCTION(BlueprintCallable) void CreateCroplandTask(AXLagSelectComponent *select, int RequiredWorkerNumber);
 
 	// Создает задачу выращивание с/x культур.
-	UFUNCTION(BlueprintCallable) void CreateCultivationTask(AXLagSelectComponent *select, const FXLagCropDescription crop, int RequiredWorkerNumber);
+	UFUNCTION(BlueprintCallable) void CreateCultivationTask(AXLagSelectComponent *select, const int cropId, int RequiredWorkerNumber);
 
 	// Создает задачу производства
 	UFUNCTION(BlueprintCallable) void CreateProductionTask(const FXLagProductionSchema& productionSchema, AXLagSelectComponent *select, float Quanity, int RequiredWorkerNumber);

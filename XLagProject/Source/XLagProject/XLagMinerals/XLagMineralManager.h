@@ -26,12 +26,8 @@ public:
 
 	UFUNCTION(BlueprintCallable) const bool Empty() const;
 
-	// 
-	UFUNCTION(BlueprintCallable)
-		TArray<AXLagMineralStack*> FindMineralStackFor(const FString& name);
 
-	UFUNCTION(BlueprintCallable)
-		TArray<AXLagMineralStack*> FindReserveredMineralStackFor(const AXLagNPCBase* npc);
+	UFUNCTION(BlueprintCallable) const FXLagMineralDesc& FindById(const int id) const;
 
 	const bool IsNameOfMineral(const FString& name) const;
 

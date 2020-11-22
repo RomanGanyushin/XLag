@@ -20,10 +20,16 @@ public:
 	virtual void OfferAccept(UXLagTaskBase* task) override;
 
 	// Ищи минерал в клетке.
-	virtual bool SearchMineral(FXLagDynamicTerrainMapItem& cell, const FXLagMineralDesc mineral, float DeltaTime);
+	virtual bool SearchMineral(FXLagDynamicTerrainMapItem& cell, const int mineralId, float DeltaTime);
 
 	// Добудь минерал из клетки.
-	virtual bool ExtractMineral(FXLagDynamicTerrainMapItem& cell, const FXLagMineralDesc mineral, float DeltaTime);
+	virtual bool ExtractMineral(FXLagDynamicTerrainMapItem& cell, const int mineralId, float DeltaTime);
+
+	// Положи минерал в стопку.
+	bool PutMineralToStack(float DeltaTime);
+
+	// Найди стопку.
+	virtual bool SearchStack(int32 mineralId);
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Miner Working")
 		bool  IsSearching = false;
@@ -31,11 +37,9 @@ public:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Miner Working")
 		bool  IsExtracting = false;
 
-	// Объем добытого минерала.
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Miner Working")
-		float  ExtractedMineralQuantity = 0.0f;
-	
-	
+		bool  IsDischarging = false;
+
 private:
 	virtual ProfessionTypeEnum GetCurrentProfession() override { return ProfessionTypeEnum::Miner; }
 	virtual bool CanConfirmTask(UXLagTaskBase* task) override { return true; }

@@ -140,7 +140,7 @@ void AXLagTaskManager::CreateCuttingTreeTask(AXLagSelectComponent *select, int R
 	SearchAndChooseExecuters(newTask);
 }
 
-void AXLagTaskManager::CreateSearchMineralTask(AXLagSelectComponent *select, const FXLagMineralDesc mineral, int RequiredWorkerNumber)
+void AXLagTaskManager::CreateSearchMineralTask(AXLagSelectComponent *select, const int32 mineralId, int RequiredWorkerNumber)
 {
 	// Создает задачу.
 	auto newTask = NewObject<UXLagTask_SearchMineralRegion>();
@@ -150,7 +150,7 @@ void AXLagTaskManager::CreateSearchMineralTask(AXLagSelectComponent *select, con
 	// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
-	task->SubTasks.push_back(XLagMinerTaskFactory(place).Search(mineral));
+	task->SubTasks.push_back(XLagMinerTaskFactory(place).Search(mineralId));
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.
@@ -159,25 +159,8 @@ void AXLagTaskManager::CreateSearchMineralTask(AXLagSelectComponent *select, con
 	SearchAndChooseExecuters(newTask);
 }
 
-void AXLagTaskManager::CreateExtractMineralTask(AXLagSelectComponent *select, const FXLagMineralDesc mineral, AXLagMineralStack* stack, int RequiredWorkerNumber)
+void AXLagTaskManager::CreateExtractMineralTask(AXLagSelectComponent *select, const int32 mineralId, int RequiredWorkerNumber)
 {
-	if (stack == nullptr) // Если не указано куда нести, то первый.
-	{
-		auto swapManagment = AXLagNPCSwapManagement::GetManagment();
-		auto pstack = swapManagment->SwapedMineralStacks
-			.FindByPredicate([mineral](auto it) { return it->ContentMineral.ID == mineral.ID; });
-
-		if(pstack != nullptr)
-		{
-			stack = *pstack;
-		}
-		else // Не найдено место для склада, то создаем.
-		{
-			auto manager = AXLagNPCSwapManagement::GetManagment();
-			stack = manager->DoSwapMineralStack(mineral);
-		}
-	}
-	
 	// Создает задачу.
 	auto newTask = NewObject<UXLagTask_ExtractMineralRegion>();
 	newTask->SetRegion(select->Select);
@@ -186,7 +169,7 @@ void AXLagTaskManager::CreateExtractMineralTask(AXLagSelectComponent *select, co
 	// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
-	task->SubTasks.push_back(XLagMinerTaskFactory(place).Extract(mineral, stack));
+	task->SubTasks.push_back(XLagMinerTaskFactory(place).Extract(mineralId));
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.
@@ -214,7 +197,7 @@ void AXLagTaskManager::CreateCroplandTask(AXLagSelectComponent *select, int Requ
 	SearchAndChooseExecuters(newTask);
 }
 
-void AXLagTaskManager::CreateCultivationTask(AXLagSelectComponent *select, const FXLagCropDescription crop, int RequiredWorkerNumber)
+void AXLagTaskManager::CreateCultivationTask(AXLagSelectComponent *select, const int cropId, int RequiredWorkerNumber)
 {
 	// Создает задачу.
 	auto newTask = NewObject<UXLagTask_CultivateRegion>();
@@ -224,7 +207,7 @@ void AXLagTaskManager::CreateCultivationTask(AXLagSelectComponent *select, const
 	//// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
-	task->SubTasks.push_back(XLagFarmerTaskFactory(place).Cultivate(crop));
+	task->SubTasks.push_back(XLagFarmerTaskFactory(place).Cultivate(cropId));
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.

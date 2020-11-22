@@ -24,7 +24,7 @@ public:
 			return;
 		}
 
-		if (currentStack == nullptr)
+		/*if (currentStack == nullptr)
 		{
 			auto mineralManager = AXLagMineralManager::GetMineralManager();
 			auto stacks = mineralManager->FindReserveredMineralStackFor(worker);
@@ -42,7 +42,7 @@ public:
 		{
 			DoMove(DeltaTime, npc);
 			return;
-		}
+		}*/
 
 		Completed = worker->TakeReservedMineral(currentStack, DeltaTime);
 	}

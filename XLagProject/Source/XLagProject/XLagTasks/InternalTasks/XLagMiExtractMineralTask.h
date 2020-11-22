@@ -7,8 +7,8 @@
 class XLagMiExtractMineralTask : public XLagNPCTaskBase
 {
 public:
-	XLagMiExtractMineralTask(std::shared_ptr<ITerrainMapAccessor> map, int x, int y, const FXLagMineralDesc mineral)
-		:Map(map), X(x), Y(y), Mineral(mineral)
+	XLagMiExtractMineralTask(std::shared_ptr<ITerrainMapAccessor> map, int x, int y, const int mineralId)
+		:Map(map), X(x), Y(y), MineralId(mineralId)
 	{
 	}
 
@@ -25,7 +25,7 @@ public:
 		}
 
 		auto& mapCell = Map->Point(X, Y);
-		auto isFinished = miner->ExtractMineral(mapCell, Mineral, DeltaTime);
+		auto isFinished = miner->ExtractMineral(mapCell, MineralId, DeltaTime);
 
 		if (isFinished)
 		{
@@ -39,5 +39,5 @@ private:
 	std::shared_ptr<ITerrainMapAccessor> Map;
 	int X;
 	int Y;
-	const FXLagMineralDesc Mineral;
+	const int32 MineralId;
 };

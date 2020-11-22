@@ -21,7 +21,7 @@ public:
 	virtual bool Plough(FXLagDynamicTerrainMapItem& cell, float DeltaTime);
 
 	// Сеять клетку.
-	virtual bool Sow(FXLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop, float DeltaTime);
+	virtual bool Sow(FXLagDynamicTerrainMapItem& cell, const int32 cropId, float DeltaTime);
 
 	// Выращивать (ухаживать, поливать)
 	virtual bool Grow(FXLagDynamicTerrainMapItem& cell, float DeltaTime);

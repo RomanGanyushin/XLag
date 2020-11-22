@@ -217,20 +217,38 @@ void AXLagNPCSwapManagement::DoSwapCropStack(const FXLagDynamicObject& object)
 	SwapedObjects.Add(stack);
 }
 
+void AXLagNPCSwapManagement::DoSwapMineralStack(const FXLagDynamicObject& object)
+{
+	auto mineralStackObject = TerrainMineralStackObject(const_cast<FXLagDynamicObject&>(object));
+
+	if (!mineralStackObject.HasLocation())
+	{
+		mineralStackObject.SetLocation(MapAccessor->GetWorldPosition(object.BindedMapItemIndexes[0], GetPositionEnum::CenterHeghtPosition));
+	}
+
+	if (!mineralStackObject.HasRotation())
+	{
+		mineralStackObject.SetRotation(FRotator::ZeroRotator);
+	}
+
+	auto loction = mineralStackObject.GetLocation();
+	auto rotator = mineralStackObject.GetRotation();
+	auto mineralId = mineralStackObject.GetKind();
+
+	auto mineralManager = AXLagMineralManager::GetMineralManager();
+	auto mineral = mineralManager->FindById(mineralId);
+
+	auto stack = GetWorld()->SpawnActor<AXLagMineralStack>(MineralStackTemplate, loction, rotator);
+	stack->AssignObject(object);
+	stack->Initialize(mineral, 2, 2);
+	SwapedObjects.Add(stack);
+}
+
 void AXLagNPCSwapManagement::DoUnswapObject(const int32 objectId)
 {
 	auto unswapingIndex = SwapedObjects.IndexOfByPredicate([objectId](auto& it) {return it->ObjectId == objectId; });
 	GetWorld()->DestroyActor(SwapedObjects[unswapingIndex]);
 	SwapedObjects.RemoveAt(unswapingIndex);
-}
-
-AXLagMineralStack* AXLagNPCSwapManagement::DoSwapMineralStack(const FXLagMineralDesc& mineral)
-{   
-	auto locator = RandomizeZeroPlacePosition(MapAccessor).Get();
-	auto stack = GetWorld()->SpawnActor<AXLagMineralStack>(MineralStackTemplate, locator, FRotator::ZeroRotator);
-	stack->Initialize(mineral, 2, 2);
-	SwapedMineralStacks.Add(stack);
-	return stack;
 }
 
 AXLagProductStack* AXLagNPCSwapManagement::DoSwapProductStack(const FXLagProductionSchema& product)

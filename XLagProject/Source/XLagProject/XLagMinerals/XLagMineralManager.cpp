@@ -39,18 +39,7 @@ const FXLagMineralDesc* AXLagMineralManager::SearchByName(const FString& name) c
 	return MineralDescCollection.FindByPredicate([&name](auto& i) {return i.Name == name; });
 }
 
-TArray<AXLagMineralStack*> AXLagMineralManager::FindMineralStackFor(const FString& name)
+const FXLagMineralDesc& AXLagMineralManager::FindById(const int32 id) const
 {
-	auto swapManagement = AXLagNPCSwapManagement::GetManagment();
-	auto searchConditionFunc = [&name](auto i) { return i->ContentMineral.Name == name; };
-	auto mineralStacksByName = swapManagement->SwapedMineralStacks.FilterByPredicate(searchConditionFunc);
-	return mineralStacksByName;
-}
-
-TArray<AXLagMineralStack*> AXLagMineralManager::FindReserveredMineralStackFor(const AXLagNPCBase* npc)
-{
-	auto swapManagement = AXLagNPCSwapManagement::GetManagment();
-	auto searchConditionFunc = [npc](auto i) { return i->IsReservedFor(npc); };
-	auto mineralStacksByName = swapManagement->SwapedMineralStacks.FilterByPredicate(searchConditionFunc);
-	return mineralStacksByName;
+	return *MineralDescCollection.FindByPredicate([id](auto& it) {return it.ID == id; });
 }

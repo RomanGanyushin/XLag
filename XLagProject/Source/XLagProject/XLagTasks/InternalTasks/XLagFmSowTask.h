@@ -7,8 +7,8 @@
 class XLagFmSowTask : public XLagNPCTaskBase
 {
 public:
-	XLagFmSowTask(std::shared_ptr<ITerrainMapAccessor> map, int x, int y, const FXLagCropDescription crop)
-		:Map(map), X(x), Y(y), Crop(crop)
+	XLagFmSowTask(std::shared_ptr<ITerrainMapAccessor> map, int x, int y, const int32 cropId)
+		:Map(map), X(x), Y(y), CropId(cropId)
 	{
 	}
 
@@ -26,7 +26,7 @@ public:
 
 		auto& mapCell = Map->Point(X, Y);
 
-		auto isFinished = farmer->Sow(mapCell, Crop, DeltaTime);
+		auto isFinished = farmer->Sow(mapCell, CropId, DeltaTime);
 		if (isFinished)
 		{
 			Completed = true;
@@ -39,5 +39,5 @@ private:
 	std::shared_ptr<ITerrainMapAccessor> Map;
 	int X;
 	int Y;
-	FXLagCropDescription Crop;
+	const int32 CropId;
 };

@@ -6,8 +6,7 @@
 class XLagMiDischargeMineralTask : public XLagNPCTaskBase
 {
 public:
-	XLagMiDischargeMineralTask(AXLagMineralStack* stack)
-		:_stack(stack)
+	XLagMiDischargeMineralTask()
 	{
 	}
 
@@ -23,13 +22,20 @@ public:
 			return;
 		}
 
-		_stack->AddQuantity(miner->ExtractedMineralQuantity);
-		miner->ExtractedMineralQuantity = 0.0f;
-		Completed = true;
+		if (!miner->Baggage->HasObject(XLagDynamicObjectType::Mineral))
+		{
+			Completed = true;
+			return;
+		}
+
+		if (miner->FindCellIndex == -1)
+		{
+			Completed = true;
+			return;
+		}
+
+		Completed = miner->PutMineralToStack(DeltaTime);
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override { return Completed; }
-
-private:		
-	AXLagMineralStack* _stack;
 };

@@ -37,15 +37,17 @@ public:
 	}
 
 	// Сеяние.
-	std::shared_ptr<XLagNPCTaskBase> Cultivate(const FXLagCropDescription crop)
+	std::shared_ptr<XLagNPCTaskBase> Cultivate(const int cropId)
 	{
+		auto crop = AXLagCropManager::GetCropsManager()->FindById(cropId);
+
 		auto result = std::make_shared<XLagNPCTaskBase>();
 		for (int i = 0; i < Place->SizeX(); i++)
 			for (int j = 0; j < Place->SizeY(); j++)
 			{
 				auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
 				result->SubTasks.push_back(MoveTo(pos));
-				result->SubTasks.push_back(Sow(i, j, crop));
+				result->SubTasks.push_back(Sow(i, j, cropId));
 			}
 
 		result->SubTasks.push_back(Delay(crop.TimeLife / 2));
@@ -85,9 +87,9 @@ public:
 		return std::shared_ptr<XLagNPCTaskBase>(new XLagFmPloughTask(Place, x, y));
 	}
 
-	std::shared_ptr<XLagNPCTaskBase> Sow(int x, int y, const FXLagCropDescription crop)
+	std::shared_ptr<XLagNPCTaskBase> Sow(int x, int y, const int cropId)
 	{
-		return std::shared_ptr<XLagNPCTaskBase>(new XLagFmSowTask(Place, x, y, crop));
+		return std::shared_ptr<XLagNPCTaskBase>(new XLagFmSowTask(Place, x, y, cropId));
 	}
 
 	std::shared_ptr<XLagNPCTaskBase> Grow(int x, int y)

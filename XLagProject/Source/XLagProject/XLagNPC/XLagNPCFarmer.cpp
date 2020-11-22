@@ -47,7 +47,7 @@ bool AXLagNPCFarmer::Plough(FXLagDynamicTerrainMapItem& cell, float DeltaTime)
 	return isComplite;
 }
 
-bool AXLagNPCFarmer::Sow(FXLagDynamicTerrainMapItem& cell, const FXLagCropDescription& crop, float DeltaTime)
+bool AXLagNPCFarmer::Sow(FXLagDynamicTerrainMapItem& cell, const int32 cropId, float DeltaTime)
 {
 	auto force = DeltaTime;
 	auto sowForce = force * DEBUG_FORCE_MULTIPLIER;
@@ -79,12 +79,13 @@ bool AXLagNPCFarmer::Sow(FXLagDynamicTerrainMapItem& cell, const FXLagCropDescri
 			IsSowing = false;
 			operation.Delete();
 
+			auto crop = AXLagCropManager::GetCropsManager()->FindById(cropId);
 			FXLagDynamicObject cropObject;
 			cropObject.ObjectType = XLagDynamicObjectType::Crop;
 			cropObject.BindedMapItemIndexes.Add(cell.Index);
 			
 			TerrainCropObject cropProperties(cropObject);
-			cropProperties.SetKind(crop.ID);
+			cropProperties.SetKind(cropId);
 			cropProperties.SetLifetime(crop.TimeLife);
 
 			cellOperation.AddObject(cropObject);

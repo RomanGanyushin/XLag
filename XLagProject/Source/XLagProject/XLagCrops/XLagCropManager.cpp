@@ -18,7 +18,7 @@ const bool AXLagCropManager::Empty() const
 	return CropDescCollection.Num() == 0;
 }
 
-const FXLagCropDescription AXLagCropManager::FindById(const int id) const
+const FXLagCropDescription& AXLagCropManager::FindById(const int id) const
 {
 	return *CropDescCollection.FindByPredicate([id](auto& it) {return it.ID == id; });
 }

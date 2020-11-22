@@ -5,6 +5,7 @@
 #include "XLagMiSearchMineralTask.h"
 #include "XLagMiExtractMineralTask.h"
 #include "XLagMiDischargeMineralTask.h"
+#include "XLagMiSearchMineralStackTask.h"
 #include "../../XLagMinerals/Models/XLagMineralDesc.h"
 #include "../../Common/ITerrainMapAccessor.h"
 #include "../../XLagNPC/XLagMineralStack.h"
@@ -26,7 +27,7 @@ public:
 	}
 
 	// Поиск минерала.
-	std::shared_ptr<XLagNPCTaskBase> Search(const FXLagMineralDesc mineral)
+	std::shared_ptr<XLagNPCTaskBase> Search(const int32 mineralId)
 	{
 		auto result = std::make_shared<XLagNPCTaskBase>();
 
@@ -38,14 +39,14 @@ public:
 				
 
 				result->SubTasks.push_back(MoveTo(pos));
-				result->SubTasks.push_back(Search(i, j, mineral));				
+				result->SubTasks.push_back(Search(i, j, mineralId));				
 			}
 
 		return result;
 	}
 
 	// Добыча минерала.
-	std::shared_ptr<XLagNPCTaskBase> Extract(const FXLagMineralDesc mineral, AXLagMineralStack* stack)
+	std::shared_ptr<XLagNPCTaskBase> Extract(const int32 mineralId)
 	{
 		auto result = std::make_shared<XLagNPCTaskBase>();
 
@@ -56,12 +57,12 @@ public:
 				auto pos = Place->GetWorldPosition(i, j, GetPositionEnum::CenterHeghtPosition);
 
 				result->SubTasks.push_back(MoveTo(pos));
-				result->SubTasks.push_back(Extract(i, j, mineral));
-				result->SubTasks.push_back(MoveTo(stack->GetActorLocation()));
-				result->SubTasks.push_back(Discharge(stack));
+				result->SubTasks.push_back(Extract(i, j, mineralId));
+				result->SubTasks.push_back(SearchMineralStack(mineralId));
+				result->SubTasks.push_back(MoveToFind());
+				result->SubTasks.push_back(Discharge());
 			}
 
-		auto mineralId = mineral.ID;
 		auto place = Place.get();
 		auto where_if = [mineralId, place]()
 		{
@@ -80,22 +81,27 @@ public:
 		return result;
 	}
 
-	std::shared_ptr<XLagNPCTaskBase> Search(int x, int y, const FXLagMineralDesc mineral)
+	std::shared_ptr<XLagNPCTaskBase> Search(int x, int y, const int32 mineralId)
 	{
-		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagMiSearchMineralTask(Place, x, y, mineral));
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagMiSearchMineralTask(Place, x, y, mineralId));
 		return result;
 	}
 
-	std::shared_ptr<XLagNPCTaskBase> Extract(int x, int y, const FXLagMineralDesc mineral)
+	std::shared_ptr<XLagNPCTaskBase> Extract(int x, int y, const int32 mineralId)
 	{
-		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagMiExtractMineralTask(Place, x, y, mineral));
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagMiExtractMineralTask(Place, x, y, mineralId));
 		return result;
 	}
 
-	std::shared_ptr<XLagNPCTaskBase> Discharge(AXLagMineralStack* stack)
+	std::shared_ptr<XLagNPCTaskBase> Discharge()
 	{
-		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagMiDischargeMineralTask(stack));
+		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagMiDischargeMineralTask());
 		return result;
+	}
+
+	std::shared_ptr<XLagNPCTaskBase> SearchMineralStack(const int32 mineralId)
+	{
+		return std::shared_ptr<XLagNPCTaskBase>(new XLagMiSearchMineralStackTask(mineralId));
 	}
 
 private:
