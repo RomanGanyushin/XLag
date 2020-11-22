@@ -9,12 +9,16 @@ USTRUCT(BlueprintType)
 struct FXLagMineralDesc
 {
 	GENERATED_BODY()
+	
+	// Идентификатор.
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) int ID;
 
 	// Название.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Name;
 
-	// Идентификатор.
-	UPROPERTY(EditAnywhere, BlueprintReadOnly) int ID;
+	// Отображаемое название
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FString Display;
 
 	// Значение, показывающее что ресурс необходимо искать.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) bool SearchRequire;

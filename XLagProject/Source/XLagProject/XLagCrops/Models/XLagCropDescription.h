@@ -7,11 +7,15 @@ struct FXLagCropDescription
 {
 	GENERATED_BODY()
 
+	// Идентификатор.
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) int ID;
+
 	// Название.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) FString Name;
 
-	// Идентификатор.
-	UPROPERTY(EditAnywhere, BlueprintReadOnly) int ID;
+	// Отображаемое название
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FString Display;
 
 	// Материал представления сельхозпродукта.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) UMaterial* CropPresentMaterial;

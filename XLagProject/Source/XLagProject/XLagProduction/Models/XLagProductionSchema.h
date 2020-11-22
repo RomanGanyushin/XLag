@@ -15,6 +15,10 @@ struct FXLagProductionSchema
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) 
 	FString Name;
 
+	// Отображаемое название
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString Display;
+
 	// Предсавление изделия.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMesh* ProductPresentation;
