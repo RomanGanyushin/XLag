@@ -9,5 +9,6 @@ enum XLagDynamicObjectType
 	Mineral,
 	TimberStack,
 	CropStack,
-	MineralStack
+	MineralStack,
+	ProductStack
 };

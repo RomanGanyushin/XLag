@@ -1,8 +1,4 @@
 #pragma once
-
-#include <map>
-//#include "CoreMinimal.h"
-//#include "GameFramework/Actor.h"
 #include "ProceduralMeshComponent.h"
 #include "XLagNPCBase.h"
 #include "XLagSwapableObject.h"
@@ -20,24 +16,11 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	virtual void CreateView();
 
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	virtual void AddQuantity(float quantity);
-
-	// Получает количество доступного минерала.
-	virtual float GetAvaibleQuantity();
-
-	// Резервирует за персонажем.
-	virtual void Reserve(AXLagNPCBase *reserver, float quantity);
-
-	// Получить минерал из кучи.
-	virtual float TakeQuantity(AXLagNPCBase *npc, float quantity);
-
-	// Проверить, зарезервировано ли за персонажем.
-	virtual bool IsReservedFor(const AXLagNPCBase *npc) const;
 
 	UPROPERTY(VisibleAnywhere, Category = "Stack Properties")
 		int SizeX;
@@ -57,7 +40,4 @@ public:
 protected:
 	UFUNCTION()
 	void OnPropertyChanged(uint8 id, const FXLagObjectProperties& properties);
-
-	void CreateView();
-	std::map<const AXLagNPCBase *, float > _reserves;
 };

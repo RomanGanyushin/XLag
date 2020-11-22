@@ -11,16 +11,6 @@ void AXLagMineralStack::Initialize(const FXLagMineralDesc& mineral, const int si
 	{
 		ThisStack->SetMaterial(0, mineral.MineralPresentMaterial);
 	}
-}
 
-float AXLagMineralStack::TakeQuantity(AXLagNPCBase *npc, float quantity)
-{
-	auto takeQuanity = AXLagLooseStackBase::TakeQuantity(npc, quantity);
-	if (takeQuanity >= 0.0f)
-		return takeQuanity;
-
-	auto stackMineralName = ContentMineral.Name;
-	npc->Baggage->Put(XLagDynamicObjectType::Mineral, stackMineralName, takeQuanity);
-
-	return takeQuanity;
+	CreateView();
 }

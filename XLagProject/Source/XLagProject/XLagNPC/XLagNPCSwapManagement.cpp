@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "XLagNPCSwapManagement.h"
+#include "../XLagProduction/XLagProductionSchemasManager.h"
 #include "../XLagDynamicTerrain/Position/RandomizeZeroPlacePosition.h"
 #include "../XLagDynamicTerrain/Filters/SurfaceResourceMapItemFilter.h"
 #include "../XLagDynamicObject/ObjectModels/TerrainTreeObject.h"
@@ -244,20 +245,38 @@ void AXLagNPCSwapManagement::DoSwapMineralStack(const FXLagDynamicObject& object
 	SwapedObjects.Add(stack);
 }
 
+void AXLagNPCSwapManagement::DoSwapProductStack(const FXLagDynamicObject& object)
+{
+	auto productStackObject = TerrainMineralStackObject(const_cast<FXLagDynamicObject&>(object));
+
+	if (!productStackObject.HasLocation())
+	{
+		productStackObject.SetLocation(MapAccessor->GetWorldPosition(object.BindedMapItemIndexes[0], GetPositionEnum::CenterHeghtPosition));
+	}
+
+	if (!productStackObject.HasRotation())
+	{
+		productStackObject.SetRotation(FRotator::ZeroRotator);
+	}
+
+	auto loction = productStackObject.GetLocation();
+	auto rotator = productStackObject.GetRotation();
+	auto productId = productStackObject.GetKind();
+
+	auto productManager = AXLagProductionSchemasManager::GetManagment();
+	auto product = productManager->FindById(productId);
+
+	auto stack = GetWorld()->SpawnActor<AXLagProductStack>(ProductStackTemplate, loction, rotator);
+	stack->AssignObject(object);
+	stack->Initialize(product, 2, 2);
+	SwapedObjects.Add(stack);
+}
+
 void AXLagNPCSwapManagement::DoUnswapObject(const int32 objectId)
 {
 	auto unswapingIndex = SwapedObjects.IndexOfByPredicate([objectId](auto& it) {return it->ObjectId == objectId; });
 	GetWorld()->DestroyActor(SwapedObjects[unswapingIndex]);
 	SwapedObjects.RemoveAt(unswapingIndex);
-}
-
-AXLagProductStack* AXLagNPCSwapManagement::DoSwapProductStack(const FXLagProductionSchema& product)
-{
-	auto locator = RandomizeZeroPlacePosition(MapAccessor).Get();
-	auto stack = GetWorld()->SpawnActor<AXLagProductStack>(ProductStackTemplate, locator, FRotator::ZeroRotator);
-	stack->ProductPresentMesh = product.ProductPresentation;
-	SwapedProductStacks.Add(stack);
-	return stack;
 }
 
 // Called every frame

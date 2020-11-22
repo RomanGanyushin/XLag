@@ -57,7 +57,7 @@ public:
 	UFUNCTION(BlueprintCallable) void CreateCultivationTask(AXLagSelectComponent *select, const int cropId, int RequiredWorkerNumber);
 
 	// Создает задачу производства
-	UFUNCTION(BlueprintCallable) void CreateProductionTask(const FXLagProductionSchema& productionSchema, AXLagSelectComponent *select, float Quanity, int RequiredWorkerNumber);
+	UFUNCTION(BlueprintCallable) void CreateProductionTask(const int32 productId, AXLagSelectComponent *select, float Quanity, int RequiredWorkerNumber);
 	
 	// Запрос на исполнение задачи со стороны npc.
 	UFUNCTION(BlueprintCallable) void ApplyForTask(AXLagNPCBase *npc, UXLagTaskBase* task);

@@ -7,6 +7,10 @@ struct FXLagProductionSchema
 {
 	GENERATED_BODY()
 
+	// Идентификатор
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32  ID;
+		
 	// Название
 	UPROPERTY(EditAnywhere, BlueprintReadWrite) 
 	FString Name;

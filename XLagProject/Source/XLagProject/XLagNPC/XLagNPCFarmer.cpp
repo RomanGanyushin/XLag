@@ -148,10 +148,11 @@ bool AXLagNPCFarmer::TakeCrop(FXLagDynamicTerrainMapItem& cell, float DeltaTime)
 
 	TerrainCropObject cropProperties(*cropObject);
 	auto quanity = cropProperties.GetCropQuantity();
+	auto cropId = cropProperties.GetKind();
 	auto takeQuantity = std::min(quanity, takeForce);
 	cropProperties.SetCropQuantity(quanity - takeQuantity);
 	
-	Baggage->Put(XLagDynamicObjectType::Crop, "Crop", takeQuantity); //TODO_ONE Подставить название 
+	Baggage->Put(XLagDynamicObjectType::Crop, cropId, takeQuantity); //TODO_ONE Подставить название 
 
 	isComplite = cropProperties.GetCropQuantity() == 0.0f;
 
@@ -217,7 +218,12 @@ bool AXLagNPCFarmer::PutCropToStack(float DeltaTime)
 		return true;
 	}
 
-	auto getFromBaggageCropQuantity = Baggage->Take(XLagDynamicObjectType::Crop, "Crop", quantity); //TODO_ONE Подставить название 
+	auto object = cellOperation.GetObjectByType(XLagDynamicObjectType::CropStack);
+	TerrainCropStackObject cropStackObjectProperty(*object);
+
+	auto cropId = cropStackObjectProperty.GetKind();
+
+	auto getFromBaggageCropQuantity = Baggage->Take(XLagDynamicObjectType::Crop, cropId, quantity); //TODO_ONE Подставить название 
 
 	if (getFromBaggageCropQuantity == 0.0f)
 	{
@@ -225,8 +231,6 @@ bool AXLagNPCFarmer::PutCropToStack(float DeltaTime)
 		return true;
 	}
 		
-	auto object = cellOperation.GetObjectByType(XLagDynamicObjectType::CropStack);
-	TerrainCropStackObject cropStackObjectProperty(*object);
 	cropStackObjectProperty.SetStackQuantity(cropStackObjectProperty.GetStackQuantity() + getFromBaggageCropQuantity);
 
 	IsDischarging = true;

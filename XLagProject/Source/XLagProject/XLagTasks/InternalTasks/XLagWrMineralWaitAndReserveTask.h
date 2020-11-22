@@ -7,8 +7,8 @@
 class XLagWrMineralWaitAndReserveTask : public XLagNPCTaskBase
 {
 public:
-	XLagWrMineralWaitAndReserveTask(std::string mineralName, float quanity)
-		:_mineralName(mineralName), _quanity(quanity)
+	XLagWrMineralWaitAndReserveTask(const int32 mineralId, float quanity)
+		:MineralId(mineralId), _quanity(quanity)
 	{
 	}
 
@@ -24,26 +24,17 @@ public:
 			return;
 		}
 
-		if (worker->Baggage->HasQuanity(XLagDynamicObjectType::Mineral, FString(_mineralName.c_str()), _quanity))
+		if (worker->Baggage->HasQuanity(XLagDynamicObjectType::Mineral, MineralId, _quanity))
 		{
 			Completed = true;
 			return;
 		}
-		   
-		// TODO: Перенести в рабочего
-		/*auto mineralManager = AXLagMineralManager::GetMineralManager();
-		auto stacks = mineralManager->FindMineralStackFor(FString(_mineralName.c_str()));
-
-		for (auto& it : stacks)
+		
+		auto isFinished = worker->SearchAndReserveMineralStack(MineralId, _quanity);
+		if (isFinished)
 		{
-			auto avaible = it->GetAvaibleQuantity();
-			if (avaible > _quanity)
-			{
-				it->Reserve(worker, _quanity);
-				Completed = true;
-				break;
-			}
-		}	*/
+			Completed = true;
+		}
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override
@@ -52,6 +43,6 @@ public:
 	}
 
 private:
-	const std::string _mineralName;
+	const int32 MineralId;
 	const float _quanity;
 };

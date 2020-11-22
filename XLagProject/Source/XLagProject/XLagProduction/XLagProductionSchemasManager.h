@@ -23,7 +23,11 @@ public:
 
 	const bool IsNameOfProduct(const FString& name) const;
 
-	const FXLagProductionSchema* SearchByName(const FString& name) const;
+	const FXLagProductionSchema& FindByName(const FString& name) const;
+	const FXLagProductionSchema& FindById(const int32 id) const;
+
+	// Метод завершения создания коллекции.
+	UFUNCTION(BlueprintCallable) void CompliteCreate();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collection")
 		TArray<FXLagProductionSchema> ProductionSchemaCollection;

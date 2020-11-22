@@ -1,14 +1,14 @@
 #pragma once
-#include "XLagNPCMovementTaskBase.h"
+#include "XLagNPCTaskBase.h"
 #include "../../XLagNPC/XLagNPCWorker.h"
 #include "../../Common/ITerrainMapAccessor.h"
 #include "../../XLagMinerals/XLagMineralManager.h"
 
-class XLagWrTakeReservedMineralsTask : public XLagNPCMovementTaskBase
+class XLagWrTakeReservedMineralsTask : public XLagNPCTaskBase
 {
 public:
-	XLagWrTakeReservedMineralsTask(const float& sufficientDistance, float deadlineTime = 1e10f)
-		: XLagNPCMovementTaskBase(sufficientDistance, deadlineTime)
+	XLagWrTakeReservedMineralsTask(const float quantity)
+		: _quantity(quantity)
 	{
 	}
 
@@ -24,27 +24,7 @@ public:
 			return;
 		}
 
-		/*if (currentStack == nullptr)
-		{
-			auto mineralManager = AXLagMineralManager::GetMineralManager();
-			auto stacks = mineralManager->FindReserveredMineralStackFor(worker);
-			if (stacks.Num() == 0)
-			{
-				Completed = true;
-				return;
-			}
-
-			currentStack = stacks[0];
-			_targetLocation = currentStack->GetActorLocation();	
-		}
-
-		if (!IsSufficientDistance(npc))
-		{
-			DoMove(DeltaTime, npc);
-			return;
-		}*/
-
-		Completed = worker->TakeReservedMineral(currentStack, DeltaTime);
+		Completed = worker->TakeReservedMineral(DeltaTime, _quantity);
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override
@@ -53,5 +33,5 @@ public:
 	}
 
 private:
-	AXLagMineralStack* currentStack = nullptr;
+	const float _quantity;
 };

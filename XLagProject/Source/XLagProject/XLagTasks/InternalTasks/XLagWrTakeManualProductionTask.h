@@ -5,8 +5,8 @@
 class XLagWrTakeManualProductionTask : public XLagNPCTaskBase
 {
 public:
-	XLagWrTakeManualProductionTask(std::string productName, float quanity)
-		:_productName(productName), _quanity (quanity)
+	XLagWrTakeManualProductionTask(const int32 productId, float quanity)
+		:_productId(productId), _quanity (quanity)
 	{
 	}
 
@@ -22,7 +22,7 @@ public:
 			return;
 		}
 
-		if (worker->ManualProduction(FString(_productName.c_str()), _quanity, DeltaTime))
+		if (worker->ManualProduction(_productId, _quanity, DeltaTime))
 		{
 			Completed = true;
 			return;
@@ -35,6 +35,6 @@ public:
 	}
 
 private:
-	const std::string _productName;
+	const int32 _productId;
 	const float _quanity;
 };

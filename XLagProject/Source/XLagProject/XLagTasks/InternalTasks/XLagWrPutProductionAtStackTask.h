@@ -6,8 +6,8 @@
 class XLagWrPutProductionAtStackTask : public XLagNPCTaskBase
 {
 public:
-	XLagWrPutProductionAtStackTask(std::string productName, AXLagProductStack* stack)
-		:_productName(productName), _stack(stack)
+	XLagWrPutProductionAtStackTask(const int32 productId)
+		:_productId(productId)
 	{
 	
 	}
@@ -24,7 +24,7 @@ public:
 			return;
 		}
 
-		if (worker->PutProductAtStack(FString(_productName.c_str()), _stack, DeltaTime))
+		if (worker->PutProductAtStack(_productId, DeltaTime))
 		{
 			Completed = true;
 			return;
@@ -37,6 +37,5 @@ public:
 	}
 
 private:
-	AXLagProductStack* _stack;
-	std::string _productName;
+	const int32 _productId;
 };

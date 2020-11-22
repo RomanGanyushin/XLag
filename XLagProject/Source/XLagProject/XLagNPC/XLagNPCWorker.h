@@ -20,22 +20,32 @@ class XLAGPROJECT_API AXLagNPCWorker : public AXLagNPCBase
 public:	
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Worker Working")
+		bool  IsMineralWaiting = false;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Worker Working")
 		bool  IsMineralTaking = false;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Worker Working")
 		bool  IsManualProduction = false;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Worker Working")
-		bool  IsProductPutting = false;
+		bool  IsDischarging = false;
+
+
+	/// Найти и зарезервироать минералы из кучи.
+	bool SearchAndReserveMineralStack(const int mineralId, const float quanity);
 
 	/// Получить зарезервированный материал из кучи.
-	bool TakeReservedMineral(AXLagMineralStack* stack, float deltaTime);
+	bool TakeReservedMineral(float deltaTime, const float totalQuanity);
 
 	/// Ручное производство.
-	bool ManualProduction(FString product, float quanity, float deltaTime);
+	bool ManualProduction(const int32 productId, float quanity, float deltaTime);
+
+	/// Найти стопку для продукта.
+	bool SearchProductStack(int32 productId);
 
 	/// Положить произведенный продукт к стопку. 
-	bool PutProductAtStack(FString product, AXLagProductStack* stack, float deltaTime);
+	bool PutProductAtStack(const int32 productId, float deltaTime);
 
 	virtual void OfferAccept(UXLagTaskBase* task) override;
 	

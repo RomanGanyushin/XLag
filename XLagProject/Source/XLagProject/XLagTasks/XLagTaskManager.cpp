@@ -235,26 +235,8 @@ void AXLagTaskManager::CreateBuildingTask(const FXLagBuildingDescription& buildi
 	SearchAndChooseExecuters(newTask);
 }
 
-void AXLagTaskManager::CreateProductionTask(const FXLagProductionSchema& productionSchema, AXLagSelectComponent *select, float Quanity, int RequiredWorkerNumber)
+void AXLagTaskManager::CreateProductionTask(const int32 productId, AXLagSelectComponent *select, float Quanity, int RequiredWorkerNumber)
 {
-	AXLagProductStack* stack = nullptr;
-	if (stack == nullptr) // Если не указано куда нести, то первый.
-	{
-		auto swapManagment = AXLagNPCSwapManagement::GetManagment();
-		auto pstack = swapManagment->SwapedProductStacks
-			.FindByPredicate([](auto it) { return true; });
-
-		if (pstack != nullptr)
-		{
-			stack = *pstack;
-		}
-		else // Не найдено место для склада, то создаем.
-		{
-			auto manager = AXLagNPCSwapManagement::GetManagment();
-			stack = manager->DoSwapProductStack(productionSchema);
-		}
-	}
-
 	// Создает задачу.
 	auto newTask = NewObject<UXLagTask_CreateProduction>();
 	newTask->SetRegion(select->Select);
@@ -263,7 +245,7 @@ void AXLagTaskManager::CreateProductionTask(const FXLagProductionSchema& product
 	//// Планируем выполнение.
 	auto task = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskBase);
 	auto place = select->Select;
-	task->SubTasks.push_back(XLagWorkerTaskFactory(place).Production(&productionSchema, stack));
+	task->SubTasks.push_back(XLagWorkerTaskFactory(place).Production(productId));
 	newTask->NpcTask = task;
 
 	// Добавляем в стек.

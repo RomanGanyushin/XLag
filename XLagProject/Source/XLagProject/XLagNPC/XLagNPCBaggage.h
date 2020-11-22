@@ -11,7 +11,7 @@ struct FXLagBaggageItem
 	TEnumAsByte<XLagDynamicObjectType> ObjectType;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, SaveGame)
-	FString Name;
+	int32 Id;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, SaveGame)
 	float Quanity;
@@ -34,29 +34,29 @@ class UXLagNPCBaggage : public UObject
 public:
 
 	UFUNCTION(BlueprintCallable)
-		void Put(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name, float quanity)
+		void Put(const TEnumAsByte<XLagDynamicObjectType> type, const int32 id, float quanity)
 	{
-		if (!HasItem(type, name))
+		if (!HasItem(type, id))
 		{
 			FXLagBaggageItem newItem;
 			newItem.ObjectType = type;
-			newItem.Name = name;
+			newItem.Id = id;
 			newItem.Quanity = quanity;
 			Baggage.Items.Add(newItem);
 		}
 		else
 		{
-			FindItem(type, name).Quanity += quanity;
+			FindItem(type, id).Quanity += quanity;
 		}
 	}
 
 	UFUNCTION(BlueprintCallable)
-		float Take(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name, float quanity)
+		float Take(const TEnumAsByte<XLagDynamicObjectType> type, const int32 id, float quanity)
 	{
-		if (!HasItem(type, name))
+		if (!HasItem(type, id))
 			return 0.0f;
 
-		auto &item = FindItem(type, name);
+		auto &item = FindItem(type, id);
 
 		auto result = std::min(quanity, item.Quanity);
 		item.Quanity -= result;
@@ -71,12 +71,12 @@ public:
 	}
 
 	UFUNCTION(BlueprintCallable)
-		bool HasQuanity(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name, float quanity)
+		bool HasQuanity(const TEnumAsByte<XLagDynamicObjectType> type, const int32 Id, float quanity)
 	{
-		if (!HasItem(type, name))
+		if (!HasItem(type, Id))
 			return false;
 
-		return FindItem(type, name).Quanity >= quanity;
+		return FindItem(type, Id).Quanity >= quanity;
 	}
 
 	UFUNCTION(BlueprintCallable)
@@ -93,15 +93,15 @@ public:
 	}
 
 	UFUNCTION(BlueprintCallable)
-		bool HasItem(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name) const
+		bool HasItem(const TEnumAsByte<XLagDynamicObjectType> type, const int32 id) const
 	{
-		return Baggage.Items.ContainsByPredicate([type, name](auto& it) {return it.ObjectType == type && it.Name == name; });
+		return Baggage.Items.ContainsByPredicate([type, id](auto& it) {return it.ObjectType == type && it.Id == id; });
 	}
 
 	UFUNCTION(BlueprintCallable)
-		FXLagBaggageItem& FindItem(const TEnumAsByte<XLagDynamicObjectType> type, const FString& name)
+		FXLagBaggageItem& FindItem(const TEnumAsByte<XLagDynamicObjectType> type, const int32 id)
 	{
-		return *Baggage.Items.FindByPredicate([type, name](auto& it) {return it.ObjectType == type && it.Name == name; });
+		return *Baggage.Items.FindByPredicate([type, id](auto& it) {return it.ObjectType == type && it.Id == id; });
 	}
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

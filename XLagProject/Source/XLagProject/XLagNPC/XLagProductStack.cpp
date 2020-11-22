@@ -1,33 +1,16 @@
 #include "XLagProductStack.h"
 
-AXLagProductStack::AXLagProductStack()
+void AXLagProductStack::Initialize(const FXLagProductionSchema& product, const int sizeX, const int sizeY)
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
-	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
-}
+	ContentProduct = product;
+	SizeX = sizeX;
+	SizeY = sizeY;
 
-// Called when the game starts or when spawned
-void AXLagProductStack::BeginPlay()
-{
-	Super::BeginPlay();
+	if (product.ProductPresentation != nullptr)
+	{
+		ProductPresentMesh = product.ProductPresentation;
+	}
 
-	CreateView();
-
-	
-}
-
-// Called every frame
-void AXLagProductStack::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
-
-void AXLagProductStack::AddQuantity(float quantity)
-{
-	StackQuantity += quantity;
-	ResetView();
 	CreateView();
 }
 

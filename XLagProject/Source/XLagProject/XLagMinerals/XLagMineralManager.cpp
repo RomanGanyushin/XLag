@@ -34,6 +34,11 @@ const bool AXLagMineralManager::IsNameOfMineral(const FString& name) const
 	return MineralDescCollection.ContainsByPredicate([&name](auto& i) {return i.Name == name; });
 }
 
+const FXLagMineralDesc& AXLagMineralManager::FindByName(const FString& name) const
+{
+	return *MineralDescCollection.FindByPredicate([&name](auto& i) {return i.Name == name; });
+}
+
 const FXLagMineralDesc* AXLagMineralManager::SearchByName(const FString& name) const
 {
 	return MineralDescCollection.FindByPredicate([&name](auto& i) {return i.Name == name; });

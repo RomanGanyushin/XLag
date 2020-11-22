@@ -51,8 +51,8 @@ bool AXLagNPCMiner::ExtractMineral(FXLagDynamicTerrainMapItem& cell, const int m
 		return true;
 	}
 
-	Baggage->Put(XLagDynamicObjectType::Mineral, "Mineral", extractedQuantity); //TODO_ONE Подставить название 
-	auto isComplite = Baggage->HasQuanity(XLagDynamicObjectType::Mineral, "Mineral", 10.0f); // Вынести в статы.
+	Baggage->Put(XLagDynamicObjectType::Mineral, mineralId, extractedQuantity); //TODO_ONE Подставить название 
+	auto isComplite = Baggage->HasQuanity(XLagDynamicObjectType::Mineral, mineralId, 10.0f); // Вынести в статы.
 
 	IsExtracting = !isComplite;
 	return isComplite; 
@@ -109,7 +109,11 @@ bool AXLagNPCMiner::PutMineralToStack(float DeltaTime)
 		return true;
 	}
 
-	auto getFromBaggageMineralQuantity = Baggage->Take(XLagDynamicObjectType::Mineral, "Mineral", quantity); //TODO_ONE Подставить название 
+	auto object = cellOperation.GetObjectByType(XLagDynamicObjectType::MineralStack);
+	TerrainMineralStackObject mineralStackObjectProperty(*object);
+	auto mineralId = mineralStackObjectProperty.GetKind();
+
+	auto getFromBaggageMineralQuantity = Baggage->Take(XLagDynamicObjectType::Mineral, mineralId, quantity); //TODO_ONE Подставить название 
 
 	if (getFromBaggageMineralQuantity == 0.0f)
 	{
@@ -118,8 +122,6 @@ bool AXLagNPCMiner::PutMineralToStack(float DeltaTime)
 		return true;
 	}
 
-	auto object = cellOperation.GetObjectByType(XLagDynamicObjectType::MineralStack);
-	TerrainMineralStackObject mineralStackObjectProperty(*object);
 	mineralStackObjectProperty.SetStackQuantity(mineralStackObjectProperty.GetStackQuantity() + getFromBaggageMineralQuantity);
 
 	IsDischarging = true;

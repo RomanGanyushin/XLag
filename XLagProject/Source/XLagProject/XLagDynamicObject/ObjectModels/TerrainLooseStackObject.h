@@ -38,3 +38,10 @@ struct TerrainMineralStackObject : public TerrainLooseStackObject
 	{
 	}
 };
+
+struct TerrainProductStackObject : public TerrainLooseStackObject
+{
+	TerrainProductStackObject(FXLagObjectProperties& properties) : TerrainLooseStackObject(properties)
+	{
+	}
+};

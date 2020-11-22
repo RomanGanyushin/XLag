@@ -60,6 +60,10 @@ void AXLagDynamicObjectsManager::OnAddNewObject(const int32 newIndex)
 		case XLagDynamicObjectType::MineralStack:
 			AXLagNPCSwapManagement::GetManagment()->DoSwapMineralStack(newObject);
 			break;
+
+		case XLagDynamicObjectType::ProductStack:
+			AXLagNPCSwapManagement::GetManagment()->DoSwapProductStack(newObject);
+			break;
 	}
 }
 

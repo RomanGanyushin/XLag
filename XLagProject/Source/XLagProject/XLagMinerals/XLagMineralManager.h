@@ -26,8 +26,9 @@ public:
 
 	UFUNCTION(BlueprintCallable) const bool Empty() const;
 
-
 	UFUNCTION(BlueprintCallable) const FXLagMineralDesc& FindById(const int id) const;
+
+	UFUNCTION(BlueprintCallable) const FXLagMineralDesc& FindByName(const FString& name) const;
 
 	const bool IsNameOfMineral(const FString& name) const;
 

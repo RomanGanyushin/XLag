@@ -319,7 +319,6 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainLooseStackObject.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainObjectBase.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainObjectBehaviorBase.h" />
-    <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainProductStackObject.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainTimberStackObject.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\ObjectModels\TerrainTreeObjectBehavior.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagDynamicObject\XLagDynamicObjectsManager.h" />
@@ -383,6 +382,7 @@
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWorkerTaskFactory.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWrMineralWaitAndReserveTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWrPutProductionAtStackTask.h" />
+    <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWrSearchProductStackTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWrTakeManualProductionTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\InternalTasks\XLagWrTakeReservedMineralsTask.h" />
     <ClInclude Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateProduction.h" />
