@@ -29,7 +29,7 @@ public:
 
 		if (Completed)
 		{
-			builder->Cancel();
+			//builder->Cancel();
 		}		
 	}
 

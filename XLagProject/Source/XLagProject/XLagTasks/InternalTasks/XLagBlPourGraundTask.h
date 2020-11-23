@@ -11,9 +11,6 @@ public:
 	XLagBlPourGraundTask(std::shared_ptr<ITerrainMapAccessor> map, int x, int y, float level, TerrainElementEnum element)
 		:Map(map), X(x), Y(y), Level(level), Element(element)
 	{
-#ifdef ENABLE_TASK_LOG
-		UE_LOG(LogTemp, Log, TEXT("XLagBlPourGraundTask"));
-#endif
 	}
 
 	virtual void Execute(ACharacter *npc, XLagNPCTaskContext* context, float DeltaTime, int subLevel) override
@@ -29,14 +26,7 @@ public:
 		}
 
 		auto& mapCell = Map->Point(X, Y);
-		builder->Pour(mapCell, Level, Element);
-
-		if (XLagDynamicTerrainMapItemOperation(mapCell).GetTopLevel() - Level >= -1)
-		{
-			Completed = true;
-			builder->Cancel();
-			UE_LOG(LogTemp, Log, TEXT("XLagBlPourGraundTask::Execute  Completed !!!!"));
-		}
+		Completed = builder->Pour(mapCell, Level, Element);
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override { return Completed; }

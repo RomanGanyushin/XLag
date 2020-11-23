@@ -1,7 +1,6 @@
 #pragma once
-
+#include "XLagTaskFactoryBase.h"
 #include "XLagNPCTaskBase.h"
-#include "XLagNPCTaskMoveTo.h"
 #include "XLagBlDigGraundTask.h"
 #include "XLagBlPourGraundTask.h"
 #include "XLagBlBuildTask.h"
@@ -12,12 +11,8 @@
 /*
  Фабрика задач для строителя.
 */
-class XLagBuilderTaskFactory
+class XLagBuilderTaskFactory : protected XLagTaskFactoryBase
 {
-public:
-	float CompliteDistanceToTree = 1.0f;
-	float SpaceScale = 100.f;
-
 public:
 	XLagBuilderTaskFactory(std::shared_ptr<ITerrainMapAccessor> place)
 		: Place(place)
@@ -188,14 +183,6 @@ public:
 
 		result->SubTasks.push_back(MoveTo(pos));
 		result->SubTasks.push_back(std::shared_ptr<XLagNPCTaskBase>(new XLagBlBuildTask(building)));
-		return result;
-	}
-
-	// Двигайся до указанной локации.
-	// Todo: вынести в базовый.
-	std::shared_ptr<XLagNPCTaskBase> MoveTo(const FVector& location)
-	{
-		auto result = std::shared_ptr<XLagNPCTaskBase>(new XLagNPCTaskMoveTo(location, CompliteDistanceToTree * SpaceScale, 10));
 		return result;
 	}
 

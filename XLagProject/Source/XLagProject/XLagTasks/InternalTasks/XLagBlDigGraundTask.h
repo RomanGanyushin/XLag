@@ -11,9 +11,6 @@ public:
 	XLagBlDigGraundTask(std::shared_ptr<ITerrainMapAccessor> map, int x, int y, float level, bool keepTopLayer)
 		:Map(map), X(x), Y(y), Level(level), KeepTopLayer(keepTopLayer)
 	{
-#ifdef ENABLE_TASK_LOG
-		UE_LOG(LogTemp, Log, TEXT("XLagBlDigGraundTask"));
-#endif
 	}
 
 	virtual void Execute(ACharacter *npc, XLagNPCTaskContext* context, float DeltaTime, int subLevel) override
@@ -29,14 +26,7 @@ public:
 		}
 
 		auto& mapCell = Map->Point(X, Y);
-		builder->Dig(mapCell, Level, KeepTopLayer);
-
-		if (XLagDynamicTerrainMapItemOperation(mapCell).GetTopLevel() - Level <= 1)
-		{
-			Completed = true;
-			builder->Cancel();
-			UE_LOG(LogTemp, Log, TEXT("XLagBlDigGraundTask::Execute  Completed !!!!"));
-		}
+		Completed = builder->Dig(mapCell, Level, KeepTopLayer);
 	}
 
 	virtual bool IsSuccess(XLagNPCTaskContext* context, int subLevel) override { return Completed; }
