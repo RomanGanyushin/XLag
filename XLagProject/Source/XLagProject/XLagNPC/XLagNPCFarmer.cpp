@@ -1,4 +1,5 @@
 #include "XLagNPCFarmer.h"
+#include "../BuildDefinition.h"
 #include "XLagNPCSwapManagement.h"
 #include "../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
 #include "../XLagDynamicObject/ObjectModels/TerrainCropObject.h"
@@ -6,8 +7,6 @@
 #include "../Common/CellOperationProcessing.h"
 #include "../XLagDynamicTerrainBase.h"
 #include "../XLagDynamicTerrain\Position\RandomizeZeroPlacePosition.h"
-
-#define DEBUG_FORCE_MULTIPLIER 1
 
 void AXLagNPCFarmer::OfferAccept(UXLagTaskBase* task)
 {

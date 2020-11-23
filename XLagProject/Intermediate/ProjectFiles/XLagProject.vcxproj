@@ -305,6 +305,7 @@
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_CreateGroundAlign.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_ExtractMineralRegion.cpp" />
     <ClCompile Include="..\..\Source\XLagProject\XLagTasks\XLagTask_SearchMineralRegion.cpp" />
+    <ClInclude Include="..\..\Source\XLagProject\BuildDefinition.h" />
     <ClInclude Include="..\..\Source\XLagProject\Common\CellOperationEnum.h" />
     <ClInclude Include="..\..\Source\XLagProject\Common\CellOperationProcessing.h" />
     <ClInclude Include="..\..\Source\XLagProject\Common\XLagObjectProperties.h" />

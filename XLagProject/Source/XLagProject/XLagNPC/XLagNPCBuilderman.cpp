@@ -1,7 +1,5 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "XLagNPCBuilderman.h"
+#include "../BuildDefinition.h"
 #include "../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
 
 void AXLagNPCBuilderman::Tick(float DeltaTime)
@@ -17,7 +15,7 @@ void AXLagNPCBuilderman::Tick(float DeltaTime)
 		if (targetSlice <= 0)
 			return;
 
-		targetSlice = std::min(targetSlice, 0.01f);
+		targetSlice = std::min(targetSlice, 0.01f * DEBUG_FORCE_MULTIPLIER);
 
 		XLagDynamicTerrainMapItemOperation(*digMemo->targetCell).Dig(targetSlice, digMemo->KeepTopLayer);
 	}
@@ -31,7 +29,7 @@ void AXLagNPCBuilderman::Tick(float DeltaTime)
 		if (targetSlice <= 0)
 			return;
 
-		targetSlice = std::min(targetSlice, 0.01f);
+		targetSlice = std::min(targetSlice, 0.01f * DEBUG_FORCE_MULTIPLIER);
 
 		XLagDynamicTerrainMapItemOperation(*pourMemo->targetCell).Pour(targetSlice, pourMemo->Element);
 	}
