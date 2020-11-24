@@ -18,11 +18,18 @@ struct ITerrainMapAccessor
 	// Получает размер по оси Y.
 	virtual const int SizeY() const = 0;
 
+	// Получает смещение по X.
+	virtual const int OffsetX() const = 0;
+
+	//  Получает смещение по Y.
+	virtual const int OffsetY() const = 0;
 	// Получает размер карты.
 	virtual const int MapLenght() const = 0;
 
 	// Создать окно.
 	virtual std::shared_ptr<ITerrainMapAccessor> CreateWindow(int const &x, int const &y, int const &sx, int const &sy) = 0;
+
+	virtual bool Validate(int const &x, int const &y) const = 0;
 
 	// Получает точку по координате (x,y).
 	virtual FXLagDynamicTerrainMapItem& Point(int const &x, int const &y) = 0;

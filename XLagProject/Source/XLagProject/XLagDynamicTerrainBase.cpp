@@ -110,14 +110,11 @@ void AXLagDynamicTerrainBase::Tick(float DeltaTime)
 	float static UpdateDelayConter = 0;
 
 	UpdateDelayConter += DeltaTime;
-	if (UpdateDelayConter < 5.0f)
+	if (UpdateDelayConter < 1.0f)
 		return;
 
-	if (Map->IsChanged())
-	{
-		UpdateDelayConter = 0;
-		InitGeometry();
-	}
+	UpdateDelayConter = 0;
+	UpdateGeometryIfNeed();
 
 	//APawn *avatar = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 	//if (avatar == nullptr)
@@ -177,9 +174,14 @@ void AXLagDynamicTerrainBase::InitializeLayers()
 
 void AXLagDynamicTerrainBase::InitMap(AGameModeBase* gameMode)
 {
-	auto& terrainMap = ((AXLagProjectGameMode*)gameMode)->TerrainMap;
-	auto& terrainObjects = ((AXLagProjectGameMode*)gameMode)->TerrainObjects;
+	auto xLagProjectGameMode = (AXLagProjectGameMode*)gameMode;
+	auto& terrainMap = xLagProjectGameMode->TerrainMap;
+	auto& terrainObjects = xLagProjectGameMode->TerrainObjects;
 	auto swapManager = AXLagNPCSwapManagement::GetManagment();
+
+	FullMapSizeX = terrainMap.SizeX;
+	FullMapSizeY = terrainMap.SizeY;
+	Scale = terrainMap.Scale;
 
 	XLagDynamicTerrainMapInitializer initializer(terrainMap);
 
@@ -367,41 +369,97 @@ void AXLagDynamicTerrainBase::CreateMineralLayerEventHandler(FXLagDynamicTerrain
 
 void AXLagDynamicTerrainBase::InitGeometry()
 {
+	auto sectionCountX = FullMapSizeX / WindowMapSizeX;
+	auto sectionCountY = FullMapSizeY / WindowMapSizeY;
 
-	XLagDynamicTerrainLayerGeometry _geometry;
+	for(int section_x = 0; section_x < sectionCountX; section_x++)
+		for (int section_y = 0; section_y < sectionCountY; section_y++)
+		{
+			auto section_index =  section_y * sectionCountX + section_x;
+			if (section_index != 0)
+			{
+				GroundGrass->SetMaterial(section_index, GroundGrass->GetMaterial(0));
+				RockSandstone->SetMaterial(section_index, RockSandstone->GetMaterial(0));
+				RockBasalt->SetMaterial(section_index, RockBasalt->GetMaterial(0));
+				Coal->SetMaterial(section_index, Coal->GetMaterial(0));
+				Cultivated->SetMaterial(section_index, Cultivated->GetMaterial(0));
+				GroundGrassToRockSandstone->SetMaterial(section_index, GroundGrassToRockSandstone->GetMaterial(0));
+				GroundGrassToRockBasalt->SetMaterial(section_index, GroundGrassToRockBasalt->GetMaterial(0));
+				GroundGrassToCoal->SetMaterial(section_index, GroundGrassToCoal->GetMaterial(0));
+				GroundGrassToCultivated->SetMaterial(section_index, GroundGrassToCultivated->GetMaterial(0));
+				RockSandstoneToRockBasalt->SetMaterial(section_index, RockSandstoneToRockBasalt->GetMaterial(0));
+			}
 
-	_geometry.CreateFrom(Map, TerrainElementEnum::GraundGrass);
-	GenerateLayerGeometry(GroundGrass, &_geometry);
-
-	_geometry.CreateFrom(Map, TerrainElementEnum::RockSandstone);
-	GenerateLayerGeometry(RockSandstone, &_geometry);
-
-	_geometry.CreateFrom(Map, TerrainElementEnum::RockBasalt);
-	GenerateLayerGeometry(RockBasalt, &_geometry);
-
-	_geometry.CreateFrom(Map, TerrainElementEnum::Coal);
-	GenerateLayerGeometry(Coal, &_geometry);
-
-	_geometry.CreateFrom(Map, TerrainElementEnum::Cultivated);
-	GenerateLayerGeometry(Cultivated, &_geometry);
-
-	_geometry.CreateTransFrom(Map, TerrainElementEnum::GroundGrassToRockSandstoneTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::RockSandstone);
-	GenerateLayerGeometry(GroundGrassToRockSandstone, &_geometry);
-
-	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToRockBasaltTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::RockBasalt);
-	GenerateLayerGeometry(GroundGrassToRockBasalt, &_geometry);
-	
-	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToCoalTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::Coal);
-	GenerateLayerGeometry(GroundGrassToCoal, &_geometry);
-
-	_geometry.CreateTransFrom(Map, TerrainElementEnum::GrondGrassToCultivatedTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::Cultivated);
-	GenerateLayerGeometry(GroundGrassToCultivated, &_geometry);
-
-
-	_geometry.CreateTransFrom(Map, TerrainElementEnum::RockSandstoneToRockBasaltTrans, TerrainElementEnum::RockSandstone, TerrainElementEnum::RockBasalt);
-	GenerateLayerGeometry(RockSandstoneToRockBasalt, &_geometry);
+			InitSectionGeometry(section_x, section_y);
+		}
 
 	InitGeometryForColorizeMap();
+}
+
+void AXLagDynamicTerrainBase::UpdateGeometryIfNeed()
+{
+	static uint16 roller_counter = 0;
+
+	auto sectionCountX = FullMapSizeX / WindowMapSizeX;
+	auto sectionCountY = FullMapSizeY / WindowMapSizeY;
+
+	for (int section_x = 0; section_x < sectionCountX; section_x++)
+		for (int section_y = 0; section_y < sectionCountY; section_y++)
+		{
+			auto section_index = section_y * sectionCountX + section_x;
+
+			if (section_index != roller_counter % (sectionCountX * sectionCountY))
+				continue;
+
+			auto window = Map->CreateWindow(section_x * WindowMapSizeX, section_y * WindowMapSizeY, WindowMapSizeX, WindowMapSizeY);
+			if (window->IsChanged())
+			{
+				InitSectionGeometry(section_x, section_y);
+			}
+		}
+
+	roller_counter++;
+}
+
+void AXLagDynamicTerrainBase::InitSectionGeometry(const int section_x, const int section_y)
+{
+	auto sectionCountX = FullMapSizeX / WindowMapSizeX;
+	auto sectionCountY = FullMapSizeY / WindowMapSizeY;
+
+	auto section_index = section_y * sectionCountX + section_x;
+	
+	XLagDynamicTerrainLayerGeometry _geometry;
+	auto window = Map->CreateWindow(section_x * WindowMapSizeX, section_y * WindowMapSizeY, WindowMapSizeX, WindowMapSizeY);
+	
+	_geometry.CreateFrom(window, TerrainElementEnum::GraundGrass);
+	GenerateLayerGeometry(GroundGrass, &_geometry, section_index);
+
+	_geometry.CreateFrom(window, TerrainElementEnum::RockSandstone);
+	GenerateLayerGeometry(RockSandstone, &_geometry, section_index);
+
+	_geometry.CreateFrom(window, TerrainElementEnum::RockBasalt);
+	GenerateLayerGeometry(RockBasalt, &_geometry, section_index);
+
+	_geometry.CreateFrom(window, TerrainElementEnum::Coal);
+	GenerateLayerGeometry(Coal, &_geometry, section_index);
+
+	_geometry.CreateFrom(window, TerrainElementEnum::Cultivated);
+	GenerateLayerGeometry(Cultivated, &_geometry, section_index);
+
+	_geometry.CreateTransFrom(window, TerrainElementEnum::GroundGrassToRockSandstoneTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::RockSandstone);
+	GenerateLayerGeometry(GroundGrassToRockSandstone, &_geometry, section_index);
+
+	_geometry.CreateTransFrom(window, TerrainElementEnum::GrondGrassToRockBasaltTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::RockBasalt);
+	GenerateLayerGeometry(GroundGrassToRockBasalt, &_geometry, section_index);
+
+	_geometry.CreateTransFrom(window, TerrainElementEnum::GrondGrassToCoalTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::Coal);
+	GenerateLayerGeometry(GroundGrassToCoal, &_geometry, section_index);
+
+	_geometry.CreateTransFrom(window, TerrainElementEnum::GrondGrassToCultivatedTrans, TerrainElementEnum::GraundGrass, TerrainElementEnum::Cultivated);
+	GenerateLayerGeometry(GroundGrassToCultivated, &_geometry, section_index);
+
+	_geometry.CreateTransFrom(window, TerrainElementEnum::RockSandstoneToRockBasaltTrans, TerrainElementEnum::RockSandstone, TerrainElementEnum::RockBasalt);
+	GenerateLayerGeometry(RockSandstoneToRockBasalt, &_geometry, section_index);
 }
 
 void AXLagDynamicTerrainBase::InitGeometryForColorizeMap()
@@ -413,13 +471,13 @@ void AXLagDynamicTerrainBase::InitGeometryForColorizeMap()
 		_colorizeMapGeometry.CreateColorizeMap(Map);
 	}
 	
-	GenerateLayerGeometry(ColorizeMapper, &_colorizeMapGeometry);
+	GenerateLayerGeometry(ColorizeMapper, &_colorizeMapGeometry, 0);
 }
 
-void AXLagDynamicTerrainBase::GenerateLayerGeometry(UProceduralMeshComponent* Component, GeometryBuilderAbstract* geometry)
+void AXLagDynamicTerrainBase::GenerateLayerGeometry(UProceduralMeshComponent* Component, GeometryBuilderAbstract* geometry, int section_index)
 {
 	UE_LOG(LogTemp, Warning, TEXT("GenerateLayerGeometry"));
-	Component->CreateMeshSection_LinearColor(0, geometry->Vertices, geometry->Trinagles, geometry->Normals, geometry->UVs, geometry->Colors, TArray<FProcMeshTangent>(), true);
+	Component->CreateMeshSection_LinearColor(section_index, geometry->Vertices, geometry->Trinagles, geometry->Normals, geometry->UVs, geometry->Colors, TArray<FProcMeshTangent>(), true);
 }
 
 void AXLagDynamicTerrainBase::AddGreader()

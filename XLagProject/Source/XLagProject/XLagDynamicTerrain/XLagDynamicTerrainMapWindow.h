@@ -31,7 +31,15 @@ public:
 	const int SizeY() const override { return _height; }
 
 	// #inhereddoc
+	const int OffsetX() const override { return _offsetX; }
+
+	// #inhereddoc
+	const int OffsetY() const override { return _offsetY; }
+
+	// #inhereddoc
 	const int MapLenght() const override { return _width * _height; }
+
+	bool Validate(int const &x, int const &y) const override;
 
 	// #inhereddoc
 	std::shared_ptr<ITerrainMapAccessor> CreateWindow(int const &x, int const &y, int const &sx, int const &sy) override;

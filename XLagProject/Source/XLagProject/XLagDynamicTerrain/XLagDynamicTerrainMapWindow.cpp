@@ -31,6 +31,11 @@ FXLagDynamicTerrainMapItem& XLagDynamicTerrainMapWindow::Point(int const &x, int
 	return _fullMap->Point(x + _offsetX, y + _offsetY);
 }
 
+bool XLagDynamicTerrainMapWindow::Validate(int const &x, int const &y) const
+{
+	return _fullMap->Validate(x + _offsetX, y + _offsetY);
+}
+
 // #inhereddoc
 FXLagDynamicTerrainMapItem& XLagDynamicTerrainMapWindow::Point(int const &index)
 {
@@ -93,8 +98,6 @@ bool XLagDynamicTerrainMapWindow::IsChanged()
 				Point(ix, iy).Changed = false;
 			}
 		}
-
-
 
 	return result;
 }

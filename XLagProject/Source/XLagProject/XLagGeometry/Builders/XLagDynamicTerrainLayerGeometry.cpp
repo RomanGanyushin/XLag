@@ -7,9 +7,15 @@ void XLagDynamicTerrainLayerGeometry::CreateFrom(std::shared_ptr<ITerrainMapAcce
 
 	int32 triIndex = 0;
 
-	for (int xIndex = 0; xIndex < map->SizeX() - 1; xIndex++)
-		for (int yIndex = 0; yIndex < map->SizeY() -1; yIndex++)
+	auto off_x = map->OffsetX() * 100;
+	auto off_y = map->OffsetY() * 100;
+
+	for (int xIndex = 0; xIndex < map->SizeX(); xIndex++)
+		for (int yIndex = 0; yIndex < map->SizeY(); yIndex++)
 		{
+			if (!map->Validate(xIndex + 1, yIndex + 1))
+				continue;
+
 			auto& item00 = map->Point(xIndex, yIndex);
 			auto& item10 = map->Point(xIndex + 1, yIndex);
 			auto& item11 = map->Point(xIndex + 1, yIndex + 1);
@@ -29,11 +35,11 @@ void XLagDynamicTerrainLayerGeometry::CreateFrom(std::shared_ptr<ITerrainMapAcce
 			if (k != layerKind)
 				continue;
 
-			AddQuadMesh(
-				FVector(100 * xIndex, 100 * yIndex, itemLevel00->Level),
-				FVector(100 * xIndex, 100 * (yIndex + 1), itemLevel01->Level),
-				FVector(100 * (xIndex + 1), 100 * (yIndex + 1), itemLevel11->Level),
-				FVector(100 * (xIndex + 1), 100 * yIndex, itemLevel10->Level),
+			AddQuadMesh(  
+				FVector(off_x + 100 * xIndex, off_y+ 100 * yIndex, itemLevel00->Level),
+				FVector(off_x + 100 * xIndex, off_y + 100 * (yIndex + 1), itemLevel01->Level),
+				FVector(off_x + 100 * (xIndex + 1), off_y + 100 * (yIndex + 1), itemLevel11->Level),
+				FVector(off_x + 100 * (xIndex + 1), off_y + 100 * yIndex, itemLevel10->Level),
 				triIndex);
 		}
 }
@@ -45,9 +51,15 @@ void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMa
 
 	int32 triIndex = 0;
 
-	for (int xIndex = 1; xIndex < map->SizeX() - 1; xIndex++)
-		for (int yIndex = 1; yIndex < map->SizeY() - 1; yIndex++)
+	auto off_x = map->OffsetX() * 100;
+	auto off_y = map->OffsetY() * 100;
+
+	for (int xIndex = 1; xIndex < map->SizeX(); xIndex++)
+		for (int yIndex = 1; yIndex < map->SizeY(); yIndex++)
 		{
+			if (!map->Validate(xIndex + 1, yIndex + 1))
+				continue;
+
 			auto& item00 = map->Point(xIndex, yIndex);
 			auto& item10 = map->Point(xIndex + 1, yIndex);
 			auto& item11 = map->Point(xIndex + 1, yIndex + 1);
@@ -69,10 +81,10 @@ void XLagDynamicTerrainLayerGeometry::CreateTransFrom(std::shared_ptr<ITerrainMa
 				continue;
 
 			AddQuadMesh(
-				FVector(100 * xIndex, 100 * yIndex, itemLevel00->Level),
-				FVector(100 * xIndex, 100 * (yIndex + 1), itemLevel01->Level),
-				FVector(100 * (xIndex + 1), 100 * (yIndex + 1), itemLevel11->Level),
-				FVector(100 * (xIndex + 1), 100 * yIndex, itemLevel10->Level),
+				FVector(off_x + 100 * xIndex, off_y + 100 * yIndex, itemLevel00->Level),
+				FVector(off_x + 100 * xIndex, off_y + 100 * (yIndex + 1), itemLevel01->Level),
+				FVector(off_x + 100 * (xIndex + 1), off_y + 100 * (yIndex + 1), itemLevel11->Level),
+				FVector(off_x + 100 * (xIndex + 1), off_y + 100 * yIndex, itemLevel10->Level),
 				triIndex);
 
 			float a1 = 0;

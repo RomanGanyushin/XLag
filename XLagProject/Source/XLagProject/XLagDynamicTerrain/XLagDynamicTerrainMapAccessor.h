@@ -19,7 +19,16 @@ public:
 
 	const int SizeX() const override { return _dynamicTerrainMap.SizeX; }
 	const int SizeY() const override { return _dynamicTerrainMap.SizeY; }
+	
+	// #inhereddoc
+	const int OffsetX() const override { return 0; }
+
+	// #inhereddoc
+	const int OffsetY() const override { return 0; }
+
 	const int MapLenght() const override { return  _dynamicTerrainMap.SizeX *  _dynamicTerrainMap.SizeY; }
+
+	bool Validate(int const &x, int const &y) const override { return (x + y * _dynamicTerrainMap.SizeY) < MapLenght(); }
 
 	std::shared_ptr<ITerrainMapAccessor>  CreateWindow(int const &x, int const &y, int const &sx, int const &sy)
 	{

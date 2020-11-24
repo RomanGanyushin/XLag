@@ -22,16 +22,16 @@ public:
 // Главные параметры.
 public:
 	// Масштаб.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Terrain Main Params")
-	float Scale = 100;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Terrain Main Params")
+	float Scale;
 
 	// Размер локации по оси X.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Terrain Main Params")
-	int FullMapSizeX = 100;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Terrain Main Params")
+	int FullMapSizeX;
 
 	// Размер локации по оси Y.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Terrain Main Params")
-	int FullMapSizeY = 100;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Terrain Main Params")
+	int FullMapSizeY;
 
 	// Размер окна локации по оси X.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Terrain Main Params")
@@ -132,6 +132,8 @@ protected:
 
 	void InitMap(AGameModeBase* gameMode);
 	void InitGeometry();
+	void InitSectionGeometry(const int section_x, const int section_y);
+	void UpdateGeometryIfNeed();
 	void InitGeometryForColorizeMap();
 	void AddGreader();
 
@@ -144,7 +146,7 @@ protected:
 
 protected:
 	void InitializeLayers();
-	void GenerateLayerGeometry(UProceduralMeshComponent* Component, GeometryBuilderAbstract* geometry);
+	void GenerateLayerGeometry(UProceduralMeshComponent* Component, GeometryBuilderAbstract* geometry, int section_index);
 
 	bool Initialized = false;
 public:	
