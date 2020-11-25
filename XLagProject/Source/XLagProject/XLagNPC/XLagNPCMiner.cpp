@@ -1,12 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "XLagNPCMiner.h"
+#include "../BuildDefinition.h"
 #include "../XLagDynamicTerrain/XLagDynamicTerrainMapItemOperation.h"
 #include "../Common/CellOperationProcessing.h"
 #include "../XLagDynamicObject/ObjectModels/TerrainLooseStackObject.h"
 #include "../XLagDynamicTerrainBase.h"
 #include "../XLagDynamicTerrain\Position\RandomizeZeroPlacePosition.h"
-
-#define DEBUG_FORCE_MULTIPLIER 1
 
 void AXLagNPCMiner::OfferAccept(UXLagTaskBase* task)
 {
