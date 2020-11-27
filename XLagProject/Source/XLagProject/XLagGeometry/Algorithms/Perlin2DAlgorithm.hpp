@@ -16,6 +16,11 @@ public:
 			permutationTable[i] = rand() % 255;
 	}
 
+	~Perlin2DAlgorithm()
+	{
+		delete[] permutationTable;
+	}
+
  private:
 	
 	float* GetPseudoRandomGradientVector(int x, int y)
@@ -77,6 +82,16 @@ public:
 		float tx = Lerp(tx1, tx2, pointInQuadX);
 		float bx = Lerp(bx1, bx2, pointInQuadX);
 		float tb = Lerp(tx, bx, pointInQuadY);
+
+		delete[]topLeftGradient;
+		delete[]topRightGradient;
+		delete[]bottomLeftGradient;
+		delete[]bottomRightGradient;
+
+		delete[]distanceToTopLeft;
+		delete[]distanceToTopRight;
+		delete[]distanceToBottomLeft;
+		delete[]distanceToBottomRight;
 
 		return tb;
 	}
